@@ -459,7 +459,7 @@ end
 
 
 --Generates speech from a given table/list of phrases - also cleans up the sentence and applies filters
-function LMSConditions.generateSpeech(conditionTable, intensity)
+function LMSConditions.generateSpeech(conditionTable)
 	if conditionTable == false or not istable(conditionTable) then return end
 
 	local randNumber = ZombRand(#conditionTable)+1
@@ -472,7 +472,7 @@ function LMSConditions.generateSpeech(conditionTable, intensity)
 	local lc = string.sub(dialogue, -1) --lc=last character
 	if lc~="." and lc~="!" and lc~="?" then dialogue = dialogue .. "." end
 
-	dialogue = LMSConditions.PassMoodleFilters(dialogue, intensity)--have other moods impact dialogue
+	dialogue = LMSConditions.PassMoodleFilters(dialogue)--have other moods impact dialogue
 
 	dialogue = dialogue:gsub("[!?.]%s", "%0\0"):gsub("%f[%Z]%s*%l", dialogue.upper):gsub("%z", "")
 
