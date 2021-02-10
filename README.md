@@ -12,9 +12,9 @@ Please visit the Steam Workshop page for latest releases.
 For more information read [How To Install / Uninstall Mods](https://theindiestone.com/forums/index.php?/topic/1395-how-to-install-uninstall-mods/) forum thread.
 
 ## Credits
-[ethanwdp](http://github.com/ethanwdp) (Original Author of Let Me Speak! mod which this mod) [Steam](https://steamcommunity.com/id/ethanwdp/myworkshopfiles/?appid=108600)
-[nurver](https://steamcommunity.com/id/itsmedirtydan/)
-[yooksi](https://github.com/yooksi)
+- [ethanwdp](http://github.com/ethanwdp) (Original Author of Let Me Speak! mod which this mod) [Steam](https://steamcommunity.com/id/ethanwdp/myworkshopfiles/?appid=108600)
+- [nurver](https://steamcommunity.com/id/itsmedirtydan/)
+- [yooksi](https://github.com/yooksi)
 
 ## License
 A short snippet describing the license (MIT, Apache etc).
