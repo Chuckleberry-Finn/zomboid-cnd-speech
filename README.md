@@ -10,7 +10,7 @@ Frameworks for text filters and a few useful text handling functions.
 
 ### Contributing:
 Feel free to offer advice/suggestions!
-#### Some things to keep min mind when writing phrases:
+#### Some things to keep in mind when writing phrases:
 - Keep them short when you can.
 - Don't captilize anything other than 'I' or proper nouns.
 - Punctuation is fine, but keep in mind all '.' can become '!' - so avoid things like U.S.A. or F.B.I.
