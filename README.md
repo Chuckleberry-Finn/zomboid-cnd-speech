@@ -17,6 +17,4 @@ For more information read [How To Install / Uninstall Mods](https://theindieston
 - [yooksi](https://github.com/yooksi)
 
 ## License
-A short snippet describing the license (MIT, Apache etc).
-
 MIT © [Chuckleberry Finn](https://github.com/ChuckTheSheep)
