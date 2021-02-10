@@ -1,7 +1,7 @@
-name=Zomboid Mod
+name=Zomboid Speech
 poster=poster.png
-description=This is a zomboid mod template
-id=pz-zmod
-url=https://github.com/yooksi/pz-zmod
+description=Zomboid Speech adds dynamic moodlet based speech to your player.
+id=PZ-SPEECH
+url=https://github.com/ChuckTheSheep/Zomboid-Speech
 modversion=1.0
-pzversion=41.47
+pzversion=41.50-IWBUMS
