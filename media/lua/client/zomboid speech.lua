@@ -259,7 +259,7 @@ function istable(t) return (type(t) == 'table') end
 --useful function to check if value in list
 function valueIn(tab, val)
 	if not tab or not val then return false end
-	for key,value in ipairs(tab) do
+	for _,value in ipairs(tab) do
 		if value == val then return true end
 	end
 	return false
@@ -311,11 +311,11 @@ function LMSConditions.PassMoodleFilters(text)
 	if text then
 		local filterspassed = {}
 
-		for key,value in pairs(LMSConditions.MoodleTable) do
+		for key,_ in pairs(LMSConditions.MoodleTable) do
 			local MoodleEntry = LMSConditions.MoodleTable[key]
 			if MoodleEntry and MoodleEntry.level > 0 and MoodleEntry.filters ~= false then
 
-				for key,value in pairs(MoodleEntry.filters) do
+				for _,value in pairs(MoodleEntry.filters) do
 					local Filter = value
 					if Filter and valueIn(filterspassed,Filter) == false then
 							table.insert(filterspassed, Filter)
@@ -347,7 +347,7 @@ function LMSConditions.Stammer_Filter(text, intensity)
 		local characters = splitTextbyChar(text)
 		local post_characters = {}
 		local max_stammer = intensity
-		for key,value in ipairs(characters) do
+		for _,value in ipairs(characters) do
 			local c = value
 			local chance = intensity*8
 			if max_stammer > 0 and valueIn(LMSConditions.Plosives,value) == true then
@@ -451,7 +451,7 @@ end
 
 -- Retrieve Level Values --
 function LMSConditions.retrieveMoodles() --uses the associative key as a reference
-	for key,value in pairs(LMSConditions.MoodleTable) do
+	for key,_ in pairs(LMSConditions.MoodleTable) do
 		LMSConditions.MoodleTable[key].level = getPlayer():getMoodles():getMoodleLevel(key)
 	end
 end
@@ -472,7 +472,7 @@ function LMSConditions.generateSpeech(conditionTable, intensity)
 	local lc = string.sub(dialogue, -1) --lc=last character
 	if lc~="." and lc~="!" and lc~="?" then dialogue = dialogue .. "." end
 
-	dialogue = LMSConditions.PassMoodleFilters(dialogue)--have other moods impact dialogue
+	dialogue = LMSConditions.PassMoodleFilters(dialogue, intensity)--have other moods impact dialogue
 
 	dialogue = dialogue:gsub("[!?.]%s", "%0\0"):gsub("%f[%Z]%s*%l", dialogue.upper):gsub("%z", "")
 
@@ -529,10 +529,6 @@ end
 
 -- Out of Ammo
 function LMSConditions.checkIfAttacking()
-
-	if LMSWindow.AreConditionsNotDisabled == false then return end --cleaned this up from original code- not sure if the line resulting in true ever runs?
-	if LMSWindow.AreConditionsNotDisabled == false then LMSWindow.AreConditionsNotDisabled = true end
-
 	local primary_weapon = getPlayer():getPrimaryHandItem()
 	if primary_weapon and primary_weapon:getCategory() == "Weapon" and not getPlayer():isShoving() then
 		if primary_weapon:isRanged() then
@@ -546,9 +542,6 @@ end
 
 -- Checks for player condition - added to event.OnPlayerUpdate above
 function LMSConditions.checkForConditions()
-
-	if LMSWindow.AreConditionsNotDisabled == false then return end
-	if LMSWindow.AreConditionsNotDisabled == false then LMSWindow.AreConditionsNotDisabled = true end
 
 	--Hypothermia--
 	LMSConditions.doMoodleCheck(1, MoodleType.Hypothermia, LMSConditions.Hypothermia)
