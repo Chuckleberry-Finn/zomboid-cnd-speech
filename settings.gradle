@@ -1,0 +1,2 @@
+gradle.startParameter.excludedTaskNames += "compileJava"
+rootProject.name = 'pz-zmod'

@@ -1,0 +1,97 @@
+import java.nio.file.Files
+import java.nio.file.Path
+
+configurations {
+    implementation.extendsFrom zomboidImplementation
+}
+dependencies {
+    // Project Zomboid libraries
+    zomboidImplementation fileTree(dir: gameDir, include: ['*.jar'])
+
+    // Project Zomboid classes
+    zomboidImplementation files("lib/zomboid-$game_version" + '.jar')
+}
+
+def zomboidJar = tasks.register("zomboidJar", Jar.class) {
+    it.onlyIf {
+        !project.ext.gameDir.empty
+    }
+    it.description('Assembles a jar archive containing game classes.')
+    it.setGroup('zomboid')
+
+    it.archiveFileName = "zomboid-${game_version}.jar"
+    it.includeEmptyDirs = false
+
+    it.from project.ext.gameDir
+
+    HashSet<String> excludePaths = new HashSet<>()
+    Files.walk(project.ext.gameDir as Path).withCloseable
+    {
+        it.filter({Files.isRegularFile(it) && !it.fileName.toString().endsWith('class') && it.fileName.toString() != "stdlib.lbc"
+        }).collect().forEach({ excludePaths.add(gameDir.relativize(it as Path).toString()) })
+    }
+    it.setExcludes(excludePaths)
+    it.doLast {
+        //noinspection GroovyAssignabilityCheck
+        copyJarOutputToLib(it)
+    }
+}
+jar.dependsOn(zomboidJar)
+
+/**
+ * Decompile game classes with FernFlower using default IDEA settings.
+ * Default task behaviour is to decompile all class files found in game root directory.
+ *
+ * This can be changed by defining specific file to decompile with project property 'src'.
+ * example: gradle decompileZomboid -Psrc="<path>"
+ */
+tasks.register("decompileZomboid", Exec.class) {
+    it.onlyIf {
+        !project.ext.ideaHome.empty
+    }
+    it.description('Decompile Project Zomboid classes.')
+    it.setGroup('zomboid')
+
+    def classpath = "$ideaHome/plugins/java-decompiler/lib/java-decompiler.jar"
+    def mainClass = 'org.jetbrains.java.decompiler.main.decompiler.ConsoleDecompiler'
+
+    // default parameters used by IDEA compiler
+    def params = ['-hdc=0', '-dgs=1', '-rsy=1', '-rbr=1', '-lit=1', '-nls=1', '-mpm=60']
+
+    def srcDir = file("$buildDir/tmp/zomboid")
+    if (!srcDir.exists() && !srcDir.mkdirs()) {
+        throw new IOException("Unable to create decompile tmp dir")
+    }
+    // directories containing class files
+    String[] sourceDirs = ['astar', 'com', 'de', 'fmod', 'javax', 'org', 'se', 'zombie']
+    for (int i = 0; i < sourceDirs.size(); i++)
+    {
+        def sDir = sourceDirs[i]
+        def copyDest = srcDir.toPath().resolve(sDir).toFile()
+        def copySrc = gameDir.resolve(sDir).toFile()
+
+        logger.info("copying class package \'${copySrc.name}\'")
+        //noinspection GroovyAssignabilityCheck
+        copyDirectory(copySrc, copyDest)
+    }
+    gameDir.resolve(project.ext.has('src') ? project.ext.src : 'zombie').toString()
+    def destDir = file("$buildDir/generated/sources/zomboid")
+
+    // decompiler will throw error if destination dir doesn't exist
+    destDir.mkdirs()
+
+    it.setCommandLine(['java', '-classpath', classpath, mainClass] + params + srcDir.path + destDir.path)
+}
+
+def zomboidSourcesJar = tasks.register("zomboidSourcesJar", Jar.class) {
+    it.description('Assembles a jar containing decompiled game sources.')
+    it.setGroup('zomboid')
+
+    it.archiveFileName = "zomboid-${game_version}-sources.jar"
+    it.from "$buildDir/generated/sources/zomboid"
+    it.doLast {
+        //noinspection GroovyAssignabilityCheck
+        copyJarOutputToLib(it)
+    }
+}
+jar.dependsOn(zomboidSourcesJar.get())
