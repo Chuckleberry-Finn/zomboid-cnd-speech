@@ -15,7 +15,7 @@ The mod files are located in the [media folder](https://github.com/ChuckTheSheep
 - Punctuation is fine, but keep in mind all '.' can become '!' - so avoid things like U.S.A. or F.B.I.
 - Avoid swears (as there is dynamic swearing built-in).
 - For the moment any \*emotive actions\* have to be the entire phrase (which won't be filtered).
-- For more variety and to avoid repetition, Keywords can be used to replace parts of a phrase at random.
+- For more variety and to avoid bloat from repetative phrases, Keywords can be used to replace parts of a phrase at random.
   - Format: \<WORD\> in the phrase. Make sure there us a corresponding \["WORD"\] keyword list.
 
 ### Installation
