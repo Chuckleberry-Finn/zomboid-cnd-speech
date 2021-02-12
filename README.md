@@ -13,7 +13,7 @@ Feel free to offer advice/suggestions!
 - Don't captilize anything other than 'I' or proper nouns.
 - Punctuation is fine, but keep in mind all '.' can become '!' - so avoid things like U.S.A. or F.B.I.
 - Avoid swears (as there is dynamic swearing built-in).
-- For the moment any \*emotive actions\* have to be the entire phrase and is not filtered.
+- For the moment any \*emotive actions\* have to be the entire phrase (which won't be filtered).
 - Keywords can be replaced at random using this format: <WORD>.
 
 ### Installation
