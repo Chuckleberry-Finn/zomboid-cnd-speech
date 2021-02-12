@@ -1,16 +1,18 @@
 LMSConditions = {}
 
 LMSConditions.Ammo = {
-"I'm out!",
-"out of ammo!",
-"no bullets!",
-"this thing is empty!",
-"this gun is empty!",
-"there is no ammo!",
-"gun is out of ammo!",
-"no ammo!",
-"out of bullets!",
-"there is no bullets!"
+"I'm out",
+"empty",
+"no ammo",
+"out of ammo",
+"there is no ammo",
+"gun is out of ammo",
+"this is empty",
+"this thing is empty",
+"gun is empty",
+"out of bullets",
+"no bullets",
+"there is no bullets"
 }
 
 LMSConditions.Hungry = {
@@ -26,10 +28,13 @@ LMSConditions.Hungry = {
 "my stomach is rumbling.",
 "I could go for some Spiffo's right now.",
 "ugh, I really need something to eat.",
-"*stomach growls loudly*",
-"this gnawing hunger is driving me nuts!",
 "I could murder a bucket of chicken right now.",
 "I could go for a Spiffo burger",
+"I could go for a Spiffo kid's meal",
+"I could go for a bucket of Jay's Chicken",
+"I could go for a a few of Jay's biscuits with gravy",
+"*stomach growls loudly*",
+"this gnawing hunger is driving me nuts!",
 "I miss Pizza Whirl",
 "there has got to be some food somewhere",
 "I need food",
@@ -43,20 +48,18 @@ LMSConditions.Hungry = {
 LMSConditions.Thirsty = {
 "I could go for some water right now.",
 "a sip of water would be nice.",
-"I'm hoping I have something to drink.",
+"I need something to drink.",
 "I should get something to drink.",
 "my mouth feels a bit dry.",
 "could use a good gulp of water right now.",
 "I should drink something.",
-"damn, my mouth is as dry as a desert right now.",
-"my mouth is as dry as a desert!",
-"the moisture in my mouth probably rivals that of mars.",
+"my mouth is dry",
+"*clears throat*",
+"my mouth is so dry",
 "I really should get something to drink now.",
-"I need some fucking water! where the fuck is the fucking water? fuck fuck fuuck!",
-"was that an oasis? please god, please. nope, it wasn't. fuck.",
-"there has to be water somewhere! this isn't a fucking desert! uungh.",
-"what is this, a desert? why is there no water?!",
-"unngh.. why is there no water?"
+"I need some water!",
+"there has to be water somewhere",
+"I need water"
 }
 
 LMSConditions.Tired = {
@@ -66,10 +69,9 @@ LMSConditions.Tired = {
 "I should get some sleep.",
 "man, I could use a lie down.",
 "*long yawn*",
-"I should go to sleep soon.",
-"*yawn*",
-"I should probably call it a day soon.",
-"I should go to bed soon.",
+"I should go to sleep soon",
+"I should go to bed soon",
+"I should probably call it a day soon",
 "I'm starting to get bags under my eyes.",
 "damn I'm tired.",
 "*extremely long yawn*",
@@ -77,6 +79,7 @@ LMSConditions.Tired = {
 "man, I could use some sleep.",
 "I think I'm starting to lose it. I really need sleep.",
 "I'm so fucking tired",
+"I can barely keep my eyes open",
 "I feel like I'm going to pass out",
 "how long has it been since I last slept?",
 "uhnng, I'm so fucking tired.",
