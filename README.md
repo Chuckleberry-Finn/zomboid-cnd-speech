@@ -14,7 +14,7 @@ Feel free to offer advice/suggestions!
 - Punctuation is fine, but keep in mind all '.' can become '!' - so avoid things like U.S.A. or F.B.I.
 - Avoid swears (as there is dynamic swearing built-in).
 - For the moment any \*emotive actions\* have to be the entire phrase (which won't be filtered).
-- Keywords can be replaced at random using this format: <WORD>.
+- Keywords can be replaced at random using this format: \<WORD\>.
 
 ### Installation
 Please visit the Steam Workshop page for latest releases.  
