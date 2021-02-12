@@ -3,7 +3,7 @@
 
 ![Game Version](https://img.shields.io/badge/PZ%20Version-IWBUMS%3A%2041.47-red) [![License](https://img.shields.io/github/license/yooksi/pz-zmod)](https://www.gnu.org/licenses/)
 
-This mod generates conditional speech that is then modified by filters based on the speaker's mood(s).  
+This mod generates speech based on a number of conditions (moods/events) as well as some randomization.  
 
 ### Features
 Frameworks for text filters and a few useful text handling functions.  
