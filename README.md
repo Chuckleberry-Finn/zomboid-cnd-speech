@@ -3,7 +3,7 @@
 
 ![Game Version](https://img.shields.io/badge/PZ%20Version-IWBUMS%3A%2041.47-red) [![License](https://img.shields.io/github/license/yooksi/pz-zmod)](https://www.gnu.org/licenses/)
 
-This mod generates speech utilizing a number of conditions (such as: moods/events) as well as some randomization to create dynamic dialogue.  
+This mod generates speech utilizing a number of conditions (such as: moods/events) and randomization to create dynamic dialogue.  
 
 ### Features
 Frameworks for text filters and a few useful text handling functions.  
