@@ -216,9 +216,14 @@ function istable(t) return (type(t) == 'table') end
 --useful function to check if value in list
 function valueIn(tab, val)
 	if not tab or not val then return false end
-	for _,value in ipairs(tab) do
-		if value == val then return true end
-	end
+	for _,value in pairs(tab) do if value == val then return true end end
+	return false
+end
+
+--useful function to check if key in list
+function keyIn(tab, k)
+	if not tab or not k then return false end
+	for key,_ in pairs(tab) do if key == k then return true end end
 	return false
 end
 
@@ -271,23 +276,28 @@ end
 --Handler for filters
 function LMSConditions.PassMoodleFilters(text)
 	if text then
-		local filterspassed = {}
+		local filterspassed = {} --[key]=value
 
-		for key,_ in pairs(LMSConditions.MoodleTable) do
-			local MoodleEntry = LMSConditions.MoodleTable[key]
-			if MoodleEntry and MoodleEntry.level > 0 and MoodleEntry.filters ~= nil then
+		for key,_ in pairs(LMSConditions.MoodleTable) do --for each mood grab type/key
+			local MoodleEntry = LMSConditions.MoodleTable[key]--direct reference to grab parts of value
+			if MoodleEntry and MoodleEntry.level > 0 and MoodleEntry.filters ~= nil then --if we should bother with processing the mood
 
-				for _,value in pairs(MoodleEntry.filters) do
-					local Filter = value
-					if Filter and valueIn(filterspassed,Filter) == false then
-						table.insert(filterspassed, Filter)
-						--print("--- FILTERING: ",key," -- dialogue:",text)
-						text = Filter(text, MoodleEntry.level)
-						--print("------ POST FILTER: ",key," -- dialogue:",text)
+				for _,Filter in pairs(MoodleEntry.filters) do --for each filter in filters
+					local needinsert = true --insertcheck, turns false if found
+					for filterstored,levelof in pairs(filterspassed) do --for each filter already added for passing
+						if filterstored==Filter then --if keys in filterspassed matches values in MoodleEntry.filters
+							needinsert = false --found
+							if MoodleEntry.level > levelof then filterspassed[filterstored]=MoodleEntry.level end
+							--if currently handled mood level exceeds stored level
+						end
 					end
+					if needinsert == true then table.insert(filterspassed, [Filter]=MoodleEntry.level) end
+					--if needinsert still true add filter and moodlevel to passinglist
 				end
 			end
 		end
+		for FilterType,Intensity in pairs(filterspassed) do text = FilterType(text, Intensity) end
+		--pass each collected filter with correspondin instensity/level
 		return text
 	end
 end
@@ -330,7 +340,6 @@ end
 function LMSConditions.panicSwear_Filter(text, intensity)
 	if not intensity then intensity = ZombRand(4)+1 end
 	if text then
-
 		local pick = (ZombRand(math.floor(#LMSConditions.Swears/4))+1)*intensity
 		--print("SWEARING PICKER: intensity:",intensity," (",pick,"/",#LMSConditions.Swears,")")
 		if pick == 0 then pick = 1 end
@@ -338,7 +347,6 @@ function LMSConditions.panicSwear_Filter(text, intensity)
 		local randswear = LMSConditions.Swears[pick]
 		
 		if not randswear then return text end
-
 		randswear = randswear .. "."
 
 		local chance = intensity*15
@@ -350,7 +358,6 @@ function LMSConditions.panicSwear_Filter(text, intensity)
 		if prob(50)==true then text = randswear .. " " .. text
 		else text = text .. " " .. randswear --50% before or after text
 		end
-
 		return text
 	end
 end
@@ -361,7 +368,6 @@ function LMSConditions.interlacedSwear_Filter(text, intensity)
 	if text then
 
 		local skip_words = {"is","it","of","at","no","as"}
-
 		local words = splitTextbyWord(text)
 		if not words or #words <= 1 then return text end
 
@@ -414,9 +420,7 @@ end
 
 -- Retrieve Level Values --
 function LMSConditions.retrieveMoodles() --uses the associative key as a reference
-	for key,_ in pairs(LMSConditions.MoodleTable) do
-		LMSConditions.MoodleTable[key].level = getPlayer():getMoodles():getMoodleLevel(key)
-	end
+	for key,_ in pairs(LMSConditions.MoodleTable) do LMSConditions.MoodleTable[key].level = getPlayer():getMoodles():getMoodleLevel(key) end
 end
 
 
