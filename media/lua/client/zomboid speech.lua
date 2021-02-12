@@ -266,25 +266,25 @@ function LMSConditions.PassMoodleFilters(text)
 	if text then
 		local filterspassed = {} --[key]=value
 
-		for key,_ in pairs(LMSConditions.MoodleTable) do --for each mood grab type/key
-			local MoodleEntry = LMSConditions.MoodleTable[key]--direct reference to grab parts of value
+		for key,_ in ipairs(LMSConditions.MoodleTable) do --for each mood grab type/key
+			local MoodleEntry = LMSConditions.MoodleTable[key]--direct reference to grab vars in value
 			if MoodleEntry and MoodleEntry.level > 0 and MoodleEntry.filters ~= nil then --if we should bother with processing the mood
 
-				for _,Filter in pairs(MoodleEntry.filters) do --for each filter in filters
+				for _,Filter in ipairs(MoodleEntry.filters) do --for each filter in filters
 					local needinsert = true --insertcheck, turns false if found
-					for filterstored,levelof in pairs(filterspassed) do --for each filter already added for passing
+					for filterstored,levelof in ipairs(filterspassed) do --for each filter already added for passing
 						if filterstored==Filter then --if keys in filterspassed matches values in MoodleEntry.filters
 							needinsert = false --found
 							if MoodleEntry.level > levelof then filterspassed[filterstored]=MoodleEntry.level end
 							--if currently handled mood level exceeds stored level
 						end
 					end
-					if needinsert == true then table.insert(filterspassed, [Filter]=MoodleEntry.level) end
+					if needinsert == true then table.insert(filterspassed, {[Filter]=MoodleEntry.level}) end
 					--if needinsert still true add filter and moodlevel to passinglist
 				end
 			end
 		end
-		for FilterType,Intensity in pairs(filterspassed) do text = FilterType(text, Intensity) end
+		if #filterspassed > 0 then for FilterType,Intensity in ipairs(filterspassed) do text = FilterType(text, Intensity) end end
 		--pass each collected filter with correspondin instensity/level
 		return text
 	end
@@ -423,7 +423,7 @@ function LMSConditions.generateSpeech(conditionTable)
 	--[[debug]]if not dialogue then print("--ERR: Dialogue == false"," (",randNumber,"/",#conditionTable,")") return end --debug
 	
 	--replace KEYWORDS found with randomly picked words
-	for KEY,WORDS in pairs(LMSConditions.KeyWords) dialogue = replaceText(dialogue, "<"..KEY..">", pickFrom(WORDS)) end
+	for KEY,WORDS in pairs(LMSConditions.KeyWords) do dialogue = replaceText(dialogue, "<"..KEY..">", pickFrom(WORDS)) end
 
 	local fc = string.sub(dialogue, 1,1) --fc=first character
 	local lc = string.sub(dialogue, -1) --lc=last character
@@ -435,8 +435,7 @@ function LMSConditions.generateSpeech(conditionTable)
 		dialogue = dialogue:gsub("[!?.]%s", "%0\0"):gsub("%f[%Z]%s*%l", dialogue.upper):gsub("%z", "")--Proper sentence capitalization. Like so.
 	end
 
-	--[[debug]]print("- dialogue:",dialogue_backup," (",randNumber,"/",#conditionTable,")")
-	--[[debug]]print("--- processed:",dialogue)
+	--[[debug]]print("- [original dialogue:",dialogue_backup," (",randNumber,"/",#conditionTable,")]"," processed:",dialogue)
 
 	getPlayer():Say(dialogue)
 end
