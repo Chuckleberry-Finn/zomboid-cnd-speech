@@ -14,7 +14,8 @@ Feel free to offer advice/suggestions!
 - Don't captilize anything other than 'I' or proper nouns.
 - Punctuation is fine, but keep in mind all '.' can become '!' - so avoid things like U.S.A. or F.B.I.
 - Avoid swears (as there is dynamic swearing built-in).
-- For the moment don't include \*emotes\* as they are subject to filters. (Will work on this.)
+- For the moment any \*emotive actions\* have to be the entire phrase.
+- Phrases can be weighted, for example by mood's intensity/level.
 
 ### Installation
 Please visit the Steam Workshop page for latest releases.  
