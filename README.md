@@ -5,8 +5,6 @@
 
 This mod generates speech utilizing a number of conditions (such as: moods/events) and randomization to create dynamic dialogue.  
 
-### Features
-Frameworks for text filters and a few useful text handling functions.  
 
 ### Contributing:
 Feel free to offer advice/suggestions!
