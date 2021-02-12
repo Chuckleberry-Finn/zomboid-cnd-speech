@@ -16,7 +16,7 @@ The mod files are located in the [media folder](https://github.com/ChuckTheSheep
 - Avoid swears (as there is dynamic swearing built-in).
 - For the moment any \*emotive actions\* have to be the entire phrase (which won't be filtered).
 - For more variety and to avoid bloat from repetative phrases, Keywords can be used to replace parts of a phrase at random.
-  - Format: \<WORD\> in the phrase. Make sure there us a corresponding \["WORD"\] keyword list.
+  - Format: \<WORD\> in the phrase. Make sure there is a corresponding \["WORD"\] keyword list.
 
 ### Installation
 Please visit the Steam Workshop page for latest releases.  
