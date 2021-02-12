@@ -7,7 +7,7 @@ This mod generates speech utilizing a number of conditions as well as some rando
 
 
 ### Contributing:
-Feel free to offer advice/suggestions! Look with in the media folder to modify mod files.
+Feel free to offer advice/suggestions! Look within the media folder to modify mod files.
 #### Some things to keep in mind when writing phrases:
 - Keep them short when you can.
 - Don't captilize anything other than 'I' or proper nouns.
