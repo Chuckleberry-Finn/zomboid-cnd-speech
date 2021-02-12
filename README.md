@@ -1,4 +1,4 @@
-## Conditional Speech for ![Project Zomboid](https://projectzomboid.com/)
+## Conditional Speech for [Project Zomboid](https://projectzomboid.com/)
 <img src="https://github.com/ChuckTheSheep/Conditional-Speech/blob/master/poster.png" width="255" height="255" />
 
 ![Game Version](https://img.shields.io/badge/PZ%20Version-IWBUMS%3A%2041.47-red) [![License](https://img.shields.io/github/license/yooksi/pz-zmod)](https://www.gnu.org/licenses/)
