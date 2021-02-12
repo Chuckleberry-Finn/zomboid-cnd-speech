@@ -31,31 +31,36 @@ LMSConditions.Ammo = {
 }
 
 LMSConditions.Hungry = {
-"I could use a snack.",
+"I could use a snack",
 "*stomach stirs*",
-"I could use a bite to eat.",
-"I have to snack on something.",
-"could go for a snack right now.",
-"I should go get some food.",
+"I could use a bite to eat",
+"I have to snack on something",
+"I could go for a snack right now",
+"<FOOD> would be nice right about now",
+"I should go get some food",
 "*stomach growls*",
-"I better get some food.",
-"I should get something to eat.",
-"my stomach is rumbling.",
-"ugh, I really need something to eat.",
-"I could go for %FOOD",
-"I could go for %FOOD right about now",
+"I better get some food",
+"I should get something to eat",
+"my stomach is rumbling",
+"ugh, I really need something to eat",
+"I could go for <FOOD>",
+"I could go for <FOOD> right about now",
 "*stomach growls loudly*",
 "this gnawing hunger is driving me nuts!",
 "there has got to be some food somewhere",
 "I need food",
 "aaghhh. the hunger.",
 "where the fuck is some food!?",
-"I'm so hungry.",
-"uhnnng. the hunger.",
-"there has got to be some food somewhere. I'm fucking starving. unngh."
+"I'm so hungry",
+"uhnnng. the hunger",
+"I'm starving"
 }
 
-LMSConditions.Food = {"some cake","a bucket of chicken","a Spiffo burger","a Spiffo kid's meal","a bucket of Jay's Chicken","an order of Jay's biscuits with gravy"}
+LMSConditions.KeyWords = {
+["FOOD"] = {"a whole pizza","some pizza","a slice of pizza","a slice of cake","something tasty",
+	"some cake","a bucket of chicken","a Spiffo burger","a Spiffo kid's meal","a bucket of Jay's Chicken",
+	"an order of Jay's biscuits with gravy","eating anything"}
+}
 
 LMSConditions.Thirst = {
 "I could go for some water right now.",
@@ -320,22 +325,18 @@ function LMSConditions.Stammer_Filter(text, intensity)
 	end
 end
 
---utitlity function to grab random swear based on a intensity (1-4)
-function LMSConditions.RandomSwear(intensity)
-	if not intensity then intensity = ZombRand(4)+1 end
-	local pick = (ZombRand(math.floor(#LMSConditions.Swears/4))+1)*intensity
-	--print("SWEARING PICKER: intensity:",intensity," (",pick,"/",#LMSConditions.Swears,")")
-	if pick == 0 then pick = 1 end
-	if pick > #LMSConditions.Swears then pick = #LMSConditions.Swears end
-	return LMSConditions.Swears[pick]
-end
 
 -- Logic for repeated swearing
 function LMSConditions.panicSwear_Filter(text, intensity)
-	if not intensity then intensity = 1 end
+	if not intensity then intensity = ZombRand(4)+1 end
 	if text then
 
-		local randswear = LMSConditions.RandomSwear(intensity)
+		local pick = (ZombRand(math.floor(#LMSConditions.Swears/4))+1)*intensity
+		--print("SWEARING PICKER: intensity:",intensity," (",pick,"/",#LMSConditions.Swears,")")
+		if pick == 0 then pick = 1 end
+		if pick > #LMSConditions.Swears then pick = #LMSConditions.Swears end
+		local randswear = LMSConditions.Swears[pick]
+		
 		if not randswear then return text end
 
 		randswear = randswear .. "."
@@ -430,8 +431,7 @@ function LMSConditions.generateSpeech(conditionTable)
 	--[[debug]]local dialogue_backup = dialogue -- debug
 	--[[debug]]if not dialogue then print("--ERR: Dialogue == false"," (",randNumber,"/",#conditionTable,")") return end --debug
 
-	dialogue = replaceText(dialogue, "<FOOD>", pickFrom(LMSConditions.Food))
-
+	for KEY,WORDS in pairs(LMSConditions.KeyWords) dialogue = replaceText(dialogue, "<"..KEY..">", pickFrom(WORDS)) end
 
 	local fc = string.sub(dialogue, 1,1) --fc=first character
 	local lc = string.sub(dialogue, -1) --lc=last character
