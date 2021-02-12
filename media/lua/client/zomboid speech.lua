@@ -56,9 +56,9 @@ LMSConditions.Hungry = {
 "I'm starving"
 }
 
-LMSConditions.KeyWords = {
+LMSConditions.KeyWords = { --the best structure for food is a/an X or some/piece of X. Read through lines with <FOOD> to make sure it sounds correct.
 ["FOOD"] = {"a whole pizza","some pizza","a slice of pizza","a slice of cake","something tasty",
-	"some cake","a bucket of chicken","a Spiffo burger","a Spiffo kid's meal","a bucket of Jay's Chicken",
+	"some cake","a bucket of chicken","some chicken","a Spiffo burger","a Spiffo kid's meal","a bucket of Jay's Chicken",
 	"an order of Jay's biscuits with gravy","eating anything"}
 }
 
