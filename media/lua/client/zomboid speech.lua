@@ -33,9 +33,8 @@ LMSConditions.Ammo = {
 LMSConditions.Hungry = {
 "I could use a snack",
 "*stomach stirs*",
-"I could use a bite to eat",
+"I could use <FOOD>",
 "I have to snack on something",
-"I could go for a snack right now",
 "<FOOD> would be nice right about now",
 "I should go get some food",
 "*stomach growls*",
@@ -56,11 +55,6 @@ LMSConditions.Hungry = {
 "I'm starving"
 }
 
-LMSConditions.KeyWords = { --the best structure for food is a/an X, or some X, or a piece of X. Read through lines with <FOOD> to make sure it sounds correct.
-["FOOD"] = {"a whole pizza","some pizza","a slice of pizza","a slice of cake","something tasty",
-	"some cake","a bucket of chicken","some chicken","a Spiffo burger","a Spiffo kid's meal","a bucket of Jay's Chicken",
-	"an order of Jay's biscuits with gravy","eating anything"}
-}
 
 LMSConditions.Thirst = {
 "I could go for some water right now.",
@@ -195,19 +189,18 @@ LMSConditions.Pain = {
 LMSConditions.Campfire = {"*sings*"}
 
 -- Swears are ranked by intensity
-LMSConditions.Swears = {
-"crap",
-"damn",
-"god damn",
-"shit",
-"son of a bitch",
-"fuck",
-"fucking"
-}
+LMSConditions.Swears = {"crap","damn","god damn","shit","son of a bitch","fuck","fucking"}
 
 -- useful list of plosives for stammering
 LMSConditions.Plosives = {"p","P","t","T","k","K","b","B","d","D","g","G","s","S","m","M"}
 
+
+LMSConditions.KeyWords = {--to add more keywords: ["WORD"] = {"phrase1","phrase2"} --then simply populate phrases with "<WORD>".
+--the best structure for food is a/an X, or some X, or a piece of X. Read through lines with <FOOD> to make sure it sounds correct.
+["FOOD"] = {"a bite to eat","a whole pizza","some pizza","a slice of pizza","a slice of cake","something tasty",
+	"some cake","a bucket of chicken","some chicken","a Spiffo burger","a Spiffo kid's meal","a bucket of Jay's Chicken",
+	"an order of Jay's biscuits with gravy","eating anything","anything to eat","a snack"}
+}
 
 --------------------------- USEFUL FUNCTIONS ------------------------------
 --useful istable() proc for sanity checks
@@ -227,10 +220,8 @@ function keyIn(tab, k)
 	return false
 end
 
-function pickFrom(list) --useful function to pick a random entry
-	return list[(ZombRand(#list)+1)]
-end
-
+--useful function to pick a random entry
+function pickFrom(list) return list[(ZombRand(#list)+1)] end
 
 -- Useful replace text function
 function replaceText(text, findthis, replacewith)
@@ -246,9 +237,7 @@ function splitTextbyWord(text, separator)
 	if not text then return end
 	if not separator then separator = "%s" end
 	local t={}
-	for word in string.gmatch(text, "([^"..separator.."]+)") do
-		table.insert(t, word)
-	end
+	for word in string.gmatch(text, "([^"..separator.."]+)") do table.insert(t, word) end
 	return t
 end
 
@@ -256,8 +245,7 @@ end
 function splitTextbyChar(text)
 	if not text then return end
 	local t={}
-	for i = 1, #text do
-		table.insert(t, text:sub(i,i)) end
+	for i = 1, #text do table.insert(t, text:sub(i,i)) end
 	return t
 end
 
@@ -341,7 +329,7 @@ function LMSConditions.panicSwear_Filter(text, intensity)
 	if not intensity then intensity = ZombRand(4)+1 end
 	if text then
 		local pick = (ZombRand(math.floor(#LMSConditions.Swears/4))+1)*intensity
-		--print("SWEARING PICKER: intensity:",intensity," (",pick,"/",#LMSConditions.Swears,")")
+		--[debug]]print("SWEARING PICKER: intensity:",intensity," (",pick,"/",#LMSConditions.Swears,")")
 		if pick == 0 then pick = 1 end
 		if pick > #LMSConditions.Swears then pick = #LMSConditions.Swears end
 		local randswear = LMSConditions.Swears[pick]
@@ -424,35 +412,31 @@ function LMSConditions.retrieveMoodles() --uses the associative key as a referen
 end
 
 
-
 --Generates speech from a given table/list of phrases - also cleans up the sentence and applies filters
 function LMSConditions.generateSpeech(conditionTable)
 	if conditionTable == false or not istable(conditionTable) then return end
 
-	local randNumber = ZombRand(#conditionTable)+1
+	local randNumber = ZombRand(#conditionTable)+1 --needs +1 to offset 0 start
 	local dialogue = conditionTable[randNumber]
 
 	--[[debug]]local dialogue_backup = dialogue -- debug
 	--[[debug]]if not dialogue then print("--ERR: Dialogue == false"," (",randNumber,"/",#conditionTable,")") return end --debug
-
+	
+	--replace KEYWORDS found with randomly picked words
 	for KEY,WORDS in pairs(LMSConditions.KeyWords) dialogue = replaceText(dialogue, "<"..KEY..">", pickFrom(WORDS)) end
 
 	local fc = string.sub(dialogue, 1,1) --fc=first character
 	local lc = string.sub(dialogue, -1) --lc=last character
 
-	if fc=="*" and lc=="*" then
+	if fc=="*" and lc=="*" then --avoid filtering/messing with *emotive* text
 	else
-		if lc~="." and lc~="!" and lc~="?" then dialogue = dialogue .. "." end --just in case, if no punctuation add some.
+		if lc~="." and lc~="!" and lc~="?" then dialogue = dialogue .. "." end --just in case of no punctuation add some.
 		dialogue = LMSConditions.PassMoodleFilters(dialogue)--have other moods impact dialogue
-		dialogue = dialogue:gsub("[!?.]%s", "%0\0"):gsub("%f[%Z]%s*%l", dialogue.upper):gsub("%z", "")
+		dialogue = dialogue:gsub("[!?.]%s", "%0\0"):gsub("%f[%Z]%s*%l", dialogue.upper):gsub("%z", "")--Proper sentence capitalization. Like so.
 	end
 
-	--local sentences = splitTextbyWord(dialogue,"%p") --Capitalize first letter of every sentence.
-	--for key, value in ipairs(sentences) do sentences[key] = value:gsub("^%l", string.upper) end
-	--dialogue = joinText(sentences, 1)
-
-	print("- dialogue:",dialogue_backup," (",randNumber,"/",#conditionTable,")")
-	print("--- processed:",dialogue)
+	--[[debug]]print("- dialogue:",dialogue_backup," (",randNumber,"/",#conditionTable,")")
+	--[[debug]]print("--- processed:",dialogue)
 
 	getPlayer():Say(dialogue)
 end
@@ -466,7 +450,7 @@ function LMSConditions.doMoodleCheck()
 			local currentMoodleLevel = getPlayer():getMoodles():getMoodleLevel(key)
 			if currentMoodleLevel ~= MoodleEntry.level then --currentMoodleLevel(current mood level) is not equal to stored mood level then
 				if currentMoodleLevel > MoodleEntry.level then --if moodlevel has increased
-					print("--sanity check 1 -- LMSConditions:doMoodleCheck ",key,"  stored level:",MoodleEntry.level,"  getlevel:",currentMoodleLevel)--,"/",getPlayer():getMoodles():getGoodBadNeutral(key))
+					--[[debug]]print("--sanity check 1 -- LMSConditions:doMoodleCheck ",key,"  stored level:",MoodleEntry.level,"  getlevel:",currentMoodleLevel)--,"/",getPlayer():getMoodles():getGoodBadNeutral(key))
 					LMSConditions.generateSpeech(MoodleEntry.phrases, currentMoodleLevel)
 				end
 				MoodleEntry.level = currentMoodleLevel --match stored mood level to current- this is where the recorded level is lowered
@@ -501,11 +485,9 @@ end
 -- Out of Ammo
 function LMSConditions.checkIfAttacking()
 	local primary_weapon = getPlayer():getPrimaryHandItem()
-	if primary_weapon and primary_weapon:getCategory() == "Weapon" and not getPlayer():isShoving() then
-		if primary_weapon:isRanged() then
-			if (primary_weapon:haveChamber() and not primary_weapon:isRoundChambered()) or (not primary_weapon:haveChamber() and primary_weapon:getCurrentAmmoCount() <= 0) then
-				LMSConditions.generateSpeech(LMSConditions.Hungry)
-			end
+	if primary_weapon and primary_weapon:getCategory() == "Weapon" and primary_weapon:isRanged() and not getPlayer():isShoving() then
+		if (primary_weapon:haveChamber() and not primary_weapon:isRoundChambered()) or (not primary_weapon:haveChamber() and primary_weapon:getCurrentAmmoCount() <= 0) then
+			LMSConditions.generateSpeech(LMSConditions.Hungry)
 		end
 	end
 end
