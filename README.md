@@ -7,9 +7,9 @@ This mod generates speech utilizing a number of conditions as well as some rando
 
 
 ### Contributing:
-Feel free to offer advice/suggestions!
+Feel free to offer advice/suggestions!  
+The mod files are located in the [media folder](https://github.com/ChuckTheSheep/Conditional-Speech/tree/master/media).
 #### Some things to keep in mind when writing phrases:
-The actual mod files are located in the [media folder](https://github.com/ChuckTheSheep/Conditional-Speech/tree/master/media).
 - Keep them short when you can.
 - Don't captilize anything other than 'I' or proper nouns.
 - Punctuation is fine, but keep in mind all '.' can become '!' - so avoid things like U.S.A. or F.B.I.
