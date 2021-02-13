@@ -1,7 +1,4 @@
-name=Zomboid Speech
+name=Conditional Speech
 poster=poster.png
-description=Zomboid Speech adds dynamic moodlet based speech to your player.
-id=PZ-SPEECH
-url=https://github.com/ChuckTheSheep/Zomboid-Speech
-modversion=1.0
-pzversion=41.50-IWBUMS
+description=Generates speech utilizing a number of conditions as well as some randomization to create dynamic dialogue.
+id=Conditional-Speech
