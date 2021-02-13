@@ -15,7 +15,12 @@ LMSConditions.Hyperthermia = nil
 LMSConditions.Windchill = nil
 LMSConditions.FoodEaten = nil
 
-LMSConditions.Ammo = {
+LMSConditions.OnDusk = {"getting dark","looks like the sun is going down"}
+LMSConditions.OnDawn = {"another day","made it to another day","the sun is coming up","the sun is rising"}
+
+LMSConditions.GunJammed = {"jam!","gun is jammed!","damn thing is jammed!","jammed!"}
+
+LMSConditions.OutOfAmmo = {
 "I'm out",
 "empty",
 "no ammo",
@@ -95,7 +100,7 @@ LMSConditions.Tired = {
 "how long has it been since I last slept?",
 "uhnng, I'm so fucking tired.",
 "I really should go to sleep soon.",
-"*you jerk yourself awake*",
+"*your eyelids feel heavy*",
 "I can barely stand. I'm so tired."
 }
 
@@ -200,6 +205,8 @@ LMSConditions.KeyWords = {--to add more keywords: ["WORD"] = {"phrase1","phrase2
 ["FOOD"] = {"a bite to eat","a whole pizza","some pizza","a slice of pizza","a slice of cake","something tasty",
 	"some cake","a bucket of chicken","some chicken","a Spiffo burger","a Spiffo kid's meal","a bucket of Jay's Chicken",
 	"an order of Jay's biscuits with gravy","eating anything","anything to eat","a snack"}
+,
+["SARCASM"] = {"just great","awesome","fantastic","just what I needed"}
 }
 
 --------------------------- USEFUL FUNCTIONS ------------------------------
@@ -268,8 +275,9 @@ function LMSConditions.PassMoodleFilters(text)
 
 		for key,_ in ipairs(LMSConditions.MoodleTable) do --for each mood grab type/key
 			local MoodleEntry = LMSConditions.MoodleTable[key]--direct reference to grab vars in value
-			if MoodleEntry and MoodleEntry.level > 0 and MoodleEntry.filters ~= nil then --if we should bother with processing the mood
-
+			--[[debug]] print("PassMoodleFilters: key:",key)
+			if key~= "Panic" and MoodleEntry and MoodleEntry.level > 0 and MoodleEntry.filters ~= nil then
+				--if we should bother with processing the mood -- panic filter doesn't play well with others: "shit! shit! shit! I need a snack!"
 				for _,Filter in ipairs(MoodleEntry.filters) do --for each filter in filters
 					local needinsert = true --insertcheck, turns false if found
 					for filterstored,levelof in ipairs(filterspassed) do --for each filter already added for passing
@@ -435,7 +443,8 @@ function LMSConditions.generateSpeech(conditionTable)
 		dialogue = dialogue:gsub("[!?.]%s", "%0\0"):gsub("%f[%Z]%s*%l", dialogue.upper):gsub("%z", "")--Proper sentence capitalization. Like so.
 	end
 
-	--[[debug]]print("- [original dialogue:",dialogue_backup," (",randNumber,"/",#conditionTable,")]"," processed:",dialogue)
+	--[[debug]]print("    dialogue:",dialogue_backup," (",randNumber,"/",#conditionTable,")")
+	--[[debug]]print("    processed:",dialogue)
 
 	getPlayer():Say(dialogue)
 end
@@ -482,14 +491,54 @@ end
 
 
 -- Out of Ammo
-function LMSConditions.checkIfAttacking()
+function LMSConditions.check_OutOfAmmo()
 	local primary_weapon = getPlayer():getPrimaryHandItem()
 	if primary_weapon and primary_weapon:getCategory() == "Weapon" and primary_weapon:isRanged() and not getPlayer():isShoving() then
-		if (primary_weapon:haveChamber() and not primary_weapon:isRoundChambered()) or (not primary_weapon:haveChamber() and primary_weapon:getCurrentAmmoCount() <= 0) then
-			LMSConditions.generateSpeech(LMSConditions.Hungry)
+		if primary_weapon:isJammed() then LMSConditions.generateSpeech(LMSConditions.GunJammed)
+		else
+			if (primary_weapon:haveChamber() and not primary_weapon:isRoundChambered()) or (not primary_weapon:haveChamber() and primary_weapon:getCurrentAmmoCount() <= 0) then
+				LMSConditions.generateSpeech(LMSConditions.OutOfAmmo)
+			end
 		end
 	end
 end
 
+function LMSConditions.check_Time()
+	local TIME = math.floor(getGameTime():getTimeOfDay())
+	--[[debug]]print("check_Dawn: getTimeOfDay:",TIME)
+	if prob(25)==true then
+		if TIME==6 then LMSConditions.generateSpeech(LMSConditions.OnDawn)
+		else if TIME==18 then LMSConditions.generateSpeech(LMSConditions.OnDusk)
+		end
+	end
+
+--Events.EveryDays.Add()
+Events.EveryHours.Add(LMSConditions.check_Time)
 Events.OnLoad.Add(LMSConditions.Start)
-Events.OnWeaponSwing.Add(LMSConditions.checkIfAttacking)
+Events.OnWeaponSwing.Add(LMSConditions.check_OutOfAmmo)
+
+
+
+
+--Events.OnWeaponHitCharacter
+--Events.OnWeaponHitTree
+--Events.OnWeaponSwingHitPoint
+--Events.onWeaponHitXp = function(owner, weapon, hitObject, damage)
+--Events.EveryTenMinutes
+--Events.EveryDays
+--Events.EveryHours
+--Events.OnEnterVehicle.Add()
+--Events.OnExitVehicle.Add()
+--Events.OnVehicleDamageTexture.Add()
+--Events.LevelPerk.Add(xpUpdate.levelPerk)
+--Events.OnZombieDead
+
+--	player:getDescriptor():isFemale()
+--	player:getDescriptor():getForename()
+--	player:getDescriptor():getSurname()
+--	player:getDescriptor():getProfession()
+
+--	for i=0,player:getTraits():size() -1 do
+--	local trait = player:getTraits():get(i)
+
+--LuaEventManager.AddEvent("function")
