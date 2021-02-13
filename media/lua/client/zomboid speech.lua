@@ -273,15 +273,13 @@ function LMSConditions.PassMoodleFilters(text,mothermoodle)
 		local filterspassed = {} --[key]=value
 
 		--[[debug]] print("PassMoodleFilter: ",text," (mothermoodle:",mothermoodle,")")
-		for MoodID,value in pairs(LMSConditions.MoodleTable) do --for each mood grab type/key
+		for MoodID,_ in pairs(LMSConditions.MoodleTable) do --for each mood grab type/key
 			local MoodleEntry = LMSConditions.MoodleTable[MoodID]--direct reference to grab vars in value
-			--[[debug]] print("-- PassMoodleFilter: passing:",MoodID)
-
+			--[debug]] print("-- PassMoodleFilter: passing:",MoodID)
 			-- panic filter doesn't play well with others: "shit! shit! shit! I need a snack!"
 			if mothermoodle~="Panic" and MoodID=="Panic" then
 				--[[debug]] print("--- PassMoodleFilter: ignoring:",MoodID)
 				MoodleEntry = nil
-			else --[[debug]] print("--- PassMoodleFilter: passing:",MoodID)
 			end
 
 			if MoodleEntry and MoodleEntry.level > 0 and MoodleEntry.filters ~= nil then
@@ -292,19 +290,22 @@ function LMSConditions.PassMoodleFilters(text,mothermoodle)
 					for filterstored,levelof in pairs(filterspassed) do --for each filter already added for passing
 						if filterstored==Filter then --if keys in filterspassed matches values in MoodleEntry.filters
 							needinsert = false --found
-							if MoodleEntry.level > levelof then filterspassed[filterstored]=MoodleEntry.level end
+							if MoodleEntry.level > levelof then
+								filterspassed[filterstored]=MoodleEntry.level
+							end
 							--if currently handled mood level exceeds stored level
 						end
 					end
-					if needinsert == true then table.insert(filterspassed, {[Filter]=MoodleEntry.level}) end
+					if needinsert == true then
+						table.insert(filterspassed, {[Filter]=MoodleEntry.level}) end
 					--if needinsert still true add filter and moodlevel to passinglist
 				end
-			else --[[debug]] print("---- PassMoodleFilter: dropped: key:",MoodID)
 			end
 		end
-		for FilterType,Intensity in pairs(filterspassed) do
-			--[[debug]] print("FILTER CALLING:",FilterType)
-			text = FilterType(text, Intensity)
+		if #filterspassed>0 then
+			for FilterType,Intensity in pairs(filterspassed) do
+				text = FilterType(text, Intensity)
+			end
 		end
 		--pass each collected filter with correspondin instensity/level
 		return text
