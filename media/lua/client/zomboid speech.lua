@@ -296,17 +296,19 @@ function LMSConditions.PassMoodleFilters(text,mothermoodle)
 							--if currently handled mood level exceeds stored level
 						end
 					end
-					if needinsert == true then
-						table.insert(filterspassed, {[Filter]=MoodleEntry.level}) end
-					--if needinsert still true add filter and moodlevel to passinglist
+					if needinsert == true then --if needinsert still true add filter and moodlevel to passinglist
+						filterspassed[Filter] = MoodleEntry.level
+						--table.insert(filterspassed, tablebit)
+					end
 				end
 			end
 		end
-		if #filterspassed>0 then
-			for FilterType,Intensity in pairs(filterspassed) do
-				text = FilterType(text, Intensity)
-			end
+
+		for FilterType,Intensity in pairs(filterspassed) do
+			--[[debug]] print("--- PassMoodleFilter: FilterType:",FilterType,"   "," Intensity:",Intensity)
+			--text = FilterType(text, Intensity)
 		end
+		
 		--pass each collected filter with correspondin instensity/level
 		return text
 	end
