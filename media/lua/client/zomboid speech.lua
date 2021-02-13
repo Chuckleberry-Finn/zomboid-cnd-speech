@@ -508,9 +508,10 @@ function LMSConditions.check_Time()
 	--[[debug]]print("check_Dawn: getTimeOfDay:",TIME)
 	if prob(25)==true then
 		if TIME==6 then LMSConditions.generateSpeech(LMSConditions.OnDawn)
-		else if TIME==18 then LMSConditions.generateSpeech(LMSConditions.OnDusk)
+		else if TIME==18 then LMSConditions.generateSpeech(LMSConditions.OnDusk) end
 		end
 	end
+end
 
 --Events.EveryDays.Add()
 Events.EveryHours.Add(LMSConditions.check_Time)
