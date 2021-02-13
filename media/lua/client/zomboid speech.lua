@@ -505,10 +505,10 @@ end
 
 function LMSConditions.check_Time()
 	local TIME = math.floor(getGameTime():getTimeOfDay())
-	--[[debug]]print("check_Dawn: getTimeOfDay:",TIME)
-	if prob(25)==true then
+	--[debug]]print("-=-=- check_Dawn: getTimeOfDay:",TIME, "   outside?",getPlayer():isOutside())
+	if getPlayer():isOutside() and prob(60)==true then
 		if TIME==6 then LMSConditions.generateSpeech(LMSConditions.OnDawn)
-		else if TIME==18 then LMSConditions.generateSpeech(LMSConditions.OnDusk) end
+		else if TIME==22 then LMSConditions.generateSpeech(LMSConditions.OnDusk) end
 		end
 	end
 end
