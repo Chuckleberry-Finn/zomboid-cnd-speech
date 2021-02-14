@@ -272,43 +272,44 @@ function LMSConditions.PassMoodleFilters(text,mothermoodle)
 	if text then
 		local filterspassed = {} --[key]=value
 
-		--[[debug]] print("PassMoodleFilter: ",text," (mothermoodle:",mothermoodle,")")
+		--[debug]] print("PassMoodleFilter: ",text," (mothermoodle:",mothermoodle,")")
 		for MoodID,_ in pairs(LMSConditions.MoodleTable) do --for each mood grab type/key
 			local MoodleEntry = LMSConditions.MoodleTable[MoodID]--direct reference to grab vars in value
 			--[debug]] print("-- PassMoodleFilter: passing:",MoodID)
 			-- panic filter doesn't play well with others: "shit! shit! shit! I need a snack!"
 			if mothermoodle~="Panic" and MoodID=="Panic" then
-				--[[debug]] print("--- PassMoodleFilter: ignoring:",MoodID)
+				--[debug]] print("--- PassMoodleFilter: ignoring:",MoodID)
 				MoodleEntry = nil
 			end
 
 			if MoodleEntry and MoodleEntry.level > 0 and MoodleEntry.filters ~= nil then
-				--[[debug]] print("---- PassMoodleFilter: juggling: key:",MoodID)
+				--[debug]] print("---- PassMoodleFilter: juggling: key:",MoodID)
 				--if we should bother with processing the mood
 				for _,Filter in pairs(MoodleEntry.filters) do --for each filter in filters
 					local needinsert = true --insertcheck, turns false if found
 					for filterstored,levelof in pairs(filterspassed) do --for each filter already added for passing
+						--[debug]] print("----== juggler: key:",filterstored,"  value:",filterstored)
 						if filterstored==Filter then --if keys in filterspassed matches values in MoodleEntry.filters
 							needinsert = false --found
 							if MoodleEntry.level > levelof then
-								filterspassed[filterstored]=MoodleEntry.level
+								filterspassed[filterstored] = MoodleEntry.level
 							end
 							--if currently handled mood level exceeds stored level
 						end
 					end
 					if needinsert == true then --if needinsert still true add filter and moodlevel to passinglist
+						--table.insert(filterspassed, Filter)
 						filterspassed[Filter] = MoodleEntry.level
-						--table.insert(filterspassed, tablebit)
 					end
 				end
 			end
 		end
 
 		for FilterType,Intensity in pairs(filterspassed) do
-			--[[debug]] print("--- PassMoodleFilter: FilterType:",FilterType,"   "," Intensity:",Intensity)
-			--text = FilterType(text, Intensity)
+			--[debug]] print("-=-=-=-=-=-=- Run Filter: key:",FilterType,"  value:",Intensity)
+			text = FilterType(text, Intensity)
 		end
-		
+
 		--pass each collected filter with correspondin instensity/level
 		return text
 	end
@@ -317,7 +318,7 @@ end
 -- SCREAM FILTER!
 function LMSConditions.SCREAM_Filter(text, intensity)
 	if text then
-		--[[debug]] print("FILTER CALLED:  (SCREAM_Filter)",text)
+		--[debug]] print("FILTER CALLED:  (SCREAM_Filter)",text," intensity:",intensity)
 		text = replaceText(text, "%.", "%!")
 		if prob(intensity*20) == true then return text:upper()
 		else return text
@@ -329,7 +330,7 @@ end
 function LMSConditions.Stammer_Filter(text, intensity)
 	if intensity <= 0 then intensity = 1 end
 	if text then
-		--[[debug]] print("FILTER CALLED:  (Stammer_Filter)",text)
+		--[debug]] print("FILTER CALLED:  (Stammer_Filter)",text," intensity:",intensity)
 		local characters = splitTextbyChar(text)
 		local post_characters = {}
 		local max_stammer = intensity
@@ -354,7 +355,7 @@ end
 function LMSConditions.panicSwear_Filter(text, intensity)
 	if not intensity then intensity = ZombRand(4)+1 end
 	if text then
-		--[[debug]] print("FILTER CALLED:  (panicSwear_Filter)",text)
+		--[debug]] print("FILTER CALLED:  (panicSwear_Filter)",text," intensity:",intensity)
 		local pick = (ZombRand(math.floor(#LMSConditions.Swears/4))+1)*intensity
 		--[debug]]print("SWEARING PICKER: intensity:",intensity," (",pick,"/",#LMSConditions.Swears,")")
 		if pick == 0 then pick = 1 end
@@ -381,7 +382,7 @@ end
 function LMSConditions.interlacedSwear_Filter(text, intensity)
 	if not intensity then intensity = 1 end
 	if text then
-		--[[debug]] print("FILTER CALLED:  (interlacedSwear_Filter)",text)
+		--[debug]] print("FILTER CALLED:  (interlacedSwear_Filter)",text," intensity:",intensity)
 		local skip_words = {"is","it","of","at","no","as"}
 		local words = splitTextbyWord(text)
 		if not words or #words <= 1 then return text end
@@ -464,6 +465,7 @@ function LMSConditions.generateSpeech(conditionTable,mothermoodle)
 
 	--[[debug]]print("    dialogue:",dialogue_backup," (",randNumber,"/",#conditionTable,")")
 	--[[debug]]print("    processed:",dialogue)
+	--[[debug]]print("  -------------------------------------------------------------------")
 
 	getPlayer():Say(dialogue)
 end
