@@ -6,7 +6,7 @@ ConditionalSpeech.Phrases = {}
 
 --- to add more phrase sets: ConditionalSpeech.Phrases.WORD = {"phrase1","phrase2"}
 --- to generate speech: ConditionalSpeech.generateSpeech("WORD")
---- Moodles automatically search for a phraseset matching their MoodleType.WORD
+--- Moodles automatically search for a phraseset matching their WORD
 --- to use phrase set as keywords simply populate phrases with "<WORD>".
 
 --- When Writing New Phrases:
@@ -37,6 +37,15 @@ ConditionalSpeech.Phrases.Hyperthermia = nil
 ConditionalSpeech.Phrases.Windchill = nil
 ConditionalSpeech.Phrases.FoodEaten = nil
 ]]--
+
+
+ConditionalSpeech.Phrases.Zombie = { -- Dead and Zombie Moodles seemingly only have 1 level -- they may not operate well with intensity argument in generate speech
+	"I'm turning into one of them",
+	"this is it",
+	"this is over",
+	"why me?",
+	"I'm going to turn into one of them, aren't I?"
+}
 
 ConditionalSpeech.Phrases.OnDusk = {"getting dark","looks like the sun is going down","the sun is going down"}
 ConditionalSpeech.Phrases.OnDawn = {"another day","made it to another day","the sun is coming up","the sun is rising"}
@@ -177,14 +186,6 @@ ConditionalSpeech.Phrases.Panic = {
 
 ConditionalSpeech.Phrases.Hypothermia = { "it is so cold", "brrrrr", "*shivers*" }
 
-ConditionalSpeech.Phrases.Zombie = {
-	"I'm turning into one of them",
-	"this is it",
-	"this is over",
-	"why me?",
-	"I'm going to turn into one of them, aren't I?"
-}
-
 ConditionalSpeech.Phrases.Pain = {
 	"ouch",
 	"ow",
@@ -224,9 +225,6 @@ ConditionalSpeech.Phrases.SARCASM = {"just great","awesome","fantastic","just wh
 
 
 --------------------------- USEFUL FUNCTIONS ------------------------------
---useful istable() proc for sanity checks
-function istable(t) return (type(t) == 'table') end
-
 --useful function to check if value in list
 function valueIn(tab, val)
 	if not tab or not val then return false end
@@ -271,7 +269,7 @@ function splitTextbyChar(text)
 end
 
 function joinText(list, spaced)
-	if not list or not istable(list) then return end
+	if not list then return end
 	local t = ""
 	for key,value in pairs(list) do
 		t = t .. value
@@ -282,6 +280,7 @@ end
 
 
 function WeightedRandPick(table,intensity,maxintensity)
+	if not table then return end
 	local pick = (ZombRand(math.floor(#table/maxintensity))+1)*intensity
 	if pick <= 0 then pick = 1 end
 	if pick > #table then pick = #table end
@@ -300,23 +299,23 @@ function ConditionalSpeech.PassMoodleFilters(text,mothermoodle)
 	if text then
 		local filterspassed = {} --[key]=value
 
-		--[[debug]] print("PassMoodleFilter: ",text," (mothermoodle:",mothermoodle,")")
+		--[debug]] print("PassMoodleFilter: ",text," (mothermoodle:",mothermoodle,")")
 		for MoodID,_ in pairs(ConditionalSpeech.MoodleTable) do --for each mood grab type/key
 			local MoodleEntry = ConditionalSpeech.MoodleTable[MoodID]--direct reference to grab vars in value
 			--[debug]] print("-- PassMoodleFilter: passing:",MoodID)
 			-- panic filter doesn't play well with others: "shit! shit! shit! I need a snack!"
-			if mothermoodle~="Panic" and MoodID=="Panic" then
-				--[debug]] print("--- PassMoodleFilter: ignoring:",MoodID)
-				MoodleEntry = nil
-			end
+
+			--if mothermoodle~="Panic" and MoodID=="Panic" then
+			--	--[[debug]] print("--- PassMoodleFilter: ignoring:",MoodID)
+			--	MoodleEntry = nil
+			--end
 
 			if MoodleEntry and MoodleEntry.level > 0 and MoodleEntry.filters ~= nil then
-				--[[debug]] print("---- PassMoodleFilter: juggling: key:",MoodID)
+				--[debug]] print("-- PassMoodleFilter: juggling: key:",MoodID)
 				--if we should bother with processing the mood
 				for _,Filter in pairs(MoodleEntry.filters) do --for each filter in filters
 					local needinsert = true --insertcheck, turns false if found
 					for filterstored,levelof in pairs(filterspassed) do --for each filter already added for passing
-						--[[debug]] print("----== juggler: key:",filterstored,"  value:",filterstored)
 						if filterstored==Filter then --if keys in filterspassed matches values in MoodleEntry.filters
 							needinsert = false --found
 							if MoodleEntry.level > levelof then
@@ -330,11 +329,12 @@ function ConditionalSpeech.PassMoodleFilters(text,mothermoodle)
 						filterspassed[Filter] = MoodleEntry.level
 					end
 				end
+			else --[debug]] print("-- PassMoodleFilter: can't pass: key:",MoodID)
 			end
 		end
 
 		for FilterType,Intensity in pairs(filterspassed) do
-			--[[debug]] print("-=-=-=-=-=-=- Run Filter: key:",FilterType,"  value:",Intensity)
+			--[debug]] print("--==-== Run Filter: key:",FilterType,"  value:",Intensity)
 			text = FilterType(text, Intensity)
 		end
 
@@ -430,33 +430,33 @@ end
 -------- Moodle Handler (Stores levels over time and has a filterlist to refer back to -------------
 -- This has to be under where the filters themselves are defined
 ConditionalSpeech.MoodleTable = {
-[MoodleType.Endurance] = {level = 0, filters = nil },
-[MoodleType.Tired] = {level = 0, filters = nil },
-[MoodleType.Hungry] = {level = 0, filters = nil },
-[MoodleType.Panic] = {level = 0, filters = {ConditionalSpeech.panicSwear_Filter,ConditionalSpeech.Stammer_Filter,ConditionalSpeech.SCREAM_Filter} },
-[MoodleType.Sick] = {level = 0, filters = nil },
-[MoodleType.Bored] = {level = 0, filters = nil },
-[MoodleType.Unhappy] = {level = 0, filters = nil },
-[MoodleType.Bleeding] = {level = 0, filters = nil },
-[MoodleType.Wet] = {level = 0, filters = nil },
-[MoodleType.HasACold] = {level = 0, filters = nil },
-[MoodleType.Angry] = {level = 0, filters = {ConditionalSpeech.interlacedSwear_Filter,ConditionalSpeech.SCREAM_Filter} },
-[MoodleType.Stress] = {level = 0, filters = nil },
-[MoodleType.Thirst] = {level = 0, filters = nil },
-[MoodleType.Injured] = {level = 0, filters = nil },
-[MoodleType.Pain] = {level = 0, filters = {ConditionalSpeech.interlacedSwear_Filter} },
-[MoodleType.HeavyLoad] = {level = 0, filters = nil },
-[MoodleType.Drunk] = {level = 0, filters = nil },
-[MoodleType.Dead] = {level = 0, filters = nil },
-[MoodleType.Zombie] = {level = 0, filters = nil },
-[MoodleType.Hyperthermia] = {level = 0, filters = nil },
-[MoodleType.Hypothermia] = {level = 0, filters = {ConditionalSpeech.Stammer_Filter} },
-[MoodleType.Windchill] = {level = 0, filters = nil },
-[MoodleType.FoodEaten] = {level = 0, filters = nil }
+["Endurance"] = {level = 0, filters = nil },
+["Tired"] = {level = 0, filters = nil },
+["Hungry"] = {level = 0, filters = nil },
+["Panic"] = {level = 0, filters = {ConditionalSpeech.panicSwear_Filter,ConditionalSpeech.Stammer_Filter,ConditionalSpeech.SCREAM_Filter} },
+["Sick"] = {level = 0, filters = nil },
+["Bored"] = {level = 0, filters = nil },
+["Unhappy"] = {level = 0, filters = nil },
+["Bleeding"] = {level = 0, filters = nil },
+["Wet"] = {level = 0, filters = nil },
+["HasACold"] = {level = 0, filters = nil },
+["Angry"] = {level = 0, filters = {ConditionalSpeech.interlacedSwear_Filter,ConditionalSpeech.SCREAM_Filter} },
+["Stress"] = {level = 0, filters = nil },
+["Thirst"] = {level = 0, filters = nil },
+["Injured"] = {level = 0, filters = nil },
+["Pain"] = {level = 0, filters = {ConditionalSpeech.interlacedSwear_Filter} },
+["HeavyLoad"] = {level = 0, filters = nil },
+["Drunk"] = {level = 0, filters = nil },
+--[Dead] = {level = 0, filters = nil },
+--[Zombie] = {level = 0, filters = nil },
+["Hyperthermia"] = {level = 0, filters = nil },
+["Hypothermia"] = {level = 0, filters = {ConditionalSpeech.Stammer_Filter} },
+["Windchill"] = {level = 0, filters = nil },
+["FoodEaten"] = {level = 0, filters = nil }
 }
 
--- Start Up LMS --
-function ConditionalSpeech.Start() -- start up LMS
+-- Start Up --
+function ConditionalSpeech.Start() -- start up
 	getPlayer():getMoodles():Update() -- makes sure that the Moodles system is properly loaded
 	ConditionalSpeech.retrieveMoodles() -- matches moodles' levels to stored value
 	Events.OnPlayerUpdate.Add(ConditionalSpeech.doMoodleCheck) -- preps conditions checker
@@ -464,22 +464,22 @@ end
 
 -- Retrieve Level Values --
 function ConditionalSpeech.retrieveMoodles() --uses the associative key as a reference
-	for key,_ in pairs(ConditionalSpeech.MoodleTable) do ConditionalSpeech.MoodleTable[key].level = getPlayer():getMoodles():getMoodleLevel(key) end
+	for key,_ in pairs(ConditionalSpeech.MoodleTable) do ConditionalSpeech.MoodleTable[key].level = getPlayer():getMoodles():getMoodleLevel(MoodleType[key]) end
 end
 
 
 --Generates speech from a given table/list of phrases - also cleans up the sentence and applies filters
-function ConditionalSpeech.generateSpeech(ID)
+function ConditionalSpeech.generateSpeech(ID,intensity,MAXintensity)
 
-	local PhraseTable = ConditionalSpeech.Phrases[ID]
+	if not intensity or intensity <=0 then intensity = 1 end
+	if not MAXintensity or MAXintensity <=0 then MAXintensity = 1 end
 
-	if PhraseTable == false or not istable(PhraseTable) then return end
-
-	local randNumber = ZombRand(#PhraseTable)+1 --needs +1 to offset 0 start
-	local dialogue = PhraseTable[randNumber]
+	local PhraseTable = ConditionalSpeech.Phrases[ID]--this doesn't work for some reason, leaving it in for now anyway
+	if not PhraseTable then return end
+	local dialogue = WeightedRandPick(PhraseTable,intensity,MAXintensity)
 
 	--[[debug]]local dialogue_backup = dialogue -- debug
-	--[[debug]]if not dialogue then print("--ERR: Dialogue == false"," (",randNumber,"/",#PhraseTable,")") return end --debug
+	--[[debug]]if not dialogue then print("--ERR: Dialogue == false") return end --debug
 	
 	--replace KEYWORDS found with randomly picked words
 	for KEYWORD,REPLACEWORDS in pairs(ConditionalSpeech.Phrases) do dialogue = replaceText(dialogue, "<"..KEYWORD..">", pickFrom(REPLACEWORDS)) end
@@ -490,11 +490,11 @@ function ConditionalSpeech.generateSpeech(ID)
 	if fc=="*" and lc=="*" then --avoid filtering/messing with *emotive* text
 	else
 		if lc~="." and lc~="!" and lc~="?" then dialogue = dialogue .. "." end --just in case of no punctuation add some.
-		dialogue = ConditionalSpeech.PassMoodleFilters(dialogue,mothermoodle)--have other moods impact dialogue
+		dialogue = ConditionalSpeech.PassMoodleFilters(dialogue,ID)--have other moods impact dialogue
 		dialogue = dialogue:gsub("[!?.]%s", "%0\0"):gsub("%f[%Z]%s*%l", dialogue.upper):gsub("%z", "")--Proper sentence capitalization. Like so.
 	end
 
-	--[[debug]]print("    dialogue:",dialogue_backup," (",randNumber,"/",#PhraseTable,")")
+	--[[debug]]print("    dialogue:",dialogue_backup)
 	--[[debug]]print("    processed:",dialogue)
 	--[[debug]]print("  -------------------------------------------------------------------")
 
@@ -504,19 +504,19 @@ end
 
 --Tracks moodle levels overtime, runs generate speech
 function ConditionalSpeech.doMoodleCheck()
-	for key,_ in pairs(ConditionalSpeech.MoodleTable) do
-		local MoodleEntry = ConditionalSpeech.MoodleTable[key]
-		--[[debug]] print("-----X ConditionalSpeech:doMoodleCheck ",key)
-		if MoodleEntry.phrases ~= nil then
-			local currentMoodleLevel = getPlayer():getMoodles():getMoodleLevel(key)
-			if currentMoodleLevel ~= MoodleEntry.level then --currentMoodleLevel(current mood level) is not equal to stored mood level then
-				if currentMoodleLevel > MoodleEntry.level then --if moodlevel has increased
-					--[[debug]] print("-----XX ConditionalSpeech:doMoodleCheck ",key,"  stored level:",MoodleEntry.level,"  getlevel:",currentMoodleLevel)--,"/",getPlayer():getMoodles():getGoodBadNeutral(key))
-					ConditionalSpeech.generateSpeech(key)
-				end
-				MoodleEntry.level = currentMoodleLevel --match stored mood level to current- this is where the recorded level is lowered
+	for MoodleID,_ in pairs(ConditionalSpeech.MoodleTable) do
+		local MoodleEntry = ConditionalSpeech.MoodleTable[MoodleID]
+		local currentMoodleLevel = getPlayer():getMoodles():getMoodleLevel(MoodleType[MoodleID])
+		--[debug]] print("-----X ConditionalSpeech:doMoodleCheck Start",MoodleID," currentMoodleLevel:",currentMoodleLevel)
+		if currentMoodleLevel ~= MoodleEntry.level then --currentMoodleLevel(current mood level) is not equal to stored mood level then
+			--[debug]] print("-----X ConditionalSpeech:doMoodleCheck Need Update",MoodleID," ",currentMoodleLevel,"~",MoodleEntry.level)
+			if currentMoodleLevel > MoodleEntry.level then --if moodlevel has increased
+				--[debug]] print("-----XX ConditionalSpeech:doMoodleCheck ",MoodleID,"  stored lvl:",MoodleEntry.level," getlvl:",currentMoodleLevel)--,"/",getPlayer():getMoodles():getGoodBadNeutral(key))
+				ConditionalSpeech.generateSpeech(MoodleID,MoodleEntry.level,4)
 			end
+			MoodleEntry.level = currentMoodleLevel --match stored mood level to current- this is where the recorded level is lowered
 		end
+
 	end
 end
 
