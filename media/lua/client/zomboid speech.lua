@@ -1,10 +1,25 @@
 ConditionalSpeech = {}
 ConditionalSpeech.Phrases = {}
+
+--- -=[ Instructions for Contributors ]=- ---
+--- Firstly, thank you for stopping in; I hope you enjoy your time here.
+
 --- to add more phrase sets: ConditionalSpeech.Phrases.WORD = {"phrase1","phrase2"}
 --- to generate speech: ConditionalSpeech.generateSpeech("WORD")
 --- Moodles automatically search for a phraseset matching their MoodleType.WORD
 --- to use phrase set as keywords simply populate phrases with "<WORD>".
---- Read through some lines with <WORD> to make sure it sounds correct before adding them in.
+
+--- When Writing New Phrases:
+--- Keep them short when you can.
+--- Don't captilize anything other than 'I' or proper nouns.
+--- Punctuation is fine, but keep in mind all '.' can become '!' - so avoid things like U.S.A. or F.B.I.
+--- Avoid swears (as there is dynamic swearing built-in) instead use <SWEAR>.
+--- For the moment any \*emotive actions\* have to be the entire phrase (which won't be filtered).
+---
+--- For more variety and to avoid bloat from repetative phrases, phrases can be used as Keywords to replace parts of another phrase at random.
+--- Format: <WORD> in the phrase. Make sure there is a corresponding ConditionalSpeech.Phrases.WORD phrase-set.
+--- When writing new Phrases to be used as keywords: Read through some lines with <WORD> to make sure it sounds correct before adding them in.
+
 
 --[[ ---unused phrase sets for moods
 ConditionalSpeech.Phrases.Endurance = nil
@@ -201,7 +216,7 @@ ConditionalSpeech.Phrases.Pain = {
 ConditionalSpeech.Phrases.Campfire = {"*sings*"}
 
 -- Swears are ranked by intensity
-ConditionalSpeech.Phrases.Swears = {"crap","damn","god damn","shit","son of a bitch","fuck","fucking"}
+ConditionalSpeech.Phrases.SWEAR = {"crap","damn","god damn","shit","son of a bitch","fuck","fucking"}
 
 -- useful list of plosives for stammering
 ConditionalSpeech.Phrases.Plosives = {"p","P","t","T","k","K","b","B","d","D","g","G","s","S","m","M"}
@@ -375,7 +390,7 @@ function ConditionalSpeech.panicSwear_Filter(text, intensity)
 	if text then
 		--[debug]] print("FILTER CALLED:  (panicSwear_Filter)",text," intensity:",intensity)
 
-		local randswear = WeightedRandPick(ConditionalSpeech.Phrases.Swears,intensity,4)
+		local randswear = WeightedRandPick(ConditionalSpeech.Phrases.SWEAR,intensity,4)
 
 		if randswear then
 			randswear = randswear .. "."
@@ -406,7 +421,7 @@ function ConditionalSpeech.interlacedSwear_Filter(text, intensity)
 		for key,value in pairs(words) do
 			if key ~= #words and prob(5*intensity) == true then
 				if valueIn(skip_words,words[key+1]) ~= true then
-					local swear = WeightedRandPick(ConditionalSpeech.Phrases.Swears,intensity,4)
+					local swear = WeightedRandPick(ConditionalSpeech.Phrases.SWEAR,intensity,4)
 					if swear then
 						words[key] = value .. " " .. swear
 					end
