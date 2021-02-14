@@ -1,33 +1,34 @@
-LMSConditions = {}
+ConditionalSpeech = {}
+ConditionalSpeech.Phrases = {}
+--- to add more phrase sets: ConditionalSpeech.Phrases.WORD = {"phrase1","phrase2"}
+--- to generate speech: ConditionalSpeech.generateSpeech("WORD")
+--- Moodles automatically search for a phraseset matching their MoodleType.WORD
+--- to use phrase set as keywords simply populate phrases with "<WORD>".
+--- Read through some lines with <WORD> to make sure it sounds correct before adding them in.
 
-LMSConditions.Phrases = {}
---to add more phrase sets / keywords: ["WORD"] = {"phrase1","phrase2"}
---then simply populate phrases with "<WORD>".
---Read through some lines with <WORD> to make sure it sounds correct.
-
---[[
-LMSConditions.Endurance = nil
-LMSConditions.Sick = nil
-LMSConditions.Unhappy = nil
-LMSConditions.Bleeding = nil
-LMSConditions.Wet = nil
-LMSConditions.HasACold = nil
-LMSConditions.Angry = nil
-LMSConditions.Injured = nil
-LMSConditions.HeavyLoad = nil
-LMSConditions.Drunk = nil
-LMSConditions.Dead = nil
-LMSConditions.Hyperthermia = nil
-LMSConditions.Windchill = nil
-LMSConditions.FoodEaten = nil
+--[[ ---unused phrase sets for moods
+ConditionalSpeech.Phrases.Endurance = nil
+ConditionalSpeech.Phrases.Sick = nil
+ConditionalSpeech.Phrases.Unhappy = nil
+ConditionalSpeech.Phrases.Bleeding = nil
+ConditionalSpeech.Phrases.Wet = nil
+ConditionalSpeech.Phrases.HasACold = nil
+ConditionalSpeech.Phrases.Angry = nil
+ConditionalSpeech.Phrases.Injured = nil
+ConditionalSpeech.Phrases.HeavyLoad = nil
+ConditionalSpeech.Phrases.Drunk = nil
+ConditionalSpeech.Phrases.Dead = nil
+ConditionalSpeech.Phrases.Hyperthermia = nil
+ConditionalSpeech.Phrases.Windchill = nil
+ConditionalSpeech.Phrases.FoodEaten = nil
 ]]--
 
-LMSConditions.Phrases.OnDusk = {"getting dark","looks like the sun is going down"}
-LMSConditions.Phrases.OnDawn = {"another day","made it to another day","the sun is coming up","the sun is rising"}
+ConditionalSpeech.Phrases.OnDusk = {"getting dark","looks like the sun is going down","the sun is going down"}
+ConditionalSpeech.Phrases.OnDawn = {"another day","made it to another day","the sun is coming up","the sun is rising"}
 
-LMSConditions.Phrases.GunJammed = {"jam!","gun is jammed!","damn thing is jammed!","jammed!"}
+ConditionalSpeech.Phrases.GunJammed = {"jam!","gun is jammed!","damn thing is jammed!","jammed!"}
 
-LMSConditions.Phrases.OutOfAmmo = {
+ConditionalSpeech.Phrases.OutOfAmmo = {
 "I'm out",
 "empty",
 "no ammo",
@@ -42,7 +43,7 @@ LMSConditions.Phrases.OutOfAmmo = {
 "there is no bullets"
 }
 
-LMSConditions.Phrases.Hungry = {
+ConditionalSpeech.Phrases.Hungry = {
 "I could use a snack",
 "*stomach stirs*",
 "I could use <FOOD>",
@@ -68,7 +69,7 @@ LMSConditions.Phrases.Hungry = {
 }
 
 
-LMSConditions.Phrases.Thirst = {
+ConditionalSpeech.Phrases.Thirst = {
 "I could go for some water right now.",
 "a sip of water would be nice.",
 "I need something to drink.",
@@ -85,7 +86,7 @@ LMSConditions.Phrases.Thirst = {
 "I need water"
 }
 
-LMSConditions.Phrases.Tired = {
+ConditionalSpeech.Phrases.Tired = {
 "*yawn*",
 "I could use a nap.",
 "I feel sluggish.",
@@ -111,7 +112,7 @@ LMSConditions.Phrases.Tired = {
 "I can barely stand. I'm so tired."
 }
 
-LMSConditions.Phrases.Bored = {
+ConditionalSpeech.Phrases.Bored = {
 "I should go do something.",
 "I could use something to do",
 "*sigh*",
@@ -131,7 +132,7 @@ LMSConditions.Phrases.Bored = {
 "there has to be something to do! this is driving me insane!"
 }
 
-LMSConditions.Phrases.Stress = {
+ConditionalSpeech.Phrases.Stress = {
 "feeling stressed",
 "I need to relax somehow",
 "*deep breath*",
@@ -145,7 +146,7 @@ LMSConditions.Phrases.Stress = {
 "fuck this bullshit"
 }
 
-LMSConditions.Phrases.Panic = {
+ConditionalSpeech.Phrases.Panic = {
 "ah!",
 "ohh!",
 "oooohh!",
@@ -161,13 +162,13 @@ LMSConditions.Phrases.Panic = {
 "oh god! ahhh!"
 }
 
-LMSConditions.Phrases.Hypothermia = {
+ConditionalSpeech.Phrases.Hypothermia = {
 "it is so cold",
 "brrrrr",
 "*shivers*"
 }
 
-LMSConditions.Phrases.Zombie = {
+ConditionalSpeech.Phrases.Zombie = {
 "I'm turning into one of them",
 "this is it",
 "this is over",
@@ -175,7 +176,7 @@ LMSConditions.Phrases.Zombie = {
 "I'm going to turn into one of them, aren't I?"
 }
 
-LMSConditions.Phrases.Pain = {
+ConditionalSpeech.Phrases.Pain = {
 "ouch",
 "ow",
 "argh",
@@ -197,19 +198,19 @@ LMSConditions.Phrases.Pain = {
 "aaghh"
 }
 
-LMSConditions.Phrases.Campfire = {"*sings*"}
+ConditionalSpeech.Phrases.Campfire = {"*sings*"}
 
 -- Swears are ranked by intensity
-LMSConditions.Phrases.Swears = {"crap","damn","god damn","shit","son of a bitch","fuck","fucking"}
+ConditionalSpeech.Phrases.Swears = {"crap","damn","god damn","shit","son of a bitch","fuck","fucking"}
 
 -- useful list of plosives for stammering
-LMSConditions.Phrases.Plosives = {"p","P","t","T","k","K","b","B","d","D","g","G","s","S","m","M"}
+ConditionalSpeech.Phrases.Plosives = {"p","P","t","T","k","K","b","B","d","D","g","G","s","S","m","M"}
 
-LMSConditions.Phrases.FOOD = {"a bite to eat","a whole pizza","some pizza","a slice of pizza","a slice of cake","something tasty",
+ConditionalSpeech.Phrases.FOOD = {"a bite to eat","a whole pizza","some pizza","a slice of pizza","a slice of cake","something tasty",
 	"some cake","a bucket of chicken","some chicken","a Spiffo burger","a Spiffo kid's meal","a bucket of Jay's Chicken",
 	"an order of Jay's biscuits with gravy","eating anything","anything to eat","a snack"}
 
-LMSConditions.Phrases.SARCASM = {"just great","awesome","fantastic","just what I needed"}
+ConditionalSpeech.Phrases.SARCASM = {"just great","awesome","fantastic","just what I needed"}
 
 
 --------------------------- USEFUL FUNCTIONS ------------------------------
@@ -282,16 +283,16 @@ function WeightedRandPick(table,intensity,maxintensity)
 	end
 end
 
---------------------------------------------------------------------------------
 
+------------------------------------------ FILTERS ----------------------------------------------
 --Handler for filters
-function LMSConditions.PassMoodleFilters(text,mothermoodle)
+function ConditionalSpeech.PassMoodleFilters(text,mothermoodle)
 	if text then
 		local filterspassed = {} --[key]=value
 
 		--[[debug]] print("PassMoodleFilter: ",text," (mothermoodle:",mothermoodle,")")
-		for MoodID,_ in pairs(LMSConditions.MoodleTable) do --for each mood grab type/key
-			local MoodleEntry = LMSConditions.MoodleTable[MoodID]--direct reference to grab vars in value
+		for MoodID,_ in pairs(ConditionalSpeech.MoodleTable) do --for each mood grab type/key
+			local MoodleEntry = ConditionalSpeech.MoodleTable[MoodID]--direct reference to grab vars in value
 			--[debug]] print("-- PassMoodleFilter: passing:",MoodID)
 			-- panic filter doesn't play well with others: "shit! shit! shit! I need a snack!"
 			if mothermoodle~="Panic" and MoodID=="Panic" then
@@ -333,7 +334,7 @@ function LMSConditions.PassMoodleFilters(text,mothermoodle)
 end
 
 -- SCREAM FILTER!
-function LMSConditions.SCREAM_Filter(text, intensity)
+function ConditionalSpeech.SCREAM_Filter(text, intensity)
 	if text then
 		--[debug]] print("FILTER CALLED:  (SCREAM_Filter)",text," intensity:",intensity)
 		text = replaceText(text, "%.", "%!")
@@ -344,7 +345,7 @@ function LMSConditions.SCREAM_Filter(text, intensity)
 end
 
 -- S-s-stammer Filt-t-t-ter
-function LMSConditions.Stammer_Filter(text, intensity)
+function ConditionalSpeech.Stammer_Filter(text, intensity)
 	if intensity <= 0 then intensity = 1 end
 	if text then
 		--[debug]] print("FILTER CALLED:  (Stammer_Filter)",text," intensity:",intensity)
@@ -354,7 +355,7 @@ function LMSConditions.Stammer_Filter(text, intensity)
 		for _,value in pairs(characters) do
 			local c = value
 			local chance = intensity*8
-			if max_stammer > 0 and valueIn(LMSConditions.Phrases.Plosives,value) == true then
+			if max_stammer > 0 and valueIn(ConditionalSpeech.Phrases.Plosives,value) == true then
 				max_stammer = max_stammer-1
 				while chance > 0 do
 					if prob(chance)==true then c = c .. "-" .. c end
@@ -369,12 +370,12 @@ end
 
 
 -- Logic for repeated swearing
-function LMSConditions.panicSwear_Filter(text, intensity)
+function ConditionalSpeech.panicSwear_Filter(text, intensity)
 	if not intensity then intensity = ZombRand(4)+1 end
 	if text then
 		--[debug]] print("FILTER CALLED:  (panicSwear_Filter)",text," intensity:",intensity)
 
-		local randswear = WeightedRandPick(LMSConditions.Phrases.Swears,intensity,4)
+		local randswear = WeightedRandPick(ConditionalSpeech.Phrases.Swears,intensity,4)
 
 		if randswear then
 			randswear = randswear .. "."
@@ -394,7 +395,7 @@ function LMSConditions.panicSwear_Filter(text, intensity)
 end
 
 -- Logic for interlaced swears
-function LMSConditions.interlacedSwear_Filter(text, intensity)
+function ConditionalSpeech.interlacedSwear_Filter(text, intensity)
 	if not intensity then intensity = 1 end
 	if text then
 		--[debug]] print("FILTER CALLED:  (interlacedSwear_Filter)",text," intensity:",intensity)
@@ -405,7 +406,7 @@ function LMSConditions.interlacedSwear_Filter(text, intensity)
 		for key,value in pairs(words) do
 			if key ~= #words and prob(5*intensity) == true then
 				if valueIn(skip_words,words[key+1]) ~= true then
-					local swear = WeightedRandPick(LMSConditions.Phrases.Swears,intensity,4)
+					local swear = WeightedRandPick(ConditionalSpeech.Phrases.Swears,intensity,4)
 					if swear then
 						words[key] = value .. " " .. swear
 					end
@@ -416,51 +417,51 @@ function LMSConditions.interlacedSwear_Filter(text, intensity)
 	end
 end
 
-
+-------- Moodle Handler (Stores levels over time and has a filterlist to refer back to -------------
 -- This has to be under where the filters themselves are defined
-LMSConditions.MoodleTable = {
+ConditionalSpeech.MoodleTable = {
 [MoodleType.Endurance] = {level = 0, filters = nil },
 [MoodleType.Tired] = {level = 0, filters = nil },
 [MoodleType.Hungry] = {level = 0, filters = nil },
-[MoodleType.Panic] = {level = 0, filters = {LMSConditions.panicSwear_Filter,LMSConditions.Stammer_Filter,LMSConditions.SCREAM_Filter} },
+[MoodleType.Panic] = {level = 0, filters = {ConditionalSpeech.panicSwear_Filter,ConditionalSpeech.Stammer_Filter,ConditionalSpeech.SCREAM_Filter} },
 [MoodleType.Sick] = {level = 0, filters = nil },
 [MoodleType.Bored] = {level = 0, filters = nil },
 [MoodleType.Unhappy] = {level = 0, filters = nil },
 [MoodleType.Bleeding] = {level = 0, filters = nil },
 [MoodleType.Wet] = {level = 0, filters = nil },
 [MoodleType.HasACold] = {level = 0, filters = nil },
-[MoodleType.Angry] = {level = 0, filters = {LMSConditions.interlacedSwear_Filter,LMSConditions.SCREAM_Filter} },
+[MoodleType.Angry] = {level = 0, filters = {ConditionalSpeech.interlacedSwear_Filter,ConditionalSpeech.SCREAM_Filter} },
 [MoodleType.Stress] = {level = 0, filters = nil },
 [MoodleType.Thirst] = {level = 0, filters = nil },
 [MoodleType.Injured] = {level = 0, filters = nil },
-[MoodleType.Pain] = {level = 0, filters = {LMSConditions.interlacedSwear_Filter} },
+[MoodleType.Pain] = {level = 0, filters = {ConditionalSpeech.interlacedSwear_Filter} },
 [MoodleType.HeavyLoad] = {level = 0, filters = nil },
 [MoodleType.Drunk] = {level = 0, filters = nil },
 [MoodleType.Dead] = {level = 0, filters = nil },
 [MoodleType.Zombie] = {level = 0, filters = nil },
 [MoodleType.Hyperthermia] = {level = 0, filters = nil },
-[MoodleType.Hypothermia] = {level = 0, filters = {LMSConditions.Stammer_Filter} },
+[MoodleType.Hypothermia] = {level = 0, filters = {ConditionalSpeech.Stammer_Filter} },
 [MoodleType.Windchill] = {level = 0, filters = nil },
 [MoodleType.FoodEaten] = {level = 0, filters = nil }
 }
 
--- Start LMS --
-function LMSConditions.Start() -- start up LMS
+-- Start Up LMS --
+function ConditionalSpeech.Start() -- start up LMS
 	getPlayer():getMoodles():Update() -- makes sure that the Moodles system is properly loaded
-	LMSConditions.retrieveMoodles() -- matches moodles' levels to stored value
-	Events.OnPlayerUpdate.Add(LMSConditions.doMoodleCheck) -- preps conditions checker
+	ConditionalSpeech.retrieveMoodles() -- matches moodles' levels to stored value
+	Events.OnPlayerUpdate.Add(ConditionalSpeech.doMoodleCheck) -- preps conditions checker
 end
 
 -- Retrieve Level Values --
-function LMSConditions.retrieveMoodles() --uses the associative key as a reference
-	for key,_ in pairs(LMSConditions.MoodleTable) do LMSConditions.MoodleTable[key].level = getPlayer():getMoodles():getMoodleLevel(key) end
+function ConditionalSpeech.retrieveMoodles() --uses the associative key as a reference
+	for key,_ in pairs(ConditionalSpeech.MoodleTable) do ConditionalSpeech.MoodleTable[key].level = getPlayer():getMoodles():getMoodleLevel(key) end
 end
 
 
 --Generates speech from a given table/list of phrases - also cleans up the sentence and applies filters
-function LMSConditions.generateSpeech(ID)
+function ConditionalSpeech.generateSpeech(ID)
 
-	local PhraseTable = LMSConditions.Phrases[ID]
+	local PhraseTable = ConditionalSpeech.Phrases[ID]
 
 	if PhraseTable == false or not istable(PhraseTable) then return end
 
@@ -471,7 +472,7 @@ function LMSConditions.generateSpeech(ID)
 	--[[debug]]if not dialogue then print("--ERR: Dialogue == false"," (",randNumber,"/",#PhraseTable,")") return end --debug
 	
 	--replace KEYWORDS found with randomly picked words
-	for KEYWORD,REPLACEWORDS in pairs(LMSConditions.Phrases) do dialogue = replaceText(dialogue, "<"..KEYWORD..">", pickFrom(REPLACEWORDS)) end
+	for KEYWORD,REPLACEWORDS in pairs(ConditionalSpeech.Phrases) do dialogue = replaceText(dialogue, "<"..KEYWORD..">", pickFrom(REPLACEWORDS)) end
 
 	local fc = string.sub(dialogue, 1,1) --fc=first character
 	local lc = string.sub(dialogue, -1) --lc=last character
@@ -479,7 +480,7 @@ function LMSConditions.generateSpeech(ID)
 	if fc=="*" and lc=="*" then --avoid filtering/messing with *emotive* text
 	else
 		if lc~="." and lc~="!" and lc~="?" then dialogue = dialogue .. "." end --just in case of no punctuation add some.
-		dialogue = LMSConditions.PassMoodleFilters(dialogue,mothermoodle)--have other moods impact dialogue
+		dialogue = ConditionalSpeech.PassMoodleFilters(dialogue,mothermoodle)--have other moods impact dialogue
 		dialogue = dialogue:gsub("[!?.]%s", "%0\0"):gsub("%f[%Z]%s*%l", dialogue.upper):gsub("%z", "")--Proper sentence capitalization. Like so.
 	end
 
@@ -492,16 +493,16 @@ end
 
 
 --Tracks moodle levels overtime, runs generate speech
-function LMSConditions.doMoodleCheck()
-	for key,_ in pairs(LMSConditions.MoodleTable) do
-		local MoodleEntry = LMSConditions.MoodleTable[key]
-		--[[debug]] print("-----X LMSConditions:doMoodleCheck ",key)
+function ConditionalSpeech.doMoodleCheck()
+	for key,_ in pairs(ConditionalSpeech.MoodleTable) do
+		local MoodleEntry = ConditionalSpeech.MoodleTable[key]
+		--[[debug]] print("-----X ConditionalSpeech:doMoodleCheck ",key)
 		if MoodleEntry.phrases ~= nil then
 			local currentMoodleLevel = getPlayer():getMoodles():getMoodleLevel(key)
 			if currentMoodleLevel ~= MoodleEntry.level then --currentMoodleLevel(current mood level) is not equal to stored mood level then
 				if currentMoodleLevel > MoodleEntry.level then --if moodlevel has increased
-					--[[debug]] print("-----XX LMSConditions:doMoodleCheck ",key,"  stored level:",MoodleEntry.level,"  getlevel:",currentMoodleLevel)--,"/",getPlayer():getMoodles():getGoodBadNeutral(key))
-					LMSConditions.generateSpeech(key)
+					--[[debug]] print("-----XX ConditionalSpeech:doMoodleCheck ",key,"  stored level:",MoodleEntry.level,"  getlevel:",currentMoodleLevel)--,"/",getPlayer():getMoodles():getGoodBadNeutral(key))
+					ConditionalSpeech.generateSpeech(key)
 				end
 				MoodleEntry.level = currentMoodleLevel --match stored mood level to current- this is where the recorded level is lowered
 			end
@@ -512,17 +513,17 @@ end
 
 --[[
 -- Campfire code is broken but I think it is trying to find players near by and create a group singing event which is a pretty cool idea.
-LMSConditions.TimeOfRegister = false
-function LMSConditions.isGetCampfire() -- I yonked most of this function from camping.lua.
+ConditionalSpeech.TimeOfRegister = false
+function ConditionalSpeech.isGetCampfire() -- I yonked most of this function from camping.lua.
 	local players = IsoPlayer.getPlayers()
 	for _,vCamp in pairs(camping.campfires) do
 		local gridSquare = vCamp:getSquare()
 		if vCamp.isLit and gridSquare then
 			for i=0,players:size()-1 do
 				local vPlayer = players:get(i)
-				if vPlayer and not vPlayer:isDead() and vPlayer:getCurrentSquare() and vPlayer:getCurrentSquare():DistTo(gridSquare) <= 3 and LMSConditions.TimeOfRegister ~= os.date("%M") then
-					LMSConditions.CampFireRegister = true
-					LMSConditions.TimeOfRegister = os.date("%M")
+				if vPlayer and not vPlayer:isDead() and vPlayer:getCurrentSquare() and vPlayer:getCurrentSquare():DistTo(gridSquare) <= 3 and ConditionalSpeech.TimeOfRegister ~= os.date("%M") then
+					ConditionalSpeech.CampFireRegister = true
+					ConditionalSpeech.TimeOfRegister = os.date("%M")
 					return true
 				end
 			end
@@ -533,32 +534,32 @@ end
 
 
 -- Out of Ammo
-function LMSConditions.check_OutOfAmmo()
+function ConditionalSpeech.check_OutOfAmmo()
 	local primary_weapon = getPlayer():getPrimaryHandItem()
 	if primary_weapon and primary_weapon:getCategory() == "Weapon" and primary_weapon:isRanged() and not getPlayer():isShoving() then
-		if primary_weapon:isJammed() then LMSConditions.generateSpeech(LMSConditions.GunJammed)
+		if primary_weapon:isJammed() then ConditionalSpeech.generateSpeech(ConditionalSpeech.GunJammed)
 		else
 			if (primary_weapon:haveChamber() and not primary_weapon:isRoundChambered()) or (not primary_weapon:haveChamber() and primary_weapon:getCurrentAmmoCount() <= 0) then
-				LMSConditions.generateSpeech("OutOfAmmo")
+				ConditionalSpeech.generateSpeech("OutOfAmmo")
 			end
 		end
 	end
 end
 
-function LMSConditions.check_Time()
+function ConditionalSpeech.check_Time()
 	local TIME = math.floor(getGameTime():getTimeOfDay())
 	--[debug]]print("-=-=- check_Dawn: getTimeOfDay:",TIME, "   outside?",getPlayer():isOutside())
 	if getPlayer():isOutside() and prob(75)==true then
-		if TIME==6 then LMSConditions.generateSpeech("OnDawn")
-		else if TIME==22 then LMSConditions.generateSpeech("OnDusk") end
+		if TIME==6 then ConditionalSpeech.generateSpeech("OnDawn")
+		else if TIME==22 then ConditionalSpeech.generateSpeech("OnDusk") end
 		end
 	end
 end
 
 --Events.EveryDays.Add()
-Events.EveryHours.Add(LMSConditions.check_Time)
-Events.OnLoad.Add(LMSConditions.Start)
-Events.OnWeaponSwing.Add(LMSConditions.check_OutOfAmmo)
+Events.EveryHours.Add(ConditionalSpeech.check_Time)
+Events.OnLoad.Add(ConditionalSpeech.Start)
+Events.OnWeaponSwing.Add(ConditionalSpeech.check_OutOfAmmo)
 
 
 
