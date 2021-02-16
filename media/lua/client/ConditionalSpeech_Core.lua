@@ -3,6 +3,8 @@ require "ConditionalSpeech_Util"
 ConditionalSpeech = {}
 ConditionalSpeech.Phrases = {}
 
+VolumeMAX = 30
+
 ------------------------------------------ FILTERS ----------------------------------------------
 --Handler for filters
 function ConditionalSpeech.PassMoodleFilters(text,mothermoodle)
@@ -60,7 +62,7 @@ end
 -- Filter Template
 function ConditionalSpeech.TEMPLATE(text, intensity)
 	if text then
-		local vol = 0
+		local vol = 0 --VolumeMAX
 		--- Stuff Here
 		return {["return_text"]=text,["return_vol"]=vol}
 	end
@@ -72,7 +74,7 @@ function ConditionalSpeech.Blurt(text, intensity)
 	if text then
 		local vol = 0
 		if prob(intensity*20) == true then
-			vol = 10
+			vol = VolumeMAX/5
 		end
 		return {["return_text"]=text,["return_vol"]=vol}
 	end
@@ -81,12 +83,12 @@ end
 -- SCREAM FILTER!
 function ConditionalSpeech.SCREAM_Filter(text, intensity)
 	if text then
-		local vol = 15
+		local vol = VolumeMAX/2
 		--[debug]] print("FILTER CALLED:  (SCREAM_Filter)",text," intensity:",intensity)
 		text = replaceText(text, "%.", "%!")
 		if prob(intensity*20) == true then
 			text = text:upper()
-			vol = 30
+			vol = VolumeMAX
 		end
 		return {["return_text"]=text,["return_vol"]=vol}
 	end
@@ -240,46 +242,31 @@ function ConditionalSpeech.generateSpeech(ID,intensity,MAXintensity)
 
 	--[[debug]]print("    dialogue:",dialogue_backup)
 	--[[debug]]print("    processed:",dialogue)
-	--[[debug]]print("  -------------------------------------------------------------------")
-
-	local player = getPlayer()
-	local textcolor = getCore():getMpTextColor()
-	local SpeakColor = player:getSpeakColour()
-	--[debug]]print(" --- textcolor:",textcolor," (",textcolor:GetRed(),"-",textcolor:GetGreen(),"-",textcolor:GetBlue(),")")
-	--[debug]]print(" --- _SpeakColour:",textcolor," (",tostring(textcolor:GetR()),"-",tostring(textcolor:GetG()),"-",tostring(textcolor:GetB()),")")
+	--[[debug]]print("  --------------------------------------------------------")
 
 	dialogue = tostring(dialogue)
-
-	--getPlayer():Say(dialogue)--, textcolor:GetRed(), textcolor:GetGreen(), textcolor:GetBlue(), UIFont.Dialogue, 30.0, "default")
-	getPlayer():Say(dialogue, 0.8, 0.8, 0.8, UIFont.Small, 30.0, "default")
-	addSound(player, player:getX(), player:getY(), player:getZ(), vocal_volume, vocal_volume) --shout=30, normal=15, whisper=6
-
+	-- Speaking
+	local player = getPlayer()
+	ConditionalSpeech.VolumetricColor_Say(player,dialogue,vocal_volume)
+	addSound(player, player:getX(), player:getY(), player:getZ(), vocal_volume, vocal_volume)
 end
-	--self:drawText( item.text, 10, y + 2, item.item:getR(), item.item:getG(), item.item:getB(), a, self.font);
-	--getPlayer():drawText(dialogue, 200, z, 1,1,1,1, UIFont.Medium);
-	--self:drawText(dialogue, self.width/2 - (getTextManager():MeasureStringX(UIFont.Medium, getText("UI_userpanel_tickets")) / 2), z, 1,1,1,1, UIFont.Medium);
-	--getTextManager():MeasureStringX(UIFont.Small, getText("IGUI_FactionUI_ShowTag")) + 20, 18, "", self, ISFactionUI.onClickShowTag)
-	--TextManager.instance.DrawStringCentre(UIFont.Dialogue, (double)((int)var2), (double)((int)var3), var1, (double)this.SpeakColour.r, (double)this.SpeakColour.g, (double)this.SpeakColour.b, (double)this.SpeakColour.a);
 
-	--self:Speak(tostring(dialogue))--, textcolor.r, textcolor.g, textcolor.b, UIFont.Dialogue, 30.0F, "default")
-	--player:Say(dialogue, textcolor:getR(), textcolor:getG(), textcolor:getB(), UIFont.Dialogue, 30.0F, "default")
-	--getPlayer():Callout() -- ?
-	--ColorInfo.new(color.r, color.g, color.b, 1) -- color object
-	--getPlayer():setSpeakColourInfo(getCore():getMpTextColor()) -- ?
-	--sendPersonalColor(getPlayer()) -- ?
 
-	--getSpeakColour()
-	--setSpeakColour()
-	--Callout();
-	--IsSpeaking();
-	--Say(String var1);
-	--Say(String var1, var2, var3, var4, var5, var6, var7);
+function ConditionalSpeech.VolumetricColor_Say(player,text,vol)
+	local vc_shift = 0.3+(0.7*(vol/VolumeMAX))--have a 0.3 base --difference of 0.7 is then multipled against volume/maxvolume
+	local MpText_Color = getCore():getMpTextColor()--grab player's MP text from main menu
+	local text_color = {r = MpText_Color:getR()*vc_shift, g = MpText_Color:getG()*vc_shift, b = MpText_Color:getB()*vc_shift, a = vc_shift}--alpha shift based on vc_shift
+	local graybase = {r=0.45, g=0.45, b=0.45, a=1}--gray base text_color will be overlayed onto
+	local return_color = {r=0, g=0, b=0, a=0}--set up return color
+	return_color.a = 1 - (1 - text_color.a) * (1 - graybase.a)--alpha
+	return_color.r = text_color.r * text_color.r / return_color.a + graybase.r * graybase.a * (1 - text_color.a) / return_color.a--red
+	return_color.g = text_color.g * text_color.g / return_color.a + graybase.g * graybase.a * (1 - text_color.a) / return_color.a--green
+	return_color.b = text_color.b * text_color.b / return_color.a + graybase.b * graybase.a * (1 - text_color.a) / return_color.a--blue
 
-	--WorldSoundManager.instance.addSound(this, (int)this.x, (int)this.y, (int)this.z, var2, var2); --shout=30, normal=15, whisper=6
+	--[debug]]print("--- textcolor:  vol:",vol," - ",return_color.r*255,",",return_color.g*255,",",return_color.b*255)
+	player:Say(text, return_color.r, return_color.g, return_color.b, UIFont.Small, vol, "radio") --radio makes it colored, I don't know why exactly
+end
 
-	--ProcessSay(var1, this.SpeakColour.r, this.SpeakColour.g, this.SpeakColour.b, UIFont.Dialogue, 30.0F, "default");
-	--ProcessSay(var1, this.SpeakColour.r, this.SpeakColour.g, this.SpeakColour.b, UIFont.Dialogue, 10.0F, "whisper");
-	--ProcessSay(var1, this.SpeakColour.r, this.SpeakColour.g, this.SpeakColour.b, UIFont.Dialogue, 60.0F, "shout");
 
 
 --Tracks moodle levels overtime, runs generate speech
