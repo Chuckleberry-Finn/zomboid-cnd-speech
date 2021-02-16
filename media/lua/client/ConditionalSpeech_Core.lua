@@ -72,7 +72,7 @@ function ConditionalSpeech.Blurt(text, intensity)
 	if text then
 		local vol = 0
 		if prob(intensity*20) == true then
-			vol = 15
+			vol = 10
 		end
 		return {["return_text"]=text,["return_vol"]=vol}
 	end
@@ -81,7 +81,7 @@ end
 -- SCREAM FILTER!
 function ConditionalSpeech.SCREAM_Filter(text, intensity)
 	if text then
-		local vol = 0
+		local vol = 15
 		--[debug]] print("FILTER CALLED:  (SCREAM_Filter)",text," intensity:",intensity)
 		text = replaceText(text, "%.", "%!")
 		if prob(intensity*20) == true then
