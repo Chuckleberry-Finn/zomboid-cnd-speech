@@ -43,24 +43,52 @@ function ConditionalSpeech.PassMoodleFilters(text,mothermoodle)
 			end
 		end
 
+		local filtered_vv = 0
+		--pass each collected filter with correspondin instensity/level
 		for FilterType,Intensity in pairs(filterspassed) do
 			--[debug]] print("--==-== Run Filter: key:",FilterType,"  value:",Intensity)
-			text = FilterType(text, Intensity)
+			local filterresults = FilterType(text, Intensity)
+			text = filterresults["return_text"]
+			if filterresults["return_vol"]>filtered_vv then filtered_vv=filterresults["return_vol"] end
 		end
 
-		--pass each collected filter with correspondin instensity/level
-		return text
+		return {["dia_logue"]=text,["voc_vol"]=filtered_vv}
+	end
+end
+
+--[[
+-- Filter Template
+function ConditionalSpeech.TEMPLATE(text, intensity)
+	if text then
+		local vol = 0
+		--- Stuff Here
+		return {["return_text"]=text,["return_vol"]=vol}
+	end
+end
+]]--
+
+-- Blurt Out
+function ConditionalSpeech.Blurt(text, intensity)
+	if text then
+		local vol = 0
+		if prob(intensity*20) == true then
+			vol = 15
+		end
+		return {["return_text"]=text,["return_vol"]=vol}
 	end
 end
 
 -- SCREAM FILTER!
 function ConditionalSpeech.SCREAM_Filter(text, intensity)
 	if text then
+		local vol = 0
 		--[debug]] print("FILTER CALLED:  (SCREAM_Filter)",text," intensity:",intensity)
 		text = replaceText(text, "%.", "%!")
-		if prob(intensity*20) == true then return text:upper()
-		else return text
+		if prob(intensity*20) == true then
+			text = text:upper()
+			vol = 30
 		end
+		return {["return_text"]=text,["return_vol"]=vol}
 	end
 end
 
@@ -68,6 +96,7 @@ end
 function ConditionalSpeech.Stammer_Filter(text, intensity)
 	if intensity <= 0 then intensity = 1 end
 	if text then
+		local vol = 0
 		--[debug]] print("FILTER CALLED:  (Stammer_Filter)",text," intensity:",intensity)
 		local characters = splitTextbyChar(text)
 		local post_characters = {}
@@ -84,7 +113,7 @@ function ConditionalSpeech.Stammer_Filter(text, intensity)
 			end
 			table.insert(post_characters, c)
 		end
-		return joinText(post_characters,0)
+		return {["return_text"]=joinText(post_characters,0),["return_vol"]=vol}
 	end
 end
 
@@ -94,7 +123,7 @@ function ConditionalSpeech.panicSwear_Filter(text, intensity)
 	if not intensity then intensity = ZombRand(4)+1 end
 	if text then
 		--[debug]] print("FILTER CALLED:  (panicSwear_Filter)",text," intensity:",intensity)
-
+		local vol = 0
 		local randswear = WeightedRandPick(ConditionalSpeech.Phrases.SWEAR,intensity,4)
 
 		if randswear then
@@ -110,7 +139,7 @@ function ConditionalSpeech.panicSwear_Filter(text, intensity)
 			else text = text .. " " .. randswear --50% before or after text
 			end
 		end
-		return text
+		return {["return_text"]=text,["return_vol"]=vol}
 	end
 end
 
@@ -119,6 +148,7 @@ function ConditionalSpeech.interlacedSwear_Filter(text, intensity)
 	if not intensity then intensity = 1 end
 	if text then
 		--[debug]] print("FILTER CALLED:  (interlacedSwear_Filter)",text," intensity:",intensity)
+		local vol = 0
 		local skip_words = {"is","it","of","at","no","as"}
 		local words = splitTextbyWord(text)
 		if not words or #words <= 1 then return text end
@@ -133,30 +163,30 @@ function ConditionalSpeech.interlacedSwear_Filter(text, intensity)
 				end
 			end
 		end
-		return joinText(words, 1)
+		return {["return_text"]=joinText(words, 1),["return_vol"]=vol}
 	end
 end
 
 -------- Moodle Handler (Stores levels over time and has a filterlist to refer back to -------------
 -- This has to be under where the filters themselves are defined
 ConditionalSpeech.MoodleTable = {
-["Endurance"] = {level = 0, filters = nil },
-["Tired"] = {level = 0, filters = nil },
+["Endurance"] = {level = 0, filters = {ConditionalSpeech.Blurt} },
+["Tired"] = {level = 0, filters = {ConditionalSpeech.Blurt} },
 ["Hungry"] = {level = 0, filters = nil },
-["Panic"] = {level = 0, filters = {ConditionalSpeech.panicSwear_Filter,ConditionalSpeech.Stammer_Filter,ConditionalSpeech.SCREAM_Filter} },
+["Panic"] = {level = 0, filters = {ConditionalSpeech.panicSwear_Filter,ConditionalSpeech.Stammer_Filter,ConditionalSpeech.Blurt,ConditionalSpeech.SCREAM_Filter} },
 ["Sick"] = {level = 0, filters = nil },
-["Bored"] = {level = 0, filters = nil },
+["Bored"] = {level = 0, filters = {ConditionalSpeech.Blurt} },
 ["Unhappy"] = {level = 0, filters = nil },
-["Bleeding"] = {level = 0, filters = nil },
+["Bleeding"] = {level = 0, filters = {ConditionalSpeech.Blurt} },
 ["Wet"] = {level = 0, filters = nil },
 ["HasACold"] = {level = 0, filters = nil },
 ["Angry"] = {level = 0, filters = {ConditionalSpeech.interlacedSwear_Filter,ConditionalSpeech.SCREAM_Filter} },
 ["Stress"] = {level = 0, filters = nil },
 ["Thirst"] = {level = 0, filters = nil },
 ["Injured"] = {level = 0, filters = nil },
-["Pain"] = {level = 0, filters = {ConditionalSpeech.interlacedSwear_Filter} },
+["Pain"] = {level = 0, filters = {ConditionalSpeech.Blurt,ConditionalSpeech.interlacedSwear_Filter} },
 ["HeavyLoad"] = {level = 0, filters = nil },
-["Drunk"] = {level = 0, filters = nil },
+["Drunk"] = {level = 0, filters = {ConditionalSpeech.Blurt} },
 --[Dead] = {level = 0, filters = nil },
 --[Zombie] = {level = 0, filters = nil },
 ["Hyperthermia"] = {level = 0, filters = nil },
@@ -197,10 +227,14 @@ function ConditionalSpeech.generateSpeech(ID,intensity,MAXintensity)
 	local fc = string.sub(dialogue, 1,1) --fc=first character
 	local lc = string.sub(dialogue, -1) --lc=last character
 
+	local vocal_volume = 0
+
 	if fc=="*" and lc=="*" then --avoid filtering/messing with *emotive* text
 	else
 		if lc~="." and lc~="!" and lc~="?" then dialogue = dialogue .. "." end --just in case of no punctuation add some.
-		dialogue = ConditionalSpeech.PassMoodleFilters(dialogue,ID)--have other moods impact dialogue
+		local conditional_speech = ConditionalSpeech.PassMoodleFilters(dialogue,ID)--have other moods impact dialogue
+		dialogue = conditional_speech["dia_logue"]
+		vocal_volume = conditional_speech["voc_vol"]
 		dialogue = dialogue:gsub("[!?.]%s", "%0\0"):gsub("%f[%Z]%s*%l", dialogue.upper):gsub("%z", "")--Proper sentence capitalization. Like so.
 	end
 
@@ -208,8 +242,44 @@ function ConditionalSpeech.generateSpeech(ID,intensity,MAXintensity)
 	--[[debug]]print("    processed:",dialogue)
 	--[[debug]]print("  -------------------------------------------------------------------")
 
-	getPlayer():Say(dialogue)
+	local player = getPlayer()
+	local textcolor = getCore():getMpTextColor()
+	local SpeakColor = player:getSpeakColour()
+	--[debug]]print(" --- textcolor:",textcolor," (",textcolor:GetRed(),"-",textcolor:GetGreen(),"-",textcolor:GetBlue(),")")
+	--[debug]]print(" --- _SpeakColour:",textcolor," (",tostring(textcolor:GetR()),"-",tostring(textcolor:GetG()),"-",tostring(textcolor:GetB()),")")
+
+	dialogue = tostring(dialogue)
+
+	--getPlayer():Say(dialogue)--, textcolor:GetRed(), textcolor:GetGreen(), textcolor:GetBlue(), UIFont.Dialogue, 30.0, "default")
+	getPlayer():Say(dialogue, 0.8, 0.8, 0.8, UIFont.Small, 30.0, "default")
+	addSound(player, player:getX(), player:getY(), player:getZ(), vocal_volume, vocal_volume) --shout=30, normal=15, whisper=6
+
 end
+	--self:drawText( item.text, 10, y + 2, item.item:getR(), item.item:getG(), item.item:getB(), a, self.font);
+	--getPlayer():drawText(dialogue, 200, z, 1,1,1,1, UIFont.Medium);
+	--self:drawText(dialogue, self.width/2 - (getTextManager():MeasureStringX(UIFont.Medium, getText("UI_userpanel_tickets")) / 2), z, 1,1,1,1, UIFont.Medium);
+	--getTextManager():MeasureStringX(UIFont.Small, getText("IGUI_FactionUI_ShowTag")) + 20, 18, "", self, ISFactionUI.onClickShowTag)
+	--TextManager.instance.DrawStringCentre(UIFont.Dialogue, (double)((int)var2), (double)((int)var3), var1, (double)this.SpeakColour.r, (double)this.SpeakColour.g, (double)this.SpeakColour.b, (double)this.SpeakColour.a);
+
+	--self:Speak(tostring(dialogue))--, textcolor.r, textcolor.g, textcolor.b, UIFont.Dialogue, 30.0F, "default")
+	--player:Say(dialogue, textcolor:getR(), textcolor:getG(), textcolor:getB(), UIFont.Dialogue, 30.0F, "default")
+	--getPlayer():Callout() -- ?
+	--ColorInfo.new(color.r, color.g, color.b, 1) -- color object
+	--getPlayer():setSpeakColourInfo(getCore():getMpTextColor()) -- ?
+	--sendPersonalColor(getPlayer()) -- ?
+
+	--getSpeakColour()
+	--setSpeakColour()
+	--Callout();
+	--IsSpeaking();
+	--Say(String var1);
+	--Say(String var1, var2, var3, var4, var5, var6, var7);
+
+	--WorldSoundManager.instance.addSound(this, (int)this.x, (int)this.y, (int)this.z, var2, var2); --shout=30, normal=15, whisper=6
+
+	--ProcessSay(var1, this.SpeakColour.r, this.SpeakColour.g, this.SpeakColour.b, UIFont.Dialogue, 30.0F, "default");
+	--ProcessSay(var1, this.SpeakColour.r, this.SpeakColour.g, this.SpeakColour.b, UIFont.Dialogue, 10.0F, "whisper");
+	--ProcessSay(var1, this.SpeakColour.r, this.SpeakColour.g, this.SpeakColour.b, UIFont.Dialogue, 60.0F, "shout");
 
 
 --Tracks moodle levels overtime, runs generate speech
@@ -280,9 +350,6 @@ end
 Events.EveryHours.Add(ConditionalSpeech.check_Time)
 Events.OnLoad.Add(ConditionalSpeech.Start)
 Events.OnWeaponSwing.Add(ConditionalSpeech.check_OutOfAmmo)
-
-
-
 
 --Events.OnWeaponHitCharacter
 --Events.OnWeaponHitTree
