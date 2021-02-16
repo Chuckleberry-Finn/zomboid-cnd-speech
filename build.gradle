@@ -5,7 +5,7 @@ plugins {
     // Facilitates building archives that serve as project distributions
     id 'distribution'
 }
-version '1.1'
+version '1.0'
 
 repositories {
     jcenter()
@@ -24,12 +24,13 @@ sourceSets {
         resources.srcDirs = ['media/sound', 'media/textures']
     }
 }
-
 apply from: 'setup.gradle'
 apply from: 'distribution.gradle'
 apply from: 'zomboid.gradle'
 apply from: 'mod.gradle'
 apply from: 'zdoc.gradle'
+
+defaultTasks 'showModInfo'
 
 jar {
     from sourceSets.media.output

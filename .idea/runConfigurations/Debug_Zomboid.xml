@@ -1,7 +1,9 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Debug Zomboid" type="Application" factoryName="Application">
+    <option name="ALTERNATIVE_JRE_PATH" value="C:\Program Files\AdoptOpenJDK\jdk-8.0.282.8-hotspot\jre" />
+    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
     <option name="MAIN_CLASS_NAME" value="zombie.gameStates.MainScreenState" />
-    <module name="pz-zmod.main" />
+    <module name="pz-cnd-speech.main" />
     <option name="VM_PARAMETERS" value="-Ddebug=1 -Dzomboid.steam=0 -Dzomboid.znetlog=1 -XX:+UseConcMarkSweepGC -XX:-CreateMinidumpOnCrash -XX:-OmitStackTraceInFastThrow -Xms1800m -Xmx2048m" />
     <option name="WORKING_DIRECTORY" value="$PZ_DIR_PATH$" />
     <method v="2">

@@ -2,3 +2,6 @@ name=Conditional Speech
 poster=poster.png
 description=Generates speech utilizing a number of conditions as well as some randomization to create dynamic dialogue.
 id=Conditional-Speech
+url=https://github.com/real-coco-labs/pz-cnd-speech
+modversion=1.0
+pzversion=41.50-IWBUMS
