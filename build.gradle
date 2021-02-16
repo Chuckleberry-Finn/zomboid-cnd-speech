@@ -1,13 +1,21 @@
-import java.nio.file.Paths
-
 plugins {
     // Apply the java plugin to add support for Java
     id 'java'
+
+    // Facilitates building archives that serve as project distributions
+    id 'distribution'
 }
-version '1.0'
+version '1.1'
 
 repositories {
     jcenter()
+}
+
+java {
+    // ZomboidDoc can only be executed with Java 8
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(8)
+    }
 }
 
 sourceSets {
@@ -17,34 +25,11 @@ sourceSets {
     }
 }
 
-wrapper {
-    gradleVersion = '6.7.1'
-    distributionType = Wrapper.DistributionType.ALL
-}
-
-Properties properties = new Properties()
-def propertiesFile = project.rootProject.file('local.properties')
-if (propertiesFile.exists()) {
-    properties.load(propertiesFile.newDataInputStream())
-}
-project.ext.ideaHome = properties.getProperty('idea.home', '')
-project.ext.gameDir = Paths.get(properties.getProperty('game.dir', ''))
-
-if (project.ext.gameDir == null)
-{
-    if (providers.environmentVariable('GAME_DIR').present) {
-        project.ext.gameDir = Paths.get(providers.environmentVariable('GAME_DIR').get())
-    }
-    else if (System.hasProperty('game.dir')) {
-        project.ext.gameDir = Paths.get(System.getProperty('game.dir'))
-    }
-    else throw new RuntimeException("Game directory path not specified")
-}
-
-apply from: 'utils.gradle'
+apply from: 'setup.gradle'
+apply from: 'distribution.gradle'
 apply from: 'zomboid.gradle'
-apply from: 'zdoc.gradle'
 apply from: 'mod.gradle'
+apply from: 'zdoc.gradle'
 
 jar {
     from sourceSets.media.output
