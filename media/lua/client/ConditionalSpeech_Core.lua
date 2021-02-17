@@ -213,8 +213,6 @@ end
 --Generates speech from a given table/list of phrases - also cleans up the sentence and applies filters
 function ConditionalSpeech.generateSpeech(ID,intensity,MAXintensity)
 
-	if (getPlayer():getMoodles():getMoodleLevel(MoodleType.Panic) >= 1) and (MoodleID ~= "Panic") then return end --can't think in panic
-
 	if not intensity or intensity <=0 then intensity = 1 end
 	if not MAXintensity or MAXintensity <=0 then MAXintensity = 1 end
 
@@ -281,7 +279,10 @@ function ConditionalSpeech.doMoodleCheck()
 			--[debug]] print("-----X ConditionalSpeech:doMoodleCheck Need Update",MoodleID," ",currentMoodleLevel,"~",MoodleEntry.level)
 			if currentMoodleLevel > MoodleEntry.level then --if moodlevel has increased
 				--[debug]] print("-----XX ConditionalSpeech:doMoodleCheck ",MoodleID,"  stored lvl:",MoodleEntry.level," getlvl:",currentMoodleLevel)--,"/",getPlayer():getMoodles():getGoodBadNeutral(key))
-				ConditionalSpeech.generateSpeech(MoodleID,MoodleEntry.level,4)
+
+				if (getPlayer():getMoodles():getMoodleLevel(MoodleType.Panic) <= 0) or (MoodleID == "Panic") then --can't think in panic
+					ConditionalSpeech.generateSpeech(MoodleID,MoodleEntry.level,4)
+				end
 			end
 			MoodleEntry.level = currentMoodleLevel --match stored mood level to current- this is where the recorded level is lowered
 		end
