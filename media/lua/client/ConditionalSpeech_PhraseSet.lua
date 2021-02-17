@@ -168,10 +168,10 @@ ConditionalSpeech.Phrases.Stress = {
 }
 
 ConditionalSpeech.Phrases.Panic = {
+	"oh!",
 	"ah!",
-	"ohh!",
-	"oooohh!",
 	"holy!",
+	"<SWEAR>",
 	"I need to get out of here!",
 	"why!?",
 	"ahhh!",

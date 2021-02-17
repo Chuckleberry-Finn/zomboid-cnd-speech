@@ -213,6 +213,8 @@ end
 --Generates speech from a given table/list of phrases - also cleans up the sentence and applies filters
 function ConditionalSpeech.generateSpeech(ID,intensity,MAXintensity)
 
+	if (getPlayer():getMoodles():getMoodleLevel(MoodleType.Panic) >= 1) and (MoodleID ~= "Panic") then return end --can't think in panic
+
 	if not intensity or intensity <=0 then intensity = 1 end
 	if not MAXintensity or MAXintensity <=0 then MAXintensity = 1 end
 
