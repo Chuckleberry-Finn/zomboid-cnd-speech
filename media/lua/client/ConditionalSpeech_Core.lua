@@ -13,14 +13,13 @@ function ConditionalSpeech.PassMoodleFilters(player,text,mothermoodle)
 	if text then
 		local filterspassed = {} --[key]=value
 
-		for MoodID,_ in pairs(Moodles) do --for each mood grab type/key
-			local storedmoodleLevel = player:getModData().MoodleArray[MoodID]--key = Mood, value = level
-
+		for MoodID,lvl in pairs(player:getModData().MoodleArray) do --for each mood grab type and lvl
+			local storedmoodleLevel = lvl --player:getModData().MoodleArray[MoodID]--key = Mood, value = level
 			--[debug] print("-- PassMoodleFilter: passing:",MoodID)
-
-			if storedmoodleLevel ~= nil and storedmoodleLevel > 0 and ConditionalSpeech.MoodleArray[MoodID] ~= nil then --if we should bother with processing the mood
+			local filtersToCheck = ConditionalSpeech.MoodleArray[MoodID]
+			if storedmoodleLevel ~= nil and storedmoodleLevel > 0 and filtersToCheck ~= nil then --if we should bother with processing the mood
 				--[[debug]] print("-- PassMoodleFilter: juggling: key:",MoodID)
-				for _,Filter in pairs(ConditionalSpeech.MoodleArray[MoodID]) do --for each filter in filters
+				for _,Filter in pairs(filtersToCheck) do --for each filter in filtersToCheck
 					local needinsert = true --insertcheck, turns false if found
 					for filterstored,levelof in pairs(filterspassed) do --for each filter already added for passing
 						if filterstored==Filter then --if keys in filterspassed matches values in MoodleEntry
@@ -167,7 +166,7 @@ function ConditionalSpeech.interlacedSwear_Filter(text, intensity)
 	end
 end
 
--------- Moodle Handler (Stores levels over time and has a filterlist to refer back to -------------
+-------- Moodle Handler - filterlist to refer back to -------------
 -- This has to be under where the filters themselves are defined
 ConditionalSpeech.MoodleArray = {
 ["Endurance"] = {ConditionalSpeech.BlurtOut_Filter},
