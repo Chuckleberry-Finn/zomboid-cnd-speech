@@ -1,5 +1,4 @@
 
-
 --------------------------- USEFUL FUNCTIONS ------------------------------
 --useful function to check if value in list
 function valueIn(tab, val)
