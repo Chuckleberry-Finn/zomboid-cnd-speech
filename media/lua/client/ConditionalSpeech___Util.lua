@@ -1,3 +1,5 @@
+require "ConditionalSpeech_Core"
+require "ConditionalSpeech_PhraseSet"
 
 --------------------------- USEFUL FUNCTIONS ------------------------------
 --useful function to check if value in list
