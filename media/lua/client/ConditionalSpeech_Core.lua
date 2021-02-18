@@ -12,13 +12,10 @@ VolumeMAX = 30
 function ConditionalSpeech.PassMoodleFilters(player,text,mothermoodle)
 	if text then
 		local filterspassed = {} --[key]=value
-
 		for MoodID,lvl in pairs(player:getModData().MoodleArray) do --for each mood grab type and lvl
 			local storedmoodleLevel = lvl --player:getModData().MoodleArray[MoodID]--key = Mood, value = level
-			--[debug] print("-- PassMoodleFilter: passing:",MoodID)
 			local filtersToCheck = ConditionalSpeech.MoodleArray[MoodID]
 			if storedmoodleLevel ~= nil and storedmoodleLevel > 0 and filtersToCheck ~= nil then --if we should bother with processing the mood
-				--[[debug]] print("-- PassMoodleFilter: juggling: key:",MoodID)
 				for _,Filter in pairs(filtersToCheck) do --for each filter in filtersToCheck
 					local needinsert = true --insertcheck, turns false if found
 					for filterstored,levelof in pairs(filterspassed) do --for each filter already added for passing
@@ -31,19 +28,15 @@ function ConditionalSpeech.PassMoodleFilters(player,text,mothermoodle)
 						filterspassed[Filter] = storedmoodleLevel
 					end
 				end
---[debug] else print("-- PassMoodleFilter: can't pass: key:",MoodID)
 			end
 		end
-
 		local filtered_vv = 0
 		--pass each collected filter with correspondin instensity/level
 		for FilterType,Intensity in pairs(filterspassed) do
 			local filterresults = FilterType(text, Intensity)
 			text = filterresults["return_text"]
-			--[[debug]] print("--==-== Run Filter: ",text," key:",FilterType,"  value:",Intensity,"  filterresults:vol:",filterresults.return_vol)
 			if filterresults["return_vol"] > filtered_vv then filtered_vv = filterresults["return_vol"] end
 		end
-
 		local results = {["dia_logue"]=text,["voc_vol"]=filtered_vv}
 		return results
 	end
@@ -64,7 +57,6 @@ end
 function ConditionalSpeech.BlurtOut_Filter(text, intensity)
 	if text then
 		local vol = 0
-		--[[debug]] print("FILTER CALLED:  (BlurtOut_Filter)",text," intensity:",intensity)
 		if prob(intensity*20) == true then
 			vol = VolumeMAX/5
 		end
@@ -77,7 +69,6 @@ end
 function ConditionalSpeech.SCREAM_Filter(text, intensity)
 	if text then
 		local vol = VolumeMAX/2
-		--[[debug]] print("FILTER CALLED:  (SCREAM_Filter)",text," intensity:",intensity)
 		text = replaceText(text, "%.", "%!")
 		if prob(intensity*20) == true then
 			text = text:upper()
@@ -93,7 +84,6 @@ function ConditionalSpeech.Stammer_Filter(text, intensity)
 	if intensity <= 0 then intensity = 1 end
 	if text then
 		local vol = 0
-		--[[debug]] print("FILTER CALLED:  (Stammer_Filter)",text," intensity:",intensity)
 		local characters = splitTextbyChar(text)
 		local post_characters = {}
 		local max_stammer = intensity
@@ -119,7 +109,6 @@ end
 function ConditionalSpeech.panicSwear_Filter(text, intensity)
 	if intensity==nil then intensity = ZombRand(4)+1 end
 	if text then
-		--[[debug]] print("FILTER CALLED:  (panicSwear_Filter)",text," intensity:",intensity)
 		local vol = 0
 		local randswear = WeightedRandPick(ConditionalSpeech.Phrases.SWEAR,intensity,4)
 
@@ -145,7 +134,6 @@ end
 function ConditionalSpeech.interlacedSwear_Filter(text, intensity)
 	if intensity == nil then intensity = 1 end
 	if text then
-		--[[debug]] print("FILTER CALLED:  (interlacedSwear_Filter)",text," intensity:",intensity)
 		local vol = 0
 		local skip_words = {"is","it","of","at","no","as"}
 		local words = splitTextbyWord(text)
@@ -205,8 +193,8 @@ function ConditionalSpeech.generateSpeech(player,PhraseID,intensity,MAXintensity
 	if PhraseTable == nil then return end
 	local dialogue = WeightedRandPick(PhraseTable,intensity,MAXintensity)
 
-	--[[debug]]local dialogue_backup = dialogue -- debug
-	--[[debug]]if dialogue == nil then print("--ERR: Dialogue == false") return end --debug
+	--[[debug]]local dialogue_backup = dialogue
+	if dialogue == nil then return end
 	
 	--replace KEYWORDS found with randomly picked words
 	for KEYWORD,REPLACEWORDS in pairs(ConditionalSpeech.Phrases) do dialogue = replaceText(dialogue, "<"..KEYWORD..">", pickFrom(REPLACEWORDS)) end
@@ -229,7 +217,6 @@ function ConditionalSpeech.generateSpeech(player,PhraseID,intensity,MAXintensity
 
 	dialogue = tostring(dialogue)
 	-- Speaking
-	--local player = getPlayer()
 	ConditionalSpeech.VolumetricColor_Say(player,dialogue,vocal_volume)
 	addSound(player, player:getX(), player:getY(), player:getZ(), vocal_volume, vocal_volume)
 end
@@ -246,56 +233,39 @@ function ConditionalSpeech.VolumetricColor_Say(player,text,vol)
 	return_color.r = text_color.r * text_color.r / return_color.a + graybase.r * graybase.a * (1 - text_color.a) / return_color.a--red
 	return_color.g = text_color.g * text_color.g / return_color.a + graybase.g * graybase.a * (1 - text_color.a) / return_color.a--green
 	return_color.b = text_color.b * text_color.b / return_color.a + graybase.b * graybase.a * (1 - text_color.a) / return_color.a--blue
-
-	--[debug]]print("--- textcolor:  vol:",vol," - ",return_color.r*255,",",return_color.g*255,",",return_color.b*255)
 	player:Say(text, return_color.r, return_color.g, return_color.b, UIFont.Small, vol, "radio") --radio makes it colored, I don't know why exactly
 end
 
 -- Retrieve MoodLevel Values and Set up MoodArray per player
 function ConditionalSpeech.load_n_set_Moodles(player)
 	if player == nil then return end -- if no playerObj return
-
 	table.insert(ConditionalSpeech.Speakers, player) --store speaker in list
 	player:getMoodles():Update() -- makes sure that the Moodles system is properly loaded
-
-	if player:getModData().MoodleArray == nil then
-		-- creates a MoodleArray for the player based on ConditionalSpeech.MoodleArray
+	if player:getModData().MoodleArray == nil then -- creates a MoodleArray for the player based on ConditionalSpeech.MoodleArray
 		player:getModData().MoodleArray = {} --creates empty list
 		for moodID,_ in pairs(ConditionalSpeech.MoodleArray) do
-			--[[debug]] print("--- load_n_set_Moodles: Setting up: ",moodID)
 			local foundlevel = player:getMoodles():getMoodleLevel(MoodleType[moodID])
 			if foundlevel==nil then foundlevel = 0 end
 			player:getModData().MoodleArray[moodID] = foundlevel-- matches moodles' levels to stored value
 		end
 	end
-
-	--[[debug]] local errcheck = "ERR: no array"
-	--[[debug]] if player:getModData().MoodleArray ~= nil then errcheck = "array found" end
-	--[[debug]] if #player:getModData().MoodleArray ~= nil then errcheck = "array found; but empty" end
-	--[[debug]] print("--- load_n_set_Moodles: (",errcheck,")",player:getDescriptor():getForename()," ",player:getDescriptor():getSurname())
 end
 
 --Tracks moodle levels overtime, runs generate speech
 function ConditionalSpeech.doMoodleCheck(player)
 	if player == nil then return end
 	if player:getModData().MoodleArray == nil then return end
-
 	for MoodleID,lvl in pairs(player:getModData().MoodleArray) do
 		local storedmoodleLevel = lvl
 		local currentMoodleLevel = player:getMoodles():getMoodleLevel(MoodleType[MoodleID])
-		--[debug]] print("-----X ConditionalSpeech:doMoodleCheck Start",MoodleID," currentMoodleLevel:",currentMoodleLevel)
 		if currentMoodleLevel ~= storedmoodleLevel then --currentMoodleLevel(current mood level) is not equal to stored mood level then
-			--[debug]] print("-----X ConditionalSpeech:doMoodleCheck Need Update",MoodleID," ",currentMoodleLevel,"~",storedmoodleLevel)
 			if currentMoodleLevel > storedmoodleLevel then --if moodlevel has increased
-				--[debug]] print("-----XX ConditionalSpeech:doMoodleCheck ",MoodleID,"  stored lvl:",storedmoodleLevel," getlvl:",currentMoodleLevel)--,"/",getPlayer():getMoodles():getGoodBadNeutral(key))
-
 				if (player:getMoodles():getMoodleLevel(MoodleType.Panic) <= 0) or (MoodleID == "Panic") then --can't think in panic
 					ConditionalSpeech.generateSpeech(player,MoodleID,storedmoodleLevel,4)
 				end
 			end
 			player:getModData().MoodleArray[MoodleID] = currentMoodleLevel --match stored mood level to current- this is where the recorded level is lowered
 		end
-
 	end
 end
 
@@ -315,12 +285,9 @@ end
 
 function ConditionalSpeech.check_Time()
 	local TIME = math.floor(getGameTime():getTimeOfDay())
-	--[debug]print("- check_Time: start")
 	if #ConditionalSpeech.Speakers > 0 then
-		--[debug]print("-- check_Time: speakers found")
 		for playerIndex,_ in pairs(ConditionalSpeech.Speakers) do
 			local player = ConditionalSpeech.Speakers[playerIndex]
-			--[[debug]]print("--- check_Time:  playerIndex:",playerIndex,"/",#ConditionalSpeech.Speakers," (",player:getDescriptor():getForename()," ",player:getDescriptor():getSurname(),")")
 			if player and not player:isDead() then
 				if player:isOutside() and prob(75)==true then
 					if TIME==6 then ConditionalSpeech.generateSpeech(player,"OnDawn")
