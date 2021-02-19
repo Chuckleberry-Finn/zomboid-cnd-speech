@@ -10,7 +10,7 @@ VolumeMAX = 30
 ------------------------------------------ FILTERS ----------------------------------------------
 --Handler for filters
 function ConditionalSpeech.PassMoodleFilters(player,text,mothermoodle)
-	if text then
+	if text and player then
 		local filterspassed = {} --[key]=value
 		for MoodID,lvl in pairs(player:getModData().MoodleArray) do --for each mood grab type and lvl
 			local storedmoodleLevel = lvl --player:getModData().MoodleArray[MoodID]--key = Mood, value = level
@@ -81,7 +81,7 @@ end
 
 -- S-s-stammer Filt-t-t-ter
 function ConditionalSpeech.Stammer_Filter(text, intensity)
-	if intensity <= 0 then intensity = 1 end
+	if intensity == nil then intensity = 1 end
 	if text then
 		local vol = 0
 		local characters = splitTextbyChar(text)
@@ -107,7 +107,7 @@ end
 
 -- Logic for repeated swearing
 function ConditionalSpeech.panicSwear_Filter(text, intensity)
-	if intensity==nil then intensity = ZombRand(4)+1 end
+	if intensity == nil then intensity = ZombRand(4)+1 end
 	if text then
 		local vol = 0
 		local randswear = WeightedRandPick(ConditionalSpeech.Phrases.SWEAR,intensity,4)
@@ -143,9 +143,7 @@ function ConditionalSpeech.interlacedSwear_Filter(text, intensity)
 			if key ~= #words and prob(5*intensity) == true then
 				if valueIn(skip_words,words[key+1]) ~= true then
 					local swear = WeightedRandPick(ConditionalSpeech.Phrases.SWEAR,intensity,4)
-					if swear then
-						words[key] = value .. " " .. swear
-					end
+					if swear then words[key] = value .. " " .. swear end
 				end
 			end
 		end
@@ -207,13 +205,17 @@ function ConditionalSpeech.generateSpeech(player,PhraseID,intensity,MAXintensity
 	if fc=="*" and lc=="*" then --avoid filtering/messing with *emotive* text
 	else
 		if lc~="." and lc~="!" and lc~="?" then dialogue = dialogue .. "." end --just in case of no punctuation add some.
-		local conditional_speech = ConditionalSpeech.PassMoodleFilters(player,dialogue,PhraseID)--have other moods impact dialogue
-		dialogue = conditional_speech["dia_logue"]
-		vocal_volume = conditional_speech["voc_vol"]
+
+		if player:getModData().MoodleArray ~= nil then
+			local conditional_speech = ConditionalSpeech.PassMoodleFilters(player,dialogue,PhraseID)--have other moods impact dialogue
+			dialogue = conditional_speech["dia_logue"]
+			vocal_volume = conditional_speech["voc_vol"]
+		end
+
 		dialogue = dialogue:gsub("[!?.]%s", "%0\0"):gsub("%f[%Z]%s*%l", dialogue.upper):gsub("%z", "")--Proper sentence capitalization. Like so.
 	end
 
-	--[[debug]]print(player:getDescriptor():getForename()," vol:",vocal_volume," ",player:getDescriptor():getSurname(),": (",dialogue_backup,") ",dialogue)
+	--[[debug]] print(player:getDescriptor():getForename()," vol:",vocal_volume," ",player:getDescriptor():getSurname(),": (",dialogue_backup,") ",dialogue)
 
 	dialogue = tostring(dialogue)
 	-- Speaking
@@ -272,7 +274,7 @@ end
 
 -- Out of Ammo
 function ConditionalSpeech.check_OutOfAmmo(player,weapon)
-	if player==nil or weapon==nil then return end
+	if player == nil or weapon == nil then return end
 	if weapon and weapon:getCategory() == "Weapon" and weapon:isRanged() and not player:isShoving() then
 		if weapon:isJammed() then ConditionalSpeech.generateSpeech(player,ConditionalSpeech.GunJammed)
 		else
