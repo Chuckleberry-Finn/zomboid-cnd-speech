@@ -45,7 +45,7 @@ function splitTextbyChar(text)
 	return t
 end
 
-function joinText(list, spaced)
+function joinText(list, spaced)--spaced is 0 or 1
 	if not list then return end
 	local t = ""
 	for key,value in pairs(list) do
@@ -57,14 +57,14 @@ end
 
 -- Weighted Random Pick from list
 function WeightedRandPick(table,intensity,maxintensity)
-	if not table then return end
-	local pick = (ZombRand(math.floor(#table/maxintensity))*intensity)+1 -- +1 to offset 0 start
+	if table == nil or #table<2 then return table[1] end
+	local weight = math.floor((#table/maxintensity)+0.99)--messy rounding for small table sizes
+	local pick = ZombRand(weight)+1+(weight*(intensity-1))
 	if pick <= 0 then pick = 1 end
 	if pick > #table then pick = #table end
+	--[[debug]] print("WeightedRandPick: ",pick,"/",#table," (",intensity,"/",maxintensity,")")
 	pick = table[pick]
-	if pick then
-		return pick
-	else
-		return nil
+	if pick then return pick
+	else return nil
 	end
 end
