@@ -94,7 +94,7 @@ function ConditionalSpeech.Stammer_Filter(text, intensity)
 				max_stammer = max_stammer-1
 				while chance > 0 do
 					if prob(chance)==true then c = c .. "-" .. c end
-					chance = chance-(30+ZombRand(15))
+					chance = chance-(30+math.random(15))
 				end
 			end
 			table.insert(post_characters, c)
@@ -107,7 +107,7 @@ end
 
 -- Logic for repeated swearing
 function ConditionalSpeech.panicSwear_Filter(text, intensity)
-	if intensity == nil then intensity = ZombRand(4)+1 end
+	if intensity == nil then intensity = math.random(4) end
 	if text then
 		local vol = 0
 		local randswear = WeightedRandPick(ConditionalSpeech.Phrases.SWEAR,intensity,4)
@@ -118,7 +118,7 @@ function ConditionalSpeech.panicSwear_Filter(text, intensity)
 			local chance = intensity*15
 			while chance > 0 do
 				if prob(chance)==true then randswear = randswear .. " " .. randswear end
-				chance = chance-(30+ZombRand(10))
+				chance = chance-(30+math.random(10))
 			end
 
 			if prob(50)==true then text = randswear .. " " .. text
@@ -181,8 +181,10 @@ ConditionalSpeech.MoodleArray = {
 }
 
 
---Generates speech from a given table/list of phrases - also cleans up the sentence and applies filters
-function ConditionalSpeech.generateSpeech(player,PhraseID,intensity,MAXintensity)
+---Generates speech from a given table/list of phrases - also cleans up the sentence and applies filters
+---@param player IsoGameCharacter
+---@return boolean
+function ConditionalSpeech:generateSpeech(player,PhraseID,intensity,MAXintensity)
 	if player == nil or PhraseID == nil then return end
 	if intensity == nil or intensity <=0 then intensity = 1 end
 	if MAXintensity == nil or MAXintensity <=0 then MAXintensity = 1 end
@@ -219,6 +221,7 @@ function ConditionalSpeech.generateSpeech(player,PhraseID,intensity,MAXintensity
 
 	dialogue = tostring(dialogue)
 	-- Speaking
+
 	ConditionalSpeech.VolumetricColor_Say(player,dialogue,vocal_volume)
 	addSound(player, player:getX(), player:getY(), player:getZ(), vocal_volume, vocal_volume)
 end
@@ -292,8 +295,8 @@ function ConditionalSpeech.check_Time()
 			local player = ConditionalSpeech.Speakers[playerIndex]
 			if player and not player:isDead() then
 				if player:isOutside() and prob(75)==true then
-					if TIME==6 then ConditionalSpeech.generateSpeech(player,"OnDawn")
-					else if TIME==22 then ConditionalSpeech.generateSpeech(player,"OnDusk") end
+					if TIME==6 then ConditionalSpeech:generateSpeech(player,"OnDawn")
+					else if TIME==22 then ConditionalSpeech:generateSpeech(player,"OnDusk") end
 					end
 				end
 			end
