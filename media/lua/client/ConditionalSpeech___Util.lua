@@ -16,9 +16,6 @@ function keyIn(tab, k)
 	return false
 end
 
---useful function to pick a random entry
-function pickFrom(list) return list[(ZombRand(#list)+1)] end
-
 -- Useful replace text function
 function replaceText(text, findthis, replacewith)
 	if not text or not findthis or not replacewith then return end
@@ -55,14 +52,23 @@ function joinText(list, spaced)--spaced is 0 or 1
 	return t
 end
 
--- Weighted Random Pick from list
-function WeightedRandPick(table,intensity,maxintensity)
-	if table == nil or #table<2 then return table[1] end
-	local weight = math.floor((#table/maxintensity)+0.99)--messy rounding for small table sizes
-	local pick = ZombRand(weight)+1+(weight*(intensity-1))
+--useful function to pick a random entry from a numerated list
+function pickFrom(list) if type(list)=="table" then return list[ZombRand(#list)+1] else return end end
+
+-- Ranged Random Pick from list
+function RangedRandPick(table,intensity,maxintensity)
+	if table == nil then return end
+
+	local weight = math.floor((#table/maxintensity)+0.99) -- messy rounding to compensate for small table sizes
+	local lower = 1+(weight*(intensity-1))
+	local upper = weight+(weight*(intensity-1))
+	local pick = ZombRand(lower,upper)+1
+
+	--[[debug]] print("WeightedRandPick: table:",pick,"/",#table,"  l/u:",lower,"/",upper," (intensity:",intensity,"/",maxintensity,")")
+
 	if pick <= 0 then pick = 1 end
 	if pick > #table then pick = #table end
-	--[[debug]] print("WeightedRandPick: ",pick,"/",#table," (",intensity,"/",maxintensity,")")
+
 	pick = table[pick]
 	if pick then return pick
 	else return nil

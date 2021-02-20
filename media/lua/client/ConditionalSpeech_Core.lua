@@ -94,7 +94,7 @@ function ConditionalSpeech.Stammer_Filter(text, intensity)
 				max_stammer = max_stammer-1
 				while chance > 0 do
 					if prob(chance)==true then c = c .. "-" .. c end
-					chance = chance-(30+math.random(15))
+					chance = chance-(31+ZombRand(15))
 				end
 			end
 			table.insert(post_characters, c)
@@ -107,10 +107,10 @@ end
 
 -- Logic for repeated swearing
 function ConditionalSpeech.panicSwear_Filter(text, intensity)
-	if intensity == nil then intensity = math.random(4) end
+	if intensity == nil then intensity = 1 end
 	if text then
 		local vol = 0
-		local randswear = WeightedRandPick(ConditionalSpeech.Phrases.SWEAR,intensity,4)
+		local randswear = RangedRandPick(ConditionalSpeech.Phrases.SWEAR,intensity,4)
 
 		if randswear then
 			randswear = randswear .. "."
@@ -118,7 +118,7 @@ function ConditionalSpeech.panicSwear_Filter(text, intensity)
 			local chance = intensity*15
 			while chance > 0 do
 				if prob(chance)==true then randswear = randswear .. " " .. randswear end
-				chance = chance-(30+math.random(10))
+				chance = chance-(31+ZombRand(10))
 			end
 
 			if prob(50)==true then text = randswear .. " " .. text
@@ -142,7 +142,7 @@ function ConditionalSpeech.interlacedSwear_Filter(text, intensity)
 		for key,value in pairs(words) do
 			if key ~= #words and prob(5*intensity) == true then
 				if valueIn(skip_words,words[key+1]) ~= true then
-					local swear = WeightedRandPick(ConditionalSpeech.Phrases.SWEAR,intensity,4)
+					local swear = RangedRandPick(ConditionalSpeech.Phrases.SWEAR,intensity,4)
 					if swear then words[key] = value .. " " .. swear end
 				end
 			end
@@ -183,15 +183,14 @@ ConditionalSpeech.MoodleArray = {
 
 ---Generates speech from a given table/list of phrases - also cleans up the sentence and applies filters
 ---@param player IsoGameCharacter
----@return boolean
-function ConditionalSpeech:generateSpeech(player,PhraseID,intensity,MAXintensity)
+function ConditionalSpeech.generateSpeech(player,PhraseID,intensity,MAXintensity)
 	if player == nil or PhraseID == nil then return end
 	if intensity == nil or intensity <=0 then intensity = 1 end
 	if MAXintensity == nil or MAXintensity <=0 then MAXintensity = 1 end
 
 	local PhraseTable = ConditionalSpeech.Phrases[PhraseID]--this doesn't work for some reason, leaving it in for now anyway
 	if PhraseTable == nil then return end
-	local dialogue = WeightedRandPick(PhraseTable,intensity,MAXintensity)
+	local dialogue = RangedRandPick(PhraseTable,intensity,MAXintensity)
 
 	--[[debug]]local dialogue_backup = dialogue
 	if dialogue == nil then return end
@@ -241,7 +240,10 @@ function ConditionalSpeech.VolumetricColor_Say(player,text,vol)
 	player:Say(text, return_color.r, return_color.g, return_color.b, UIFont.Small, vol, "radio") --radio makes it colored, I don't know why exactly
 end
 
--- Retrieve MoodLevel Values and Set up MoodArray per player
+
+
+--- Retrieve MoodLevel Values and Set up MoodArray per player
+---@param player IsoGameCharacter
 function ConditionalSpeech.load_n_set_Moodles(player)
 	if player == nil then return end -- if no playerObj return
 	table.insert(ConditionalSpeech.Speakers, player) --store speaker in list
@@ -256,7 +258,7 @@ function ConditionalSpeech.load_n_set_Moodles(player)
 	end
 end
 
---Tracks moodle levels overtime, runs generate speech
+---Tracks moodle levels overtime, runs generate speech
 function ConditionalSpeech.doMoodleCheck(player)
 	if player == nil then return end
 	if player:getModData().MoodleArray == nil then return end
@@ -295,8 +297,8 @@ function ConditionalSpeech.check_Time()
 			local player = ConditionalSpeech.Speakers[playerIndex]
 			if player and not player:isDead() then
 				if player:isOutside() and prob(75)==true then
-					if TIME==6 then ConditionalSpeech:generateSpeech(player,"OnDawn")
-					else if TIME==22 then ConditionalSpeech:generateSpeech(player,"OnDusk") end
+					if TIME==6 then ConditionalSpeech.generateSpeech(player,"OnDawn")
+					else if TIME==22 then ConditionalSpeech.generateSpeech(player,"OnDusk") end
 					end
 				end
 			end
@@ -305,10 +307,11 @@ function ConditionalSpeech.check_Time()
 end
 
 
+
 --- Event Hooks ---
-Events.OnCreateLivingCharacter.Add(ConditionalSpeech.load_n_set_Moodles)--OnCreatePlayer(playerID) --Starts up ConditionalSpeech
+Events.OnCreateLivingCharacter.Add(ConditionalSpeech.load_n_set_Moodles)--OnCreateLivingCharacter(player) --Starts up ConditionalSpeech
 Events.EveryHours.Add(ConditionalSpeech.check_Time)--EveryHours(?) --check every in-game hour for events
-Events.OnWeaponSwing.Add(ConditionalSpeech.check_OutOfAmmo)--OnWeaponSwing(playerObj,weapon)
+Events.OnWeaponSwing.Add(ConditionalSpeech.check_OutOfAmmo) --OnWeaponSwing(playerObj,weapon)
 Events.OnPlayerUpdate.Add(ConditionalSpeech.doMoodleCheck) --OnPlayerUpdate(playerObj) --checks moodlestatus
 
 -- Events.EveryDays
