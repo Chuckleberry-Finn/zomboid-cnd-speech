@@ -169,10 +169,17 @@ ConditionalSpeech.Phrases.Stress = {
 }
 
 ConditionalSpeech.Phrases.Panic = {
+	"uh oh!",
 	"oh!",
+	"ohh!",
 	"ah!",
+	"ahh!",
 	"holy!",
 	"<SWEAR>",
+	"ah <SWEAR>!",
+	"oh <SWEAR>!",
+	"holy!",
+	"holy <SWEAR_adj>!",
 	"I need to get out of here!",
 	"why!?",
 	"ahhh!",
@@ -215,7 +222,7 @@ ConditionalSpeech.Phrases.SWEAR = {"crap","damn","god damn","shit","fuck"}
 ConditionalSpeech.Phrases.SWEAR_adj = {"heck","hell","shit","fuck"}
 
 -- useful list of plosives for stammering
-ConditionalSpeech.Phrases.Plosives = {"p","P","t","T","k","K","b","B","d","D","g","G","s","S","m","M"}
+ConditionalSpeech.Phrases.Plosives = {"f","F","p","P","t","T","k","K","b","B","d","D","g","G","s","S","m","M"}
 
 ConditionalSpeech.Phrases.FOOD = {"a bite to eat","a whole pizza","some pizza","a slice of pizza","a slice of cake","something tasty",
 								  "some cake","a bucket of chicken","some chicken","a Spiffo burger","a Spiffo kid's meal","a bucket of Jay's Chicken",

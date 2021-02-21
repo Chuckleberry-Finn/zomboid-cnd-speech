@@ -69,7 +69,8 @@ function ConditionalSpeech.TEMPLATE(text, intensity)
 	if text then
 		local vol = 0 --VolumeMAX
 		--- Stuff Here
-		return {["return_text"]=text,["return_vol"]=vol}
+		local results = {["return_text"]=text,["return_vol"]=vol}
+		return results
 	end
 end
 ]]--
@@ -102,7 +103,33 @@ function ConditionalSpeech.SCREAM_Filter(text, intensity)
 	end
 end
 
--- S-s-stammer Filt-t-t-ter
+-- S-s-s-stutter Filter -- leading
+function ConditionalSpeech.Stutter_Filter(text, intensity)
+	if intensity == nil then intensity = 1 end
+	if text then
+		local vol = 0
+		local words = splitTextbyWord(text)
+		local post_words = {}
+		local max_stutter = intensity
+		for _,value in pairs(words) do
+			local w = value
+			local fc = string.sub(w, 1,1) --fc=first character
+			if max_stutter > 0 and valueIn(ConditionalSpeech.Phrases.Plosives,fc) == true then
+				max_stutter = max_stutter-1
+				local chance = intensity*16
+				while chance > 0 do
+					if prob(chance)==true then w = fc .. "-" .. w end
+					chance = chance-(31+ZombRand(15))
+				end
+			end
+			table.insert(post_words, w)
+		end
+		local results = {["return_text"]=joinText(post_words,1),["return_vol"]=vol}
+		return results
+	end
+end
+
+-- S-s-stammer-r-r Filt-t-t-ter -- throughout
 function ConditionalSpeech.Stammer_Filter(text, intensity)
 	if intensity == nil then intensity = 1 end
 	if text then
@@ -112,8 +139,8 @@ function ConditionalSpeech.Stammer_Filter(text, intensity)
 		local max_stammer = intensity
 		for _,value in pairs(characters) do
 			local c = value
-			local chance = intensity*8
-			if max_stammer > 0 and valueIn(ConditionalSpeech.Phrases.Plosives,value) == true then
+			if max_stammer > 0 and valueIn(ConditionalSpeech.Phrases.Plosives,c) == true then
+				local chance = intensity*8
 				max_stammer = max_stammer-1
 				while chance > 0 do
 					if prob(chance)==true then c = c .. "-" .. c end
@@ -182,7 +209,7 @@ ConditionalSpeech.MoodleArray = { -- This has to be under where the filters them
 ["Endurance"] = {ConditionalSpeech.BlurtOut_Filter},
 ["Tired"] = {ConditionalSpeech.BlurtOut_Filter},
 ["Hungry"] = nil,
-["Panic"] = {ConditionalSpeech.panicSwear_Filter,ConditionalSpeech.BlurtOut_Filter,ConditionalSpeech.SCREAM_Filter,ConditionalSpeech.Stammer_Filter},
+["Panic"] = {ConditionalSpeech.panicSwear_Filter,ConditionalSpeech.BlurtOut_Filter,ConditionalSpeech.SCREAM_Filter,ConditionalSpeech.Stutter_Filter},
 ["Sick"] = nil,
 ["Bored"] = {ConditionalSpeech.BlurtOut_Filter},
 ["Unhappy"] = nil,
@@ -199,7 +226,7 @@ ConditionalSpeech.MoodleArray = { -- This has to be under where the filters them
 --[Dead] = nil,
 --[Zombie] = nil,
 ["Hyperthermia"] = nil,
-["Hypothermia"] = {ConditionalSpeech.Stammer_Filter},
+["Hypothermia"] = {ConditionalSpeech.Stammer_Filter,ConditionalSpeech.BlurtOut_Filter},
 ["Windchill"] = nil,
 ["FoodEaten"] = nil
 }
