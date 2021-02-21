@@ -9,34 +9,54 @@ VolumeMAX = 30
 
 ------------------------------------------ FILTERS ----------------------------------------------
 --Handler for filters
-function ConditionalSpeech.PassMoodleFilters(player,text,mothermoodle)
+function ConditionalSpeech.PassMoodleFilters(player,text)
 	if text and player then
-		local filterspassed = {} --[key]=value
+		local filtersToPass = {} --[key]=value
 		for MoodID,lvl in pairs(player:getModData().MoodleArray) do --for each mood grab type and lvl
 			local storedmoodleLevel = lvl --player:getModData().MoodleArray[MoodID]--key = Mood, value = level
 			local filtersToCheck = ConditionalSpeech.MoodleArray[MoodID]
 			if storedmoodleLevel ~= nil and storedmoodleLevel > 0 and filtersToCheck ~= nil then --if we should bother with processing the mood
 				for _,Filter in pairs(filtersToCheck) do --for each filter in filtersToCheck
 					local needinsert = true --insertcheck, turns false if found
-					for filterstored,levelof in pairs(filterspassed) do --for each filter already added for passing
-						if filterstored==Filter then --if keys in filterspassed matches values in MoodleEntry
+					for filterstored,levelof in pairs(filtersToPass) do --for each filter already added for passing
+						if filterstored==Filter then --if keys in filtersToPass matches values in MoodleEntry
 							needinsert = false --found
-							if storedmoodleLevel > levelof then filterspassed[filterstored] = storedmoodleLevel end --if currently handled mood level exceeds stored level, replace
+							if storedmoodleLevel > levelof then filtersToPass[filterstored] = storedmoodleLevel end --if currently handled mood level exceeds stored level, replace
 						end
 					end
 					if needinsert == true then --if needinsert still true add a new filter(key) and moodlevel(value) to passinglist
-						filterspassed[Filter] = storedmoodleLevel
+						filtersToPass[Filter] = storedmoodleLevel
 					end
 				end
 			end
 		end
 		local filtered_vv = 0
 		--pass each collected filter with correspondin instensity/level
-		for FilterType,Intensity in pairs(filterspassed) do
-			local filterresults = FilterType(text, Intensity)
-			text = filterresults["return_text"]
-			if filterresults["return_vol"] > filtered_vv then filtered_vv = filterresults["return_vol"] end
+
+		for FilterType,Intensity in pairs(filtersToPass) do
+			print("passing filter: ",FilterType)
+			if valueIn(ConditionalSpeech.volumeSensitiveFilters, FilterType)==false then
+				print("---not volume sensitive:",FilterType)
+				local filterresults = FilterType(text, Intensity)
+				text = filterresults["return_text"]
+				if filterresults["return_vol"] > filtered_vv then filtered_vv = filterresults["return_vol"] end
+				filtersToPass[FilterType] = nil
+			end
 		end
+
+		if filtered_vv > 0 then
+			for FilterType,Intensity in pairs(filtersToPass) do
+				print("passing filter: ",FilterType)
+				if valueIn(ConditionalSpeech.volumeSensitiveFilters, FilterType)==true then
+					print("---IS volume sensitive:",FilterType)
+					local filterresults = FilterType(text, Intensity)
+					text = filterresults["return_text"]
+					if filterresults["return_vol"] > filtered_vv then filtered_vv = filterresults["return_vol"] end
+					filtersToPass[FilterType] = nil
+				end
+			end
+		end
+
 		local results = {["dia_logue"]=text,["voc_vol"]=filtered_vv}
 		return results
 	end
@@ -45,6 +65,7 @@ end
 --[[
 -- Filter Template
 function ConditionalSpeech.TEMPLATE(text, intensity)
+	if intensity == nil then intensity = 1 end
 	if text then
 		local vol = 0 --VolumeMAX
 		--- Stuff Here
@@ -55,6 +76,7 @@ end
 
 -- Blurt Out
 function ConditionalSpeech.BlurtOut_Filter(text, intensity)
+	if intensity == nil then intensity = 1 end
 	if text then
 		local vol = 0
 		if prob(intensity*20) == true then
@@ -67,6 +89,7 @@ end
 
 -- SCREAM FILTER!
 function ConditionalSpeech.SCREAM_Filter(text, intensity)
+	if intensity == nil then intensity = 1 end
 	if text then
 		local vol = VolumeMAX/2
 		text = replaceText(text, "%.", "%!")
@@ -153,12 +176,13 @@ function ConditionalSpeech.interlacedSwear_Filter(text, intensity)
 end
 
 -------- Moodle Handler - filterlist to refer back to -------------
--- This has to be under where the filters themselves are defined
-ConditionalSpeech.MoodleArray = {
+ConditionalSpeech.volumeSensitiveFilters = {ConditionalSpeech.Stammer_Filter}
+--volumeSensitiveFilters are filters that shouldn't run if volume is 0
+ConditionalSpeech.MoodleArray = { -- This has to be under where the filters themselves are defined
 ["Endurance"] = {ConditionalSpeech.BlurtOut_Filter},
 ["Tired"] = {ConditionalSpeech.BlurtOut_Filter},
 ["Hungry"] = nil,
-["Panic"] = {ConditionalSpeech.panicSwear_Filter,ConditionalSpeech.Stammer_Filter,ConditionalSpeech.BlurtOut_Filter,ConditionalSpeech.SCREAM_Filter},
+["Panic"] = {ConditionalSpeech.panicSwear_Filter,ConditionalSpeech.BlurtOut_Filter,ConditionalSpeech.SCREAM_Filter,ConditionalSpeech.Stammer_Filter},
 ["Sick"] = nil,
 ["Bored"] = {ConditionalSpeech.BlurtOut_Filter},
 ["Unhappy"] = nil,
@@ -281,7 +305,7 @@ end
 function ConditionalSpeech.check_OutOfAmmo(player,weapon)
 	if player == nil or weapon == nil then return end
 	if weapon and weapon:getCategory() == "Weapon" and weapon:isRanged() and not player:isShoving() then
-		if weapon:isJammed() then ConditionalSpeech.generateSpeech(player,ConditionalSpeech.GunJammed)
+		if weapon:isJammed() then ConditionalSpeech.generateSpeech(player,"GunJammed")
 		else
 			if (weapon:haveChamber() and not weapon:isRoundChambered()) or (not weapon:haveChamber() and weapon:getCurrentAmmoCount() <= 0) then
 				ConditionalSpeech.generateSpeech(player,"OutOfAmmo")
