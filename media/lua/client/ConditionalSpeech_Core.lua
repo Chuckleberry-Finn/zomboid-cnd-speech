@@ -8,7 +8,7 @@ ConditionalSpeech.Phrases = {}
 VolumeMAX = 30
 
 ------------------------------------------ FILTERS ----------------------------------------------
---Handler for filters
+--- Handler for filters
 function ConditionalSpeech.PassMoodleFilters(player,text)
 	if text and player then
 		local filtersToPass = {} --[key]=value
@@ -62,8 +62,8 @@ function ConditionalSpeech.PassMoodleFilters(player,text)
 	end
 end
 
+--- Filter Template
 --[[
--- Filter Template
 function ConditionalSpeech.TEMPLATE(text, intensity)
 	if intensity == nil then intensity = 1 end
 	if text then
@@ -73,9 +73,9 @@ function ConditionalSpeech.TEMPLATE(text, intensity)
 		return results
 	end
 end
-]]--
+]]
 
--- Blurt Out
+--- Blurt Out
 function ConditionalSpeech.BlurtOut_Filter(text, intensity)
 	if intensity == nil then intensity = 1 end
 	if text then
@@ -88,7 +88,7 @@ function ConditionalSpeech.BlurtOut_Filter(text, intensity)
 	end
 end
 
--- SCREAM FILTER!
+--- SCREAM FILTER!
 function ConditionalSpeech.SCREAM_Filter(text, intensity)
 	if intensity == nil then intensity = 1 end
 	if text then
@@ -103,7 +103,7 @@ function ConditionalSpeech.SCREAM_Filter(text, intensity)
 	end
 end
 
--- S-s-s-stutter Filter -- leading
+--- S-s-s-stutter Filter -- impacts leading letters
 function ConditionalSpeech.Stutter_Filter(text, intensity)
 	if intensity == nil then intensity = 1 end
 	if text then
@@ -129,7 +129,7 @@ function ConditionalSpeech.Stutter_Filter(text, intensity)
 	end
 end
 
--- S-s-stammer-r-r Filt-t-t-ter -- throughout
+--- S-s-stammer-r-r Filt-t-t-ter -- impacts throughout
 function ConditionalSpeech.Stammer_Filter(text, intensity)
 	if intensity == nil then intensity = 1 end
 	if text then
@@ -155,7 +155,7 @@ function ConditionalSpeech.Stammer_Filter(text, intensity)
 end
 
 
--- Logic for repeated swearing
+--- Logic for repeated swearing
 function ConditionalSpeech.panicSwear_Filter(text, intensity)
 	if intensity == nil then intensity = 1 end
 	if text then
@@ -232,26 +232,28 @@ ConditionalSpeech.MoodleArray = { -- This has to be under where the filters them
 }
 
 
----Generates speech from a given table/list of phrases - also cleans up the sentence and applies filters
+---Generates speech from a given table/list of phrases
 ---@param player IsoGameCharacter
-function ConditionalSpeech.generateSpeech(player,PhraseID,intensity,MAXintensity)
+---@param PhraseID string String needs to match a table with in ConditionalSpeech.Phrases
+function ConditionalSpeech.generateSpeechFrom(player,PhraseID,intensity,MAXintensity)
 	if player == nil or PhraseID == nil then return end
 	if intensity == nil or intensity <=0 then intensity = 1 end
 	if MAXintensity == nil or MAXintensity <=0 then MAXintensity = 1 end
-
 	local PhraseTable = ConditionalSpeech.Phrases[PhraseID]
 	if PhraseTable == nil then return end
 	local dialogue = RangedRandPick(PhraseTable,intensity,MAXintensity)
-
-	--[[debug]]local dialogue_backup = dialogue
 	if dialogue == nil then return end
-	
 	--replace KEYWORDS found with randomly picked words
 	for KEYWORD,REPLACEWORDS in pairs(ConditionalSpeech.Phrases) do dialogue = replaceText(dialogue, "<"..KEYWORD..">", pickFrom(REPLACEWORDS)) end
+	ConditionalSpeech.Speech(player,dialogue)
+end
 
+---Cleans up the dialogue, applies filters, and applies volumetric color
+---@param player IsoGameCharacter
+---@param dialogue string
+function ConditionalSpeech.Speech(player,dialogue)
 	local fc = string.sub(dialogue, 1,1) --fc=first character
 	local lc = string.sub(dialogue, -1) --lc=last character
-
 	local vocal_volume = 0
 
 	if fc=="*" and lc=="*" then --avoid filtering/messing with *emotive* text
@@ -259,25 +261,22 @@ function ConditionalSpeech.generateSpeech(player,PhraseID,intensity,MAXintensity
 		if lc~="." and lc~="!" and lc~="?" then dialogue = dialogue .. "." end --just in case of no punctuation add some.
 
 		if player:getModData().MoodleArray ~= nil then
-			local conditional_speech = ConditionalSpeech.PassMoodleFilters(player,dialogue,PhraseID)--have other moods impact dialogue
+			local conditional_speech = ConditionalSpeech.PassMoodleFilters(player,dialogue)--have other moods impact dialogue
 			dialogue = conditional_speech["dia_logue"]
 			vocal_volume = conditional_speech["voc_vol"]
 		end
-
 		dialogue = dialogue:gsub("[!?.]%s", "%0\0"):gsub("%f[%Z]%s*%l", dialogue.upper):gsub("%z", "")--Proper sentence capitalization. Like so.
 	end
 
 	--[[debug]] print(player:getDescriptor():getForename()," vol:",vocal_volume," ",player:getDescriptor():getSurname(),": (",dialogue_backup,") ",dialogue)
 
 	dialogue = tostring(dialogue)
-	-- Speaking
-
-	ConditionalSpeech.VolumetricColor_Say(player,dialogue,vocal_volume)
+	ConditionalSpeech.applyVolumetricColor_Say(player,dialogue,vocal_volume)
 	addSound(player, player:getX(), player:getY(), player:getZ(), vocal_volume, vocal_volume)
 end
 
 
-function ConditionalSpeech.VolumetricColor_Say(player,text,vol)
+function ConditionalSpeech.applyVolumetricColor_Say(player,text,vol)
 	if player == nil or text == nil then return end
 	local vc_shift = 0.3+(0.7*(vol/VolumeMAX))--have a 0.3 base --difference of 0.7 is then multipled against volume/maxvolume
 	local MpText_Color = getCore():getMpTextColor()--grab player's MP text from main menu
@@ -320,7 +319,7 @@ function ConditionalSpeech.doMoodleCheck(player)
 		if currentMoodleLevel ~= storedmoodleLevel then --currentMoodleLevel(current mood level) is not equal to stored mood level then
 			if currentMoodleLevel > storedmoodleLevel then --if moodlevel has increased
 				if (player:getMoodles():getMoodleLevel(MoodleType.Panic) <= 0) or (MoodleID == "Panic") then --can't think in panic
-					ConditionalSpeech.generateSpeech(player,MoodleID,storedmoodleLevel,4)
+					ConditionalSpeech.generateSpeechFrom(player,MoodleID,storedmoodleLevel,4)
 				end
 			end
 			player:getModData().MoodleArray[MoodleID] = currentMoodleLevel --match stored mood level to current- this is where the recorded level is lowered
@@ -329,19 +328,38 @@ function ConditionalSpeech.doMoodleCheck(player)
 end
 
 
--- Out of Ammo
-function ConditionalSpeech.check_OutOfAmmo(player,weapon)
+--- Weapon Status Check
+---@param player IsoPlayer
+---@param weapon InventoryItem
+function ConditionalSpeech.check_WeaponStatus(player,weapon)
 	if player == nil or weapon == nil then return end
 	if weapon and weapon:getCategory() == "Weapon" and weapon:isRanged() and not player:isShoving() then
-		if weapon:isJammed() then ConditionalSpeech.generateSpeech(player,"GunJammed")
-		else
-			if (weapon:haveChamber() and not weapon:isRoundChambered()) or (not weapon:haveChamber() and weapon:getCurrentAmmoCount() <= 0) then
-				ConditionalSpeech.generateSpeech(player,"OutOfAmmo")
+
+		print("------PROFESSION: ",player:getDescriptor():getProfession())
+		print("------SKILL CHECK: ",player:getPerkLevel(Perks.Reloading))
+		print("------TRAIT CHECK: Cowardly?",player:HasTrait("Cowardly"))
+
+		if weapon:isJammed() then
+			ConditionalSpeech.generateSpeechFrom(player,"GunJammed")
+
+		elseif (weapon:haveChamber() and not weapon:isRoundChambered()) or (not weapon:haveChamber() and weapon:getCurrentAmmoCount() <= 0) then
+			ConditionalSpeech.generateSpeechFrom(player,"OutOfAmmo")
+
+		elseif weapon:getMaxAmmo()>0 then
+
+			if player:getPerkLevel(Perks.Reloading)>=5 then
+				ConditionalSpeech.Speech(player,weapon:getCurrentAmmoCount().." shots left")
+
+			elseif player:getPerkLevel(Perks.Reloading)>=2 then
+				if weapon:getCurrentAmmoCount()<(weapon:getMaxAmmo()/4) then
+					ConditionalSpeech.Speech(player,"Running Low!")
+				end
 			end
 		end
 	end
 end
 
+--- Check the time and have players comment
 function ConditionalSpeech.check_Time()
 	local TIME = math.floor(getGameTime():getTimeOfDay())
 	if #ConditionalSpeech.Speakers > 0 then
@@ -349,8 +367,8 @@ function ConditionalSpeech.check_Time()
 			local player = ConditionalSpeech.Speakers[playerIndex]
 			if player and not player:isDead() then
 				if player:isOutside() and prob(75)==true then
-					if TIME==6 then ConditionalSpeech.generateSpeech(player,"OnDawn")
-					else if TIME==22 then ConditionalSpeech.generateSpeech(player,"OnDusk") end
+					if TIME==6 then ConditionalSpeech.generateSpeechFrom(player,"OnDawn")
+					else if TIME==22 then ConditionalSpeech.generateSpeechFrom(player,"OnDusk") end
 					end
 				end
 			end
@@ -363,7 +381,7 @@ end
 --- Event Hooks ---
 Events.OnCreatePlayer.Add(ConditionalSpeech.load_n_set_Moodles)--OnCreatePlayer(playerID) --Starts up ConditionalSpeech
 Events.EveryHours.Add(ConditionalSpeech.check_Time)--EveryHours(?) --check every in-game hour for events
-Events.OnWeaponSwing.Add(ConditionalSpeech.check_OutOfAmmo) --OnWeaponSwing(playerObj,weapon)
+Events.OnWeaponSwing.Add(ConditionalSpeech.check_WeaponStatus) --OnWeaponSwing(playerObj,weapon)
 Events.OnPlayerUpdate.Add(ConditionalSpeech.doMoodleCheck) --OnPlayerUpdate(playerObj) --checks moodlestatus
 
 -- Events.EveryDays
@@ -385,8 +403,6 @@ Events.OnPlayerUpdate.Add(ConditionalSpeech.doMoodleCheck) --OnPlayerUpdate(play
 -- player:getDescriptor():getForename()
 -- player:getDescriptor():getSurname()
 -- player:getDescriptor():getProfession()
-
--- for i=0,player:getTraits():size() -1 do
--- 	local trait = player:getTraits():get(i)
-
--- LuaEventManager.AddEvent("function")
+-- player:getDescriptor():getProfession())
+-- player:getPerkLevel(Perks.Reloading))
+-- player:HasTrait("Cowardly"))
