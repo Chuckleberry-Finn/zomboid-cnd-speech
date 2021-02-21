@@ -239,7 +239,7 @@ function ConditionalSpeech.generateSpeech(player,PhraseID,intensity,MAXintensity
 	if intensity == nil or intensity <=0 then intensity = 1 end
 	if MAXintensity == nil or MAXintensity <=0 then MAXintensity = 1 end
 
-	local PhraseTable = ConditionalSpeech.Phrases[PhraseID]--this doesn't work for some reason, leaving it in for now anyway
+	local PhraseTable = ConditionalSpeech.Phrases[PhraseID]
 	if PhraseTable == nil then return end
 	local dialogue = RangedRandPick(PhraseTable,intensity,MAXintensity)
 
@@ -294,8 +294,9 @@ end
 
 
 --- Retrieve MoodLevel Values and Set up MoodArray per player
----@param player IsoGameCharacter
-function ConditionalSpeech.load_n_set_Moodles(player)
+function ConditionalSpeech.load_n_set_Moodles(ID)
+	if ID == nil then return end
+	local player = getSpecificPlayer(ID)
 	if player == nil then return end -- if no playerObj return
 	table.insert(ConditionalSpeech.Speakers, player) --store speaker in list
 	player:getMoodles():Update() -- makes sure that the Moodles system is properly loaded
@@ -360,7 +361,7 @@ end
 
 
 --- Event Hooks ---
-Events.OnCreateLivingCharacter.Add(ConditionalSpeech.load_n_set_Moodles)--OnCreateLivingCharacter(player) --Starts up ConditionalSpeech
+Events.OnCreatePlayer.Add(ConditionalSpeech.load_n_set_Moodles)--OnCreatePlayer(playerID) --Starts up ConditionalSpeech
 Events.EveryHours.Add(ConditionalSpeech.check_Time)--EveryHours(?) --check every in-game hour for events
 Events.OnWeaponSwing.Add(ConditionalSpeech.check_OutOfAmmo) --OnWeaponSwing(playerObj,weapon)
 Events.OnPlayerUpdate.Add(ConditionalSpeech.doMoodleCheck) --OnPlayerUpdate(playerObj) --checks moodlestatus
