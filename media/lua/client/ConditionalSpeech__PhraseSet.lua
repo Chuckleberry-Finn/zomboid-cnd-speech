@@ -50,7 +50,7 @@ ConditionalSpeech.Phrases.Zombie = { -- Dead and Zombie Moodles seemingly only h
 ConditionalSpeech.Phrases.OnDusk = {"getting dark","looks like the sun is going down","the sun is going down"}
 ConditionalSpeech.Phrases.OnDawn = {"another day","made it to another day","the sun is coming up","the sun is rising"}
 
-ConditionalSpeech.Phrases.GunJammed = {"jam!","gun is jammed!","damn thing is jammed!","jammed!"}
+ConditionalSpeech.Phrases.GunJammed = {"jam","gun is jammed","damn thing is jammed","jammed"}
 
 ConditionalSpeech.Phrases.OutOfAmmo = {
 	"I'm out",
