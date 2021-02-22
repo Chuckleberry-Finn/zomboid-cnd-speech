@@ -8,7 +8,9 @@ ConditionalSpeech.Phrases = {}
 VolumeMAX = 30
 
 ------------------------------------------ FILTERS ----------------------------------------------
---- Handler for filters
+
+--- Handler for filters. Text passed through will have mood defined filters applied. Called from with in ConditionalSpeech.Speech.
+---@param player IsoPlayer
 function ConditionalSpeech.PassMoodleFilters(player,text)
 	if text and player then
 		local filtersToPass = {} --[key]=value
@@ -62,6 +64,7 @@ function ConditionalSpeech.PassMoodleFilters(player,text)
 	end
 end
 
+
 --- Filter Template
 --[[
 function ConditionalSpeech.TEMPLATE(text, intensity)
@@ -75,6 +78,7 @@ function ConditionalSpeech.TEMPLATE(text, intensity)
 end
 ]]
 
+
 --- Blurt Out
 function ConditionalSpeech.BlurtOut_Filter(text, intensity)
 	if intensity == nil then intensity = 1 end
@@ -87,6 +91,7 @@ function ConditionalSpeech.BlurtOut_Filter(text, intensity)
 		return results
 	end
 end
+
 
 --- SCREAM FILTER!
 function ConditionalSpeech.SCREAM_Filter(text, intensity)
@@ -102,6 +107,7 @@ function ConditionalSpeech.SCREAM_Filter(text, intensity)
 		return results
 	end
 end
+
 
 --- S-s-s-stutter Filter -- impacts leading letters
 function ConditionalSpeech.Stutter_Filter(text, intensity)
@@ -128,6 +134,7 @@ function ConditionalSpeech.Stutter_Filter(text, intensity)
 		return results
 	end
 end
+
 
 --- S-s-stammer-r-r Filt-t-t-ter -- impacts throughout
 function ConditionalSpeech.Stammer_Filter(text, intensity)
@@ -180,7 +187,8 @@ function ConditionalSpeech.panicSwear_Filter(text, intensity)
 	end
 end
 
--- Logic for interlaced swears
+
+--- Logic for interlaced swears
 function ConditionalSpeech.interlacedSwear_Filter(text, intensity)
 	if intensity == nil then intensity = 1 end
 	if text then
@@ -201,6 +209,7 @@ function ConditionalSpeech.interlacedSwear_Filter(text, intensity)
 		return results
 	end
 end
+
 
 -------- Moodle Handler - filterlist to refer back to -------------
 ConditionalSpeech.volumeSensitiveFilters = {ConditionalSpeech.Stammer_Filter}
@@ -232,9 +241,9 @@ ConditionalSpeech.MoodleArray = { -- This has to be under where the filters them
 }
 
 
----Generates speech from a given table/list of phrases
+--- Generates speech from a given table/list of phrases.
 ---@param player IsoGameCharacter
----@param PhraseSetID string String needs to match a table with in ConditionalSpeech.Phrases
+---@param PhraseSetID string String needs to match a table with in ConditionalSpeech.Phrases.
 function ConditionalSpeech.generateSpeechFrom(player,PhraseSetID,intensity,MAXintensity)
 	if player == nil or PhraseSetID == nil then return end
 	if intensity == nil or intensity <=0 then intensity = 1 end
@@ -248,7 +257,8 @@ function ConditionalSpeech.generateSpeechFrom(player,PhraseSetID,intensity,MAXin
 	ConditionalSpeech.Speech(player,dialogue)
 end
 
----Cleans up the dialogue, applies filters, and applies volumetric color
+
+--- Cleans up the dialogue, applies filters, and applies volumetric color.
 ---@param player IsoGameCharacter
 ---@param dialogue string
 function ConditionalSpeech.Speech(player,dialogue)
@@ -276,6 +286,8 @@ function ConditionalSpeech.Speech(player,dialogue)
 end
 
 
+--- Blends speech color with gray on a scale with volume. This is called with in ConditionalSpeech.Speech.
+---@param player IsoGameCharacter
 function ConditionalSpeech.applyVolumetricColor_Say(player,text,vol)
 	if player == nil or text == nil then return end
 	local vc_shift = 0.3+(0.7*(vol/VolumeMAX))--have a 0.3 base --difference of 0.7 is then multipled against volume/maxvolume
@@ -291,8 +303,8 @@ function ConditionalSpeech.applyVolumetricColor_Say(player,text,vol)
 end
 
 
-
---- Retrieve MoodLevel Values and Set up MoodArray per player
+--- Retrieve MoodLevel Values and Set up MoodArray per player.
+---@param ID number IDs are assigned upon player creation via OneCreatePlayer().
 function ConditionalSpeech.load_n_set_Moodles(ID)
 	if ID == nil then return end
 	local player = getSpecificPlayer(ID)
@@ -309,7 +321,9 @@ function ConditionalSpeech.load_n_set_Moodles(ID)
 	end
 end
 
----Tracks moodle levels overtime, runs generate speech
+
+--- Tracks moodle levels overtime, runs generate speech.
+---@param player IsoGameCharacter
 function ConditionalSpeech.doMoodleCheck(player)
 	if player == nil then return end
 	if player:getModData().MoodleArray == nil then return end
@@ -359,7 +373,8 @@ function ConditionalSpeech.check_WeaponStatus(player,weapon)
 	end
 end
 
---- Check the time and have players comment
+
+--- Have players react to specific times throughout the day.
 function ConditionalSpeech.check_Time()
 	local TIME = math.floor(getGameTime():getTimeOfDay())
 	if #ConditionalSpeech.Speakers > 0 then
@@ -375,7 +390,6 @@ function ConditionalSpeech.check_Time()
 		end
 	end
 end
-
 
 
 --- Event Hooks ---

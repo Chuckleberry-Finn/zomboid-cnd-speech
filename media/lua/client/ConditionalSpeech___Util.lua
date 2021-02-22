@@ -9,23 +9,23 @@ function valueIn(tab, val)
 	return false
 end
 
---useful function to check if key in list
+--- Useful function to check if key in list.
 function keyIn(tab, k)
 	if not tab or not k then return false end
 	for key,_ in pairs(tab) do if key == k then return true end end
 	return false
 end
 
--- Useful replace text function
+--- Useful replace text function.
 function replaceText(text, findthis, replacewith)
 	if not text or not findthis or not replacewith then return end
 	return text:gsub(findthis, replacewith)
 end
 
--- Useful probability function - note: 101 = 0 to 100
+--- Useful probability function - note: 101 = 0 to 100.
 function prob(x) if ZombRand(101) < x then return true else return false end end
 
--- Useful text splitter function - returns a list of words
+--- Useful text splitter function - returns a list of words.
 function splitTextbyWord(text, separator)
 	if not text then return end
 	if not separator then separator = "%s" end
@@ -34,7 +34,7 @@ function splitTextbyWord(text, separator)
 	return t
 end
 
--- Useful text splitter function - returns a list of characters
+--- Useful text splitter function - returns a list of characters.
 function splitTextbyChar(text)
 	if not text then return end
 	local t={}
@@ -52,10 +52,10 @@ function joinText(list, spaced)--spaced is 0 or 1
 	return t
 end
 
---useful function to pick a random entry from a numerated list
+--- Useful function to pick a random entry from a numerated list.
 function pickFrom(list) if type(list)=="table" then return list[ZombRand(#list)+1] else return end end
 
--- Ranged Random Pick from list
+--- Ranged Random Pick from list
 function RangedRandPick(table,intensity,maxintensity)
 	if table == nil then return end
 
