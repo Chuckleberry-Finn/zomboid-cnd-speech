@@ -52,6 +52,12 @@ ConditionalSpeech.Phrases.OnDawn = {"another day","made it to another day","the 
 
 ConditionalSpeech.Phrases.GunJammed = {"jam","gun is jammed","damn thing is jammed","jammed"}
 
+ConditionalSpeech.Phrases.LowAmmo = {
+	"running low",
+	"going to need to reload",
+	"ammo is low"
+}
+
 ConditionalSpeech.Phrases.OutOfAmmo = {
 	"I'm out",
 	"empty",

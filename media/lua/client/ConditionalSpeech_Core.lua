@@ -234,12 +234,12 @@ ConditionalSpeech.MoodleArray = { -- This has to be under where the filters them
 
 ---Generates speech from a given table/list of phrases
 ---@param player IsoGameCharacter
----@param PhraseID string String needs to match a table with in ConditionalSpeech.Phrases
-function ConditionalSpeech.generateSpeechFrom(player,PhraseID,intensity,MAXintensity)
-	if player == nil or PhraseID == nil then return end
+---@param PhraseSetID string String needs to match a table with in ConditionalSpeech.Phrases
+function ConditionalSpeech.generateSpeechFrom(player,PhraseSetID,intensity,MAXintensity)
+	if player == nil or PhraseSetID == nil then return end
 	if intensity == nil or intensity <=0 then intensity = 1 end
 	if MAXintensity == nil or MAXintensity <=0 then MAXintensity = 1 end
-	local PhraseTable = ConditionalSpeech.Phrases[PhraseID]
+	local PhraseTable = ConditionalSpeech.Phrases[PhraseSetID]
 	if PhraseTable == nil then return end
 	local dialogue = RangedRandPick(PhraseTable,intensity,MAXintensity)
 	if dialogue == nil then return end
@@ -352,7 +352,7 @@ function ConditionalSpeech.check_WeaponStatus(player,weapon)
 
 			elseif player:getPerkLevel(Perks.Reloading)>=2 then
 				if weapon:getCurrentAmmoCount()<(weapon:getMaxAmmo()/4) then
-					ConditionalSpeech.Speech(player,"Running Low!")
+					ConditionalSpeech.generateSpeechFrom(player,"LowAmmo")
 				end
 			end
 		end
