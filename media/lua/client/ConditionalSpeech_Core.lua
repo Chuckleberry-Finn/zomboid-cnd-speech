@@ -257,7 +257,6 @@ function ConditionalSpeech.generateSpeechFrom(player,PhraseSetID,intensity,MAXin
 	ConditionalSpeech.Speech(player,dialogue)
 end
 
-
 --- Cleans up the dialogue, applies filters, and applies volumetric color.
 ---@param player IsoGameCharacter
 ---@param dialogue string
@@ -332,8 +331,14 @@ function ConditionalSpeech.doMoodleCheck(player)
 		local currentMoodleLevel = player:getMoodles():getMoodleLevel(MoodleType[MoodleID])
 		if currentMoodleLevel ~= storedmoodleLevel then --currentMoodleLevel(current mood level) is not equal to stored mood level then
 			if currentMoodleLevel > storedmoodleLevel then --if moodlevel has increased
-				if (player:getMoodles():getMoodleLevel(MoodleType.Panic) <= 0) or (MoodleID == "Panic") then --can't think in panic
+				if (player:getMoodles():getMoodleLevel(MoodleType.Panic) <= 0) then --can't think in panic
 					ConditionalSpeech.generateSpeechFrom(player,MoodleID,storedmoodleLevel,4)
+				elseif MoodleID=="Panic" then
+					if player:getStats():getNumVisibleZombies()<=0 and player:HasTrait("Agoraphobic") then
+						ConditionalSpeech.generateSpeechFrom(player,"Agoraphobic")
+					else
+						ConditionalSpeech.generateSpeechFrom(player,MoodleID,storedmoodleLevel,4)
+					end
 				end
 			end
 			player:getModData().MoodleArray[MoodleID] = currentMoodleLevel --match stored mood level to current- this is where the recorded level is lowered
@@ -413,6 +418,7 @@ Events.OnPlayerUpdate.Add(ConditionalSpeech.doMoodleCheck) --OnPlayerUpdate(play
 -- Events.OnZombieDead
 -- Events.OnCharacterDeath
 
+-- player:getStats():getNumVisibleZombies()
 -- player:getDescriptor():isFemale()
 -- player:getDescriptor():getForename()
 -- player:getDescriptor():getSurname()

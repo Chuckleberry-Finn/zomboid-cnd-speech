@@ -38,7 +38,6 @@ ConditionalSpeech.Phrases.Windchill = nil
 ConditionalSpeech.Phrases.FoodEaten = nil
 ]]--
 
-
 ConditionalSpeech.Phrases.Zombie = { -- Dead and Zombie Moodles seemingly only have 1 level -- they may not operate well with intensity argument in generate speech
 	"I'm turning into one of them",
 	"this is it",
@@ -174,6 +173,15 @@ ConditionalSpeech.Phrases.Stress = {
 	"fuck this bullshit"
 }
 
+ConditionalSpeech.Phrases.Agoraphobic = {
+	"deep breaths, deep breaths",
+	"I hate this",
+	"should not be outside",
+	"I should not be doing this",
+	"what was that?",
+	"why can't I stay inside?"
+}
+
 ConditionalSpeech.Phrases.Panic = {
 	"uh oh!",
 	"oh!",
@@ -186,10 +194,10 @@ ConditionalSpeech.Phrases.Panic = {
 	"oh <SWEAR>!",
 	"holy!",
 	"holy <SWEAR_adj>!",
-	"I need to get out of here!",
+	--"I need to get out of here!",
 	"why!?",
 	"ahhh!",
-	"I have to get the <SWEAR_adj> out of here!",
+	--"I have to get the <SWEAR_adj> out of here!",
 	"why!?",
 	"please no!",
 	"somebody help!",
