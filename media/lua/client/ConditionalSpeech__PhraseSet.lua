@@ -5,7 +5,7 @@ require "ConditionalSpeech_Core"
 --- Firstly, thank you for stopping in; I hope you enjoy your time here.
 
 --- to add more phrase sets: ConditionalSpeech.Phrases.WORD = {"phrase1","phrase2"}
---- to generate speech: ConditionalSpeech.generateSpeech("WORD")
+--- to generate speech: ConditionalSpeech.generateSpeechFrom("WORD")
 --- Moodles automatically search for a phraseset matching their WORD
 --- to use phrase set as keywords simply populate phrases with "<WORD>".
 
@@ -23,20 +23,23 @@ require "ConditionalSpeech_Core"
 
 --[[ ---unused phrase sets for moods
 ConditionalSpeech.Phrases.Endurance = nil
-ConditionalSpeech.Phrases.Sick = nil
 ConditionalSpeech.Phrases.Unhappy = nil
 ConditionalSpeech.Phrases.Bleeding = nil
-ConditionalSpeech.Phrases.Wet = nil
 ConditionalSpeech.Phrases.HasACold = nil
 ConditionalSpeech.Phrases.Angry = nil
 ConditionalSpeech.Phrases.Injured = nil
-ConditionalSpeech.Phrases.HeavyLoad = nil
 ConditionalSpeech.Phrases.Drunk = nil
 ConditionalSpeech.Phrases.Dead = nil
 ConditionalSpeech.Phrases.Hyperthermia = nil
 ConditionalSpeech.Phrases.Windchill = nil
 ConditionalSpeech.Phrases.FoodEaten = nil
 ]]--
+
+ConditionalSpeech.Phrases.Wet = {"getting wet here","I'm soaked","I'm soaking wet","<SARCASM>, I'm soaking wet","I'll catch a cold at this rate","I am drenched"}
+
+ConditionalSpeech.Phrases.Sick = {"I feel queasy","I'm feeling off","feeling a bit sick","I feel sick","I feel nauseous","do I have a fever?","I have a fever"}
+
+ConditionalSpeech.Phrases.HeavyLoad = {"*grunt*","this is heavy","this is alot to carry","this is a heavy load","<SWEAR>, this is heavy","<PAIN>. my back"}
 
 ConditionalSpeech.Phrases.Zombie = { -- Dead and Zombie Moodles seemingly only have 1 level -- they may not operate well with intensity argument in generate speech
 	"I'm turning into one of them",
@@ -53,7 +56,9 @@ ConditionalSpeech.Phrases.GunJammed = {"jam","gun is jammed","damn thing is jamm
 
 ConditionalSpeech.Phrases.LowAmmo = {
 	"running low",
+	"running low on ammo",
 	"going to need to reload",
+	"not many shots left",
 	"ammo is low"
 }
 
