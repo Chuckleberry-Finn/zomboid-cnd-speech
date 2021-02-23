@@ -22,32 +22,37 @@ require "ConditionalSpeech_Core"
 
 
 --[[ ---unused phrase sets for moods
-ConditionalSpeech.Phrases.Endurance = nil
-ConditionalSpeech.Phrases.Unhappy = nil
-ConditionalSpeech.Phrases.Bleeding = nil
-ConditionalSpeech.Phrases.HasACold = nil
 ConditionalSpeech.Phrases.Angry = nil
-ConditionalSpeech.Phrases.Injured = nil
-ConditionalSpeech.Phrases.Drunk = nil
 ConditionalSpeech.Phrases.Dead = nil
-ConditionalSpeech.Phrases.Hyperthermia = nil
-ConditionalSpeech.Phrases.Windchill = nil
-ConditionalSpeech.Phrases.FoodEaten = nil
 ]]--
+
+ConditionalSpeech.Phrases.Drunk = {"feeling tipsy","feeling good","that's the stuff","I could go for another","that's the good stuff","this is great"}
+
+ConditionalSpeech.Phrases.HasACold = {"my nose is runny","my nose is stuffed","I have a cold for sure","this cold is a problem","my throat is sore","I need to do something about this cold","do I have a fever?"}
+
+ConditionalSpeech.Phrases.Windchill = {"it is windy out","it is so windy","this wind is strong","way too windy","it is very windy","this wind is crazy","this wind is insane","the winds are howling"}
+
+ConditionalSpeech.Phrases.Hyperthermia = {"this heat sucks","this heat is making me thirsty","it is so hot","it is way too hot","this heat is kiling me","this heat is unbearable","I might pass out","I can't see straight"}
+
+ConditionalSpeech.Phrases.Endurance = {"time out","I need a break","*gasp*","I need to rest","I can barely run","I an barely walk","I'm going to pass out","I can barely move","I can barely move my arms","I can barely move my legs"}
+
+ConditionalSpeech.Phrases.Bleeding = {"I'm bleeding a bit","I'm bleeding","I need to stop the bleeding","I'm bleeding out","I'm bleeding to death","I'll die at this rate"}
+
+ConditionalSpeech.Phrases.FoodEaten = {"that was a meal","I'm full","my stomach is full","I'm stuffed","my stomach is stuffed","I couldn't take another bite","I can't eat anymore"}
+
+ConditionalSpeech.Phrases.Injured = {"I should treat this soon","<SARCASM>, an injury","that's going to leave a mark","I'm going to need first-aid"}
+
+ConditionalSpeech.Phrases.Unhappy = {"I miss my family","this is getting hard","how long can I keep going?","is this my life now?","what's the point of going on","what's the point",
+	"what kind of life is this?","this isn't living","I should join the zombies","why me?","there's no future","this world","there's no point",}
 
 ConditionalSpeech.Phrases.Wet = {"getting wet here","I'm soaked","I'm soaking wet","<SARCASM>, I'm soaking wet","I'll catch a cold at this rate","I am drenched"}
 
-ConditionalSpeech.Phrases.Sick = {"I feel queasy","I'm feeling off","feeling a bit sick","I feel sick","I feel nauseous","do I have a fever?","I have a fever"}
+ConditionalSpeech.Phrases.Sick = {"I feel queasy","I'm feeling off","I am ill","feeling a bit sick","I feel sick","I feel nauseous","do I have a fever?","I have a fever"}
 
 ConditionalSpeech.Phrases.HeavyLoad = {"*grunt*","this is heavy","this is alot to carry","this is a heavy load","<SWEAR>, this is heavy","<PAIN>. my back"}
 
-ConditionalSpeech.Phrases.Zombie = { -- Dead and Zombie Moodles seemingly only have 1 level -- they may not operate well with intensity argument in generate speech
-	"I'm turning into one of them",
-	"this is it",
-	"this is over",
-	"why me?",
-	"I'm going to turn into one of them, aren't I?"
-}
+-- Dead and Zombie Moodles seemingly only have 1 level -- they may not operate well with intensity argument in generate speech
+ConditionalSpeech.Phrases.Zombie = {"I'm turning into one of them","this is it","this is over","why me?","I'm going to turn into one of them, aren't I?"}
 
 ConditionalSpeech.Phrases.OnDusk = {"getting dark","looks like the sun is going down","the sun is going down"}
 ConditionalSpeech.Phrases.OnDawn = {"another day","made it to another day","the sun is coming up","the sun is rising"}
