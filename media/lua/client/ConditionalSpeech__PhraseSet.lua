@@ -182,7 +182,7 @@ ConditionalSpeech.Phrases.Agoraphobic = {
 	"why can't I stay inside?"
 }
 
-ConditionalSpeech.Phrases.Panic = {
+ConditionalSpeech.Phrases.FEAR = {
 	"uh oh!",
 	"oh!",
 	"ohh!",

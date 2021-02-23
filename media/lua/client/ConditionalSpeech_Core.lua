@@ -336,8 +336,6 @@ function ConditionalSpeech.doMoodleCheck(player)
 				elseif MoodleID=="Panic" then
 					if player:getStats():getNumVisibleZombies()<=0 and player:HasTrait("Agoraphobic") then
 						ConditionalSpeech.generateSpeechFrom(player,"Agoraphobic")
-					else
-						ConditionalSpeech.generateSpeechFrom(player,MoodleID,storedmoodleLevel,4)
 					end
 				end
 			end
