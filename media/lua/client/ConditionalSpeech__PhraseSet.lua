@@ -147,7 +147,7 @@ ConditionalSpeech.Phrases.Agoraphobic = {
 }
 
 ConditionalSpeech.Phrases.FEAR = {
-	"uh oh!", "oh!", "ohh!", "ah!", "ahh!", "holy!", "<SWEAR>", "ah <SWEAR>!", "oh <SWEAR>!", "holy!", "holy <SWEAR_adj>!",
+	"uh oh!", "oh!", "ohh!", "ah!", "ahh!", "holy!", "<SWEAR>", "ah <SWEAR>!", "oh <SWEAR>!", "holy!", "holy <SWEAR>!",
 	--"I need to get out of here!",
 	"why!?", "ahhh!",
 	--"I have to get the <SWEAR_adj> out of here!",
