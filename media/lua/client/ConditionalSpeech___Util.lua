@@ -92,8 +92,6 @@ function RangedRandPick(table,intensity,scale)
 	local upper = weight+(weight*(intensity-1))
 	local pick = ZombRand(lower,upper)+1
 
-	--[[debug]] print("WeightedRandPick: table:",pick,"/",#table,"  l/u:",lower,"/",upper," (intensity:",intensity,"/",scale,")")
-
 	if pick <= 0 then pick = 1 end
 	if pick > #table then pick = #table end
 
