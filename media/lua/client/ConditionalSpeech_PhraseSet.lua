@@ -149,7 +149,7 @@ ConditionalSpeech.Phrases.Panic = {
 	"uh oh!", "oh!", "ohh!", "ah!", "ahh!", "holy!", "<SWEAR>", "ah <SWEAR>!", "oh <SWEAR>!", "holy!", "holy <SWEAR>!",
 	--"I need to get out of here!",
 	"why!?", "ahhh!",
-	--"I have to get the <SWEAR_adj> out of here!",
+	--"I have to get the <FUCKS> out of here!",
 	"why!?", "please no!", "somebody help!", "somebody help me!", "oh god! ahhh!"
 }
 
@@ -164,7 +164,6 @@ ConditionalSpeech.Phrases.Campfire = {"*sings*"}
 
 -- Swears are ranked by intensity
 ConditionalSpeech.Phrases.SWEAR = {"crap", "damn", "god damn", "shit", "fuck"}
-ConditionalSpeech.Phrases.SWEAR_adj = {"heck", "hell", "shit", "fuck"}
 
 -- useful list of plosives for stammering
 ConditionalSpeech.Phrases.Plosives = {"f", "F", "p", "P", "t", "T", "k", "K", "b", "B", "d", "D", "g", "G", "s", "S", "m", "M"}
