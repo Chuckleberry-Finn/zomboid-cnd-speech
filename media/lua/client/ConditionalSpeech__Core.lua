@@ -279,11 +279,11 @@ function ConditionalSpeech.check_PlayerStatus(player)
 		if currentMoodleLevel ~= storedmoodleLevel then
 			--if moodlevel has increased
 			if currentMoodleLevel > storedmoodleLevel then
-				--prevent speech if in panic
-				if (player:getMoodles():getMoodleLevel(MoodleType.Panic) <= 0) then
-					ConditionalSpeech.generateSpeechFrom(player,MoodleID,storedmoodleLevel,4)
+
 				--panic is a troublesome moodle and can't be treated like the rest
-				elseif MoodleID=="Panic" then
+				local panicLevel = player:getMoodles():getMoodleLevel(MoodleType.Panic)
+
+				if MoodleID=="Panic" then
 					--agoraphobic conditions
 					if player:isOutside() and player:HasTrait("Agoraphobic") then
 
@@ -293,6 +293,10 @@ function ConditionalSpeech.check_PlayerStatus(player)
 							ConditionalSpeech.generateSpeechFrom(player,"Agoraphobic")
 						end
 					end
+				-- prevent speech if in high panic (and not agoraphobic)
+				elseif (panicLevel <= 1) or (panicLevel >= 1 and player:HasTrait("Agoraphobic")) then
+					ConditionalSpeech.generateSpeechFrom(player,MoodleID,storedmoodleLevel,4)
+
 				end
 			end
 
