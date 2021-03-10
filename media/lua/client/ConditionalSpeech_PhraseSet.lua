@@ -1,5 +1,4 @@
-require "ConditionalSpeech_Util"
-require "ConditionalSpeech_Core"
+require "ConditionalSpeech__Core"
 
 --- -=[ Instructions for Contributors ]=- ---
 --- Firstly, thank you for stopping in; I hope you enjoy your time here.
