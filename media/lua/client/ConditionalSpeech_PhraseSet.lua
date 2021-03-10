@@ -145,7 +145,7 @@ ConditionalSpeech.Phrases.Agoraphobic = {
 	"deep breaths, deep breaths", "I hate this", "should not be outside", "I should not be doing this", "what was that?", "why can't I stay inside?"
 }
 
-ConditionalSpeech.Phrases.FEAR = {
+ConditionalSpeech.Phrases.Panic = {
 	"uh oh!", "oh!", "ohh!", "ah!", "ahh!", "holy!", "<SWEAR>", "ah <SWEAR>!", "oh <SWEAR>!", "holy!", "holy <SWEAR>!",
 	--"I need to get out of here!",
 	"why!?", "ahhh!",

@@ -263,7 +263,7 @@ function ConditionalSpeech.check_PlayerStatus(player)
 	-- on fire condition
 	if player:isOnFire() then
 		player:getStats():setPanic(player:getStats():getPanic()+100)
-		ConditionalSpeech.generateSpeechFrom(player,"FEAR",player:getMoodles():getMoodleLevel(MoodleType.Panic),4)
+		ConditionalSpeech.generateSpeechFrom(player,"Panic",player:getMoodles():getMoodleLevel(MoodleType.Panic),4)
 		return
 	end
 
