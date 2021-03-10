@@ -171,7 +171,7 @@ function ConditionalSpeech.generateSpeechFrom(player,PhraseSetID,intensity,MAXin
 		MAXintensity = 1
 	end
 
-	-- prevent the player from speakingtoo soon -- getTimestamp is in seconds
+	-- prevent the player from speaking too soon -- getTimestamp is in seconds
 	if (not player:getModData().cs_lastspoke) or (player:getModData().cs_lastspoke+1 > getTimestamp()) then
 		return
 	end
@@ -194,7 +194,7 @@ end
 ---@param player IsoGameCharacter
 ---@param dialogue string
 function ConditionalSpeech.Speech(player,dialogue)
-	-- prevent the player from speakingtoo soon -- getTimestamp is in seconds
+	-- prevent the player from speaking too soon -- getTimestamp is in seconds
 	if not player:getModData().cs_lastspoke or player:getModData().cs_lastspoke+1 > getTimestamp() then
 		return
 	end
