@@ -61,7 +61,7 @@ function ConditionalSpeech.load_n_set_Moodles(ID)
 
 	table.insert(ConditionalSpeech.Speakers, player)
 	player:getMoodles():Update()
-	player:getModData().cs_lastspoke = getTimestamp()
+	player:getModData().cs_lastspoke = {[1] = getTimestamp(),[2]=""}
 	player:getModData().moodleTable = {}
 
 	local moodles = player:getMoodles()
@@ -172,7 +172,10 @@ function ConditionalSpeech.generateSpeechFrom(player,PhraseSetID,intensity,MAXin
 	end
 
 	-- prevent the player from speaking too soon -- getTimestamp is in seconds
-	if (not player:getModData().cs_lastspoke) or (player:getModData().cs_lastspoke+1 > getTimestamp()) then
+
+	local lastspoke = player:getModData().cs_lastspoke
+
+	if not lastspoke or lastspoke[1]+1 > getTimestamp() or (lastspoke[1]+2 > getTimestamp() and lastspoke[2]==PhraseSetID) then
 		return
 	end
 
@@ -185,7 +188,7 @@ function ConditionalSpeech.generateSpeechFrom(player,PhraseSetID,intensity,MAXin
 
 	--replace KEYWORDS found with randomly picked words
 	for KEYWORD,REPLACEWORDS in pairs(ConditionalSpeech.Phrases) do dialogue = dialogue:gsub("<"..KEYWORD..">", pickFrom(REPLACEWORDS)) end
-	ConditionalSpeech.Speech(player,dialogue)
+	ConditionalSpeech.Speech(player,dialogue,PhraseSetID)
 
 end
 
@@ -193,13 +196,16 @@ end
 --- Cleans up the dialogue and applies filters.
 ---@param player IsoGameCharacter
 ---@param dialogue string
-function ConditionalSpeech.Speech(player,dialogue)
+function ConditionalSpeech.Speech(player,dialogue,PhraseSetID)
 	-- prevent the player from speaking too soon -- getTimestamp is in seconds
-	if not player:getModData().cs_lastspoke or player:getModData().cs_lastspoke+1 > getTimestamp() then
+	local lastspoke = player:getModData().cs_lastspoke
+
+	if not lastspoke or lastspoke[1]+1 > getTimestamp() then
 		return
 	end
 
-	player:getModData().cs_lastspoke = getTimestamp()
+	player:getModData().cs_lastspoke = {[1]=getTimestamp(),[2]=PhraseSetID}
+
 
 	local fc = string.sub(dialogue, 1,1) --fc=first character
 	local lc = string.sub(dialogue, -1) --lc=last character
