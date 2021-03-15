@@ -19,7 +19,7 @@ Please visit the Steam Workshop page for latest releases: [Here](https://steamco
 ## Credits
 - [ethanwdp](http://github.com/ethanwdp) (Original Author of Let Me Speak! mod) [Steam](https://steamcommunity.com/id/ethanwdp/myworkshopfiles/?appid=108600)
 - [nurver](https://steamcommunity.com/id/itsmedirtydan/)
-- [yooksi](https://github.com/yooksi)
+- [yooksi](https://github.com/yooksi) Creator of [pz-mod](https://github.com/cocolabs/pz-zmod) and [pz-doc](https://github.com/cocolabs/pz-zdoc), very useful modding tools.
 
 
 ## License
