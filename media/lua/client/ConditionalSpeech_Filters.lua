@@ -162,7 +162,7 @@ end
 --- Fucking Logic for fucking interlaced Fucks
 function ConditionalSpeech_Filter.interlacedFucks(text, intensity)
 
-    local skip_words = {"is","it","of","at","no","as","the","this","should","could","would","a"}
+    local skip_words = {"is","it","of","at","no","to","as","the","this","should","could","another","would","a"}
     local words = luautils.split(text)
 
     if #words <= 1 then
