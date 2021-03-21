@@ -1,0 +1,10 @@
+version=1
+id=2398253681
+title=Conditional-Speech
+description=Work in Progress - Use at your own discretion!
+description=
+description=This mod generates speech utilizing a number of conditions as well as some randomization to create dynamic dialogue.
+description=
+description=https://github.com/ChuckTheSheep/zomboid-cnd-speech
+tags=
+visibility=public
