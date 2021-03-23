@@ -232,7 +232,7 @@ function ConditionalSpeech.Speech(player,dialogue,PhraseSetID)
 
 	--[[debug]] print(player:getDescriptor():getForename(),player:getDescriptor():getSurname(),"  vol:",vocal_volume,"  ",dialogue)
 	ConditionalSpeech.applyVolumetricColor_Say(player,tostring(dialogue),vocal_volume)
-	addSound(player, player:getX(), player:getY(), player:getZ(), vocal_volume, vocal_volume)
+	addSound(nil, player:getX(), player:getY(), player:getZ(), vocal_volume, vocal_volume)
 
 end
 
