@@ -16,8 +16,6 @@ ConditionalSpeech.Phrases.Unhappy = {}
 ConditionalSpeech.Phrases.Wet = {}
 ConditionalSpeech.Phrases.Sick = {}
 ConditionalSpeech.Phrases.HeavyLoad = {}
--- Dead and Zombie Moodles seemingly only have 1 level -- they may not operate well with intensity argument in generate speech
-ConditionalSpeech.Phrases.Zombie = {}
 ConditionalSpeech.Phrases.OnDusk = {}
 ConditionalSpeech.Phrases.OnDawn = {}
 ConditionalSpeech.Phrases.GunJammed = {}
