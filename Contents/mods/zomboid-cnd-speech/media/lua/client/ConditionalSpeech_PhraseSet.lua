@@ -32,6 +32,8 @@ ConditionalSpeech.Phrases.Hypothermia = {}
 ConditionalSpeech.Phrases.Pain = {}
 -- Swears are ranked by intensity
 ConditionalSpeech.Phrases.SWEAR = {}
+ConditionalSpeech.Phrases.SWEARskipwords = {}
+ConditionalSpeech.Phrases.FUCKS = {}
 -- useful list of plosives for stammering
 ConditionalSpeech.Phrases.Plosives = {}
 ConditionalSpeech.Phrases.FOOD = {}

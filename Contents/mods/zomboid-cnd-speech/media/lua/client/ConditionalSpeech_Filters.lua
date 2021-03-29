@@ -162,7 +162,7 @@ end
 --- Fucking Logic for fucking interlaced Fucks
 function ConditionalSpeech_Filter.interlacedFucks(text, intensity)
 
-    local skip_words = {"is","it","of","at","no","to","as","the","this","should","could","another","would","a"}
+    local skip_words = ConditionalSpeech.Phrases.SWEARskipwords
     local words = luautils.split(text)
 
     if #words <= 1 then
@@ -173,9 +173,9 @@ function ConditionalSpeech_Filter.interlacedFucks(text, intensity)
         if key ~= #words and is_prob(5*intensity) then
             if not is_valueIn(skip_words,words[key+1]) then
 
-                local swear = "fuck"
+                local swear = ConditionalSpeech.Phrases.FUCKS[1]
                 if is_valueIn(skip_words,words[key]) then
-                    swear = "fucking"
+                    swear = ConditionalSpeech.Phrases.FUCKS[2]
                 end
 
                 if swear then
