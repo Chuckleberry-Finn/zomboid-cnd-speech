@@ -300,7 +300,7 @@ function ConditionalSpeech.check_PlayerStatus(player)
 						end
 					end
 				-- prevent speech if in high panic (or allow if high panic and agoraphobic)
-				elseif (panicLevel <= 1) or (panicLevel > 0 and player:HasTrait("Agoraphobic")) then
+				elseif ((panicLevel < 1) or MoodleID=="Pain") or (panicLevel > 0 and player:HasTrait("Agoraphobic")) then
 					ConditionalSpeech.generateSpeechFrom(player,MoodleID,storedmoodleLevel,4)
 
 				end
