@@ -131,9 +131,7 @@ function ConditionalSpeech.passMoodleFilters(player,text)
 	for _,FilterType in ipairs(sortFilters) do
 		if not is_valueIn(ConditionalSpeech.volumeSensitiveFilters,FilterType) or (filtered_vol > 0 and is_valueIn(ConditionalSpeech.volumeSensitiveFilters,FilterType)) then
 			--compare sortFilters's value to filtersToPass's keys to find stored intensity
-
-			print("RUN FILTER: ",FilterType,"-")
-
+			--[debug]] print("RUN FILTER: ",FilterType,"-")
 			local intensity = filtersToPass[FilterType]
 			local filter = ConditionalSpeech_Filter[FilterType]
 			local filter_results = filter(text, intensity)
@@ -234,7 +232,7 @@ function ConditionalSpeech.Speech(player, dialogue, PhraseSetID, volumeBlock)
 		vocal_volume = 0
 	end
 
-	--[[debug]] print(player:getDescriptor():getForename(),player:getDescriptor():getSurname(),"  vol:",vocal_volume,"  ",dialogue)
+	--[debug]] print(player:getDescriptor():getForename(),player:getDescriptor():getSurname(),"  vol:",vocal_volume,"  ",dialogue)
 	ConditionalSpeech.applyVolumetricColor_Say(player,tostring(dialogue),vocal_volume)
 	addSound(nil, player:getX(), player:getY(), player:getZ(), vocal_volume, vocal_volume)
 
