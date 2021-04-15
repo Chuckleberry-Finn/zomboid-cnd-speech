@@ -52,7 +52,7 @@ function SetPhraseSetLANGUAGE()
 			local foundPhrase = ""
 			local phraseID = "UI_Phrases_"..k..phraseNum
 			foundPhrase = getText(phraseID)
-			print("phraseNum:"..phraseNum.."  foundPhrase:"..foundPhrase)
+			--[debug]] print("phraseNum:"..phraseNum.."  foundPhrase:"..foundPhrase)
 			if (foundPhrase == phraseID) then
 				break
 			else
