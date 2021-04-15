@@ -178,11 +178,10 @@ function ConditionalSpeech.generateSpeechFrom(player, PhraseSetID, intensity, MA
 	end
 
 	local PhraseTable = ConditionalSpeech.Phrases[PhraseSetID]
-	local dialogue = RangedRandPick(PhraseTable,intensity,MAXintensity)
+	if not PhraseTable then return end
 
-	if not PhraseTable or not dialogue then
-		return
-	end
+	local dialogue = RangedRandPick(PhraseTable,intensity,MAXintensity)
+	if not dialogue then return end
 
 	--replace KEYWORDS found with randomly picked words
 	for KEYWORD,REPLACEWORDS in pairs(ConditionalSpeech.Phrases) do dialogue = dialogue:gsub("<"..KEYWORD..">", pickFrom(REPLACEWORDS)) end

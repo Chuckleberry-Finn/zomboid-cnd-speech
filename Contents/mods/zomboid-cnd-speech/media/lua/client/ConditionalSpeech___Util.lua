@@ -68,6 +68,10 @@ end
 ---@return any from chosen segment out of scaled non-associative list
 function RangedRandPick(table,intensity,scale)
 
+	if (not table) or (#table <= 0) then
+		return nil
+	end
+
 	local weight = math.floor((#table/scale)+0.99) -- messy rounding to compensate for small table sizes
 	local lower = 1+(weight*(intensity-1))
 	local upper = weight+(weight*(intensity-1))
