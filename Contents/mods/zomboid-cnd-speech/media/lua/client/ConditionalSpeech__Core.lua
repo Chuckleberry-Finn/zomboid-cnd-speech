@@ -291,16 +291,17 @@ function ConditionalSpeech.check_PlayerStatus(player)
 		if currentMoodleLevel ~= storedmoodleLevel then
 			--if moodlevel has increased
 			if currentMoodleLevel > storedmoodleLevel then
+				local phraseSet = MoodleID
 				--agoraphobic conditions met, set ModdleID\Phraset
 				if MoodleID=="Panic" and agora then
-					MoodleID = "Agoraphobic"
+					phraseSet = "Agoraphobic"
 				end
 				--pain overrides volumeBlock
 				if MoodleID == "Pain" then
 					volumeBlock = false
 				end
 				--generate speech
-				ConditionalSpeech.generateSpeechFrom(player, MoodleID, currentMoodleLevel,4, volumeBlock)
+				ConditionalSpeech.generateSpeechFrom(player, phraseSet, currentMoodleLevel,4, volumeBlock)
 			end
 			--match stored mood level to current regardless of above outcome
 			player:getModData().moodleTable[MoodleID] = currentMoodleLevel
