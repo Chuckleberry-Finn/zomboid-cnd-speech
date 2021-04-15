@@ -27,6 +27,7 @@ ConditionalSpeech.Phrases.Tired = {}
 ConditionalSpeech.Phrases.Bored = {}
 ConditionalSpeech.Phrases.Stress = {}
 ConditionalSpeech.Phrases.Agoraphobic = {}
+ConditionalSpeech.Phrases.Claustrophobic = {}
 ConditionalSpeech.Phrases.Panic = {}
 ConditionalSpeech.Phrases.Hypothermia = {}
 ConditionalSpeech.Phrases.Pain = {}

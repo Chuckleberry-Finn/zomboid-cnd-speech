@@ -263,6 +263,13 @@ UI_Phrases_Agoraphobic3 = "should not be outside",
 UI_Phrases_Agoraphobic4 = "I should not be doing this",
 UI_Phrases_Agoraphobic5 = "what was that?",
 UI_Phrases_Agoraphobic6 = "why can't I stay inside?",
+--UI_Phrases_Claustrophobic
+UI_Phrases_Claustrophobic1 = "deep breaths, deep breaths",
+UI_Phrases_Claustrophobic2 = "I hate this feeling",
+UI_Phrases_Claustrophobic3 = "the walls are closing in",
+UI_Phrases_Claustrophobic4 = "*deep breaths*",
+UI_Phrases_Claustrophobic5 = "<SWEAR>, I hate this",
+UI_Phrases_Claustrophobic6 = "I can't breath in here",
 --UI_Phrases_Panic
 UI_Phrases_Panic1 = "uh oh!",
 UI_Phrases_Panic2 = "oh!",
