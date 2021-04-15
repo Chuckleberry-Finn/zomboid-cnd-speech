@@ -158,7 +158,7 @@ end
 --- Generates speech from a given table/list of phrases.
 ---@param player IsoGameCharacter
 ---@param PhraseSetID string String needs to match a table with in ConditionalSpeech.Phrases.
-function ConditionalSpeech.generateSpeechFrom(player,PhraseSetID,intensity,MAXintensity)
+function ConditionalSpeech.generateSpeechFrom(player, PhraseSetID, intensity, MAXintensity, volumeBlock)
 	if not player or not PhraseSetID then
 		return
 	end
@@ -188,7 +188,7 @@ function ConditionalSpeech.generateSpeechFrom(player,PhraseSetID,intensity,MAXin
 
 	--replace KEYWORDS found with randomly picked words
 	for KEYWORD,REPLACEWORDS in pairs(ConditionalSpeech.Phrases) do dialogue = dialogue:gsub("<"..KEYWORD..">", pickFrom(REPLACEWORDS)) end
-	ConditionalSpeech.Speech(player,dialogue,PhraseSetID)
+	ConditionalSpeech.Speech(player,dialogue,PhraseSetID, volumeBlock)
 
 end
 
@@ -196,7 +196,7 @@ end
 --- Cleans up the dialogue and applies filters.
 ---@param player IsoGameCharacter
 ---@param dialogue string
-function ConditionalSpeech.Speech(player,dialogue,PhraseSetID)
+function ConditionalSpeech.Speech(player, dialogue, PhraseSetID, volumeBlock)
 	-- prevent the player from speaking too soon -- getTimestamp is in seconds
 	local lastspoke = player:getModData().cs_lastspoke
 
@@ -228,6 +228,10 @@ function ConditionalSpeech.Speech(player,dialogue,PhraseSetID)
 
 		--Proper sentence capitalization. Like so.
 		dialogue = dialogue:gsub("[!?.]%s", "%0\0"):gsub("%f[%Z]%s*%l", dialogue.upper):gsub("%z", "")
+	end
+
+	if volumeBlock then
+		vocal_volume = 0
 	end
 
 	--[[debug]] print(player:getDescriptor():getForename(),player:getDescriptor():getSurname(),"  vol:",vocal_volume,"  ",dialogue)
@@ -262,50 +266,44 @@ end
 --- Tracks moodle levels overtime, runs generate speech.
 ---@param player IsoGameCharacter
 function ConditionalSpeech.check_PlayerStatus(player)
-	if not player then
+	if (not player) or (not player:getModData().moodleTable) then
 		return
 	end
+
+	local playerStats = player:getStats()
+	--panic is a troublesome moodle and can't be treated like the rest
+	local panicLevel = player:getMoodles():getMoodleLevel(MoodleType.Panic)
 
 	-- on fire condition
 	if player:isOnFire() then
-		player:getStats():setPanic(player:getStats():getPanic()+100)
-		ConditionalSpeech.generateSpeechFrom(player,"Panic",player:getMoodles():getMoodleLevel(MoodleType.Panic),4)
+		playerStats:setPanic(playerStats:getPanic()+100)
+		ConditionalSpeech.generateSpeechFrom(player,"Panic",panicLevel,4)
 		return
 	end
 
-	if not player:getModData().moodleTable then
-		return
-	end
+	--prevent vocalization if any zombies are visible or chasing
+	local volumeBlock = ((panicLevel >= 0) and (playerStats:getNumVisibleZombies() + playerStats:getNumChasingZombies() > 0))
+	--check if agoraphobic is actively enducing panic
+	local agora = (player:isOutside() and player:HasTrait("Agoraphobic"))
 
 	for MoodleID,lvl in pairs(player:getModData().moodleTable) do
 		local storedmoodleLevel = lvl
 		local currentMoodleLevel = player:getMoodles():getMoodleLevel(MoodleType[MoodleID])
-
 		--currentMoodleLevel(current mood level) is not equal to stored mood level then
 		if currentMoodleLevel ~= storedmoodleLevel then
 			--if moodlevel has increased
 			if currentMoodleLevel > storedmoodleLevel then
-
-				--panic is a troublesome moodle and can't be treated like the rest
-				local panicLevel = player:getMoodles():getMoodleLevel(MoodleType.Panic)
-
-				if MoodleID=="Panic" then
-					--agoraphobic conditions
-					if player:isOutside() and player:HasTrait("Agoraphobic") then
-
-						local stats = player:getStats()
-
-						if stats:getNumVisibleZombies() + stats:getNumChasingZombies() <=0 then
-							ConditionalSpeech.generateSpeechFrom(player,"Agoraphobic")
-						end
-					end
-				-- prevent speech if in high panic (or allow if high panic and agoraphobic)
-				elseif ((panicLevel < 1) or MoodleID=="Pain") or (panicLevel > 0 and player:HasTrait("Agoraphobic")) then
-					ConditionalSpeech.generateSpeechFrom(player,MoodleID,storedmoodleLevel,4)
-
+				--agoraphobic conditions met, set ModdleID\Phraset
+				if MoodleID=="Panic" and agora then
+					MoodleID = "Agoraphobic"
 				end
+				--pain overrides volumeBlock
+				if MoodleID == "Pain" then
+					volumeBlock = false
+				end
+				--generate speech
+				ConditionalSpeech.generateSpeechFrom(player, MoodleID, currentMoodleLevel,4, volumeBlock)
 			end
-
 			--match stored mood level to current regardless of above outcome
 			player:getModData().moodleTable[MoodleID] = currentMoodleLevel
 		end
