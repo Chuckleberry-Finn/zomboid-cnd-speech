@@ -283,7 +283,7 @@ function ConditionalSpeech.check_PlayerStatus(player)
 	local volumeBlock = ((panicLevel >= 0) and (playerStats:getNumVisibleZombies() + playerStats:getNumChasingZombies() > 0))
 	--check if agoraphobic is actively enducing panic
 	local agora = (player:isOutside() and player:HasTrait("Agoraphobic"))
-	local claustro = ((not player:isOutside()) and player:HasTrait("Claustrophobic"))
+	local claustro = ((not player:isOutside()) and player:HasTrait("Claustophobic"))
 
 	for MoodleID,lvl in pairs(player:getModData().moodleTable) do
 		local storedmoodleLevel = lvl
@@ -293,11 +293,12 @@ function ConditionalSpeech.check_PlayerStatus(player)
 			--if moodlevel has increased
 			if currentMoodleLevel > storedmoodleLevel then
 				local phraseSet = MoodleID
-				--agoraphobic conditions met, set ModdleID\Phraset
+				--space-phobic conditions met, set MoodleID\Phraset
 				if MoodleID=="Panic" then
 					if agora then
 						phraseSet = "Agoraphobic"
-					elseif claustro then
+					end
+					if claustro then
 						phraseSet = "Claustrophobic"
 					end
 				end
