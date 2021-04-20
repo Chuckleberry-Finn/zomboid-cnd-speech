@@ -61,7 +61,7 @@ function ConditionalSpeech.load_n_set_Moodles(ID)
 
 	table.insert(ConditionalSpeech.Speakers, player)
 	player:getMoodles():Update()
-	player:getModData().cs_lastspoke = {[1] = getTimestamp(),[2]=""}
+	player:getModData().cs_lastspoke = {[1] = getTimestamp(), [2]=""}
 	player:getModData().moodleTable = {}
 
 	local moodles = player:getMoodles()
@@ -170,10 +170,9 @@ function ConditionalSpeech.generateSpeechFrom(player, PhraseSetID, intensity, MA
 	end
 
 	-- prevent the player from speaking too soon -- getTimestamp is in seconds
-
 	local lastspoke = player:getModData().cs_lastspoke
-
-	if not lastspoke or lastspoke[1]+1 > getTimestamp() or (lastspoke[1]+2 > getTimestamp() and lastspoke[2]==PhraseSetID) then
+	--delay between lines is 1 unless they're the same phraset, then it is 3
+	if not lastspoke or (lastspoke[1]+1 > getTimestamp()) or (lastspoke[1]+3 > getTimestamp() and lastspoke[2]==PhraseSetID) then
 		return
 	end
 
