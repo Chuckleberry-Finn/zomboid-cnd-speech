@@ -131,7 +131,7 @@ UI_Phrases_HeavyLoad2 = "this is heavy",
 UI_Phrases_HeavyLoad3 = "this is alot to carry",
 UI_Phrases_HeavyLoad4 = "this is a heavy load",
 UI_Phrases_HeavyLoad5 = "<SWEAR>, this is heavy",
-UI_Phrases_HeavyLoad6 = "<PAIN>. my back",
+UI_Phrases_HeavyLoad6 = "<Pain>. my back",
 --UI_Phrases_OnDusk
 UI_Phrases_OnDusk1 = "getting dark",
 UI_Phrases_OnDusk2 = "looks like the sun is going down",
