@@ -13,6 +13,8 @@ ConditionalSpeech.Phrases = {}
 ConditionalSpeech.Speakers = {}
 
 VolumeMAX = 30
+DAWN_TIME = 6
+DUSK_TIME = 22
 
 --- filters that shouldn't run if volume is 0
 ConditionalSpeech.volumeSensitiveFilters = {"Stutter","Stammer"}
@@ -283,6 +285,8 @@ function ConditionalSpeech.check_PlayerStatus(player)
 	local agora = (player:isOutside() and player:HasTrait("Agoraphobic"))
 	local claustro = ((not player:isOutside()) and player:HasTrait("Claustophobic"))
 
+	local spoke = false
+
 	for MoodleID,lvl in pairs(player:getModData().moodleTable) do
 		local storedmoodleLevel = lvl
 		local currentMoodleLevel = player:getMoodles():getMoodleLevel(MoodleType[MoodleID])
@@ -306,9 +310,19 @@ function ConditionalSpeech.check_PlayerStatus(player)
 				end
 				--generate speech
 				ConditionalSpeech.generateSpeechFrom(player, phraseSet, currentMoodleLevel,4, volumeBlock)
+				spoke = true
 			end
 			--match stored mood level to current regardless of above outcome
 			player:getModData().moodleTable[MoodleID] = currentMoodleLevel
+		end
+	end
+
+	if not spoke then
+		local tellTime = player:getModData().CndSpeech_tellTime
+		local validTime = ((getGameTime():getHour() == DUSK_TIME) or (getGameTime():getHour() == DAWN_TIME))
+
+		if tellTime and validTime then
+			ConditionalSpeech.generateSpeechFrom(player,tellTime)
 		end
 	end
 end
@@ -338,7 +352,7 @@ end
 
 --- Have players react to specific times throughout the day.
 function ConditionalSpeech.check_Time()
-	local TIME = math.floor(getGameTime():getTimeOfDay())
+	local TIME = getGameTime():getHour()
 
 	if #ConditionalSpeech.Speakers > 0 then
 		for playerIndex,_ in pairs(ConditionalSpeech.Speakers) do
@@ -346,8 +360,10 @@ function ConditionalSpeech.check_Time()
 
 			if player and not player:isDead() then
 				if player:isOutside() and is_prob(75) then
-					if TIME==6 then ConditionalSpeech.generateSpeechFrom(player,"OnDawn")
-					else if TIME==22 then ConditionalSpeech.generateSpeechFrom(player,"OnDusk") end
+					if TIME==DAWN_TIME then
+						player:getModData().CndSpeech_tellTime = "OnDawn"
+					elseif TIME==DUSK_TIME then
+						player:getModData().CndSpeech_tellTime = "OnDusk"
 					end
 				end
 			end
