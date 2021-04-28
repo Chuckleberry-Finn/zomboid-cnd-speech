@@ -329,6 +329,7 @@ function ConditionalSpeech.check_PlayerStatus(player)
 
 		if tellTime and validTime then
 			ConditionalSpeech.generateSpeechFrom(player,tellTime)
+			player:getModData().CndSpeech_tellTime = false
 		end
 	end
 end
