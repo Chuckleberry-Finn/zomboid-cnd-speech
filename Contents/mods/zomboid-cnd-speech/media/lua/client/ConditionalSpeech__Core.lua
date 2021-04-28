@@ -158,7 +158,7 @@ end
 --- Generates speech from a given table/list of phrases.
 ---@param player IsoGameCharacter
 ---@param PhraseSetID string String needs to match a table with in ConditionalSpeech.Phrases.
-function ConditionalSpeech.generateSpeechFrom(player, PhraseSetID, intensity, MAXintensity, volumeBlock)
+function ConditionalSpeech.generateSpeechFrom(player, PhraseSetID, intensity, MAXintensity, volumeBlock, danger)
 	if not player or not PhraseSetID then
 		return
 	end
@@ -185,7 +185,12 @@ function ConditionalSpeech.generateSpeechFrom(player, PhraseSetID, intensity, MA
 	if not dialogue then return end
 
 	--replace KEYWORDS found with randomly picked words
-	for KEYWORD,REPLACEWORDS in pairs(ConditionalSpeech.Phrases) do dialogue = dialogue:gsub("<"..KEYWORD..">", pickFrom(REPLACEWORDS)) end
+	for KEYWORD,REPLACEWORDS in pairs(ConditionalSpeech.Phrases) do
+		if danger and (KEYWORD=="SARCASM") then
+			KEYWORD = "SWEAR"
+		end
+		dialogue = dialogue:gsub("<"..KEYWORD..">", pickFrom(REPLACEWORDS))
+	end
 	ConditionalSpeech.Speech(player,dialogue,PhraseSetID, volumeBlock)
 
 end
@@ -275,12 +280,13 @@ function ConditionalSpeech.check_PlayerStatus(player)
 	-- on fire condition
 	if player:isOnFire() then
 		playerStats:setPanic(playerStats:getPanic()+100)
-		ConditionalSpeech.generateSpeechFrom(player,"Panic",panicLevel,4)
+		ConditionalSpeech.generateSpeechFrom(player,"Panic",panicLevel,4, false, true)
 		return
 	end
 
+	local zombiesNearBy = (playerStats:getNumVisibleZombies() + playerStats:getNumChasingZombies()) > 0
 	--prevent vocalization if any zombies are visible or chasing
-	local volumeBlock = ((panicLevel >= 0) and (playerStats:getNumVisibleZombies() + playerStats:getNumChasingZombies() > 0))
+	local volumeBlock = ((panicLevel >= 0) and zombiesNearBy)
 	--check if agoraphobic is actively enducing panic
 	local agora = (player:isOutside() and player:HasTrait("Agoraphobic"))
 	local claustro = ((not player:isOutside()) and player:HasTrait("Claustophobic"))
@@ -309,7 +315,7 @@ function ConditionalSpeech.check_PlayerStatus(player)
 					volumeBlock = false
 				end
 				--generate speech
-				ConditionalSpeech.generateSpeechFrom(player, phraseSet, currentMoodleLevel,4, volumeBlock)
+				ConditionalSpeech.generateSpeechFrom(player, phraseSet, currentMoodleLevel,4, volumeBlock, zombiesNearBy)
 				spoke = true
 			end
 			--match stored mood level to current regardless of above outcome
