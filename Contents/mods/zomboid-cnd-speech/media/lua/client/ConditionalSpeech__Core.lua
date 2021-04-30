@@ -148,6 +148,9 @@ function ConditionalSpeech.passMoodleFilters(player,text)
 		end
 	end
 
+	if filtered_vol == VolumeMAX then
+		text = text:upper()
+	end
 	local total_results = filterResults:new(text,filtered_vol)
 
 	return total_results

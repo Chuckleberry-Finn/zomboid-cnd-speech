@@ -54,7 +54,6 @@ function ConditionalSpeech_Filter.SCREAM(text, intensity)
 
     text = text:gsub("%.", "%!")
     if is_prob(intensity*20) then
-        text = text:upper()
         volumeShift = VolumeMAX
     end
 
