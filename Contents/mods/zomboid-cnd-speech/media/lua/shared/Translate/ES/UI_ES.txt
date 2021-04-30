@@ -88,7 +88,7 @@ UI_Phrases_Wet6 = "Estoy humedo",
 --UI_Phrases_Sick
 UI_Phrases_Sick1 = "Me siento mareado",
 UI_Phrases_Sick2 = "Me siento mal",
-UI_Phrases_Sick3 = "I am ill", *
+UI_Phrases_Sick3 = "Estoy enfermo", *
 UI_Phrases_Sick4 = "me siento un poco enfermo",
 UI_Phrases_Sick5 = "me siento enfermo",
 UI_Phrases_Sick6 = "siento nauseas",
@@ -176,7 +176,7 @@ UI_Phrases_Thirst14 = "Necesito agua",
 UI_Phrases_Tired1 = "*bostezo*",
 UI_Phrases_Tired2 = "Me vendría bien una siesta.",
 UI_Phrases_Tired3 = "Me siento sosegado",
-UI_Phrases_Tired4 = "I should get some sleep.",
+UI_Phrases_Tired4 = "Debería dormir un poco.",
 UI_Phrases_Tired5 = "me vendría bien acostarme.",
 UI_Phrases_Tired6 = "*bostezo largo*",
 UI_Phrases_Tired7 = "Deberia ir a dormir pronto",
