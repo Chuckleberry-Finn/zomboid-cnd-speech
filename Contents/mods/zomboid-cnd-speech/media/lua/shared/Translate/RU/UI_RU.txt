@@ -27,7 +27,7 @@
 -- For example: Look at "UI_Phrases_FOOD" and <FOOD> below.
 
 -- DO NOT TRANSLATE KEYWORDS LIKE <WORD> OR <SWEAR>.
-
+-- Make sure to save the file in the proper encoding for your language.
 -- NOTE: THE TABLE HEADER "UI_XX" MUST MATCH THE IN GAME LANGUAGE ABBREVIATION
 UI_RU = {
 
