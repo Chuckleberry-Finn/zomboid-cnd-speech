@@ -104,7 +104,7 @@ UI_Phrases_HeavyLoad6 = "<Pain>. mi espalda",
 --UI_Phrases_OnDusk
 UI_Phrases_OnDusk1 = "Está oscureciendo",
 UI_Phrases_OnDusk2 = "parece que el sol se está poniendo",
-UI_Phrases_OnDusk3 = "El sol esta bajando",+
+UI_Phrases_OnDusk3 = "El sol esta bajando",
 --UI_Phrases_OnDawn
 UI_Phrases_OnDawn1 = "otro dia",
 UI_Phrases_OnDawn2 = "llego otro dia",
@@ -232,7 +232,7 @@ UI_Phrases_Agoraphobic4 = "Deberia no hacer eso",
 UI_Phrases_Agoraphobic5 = "¿Que fue eso?",
 UI_Phrases_Agoraphobic6 = "¿por que no puedo quedarme adentro?",
 --UI_Phrases_Claustrophobic
-UI_Phrases_Claustrophobic1 = "respiraciones profundas, respiraciones profundas",+
+UI_Phrases_Claustrophobic1 = "respiraciones profundas, respiraciones profundas",
 UI_Phrases_Claustrophobic2 = "Odio este sentimiento",
 UI_Phrases_Claustrophobic3 = "las paredes se están cerrando",
 UI_Phrases_Claustrophobic4 = "*respiraciones profundas*",
