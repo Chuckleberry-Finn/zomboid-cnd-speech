@@ -1,3 +1,34 @@
+-- -=[ Instructions for Contributors ]=-
+-- Firstly, thank you for stopping in; I hope you enjoy your time here.
+
+-- Steps:
+---- 1. If there is not a directory for your language with in "/media/lua/client/shared/Translate/" then create one.
+------ 1a. Copy over this file to "Translate/<LANGUAGE>" and rename it to "UI_<LANGUAGE>" (for example: UI_EN.txt)
+---- 2. Under the instructions there is the 'header' for a list - make sure the name matches the text file's name.
+------ For example: Both the text file and list should be UI_EN, UI_RU, UI_FR, etc.
+---- 3. You're ready to translate! Only change things bellow
+
+-- Phrases can be found in "/media/lua/client/shared/Translate/"
+--- (the folder of your language, for example: EN, RU, FR, will include everything you need.)
+
+-- You can add more phrases than what is available, just make sure the numbers at the end of the entry follows numerically.
+--- (1, 2, 3, 4, 5, etc)
+
+-- When Writing New Phrases:
+-- 1. Keep them short when you can.
+-- 2. Don't capitalize anything other than 'I' or proper nouns.
+-- 3. Punctuation is fine, but keep in mind all '.' can become '!' - so avoid things like U.S.A. or F.B.I. (USA and FBI are fine)
+-- 4. Avoid swears (as there is dynamic swearing built-in), instead use <SWEAR>.
+-- 5. For the moment any *emotive actions* have to be the entire phrase (which won't be filtered).
+
+-- For more variety and to avoid bloat from repetitive phrases, phrases can be used as Keywords to replace parts of another phrase at random.
+-- Format: "<WORD> in the phrase." Make sure there is a corresponding PhrasesWORD phrase-set.
+-- When writing new Phrases to be used as keywords: Read through some lines with <WORD> to make sure it sounds correct before adding them in.
+-- For example: Look at "UI_Phrases_FOOD" and <FOOD> below.
+
+-- DO NOT TRANSLATE KEYWORDS LIKE <WORD> OR <SWEAR>.
+
+-- NOTE: THE TABLE HEADER "UI_XX" MUST MATCH THE IN GAME LANGUAGE ABBREVIATION
 UI_ES = {
 
 --UI_Phrases_Drunk

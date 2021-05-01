@@ -27,7 +27,6 @@
 -- For example: Look at "UI_Phrases_FOOD" and <FOOD> below.
 
 -- DO NOT TRANSLATE KEYWORDS LIKE <WORD> OR <SWEAR>.
--- Be mindful of txt file encodings for your language. This file should be in a Windows-1251 encoding.
 
 -- NOTE: THE TABLE HEADER "UI_XX" MUST MATCH THE IN GAME LANGUAGE ABBREVIATION
 UI_RU = {
