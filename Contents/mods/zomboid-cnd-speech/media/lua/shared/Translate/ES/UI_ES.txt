@@ -1,7 +1,7 @@
 UI_ES = {
 
 --UI_Phrases_Drunk
-UI_Phrases_Drunk1 = "Me siento borracho",
+UI_Phrases_Drunk1 = "Me siento ebrio",
 UI_Phrases_Drunk2 = "Me siento bien",
 UI_Phrases_Drunk3 = "Esta es la cosa", 
 UI_Phrases_Drunk4 = "Podria ir por otra",
