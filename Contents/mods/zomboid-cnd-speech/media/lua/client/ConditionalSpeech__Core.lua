@@ -265,7 +265,7 @@ function ConditionalSpeech.applyVolumetricColor_Say(player,text,vol)
 	return_color.g = text_color.g * text_color.g / return_color.a + graybase.g * graybase.a * (1 - text_color.a) / return_color.a--green
 	return_color.b = text_color.b * text_color.b / return_color.a + graybase.b * graybase.a * (1 - text_color.a) / return_color.a--blue
 
-	player:Say(text, return_color.r, return_color.g, return_color.b, UIFont.Small, vol, "radio") --radio makes it colored, I don't know why exactly
+	player:Say(text, return_color.r, return_color.g, return_color.b, UIFont.NewSmall, vol, "radio") --radio makes it colored, I don't know why exactly
 end
 
 
