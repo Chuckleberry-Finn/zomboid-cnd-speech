@@ -187,13 +187,16 @@ function ConditionalSpeech.generateSpeechFrom(player, PhraseSetID, intensity, MA
 	local dialogue = RangedRandPick(PhraseTable,intensity,MAXintensity)
 	if not dialogue then return end
 
-	--replace KEYWORDS found with randomly picked words
-	for KEYWORD,REPLACEWORDS in pairs(ConditionalSpeech.Phrases) do
-		local keywordID = KEYWORD
-		if danger and (keywordID=="SARCASM") then
-			keywordID = "SWEAR"
+	--If "<" is found within the phrase - assume there's a keyword
+	while string.find(dialogue, "<") do
+		--replace text matching PhraseSetID (KEYWORD) with words from phraseset
+		for KEYWORD, PHRASE in pairs(ConditionalSpeech.Phrases) do
+			local keywordID = KEYWORD
+			if danger and (keywordID=="SARCASM") then
+				keywordID = "SWEAR"
+			end
+			dialogue = dialogue:gsub("<"..keywordID..">", pickFrom(PHRASE))
 		end
-		dialogue = dialogue:gsub("<"..keywordID..">", pickFrom(REPLACEWORDS))
 	end
 	ConditionalSpeech.Speech(player,dialogue,PhraseSetID, volumeBlock)
 end
