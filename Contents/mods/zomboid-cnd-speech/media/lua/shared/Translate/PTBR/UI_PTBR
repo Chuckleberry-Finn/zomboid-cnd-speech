@@ -346,8 +346,8 @@ UI_Phrases_SWEARskipwords19 = "um pouco de",
 UI_Phrases_SWEARskipwords20 = "um(a)",
 UI_Phrases_SWEARskipwords21 = "preciso",
 --UI_Phrases_FUCKS
-UI_Phrases_FUCKS1 = "porra",
-UI_Phrases_FUCKS2 = "porcaria de",
+UI_Phrases_FUCKS1 = "porcaria",
+UI_Phrases_FUCKS2 = "desgraça de",
 --UI_Phrases_Plosives
 UI_Phrases_Plosives1 = "f",
 UI_Phrases_Plosives2 = "F",
