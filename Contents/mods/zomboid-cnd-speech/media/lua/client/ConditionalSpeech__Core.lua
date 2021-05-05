@@ -195,7 +195,7 @@ function ConditionalSpeech.generateSpeechFrom(player, PhraseSetID, intensity, MA
 			if danger and (KEYWORD=="SARCASM") then
 				phrases = ConditionalSpeech.Phrases["SWEAR"]
 			end
-			dialogue = dialogue:gsub("<"..keywordID..">", pickFrom(phrases))
+			dialogue = dialogue:gsub("<"..KEYWORD..">", pickFrom(phrases))
 		end
 	end
 	ConditionalSpeech.Speech(player,dialogue,PhraseSetID, volumeBlock)
