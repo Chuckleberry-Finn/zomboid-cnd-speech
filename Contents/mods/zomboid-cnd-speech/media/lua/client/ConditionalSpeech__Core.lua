@@ -191,11 +191,11 @@ function ConditionalSpeech.generateSpeechFrom(player, PhraseSetID, intensity, MA
 	while string.find(dialogue, "<") do
 		--replace text matching PhraseSetID (KEYWORD) with words from phraseset
 		for KEYWORD, PHRASE in pairs(ConditionalSpeech.Phrases) do
-			local keywordID = KEYWORD
-			if danger and (keywordID=="SARCASM") then
-				keywordID = "SWEAR"
+			local phrases = PHRASE
+			if danger and (KEYWORD=="SARCASM") then
+				phrases = ConditionalSpeech.Phrases["SWEAR"]
 			end
-			dialogue = dialogue:gsub("<"..keywordID..">", pickFrom(PHRASE))
+			dialogue = dialogue:gsub("<"..keywordID..">", pickFrom(phrases))
 		end
 	end
 	ConditionalSpeech.Speech(player,dialogue,PhraseSetID, volumeBlock)
