@@ -20,7 +20,7 @@ DUSK_TIME = 22
 ConditionalSpeech.volumeSensitiveFilters = {"Stutter","Stammer"}
 
 --- global paired list of mood types and corresponding filters
-ConditionalSpeech.filterTable = { -- This has to be under where the filters themselves are defined
+ConditionalSpeech.filterTable = {
 	["Endurance"] = {"BlurtOut"},
 	["Tired"] = {"BlurtOut"},
 	["Panic"] = {"panicSwear","Stutter","BlurtOut","SCREAM"},
