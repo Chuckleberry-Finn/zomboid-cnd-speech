@@ -5,7 +5,7 @@
 
 #### Contributing:
 - Feel free to offer advice/suggestions using the [Issues feature](https://github.com/ChuckTheSheep/zomboid-cnd-speech/issues).
-- If you're interested in translating the mod please see the instructions within one of the [language directories](https://github.com/ChuckTheSheep/zomboid-cnd-speech/tree/master/Contents/mods/zomboid-cnd-speech/media/lua/shared/Translate).
+- If interested in translating please see instructions included within the [language file(s)](https://github.com/ChuckTheSheep/zomboid-cnd-speech/tree/master/Contents/mods/zomboid-cnd-speech/media/lua/shared/Translate).
 - The mod files are located in the [media folder](https://github.com/ChuckTheSheep/zomboid-cnd-speech/tree/master/Contents/mods/zomboid-cnd-speech/media).
 
 #### Installation:
