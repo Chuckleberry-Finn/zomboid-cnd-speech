@@ -345,6 +345,8 @@ UI_Phrases_SWEARskipwords18 = "on",
 UI_Phrases_SWEARskipwords19 = "some",
 UI_Phrases_SWEARskipwords20 = "an",
 UI_Phrases_SWEARskipwords21 = "need",
+UI_Phrases_SWEARskipwords22 = "die",
+UI_Phrases_SWEARskipwords23 = "eat",
 --UI_Phrases_FUCKS
 UI_Phrases_FUCKS1 = "fuck",
 UI_Phrases_FUCKS2 = "fucking",
