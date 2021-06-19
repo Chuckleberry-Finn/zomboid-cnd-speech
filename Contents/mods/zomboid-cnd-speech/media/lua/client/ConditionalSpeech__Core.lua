@@ -59,9 +59,6 @@ function ConditionalSpeech.load_n_set_Moodles(player)
 	table.insert(ConditionalSpeech.Speakers, player)
 
 	local moodles = player:getMoodles()
-	if moodles then
-		moodles:Update()
-	end
 
 	player:getModData().cs_lastspoke = {[1] = getTimestamp(), [2]=""}
 	player:getModData().moodleTable = {}
