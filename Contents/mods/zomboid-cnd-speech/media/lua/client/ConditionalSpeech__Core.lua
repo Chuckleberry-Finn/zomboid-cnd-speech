@@ -15,6 +15,7 @@ ConditionalSpeech.Speakers = {}
 VolumeMAX = 30
 DAWN_TIME = 6
 DUSK_TIME = 22
+NullColor = Color.new(1,1,1,1)
 
 --- filters that shouldn't run if volume is 0
 ConditionalSpeech.volumeSensitiveFilters = {"Stutter","Stammer"}
@@ -56,11 +57,15 @@ function ConditionalSpeech.load_n_set_Moodles(player)
 	end
 	print("CND-SPEECH: load_n_set_Moodles: "..player:getFullName())
 	table.insert(ConditionalSpeech.Speakers, player)
-	player:getMoodles():Update()
+
+	local moodles = player:getMoodles()
+	if moodles then
+		moodles:Update()
+	end
+
 	player:getModData().cs_lastspoke = {[1] = getTimestamp(), [2]=""}
 	player:getModData().moodleTable = {}
 
-	local moodles = player:getMoodles()
 	--fetches moodles index num
 	local moodNum = moodles:getNumMoodles()
 
@@ -245,15 +250,22 @@ end
 
 
 --- Blends speech color with gray on a scale with volume. This is called with in ConditionalSpeech.Speech.
----@param player IsoGameCharacter
+---@param player IsoGameCharacter | IsoPlayer
 function ConditionalSpeech.applyVolumetricColor_Say(player,text,vol)
 	if not player or not text then
 		return
 	end
 
 	local vc_shift = 0.3+(0.7*(vol/VolumeMAX))--have a 0.3 base --difference of 0.7 is then multipled against volume/maxvolume
-	local MpText_Color = getCore():getMpTextColor()--grab player's MP text from main menu
-	local text_color = {r = MpText_Color:getR()*vc_shift, g = MpText_Color:getG()*vc_shift, b = MpText_Color:getB()*vc_shift, a = vc_shift}--alpha shift based on vc_shift
+	local Text_Color = player:getSpeakColour()
+
+	if not Text_Color then
+		player:setSpeakColour(Color(ZombRand(0.45,0.9),ZombRand(0.45,0.9),ZombRand(0.45,0.9)))
+	end
+
+	Text_Color = player:getSpeakColour() or NullColor
+
+	local text_color = { r = Text_Color:getRedFloat()*vc_shift, g = Text_Color:getGreenFloat()*vc_shift, b = Text_Color:getBlueFloat()*vc_shift, a = vc_shift}--alpha shift based on vc_shift
 	local graybase = {r=0.45, g=0.45, b=0.45, a=1}--gray base text_color will be overlayed onto
 	local return_color = {r=0, g=0, b=0, a=0}--set up return color
 
@@ -385,17 +397,18 @@ Events.EveryHours.Add(ConditionalSpeech.check_Time)--EveryHours(?) --check every
 Events.OnWeaponSwing.Add(ConditionalSpeech.check_WeaponStatus) --OnWeaponSwing(playerObj,weapon)
 Events.OnPlayerUpdate.Add(ConditionalSpeech.check_PlayerStatus) --OnPlayerUpdate(playerObj) --checks moodlestatus
 
--- Events.EveryDays
--- Events.OnWeaponHitCharacter
--- Events.OnWeaponHitTree
--- Events.OnWeaponSwingHitPoint
--- Events.onWeaponHitXp
--- Events.EveryTenMinutes
--- Events.EveryDays
--- Events.EveryHours
--- Events.OnEnterVehicle
--- Events.OnExitVehicle
--- Events.OnVehicleDamageTexture
--- Events.LevelPerk
--- Events.OnZombieDead
--- Events.OnCharacterDeath
+
+---@param playerID number
+---@param playerObject IsoPlayer | IsoGameCharacter
+function ConditionalSpeech.setSpeakColor(playerID, playerObject)
+	local MpTextColor = getCore():getMpTextColor()
+	playerObject:setSpeakColourInfo(MpTextColor)
+	print("CND-SPEECH: Setting Speak Color on: "..playerObject:getFullName())
+end
+Events.OnCreatePlayer.Add(ConditionalSpeech.setSpeakColor)
+
+MainOptions_pickedMPTextColor = MainOptions.pickedMPTextColor
+function MainOptions:pickedMPTextColor(color, mouseUp)
+	MainOptions_pickedMPTextColor(self, color, mouseUp)
+	ConditionalSpeech.setSpeakColor(nil, getPlayer())
+end
