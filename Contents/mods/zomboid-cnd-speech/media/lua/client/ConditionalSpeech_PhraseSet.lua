@@ -42,7 +42,7 @@ ConditionalSpeech.Phrases.SARCASM = {}
 
 
 function SetPhraseSetLANGUAGE()
-
+	--[[debug]] print("CND-SPEECH: Ignore the following ERRORS they are apart of the phrase loading process.")
 	for k,_ in pairs(ConditionalSpeech.Phrases) do
 
 		local phraseNum = 0
@@ -52,7 +52,7 @@ function SetPhraseSetLANGUAGE()
 			local foundPhrase = ""
 			local phraseID = "UI_Phrases_"..k..phraseNum
 			foundPhrase = getText(phraseID)
-			--[debug]] print("phraseNum:"..phraseNum.."  foundPhrase:"..foundPhrase)
+			--[debug]] print("CND-SPEECH: phraseNum:"..phraseNum.."  foundPhrase:"..foundPhrase)
 			if (foundPhrase == phraseID) then
 				break
 			else

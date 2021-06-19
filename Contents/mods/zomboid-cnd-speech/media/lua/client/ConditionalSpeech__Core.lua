@@ -49,18 +49,12 @@ ConditionalSpeech.filterTable = {
 
 
 --- Retrieve MoodLevel Values and Set up MoodArray per player.
----@param ID number IDs are assigned upon player creation via OnCreatePlayer().
-function ConditionalSpeech.load_n_set_Moodles(ID)
-	if not ID then
-		return
-	end
-
-	local player = getSpecificPlayer(ID)
-
+---@param player IsoLivingCharacter | IsoGameCharacter
+function ConditionalSpeech.load_n_set_Moodles(player)
 	if not player then
 		return
 	end
-
+	print("CND-SPEECH: load_n_set_Moodles: "..player:getFullName())
 	table.insert(ConditionalSpeech.Speakers, player)
 	player:getMoodles():Update()
 	player:getModData().cs_lastspoke = {[1] = getTimestamp(), [2]=""}
@@ -133,7 +127,7 @@ function ConditionalSpeech.passMoodleFilters(player,text)
 	for _,FilterType in ipairs(sortFilters) do
 		if not is_valueIn(ConditionalSpeech.volumeSensitiveFilters,FilterType) or (filtered_vol > 0 and is_valueIn(ConditionalSpeech.volumeSensitiveFilters,FilterType)) then
 			--compare sortFilters's value to filtersToPass's keys to find stored intensity
-			--[debug]] print("RUN FILTER: ",FilterType,"-")
+			--[debug]] print("CND-SPEECH: RUN FILTER: ",FilterType,"-")
 			local intensity = filtersToPass[FilterType]
 			local filter = ConditionalSpeech_Filter[FilterType]
 			local filter_results = filter(text, intensity)
@@ -243,7 +237,7 @@ function ConditionalSpeech.Speech(player, dialogue, PhraseSetID, volumeBlock)
 		vocal_volume = 0
 	end
 
-	--[debug]] print(player:getDescriptor():getForename(),player:getDescriptor():getSurname(),"  vol:",vocal_volume,"  ",dialogue)
+	--[[debug]] print("CND-SPEECH: "..player:getFullName()," (vol:",vocal_volume,") : ",dialogue)
 	ConditionalSpeech.applyVolumetricColor_Say(player,tostring(dialogue),vocal_volume)
 	addSound(nil, player:getX(), player:getY(), player:getZ(), vocal_volume, vocal_volume)
 
@@ -386,7 +380,7 @@ end
 
 
 --- Event Hooks ---
-Events.OnCreatePlayer.Add(ConditionalSpeech.load_n_set_Moodles)--OnCreatePlayer(playerID) --Starts up ConditionalSpeech
+Events.OnCreateLivingCharacter.Add(ConditionalSpeech.load_n_set_Moodles)--OnCreatePlayer(playerObj) --Starts up ConditionalSpeech
 Events.EveryHours.Add(ConditionalSpeech.check_Time)--EveryHours(?) --check every in-game hour for events
 Events.OnWeaponSwing.Add(ConditionalSpeech.check_WeaponStatus) --OnWeaponSwing(playerObj,weapon)
 Events.OnPlayerUpdate.Add(ConditionalSpeech.check_PlayerStatus) --OnPlayerUpdate(playerObj) --checks moodlestatus
