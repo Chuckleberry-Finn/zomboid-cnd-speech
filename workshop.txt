@@ -2,12 +2,18 @@ version=1
 id=2398253681
 title=Conditional-Speech
 description=[h3]This mod generates speech utilizing a number of conditions as well as some randomization to create dynamic dialogue.[/h3]
+description=
+description=[img]https://i.imgur.com/p7Fv1Z6.gif[/img]
 description= 
+description=[url=https://ko-fi.com/chuckleberryfinn][img]https://i.imgur.com/GxZ38nz.png[/img] [b]Consider supporting Chuck[/b][/url]
+description=
 description=Note:[list]
 description=[*] Color of speech can be changed in the in-game menu under "multiplayer".
 description=[*] The game will simulate volume by grayscaling your speech. Pick a vibrant color as to tell the difference in volume.
 description=[/list]
-description= 
+description=
 description=Please offer suggestions/ideas/issues on [url=https://github.com/ChuckTheSheep/zomboid-cnd-speech]Github.[/url]
-tags=
+description=
+description=Tags:B41,Framework,Lang,Translation,Language
+tags=Build 41;Framework;Language
 visibility=public
