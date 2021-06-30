@@ -5,3 +5,4 @@ id=Conditional-Speech
 url=https://github.com/ChuckTheSheep/zomboid-cnd-speech
 modversion=1.0
 pzversion=41.50-IWBUMS
+require=EasyConfigChucked
