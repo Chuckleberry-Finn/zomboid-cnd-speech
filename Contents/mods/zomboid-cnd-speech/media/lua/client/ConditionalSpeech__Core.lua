@@ -48,19 +48,35 @@ ConditionalSpeech.filterTable = {
 }
 
 
+--- Cleans up the dialogue and applies filters.
+---@param player IsoGameCharacter
+function ConditionalSpeech.bIsNPC(player)
+	for playerIndex=0, getNumActivePlayers()-1 do
+		---@type IsoLivingCharacter | IsoGameCharacter
+		local playerObj = getSpecificPlayer(playerIndex)
+		if playerObj and (playerObj == player) then
+			return false
+		end
+	end
+	return true
+end
+
 
 --- Retrieve MoodLevel Values and Set up MoodArray per player.
 ---@param player IsoLivingCharacter | IsoGameCharacter
 function ConditionalSpeech.load_n_set_Moodles(player)
-	if not player then
+	if not player or player:isDead() then
 		return
 	end
-	print("CND-SPEECH: load_n_set_Moodles: "..player:getFullName())
-	table.insert(ConditionalSpeech.Speakers, player)
+
+	ConditionalSpeech.Speakers[player] = true
+
+	local bIsNPC = ConditionalSpeech.bIsNPC(player)
+	print("CND-SPEECH: load_n_set_Moodles: "..tostring(player:getFullName()).." (NPC:"..tostring(bIsNPC)..")")
 
 	local moodles = player:getMoodles()
 
-	player:getModData().cs_lastspoke = {[1] = getTimestamp(), [2]=""}
+	player:getModData().cs_lastspoke = {[1]=getTimestamp(), [2]=""}
 	player:getModData().moodleTable = {}
 
 	--fetches moodles index num
@@ -171,17 +187,21 @@ function ConditionalSpeech.generateSpeechFrom(player, PhraseSetID, intensity, MA
 	end
 
 	-- prevent the player from speaking too soon -- getTimestamp is in seconds
-	local lastspoke = player:getModData().cs_lastspoke
+	local lastspoke = player:getModData().cs_lastspoke or {[1]=getTimestamp(), [2]=""}
 	--delay between lines is 1 unless they're the same phraset, then it is 3
-	if not lastspoke or (lastspoke[1]+1 > getTimestamp()) or (lastspoke[1]+3 > getTimestamp() and lastspoke[2]==PhraseSetID) then
+	if (lastspoke[1]+1 > getTimestamp()) or (lastspoke[1]+3 > getTimestamp() and lastspoke[2]==PhraseSetID) then
 		return
 	end
 
 	local PhraseTable = ConditionalSpeech.Phrases[PhraseSetID]
-	if not PhraseTable then return end
+	if not PhraseTable then
+		return
+	end
 
 	local dialogue = RangedRandPick(PhraseTable,intensity,MAXintensity)
-	if not dialogue then return end
+	if not dialogue then
+		return
+	end
 
 	--If "<" is found within the phrase - assume there's a keyword
 	while string.find(dialogue, "<") do
@@ -198,19 +218,27 @@ function ConditionalSpeech.generateSpeechFrom(player, PhraseSetID, intensity, MA
 end
 
 
+
+
 --- Cleans up the dialogue and applies filters.
 ---@param player IsoGameCharacter
 ---@param dialogue string
 function ConditionalSpeech.Speech(player, dialogue, PhraseSetID, volumeBlock)
-	-- prevent the player from speaking too soon -- getTimestamp is in seconds
-	local lastspoke = player:getModData().cs_lastspoke
 
-	if not lastspoke or lastspoke[1]+1 > getTimestamp() then
+	--prevent MPCs from speaking if config is set to such
+	if ConditionalSpeech.bIsNPC(player)==true and cndSpeechConfig.config.NPCsDontTalk==true then
+		print("CND-SPEECH: NO NPC TALK ("..player:getFullName()..")")
+		return
+	end
+
+	-- prevent the player from speaking too soon -- getTimestamp is in seconds
+	local lastspoke = player:getModData().cs_lastspoke or {[1]=getTimestamp(), [2]=""}
+
+	if (lastspoke[1]+1 > getTimestamp()) or (lastspoke[1]+3 > getTimestamp() and lastspoke[2]==PhraseSetID) then
 		return
 	end
 
 	player:getModData().cs_lastspoke = {[1]=getTimestamp(),[2]=PhraseSetID}
-
 
 	local fc = string.sub(dialogue, 1,1) --fc=first character
 	local lc = string.sub(dialogue, -1) --lc=last character
@@ -370,17 +398,16 @@ end
 function ConditionalSpeech.check_Time()
 	local TIME = getGameTime():getHour()
 
-	if #ConditionalSpeech.Speakers > 0 then
-		for playerIndex,_ in pairs(ConditionalSpeech.Speakers) do
-			local player = ConditionalSpeech.Speakers[playerIndex]
+	for playerObject,_ in pairs(ConditionalSpeech.Speakers) do
+		---@type IsoGameCharacter | IsoPlayer
+		local player = playerObject
 
-			if player and not player:isDead() then
-				if player:isOutside() and is_prob(75) then
-					if TIME==DAWN_TIME then
-						player:getModData().CndSpeech_tellTime = "OnDawn"
-					elseif TIME==DUSK_TIME then
-						player:getModData().CndSpeech_tellTime = "OnDusk"
-					end
+		if player and not player:isDead() then
+			if player:isOutside() and is_prob(75) then
+				if TIME==DAWN_TIME then
+					player:getModData().CndSpeech_tellTime = "OnDawn"
+				elseif TIME==DUSK_TIME then
+					player:getModData().CndSpeech_tellTime = "OnDusk"
 				end
 			end
 		end
@@ -388,8 +415,9 @@ function ConditionalSpeech.check_Time()
 end
 
 
+
 --- Event Hooks ---
-Events.OnCreateLivingCharacter.Add(ConditionalSpeech.load_n_set_Moodles)--OnCreatePlayer(playerObj) --Starts up ConditionalSpeech
+Events.OnCreateLivingCharacter.Add(ConditionalSpeech.load_n_set_Moodles)--OnCreateLivingCharacter(playerObj) --Starts up ConditionalSpeech
 Events.EveryHours.Add(ConditionalSpeech.check_Time)--EveryHours(?) --check every in-game hour for events
 Events.OnWeaponSwing.Add(ConditionalSpeech.check_WeaponStatus) --OnWeaponSwing(playerObj,weapon)
 Events.OnPlayerUpdate.Add(ConditionalSpeech.check_PlayerStatus) --OnPlayerUpdate(playerObj) --checks moodlestatus
@@ -397,15 +425,15 @@ Events.OnPlayerUpdate.Add(ConditionalSpeech.check_PlayerStatus) --OnPlayerUpdate
 
 ---@param playerID number
 ---@param playerObject IsoPlayer | IsoGameCharacter
-function ConditionalSpeech.setSpeakColor(playerID, playerObject)
+function ConditionalSpeech.setSpeakColor(playerObject)
 	local MpTextColor = getCore():getMpTextColor()
 	playerObject:setSpeakColourInfo(MpTextColor)
 	print("CND-SPEECH: Setting Speak Color on: "..playerObject:getFullName())
 end
-Events.OnCreatePlayer.Add(ConditionalSpeech.setSpeakColor)
+Events.OnCreateLivingCharacter.Add(ConditionalSpeech.setSpeakColor)
 
 MainOptions_pickedMPTextColor = MainOptions.pickedMPTextColor
 function MainOptions:pickedMPTextColor(color, mouseUp)
 	MainOptions_pickedMPTextColor(self, color, mouseUp)
-	ConditionalSpeech.setSpeakColor(nil, getPlayer())
+	ConditionalSpeech.setSpeakColor(getPlayer())
 end
