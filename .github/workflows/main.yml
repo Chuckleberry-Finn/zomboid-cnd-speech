@@ -1,0 +1,17 @@
+name: "Upload to Workshop"
+
+on:
+  - push
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: AnarkisGaming/workshop@v1
+        with:
+          appID: 108600
+          publishedFileID: 2398253681
+        env:
+          STEAM_ACCOUNT_NAME: ${{ secrets.accountname }}
+          STEAM_PASSWORD: ${{ secrets.password }}
