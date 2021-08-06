@@ -4,7 +4,7 @@ title=Conditional-Speech
 description=[h3]This mod generates speech utilizing a number of conditions as well as some randomization to create dynamic dialogue.[/h3]
 description=
 description=[img]https://i.imgur.com/p7Fv1Z6.gif[/img]
-description= 
+description=
 description=[url=https://ko-fi.com/chuckleberryfinn][img]https://i.imgur.com/GxZ38nz.png[/img] [b]Consider supporting Chuck[/b][/url]
 description=
 description=Note:[list]
@@ -15,5 +15,5 @@ description=
 description=Please offer suggestions/ideas/issues on [url=https://github.com/ChuckTheSheep/zomboid-cnd-speech]Github.[/url]
 description=
 description=Tags:B41,Framework,Lang,Translation,Language
-tags=Build 41;Framework;Language
+tags=Build 41;Framework;Misc
 visibility=public
