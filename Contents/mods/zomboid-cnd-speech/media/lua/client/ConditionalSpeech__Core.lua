@@ -227,7 +227,7 @@ function ConditionalSpeech.Speech(player, dialogue, PhraseSetID, volumeBlock)
 
 	--prevent MPCs from speaking if config is set to such
 	if ConditionalSpeech.bIsNPC(player)==true and cndSpeechConfig.config.NPCsDontTalk==true then
-		print("CND-SPEECH: NO NPC TALK ("..player:getFullName()..")")
+		--[DEBUG]] print("CND-SPEECH: NO NPC TALK ("..player:getFullName()..")")
 		return
 	end
 
@@ -269,7 +269,10 @@ function ConditionalSpeech.Speech(player, dialogue, PhraseSetID, volumeBlock)
 
 	--[[debug]] print("CND-SPEECH: "..player:getFullName()," (vol:",vocal_volume,") : ",dialogue)
 	ConditionalSpeech.applyVolumetricColor_Say(player,tostring(dialogue),vocal_volume)
-	addSound(nil, player:getX(), player:getY(), player:getZ(), vocal_volume, vocal_volume)
+
+	if cndSpeechConfig.config.SpeechCanAttractsZombies==true then
+		addSound(nil, player:getX(), player:getY(), player:getZ(), vocal_volume, vocal_volume)
+	end
 
 end
 
