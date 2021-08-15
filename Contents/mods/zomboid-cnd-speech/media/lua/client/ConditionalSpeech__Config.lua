@@ -17,7 +17,7 @@ cndSpeechConfig.menu = {
 	SpeechCanAttractsZombies = {type = "Tickbox", title = "Speech Can Attract Zombies", tooltip = "Even in extreme circumstances zombies can't hear conditional speech.",},
 }
 
---load mod into EasyConfig
-if EasyConfig_Chucked then
-	EasyConfig_Chucked.addMod(cndSpeechConfig)
-end
+
+EasyConfig_Chucked = EasyConfig_Chucked or {}
+EasyConfig_Chucked.mods = EasyConfig_Chucked.mods or {}
+EasyConfig_Chucked.mods[cndSpeechConfig.modId] = cndSpeechConfig
