@@ -15,5 +15,5 @@ description=
 description=Please offer suggestions/ideas/issues on [url=https://github.com/ChuckTheSheep/zomboid-cnd-speech]Github.[/url]
 description=
 description=Tags:B41,Framework,Lang,Translation,Language
-tags=Build 41;Framework;Misc
+tags=Build 41;Framework;Misc;Realistic;Silly/Fun
 visibility=public
