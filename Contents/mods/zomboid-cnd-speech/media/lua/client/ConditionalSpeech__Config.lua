@@ -19,5 +19,5 @@ cndSpeechConfig.menu = {
 
 --load mod into EasyConfig
 if EasyConfig_Chucked then
-	EasyConfig_Chucked.addMod(cndSpeechConfig.modId, cndSpeechConfig.name, cndSpeechConfig.config, cndSpeechConfig.menu, "CONDITIONAL SPEECH")
+	EasyConfig_Chucked.addMod(cndSpeechConfig)
 end
