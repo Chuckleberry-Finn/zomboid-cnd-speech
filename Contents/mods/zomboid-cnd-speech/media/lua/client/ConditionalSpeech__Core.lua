@@ -288,7 +288,7 @@ function ConditionalSpeech.applyVolumetricColor_Say(player,text,vol)
 		return
 	end
 
-	local vc_shift = 0.3+(0.7*(vol/VolumeMAX))--have a 0.3 base --difference of 0.7 is then multipled against volume/maxvolume
+	local vc_shift = 0.40+(0.60*(vol/VolumeMAX))--have a 0.3 base --difference of 0.7 is then multipled against volume/maxvolume
 	local Text_Color = player:getSpeakColour()
 
 	if not Text_Color then
