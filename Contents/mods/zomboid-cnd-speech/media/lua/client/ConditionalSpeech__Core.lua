@@ -267,6 +267,10 @@ function ConditionalSpeech.Speech(player, dialogue, PhraseSetID, volumeBlock)
 		vocal_volume = 0
 	end
 
+	if (vocal_volume <= 0) and (cndSpeechConfig.config.ShowOnlyAudibleSpeech==true) then
+		return
+	end
+
 	--[[debug]] print("CND-SPEECH: "..player:getFullName()," (vol:",vocal_volume,") : ",dialogue)
 	ConditionalSpeech.applyVolumetricColor_Say(player,tostring(dialogue),vocal_volume)
 
