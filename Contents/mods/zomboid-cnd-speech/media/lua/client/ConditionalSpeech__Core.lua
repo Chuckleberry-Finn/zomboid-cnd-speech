@@ -330,7 +330,7 @@ function ConditionalSpeech.check_PlayerStatus(player)
 
 	local zombiesNearBy = (playerStats:getNumVisibleZombies() + playerStats:getNumChasingZombies()) > 0
 	--prevent vocalization if any zombies are visible or chasing
-	local volumeBlock = ((panicLevel >= 0) and zombiesNearBy)
+	local volumeBlock = ((panicLevel <= 2) and zombiesNearBy)
 	--check if agoraphobic is actively enducing panic
 	local agora = (player:isOutside() and player:HasTrait("Agoraphobic"))
 	local claustro = ((not player:isOutside()) and player:HasTrait("Claustophobic"))
