@@ -76,12 +76,15 @@ function ConditionalSpeech.load_n_set_Moodles(player)
 
 	local moodles = player:getMoodles()
 
+	if not moodles then
+		return
+	end
+
 	player:getModData().cs_lastspoke = {[1]=getTimestamp(), [2]=""}
 	player:getModData().moodleTable = {}
 
 	--fetches moodles index num
 	local moodNum = moodles:getNumMoodles()
-
 	for i=0, moodNum-1 do
 		--fetches mood type string based on index
 		local moodType = moodles:getMoodleType(i)
