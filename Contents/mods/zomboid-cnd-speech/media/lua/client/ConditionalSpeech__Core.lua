@@ -71,8 +71,8 @@ function ConditionalSpeech.load_n_set_Moodles(player)
 
 	ConditionalSpeech.Speakers[player] = true
 
-	local bIsNPC = ConditionalSpeech.bIsNPC(player)
-	print("CND-SPEECH: load_n_set_Moodles: "..tostring(player:getFullName()).." (NPC:"..tostring(bIsNPC)..")")
+	--local bIsNPC = ConditionalSpeech.bIsNPC(player)
+	--print("CND-SPEECH: load_n_set_Moodles: "..tostring(player:getFullName()).." (NPC:"..tostring(bIsNPC)..")")
 
 	local moodles = player:getMoodles()
 
@@ -316,8 +316,13 @@ end
 --- Tracks moodle levels overtime, runs generate speech.
 ---@param player IsoGameCharacter
 function ConditionalSpeech.check_PlayerStatus(player)
-	if (not player) or (not player:getModData().moodleTable) then
+	if (not player) then--or (not player:getModData().moodleTable) then
 		return
+	end
+
+	if (not player:getModData().moodleTable) then
+		ConditionalSpeech.load_n_set_Moodles(player)
+		ConditionalSpeech.setSpeakColor(player)
 	end
 
 	local playerStats = player:getStats()
