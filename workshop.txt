@@ -12,7 +12,17 @@ description=[*] Color of speech can be changed in the in-game menu under "multip
 description=[*] The game will simulate volume by grayscaling your speech. Pick a vibrant color as to tell the difference in volume.
 description=[/list]
 description=
-description=Please offer suggestions/ideas/issues on [url=https://github.com/ChuckTheSheep/zomboid-cnd-speech]Github.[/url]
+description=You can report bugs, offer ideas, or provide translation/new phrases here: [url=https://github.com/ChuckTheSheep/zomboid-cnd-speech]Github.[/url]
+description=
+description=[h2]Contributors:[/h2]
+description=French Translation: Xianah
+description=Korean Translation: Qyuta
+description=Polish Translation: Koteczek
+description=Portuguese (BR) Translation: Renkien
+description=Russian Translation: MRSEEO
+description=Spanish Translation: JhonArroyo
+description=
+description=[h3]Thank you to everyone helped translate/contribute to the mod![/h3]
 description=
 description=Tags:B41,Framework,Lang,Translation,Language
 tags=Build 41;Framework;Misc;Realistic;Silly/Fun
