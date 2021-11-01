@@ -338,7 +338,7 @@ function ConditionalSpeech.check_PlayerStatus(player)
 
 	local zombiesNearBy = (playerStats:getNumVisibleZombies() + playerStats:getNumChasingZombies()) > 0
 	--prevent vocalization if any zombies are visible or chasing
-	local volumeBlock = (is_prob(100-(((panicLevel^2)+panicLevel)*4)) and zombiesNearBy)
+	local volumeBlock = (is_prob(100-(panicLevel^2)) and zombiesNearBy)
 	--check if agoraphobic is actively enducing panic
 	local agora = (player:isOutside() and player:HasTrait("Agoraphobic"))
 	local claustro = ((not player:isOutside()) and player:HasTrait("Claustophobic"))
@@ -346,6 +346,7 @@ function ConditionalSpeech.check_PlayerStatus(player)
 	local spoke = false
 
 	for MoodleID,lvl in pairs(player:getModData().moodleTable) do
+
 		local storedmoodleLevel = lvl
 		local currentMoodleLevel = player:getMoodles():getMoodleLevel(MoodleType[MoodleID])
 		--currentMoodleLevel(current mood level) is not equal to stored mood level then
