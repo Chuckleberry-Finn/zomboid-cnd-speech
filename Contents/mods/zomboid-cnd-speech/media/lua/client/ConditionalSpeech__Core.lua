@@ -181,6 +181,10 @@ function ConditionalSpeech.generateSpeechFrom(player, PhraseSetID, intensity, MA
 		return
 	end
 
+	if cndSpeechConfig.config[PhraseSetID]==false then
+		return
+	end
+
 	if not intensity or intensity <=0 then
 		intensity = 1
 	end

@@ -31,6 +31,13 @@ ConditionalSpeech.Phrases.Claustrophobic = {}
 ConditionalSpeech.Phrases.Panic = {}
 ConditionalSpeech.Phrases.Hypothermia = {}
 ConditionalSpeech.Phrases.Pain = {}
+
+---Load the above phraseSet IDs into a list used for the config menu.
+ConditionalSpeech.PhrasesForConfig = {}
+for moodID,phrases in pairs(ConditionalSpeech.Phrases) do
+	table.insert(ConditionalSpeech.PhrasesForConfig,moodID)
+end
+
 -- Swears are ranked by intensity
 ConditionalSpeech.Phrases.SWEAR = {}
 ConditionalSpeech.Phrases.SWEARskipwords = {}

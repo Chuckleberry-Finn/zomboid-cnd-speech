@@ -27,7 +27,17 @@ cndSpeechConfig.menu = {
 	generalSpaceC = {type = "Space"},
 }
 
+function cndSpeechConfig.loadMoodTableToConfig()
+	cndSpeechConfig.menu.generalSpaceD = {type = "Space"}
+	cndSpeechConfig.menu.moodTableToolTip = {type = "Text", text = "Phrase Sets:", a=0.65, customX=-20}
+	for key,moodID in pairs(ConditionalSpeech.PhrasesForConfig) do
+		cndSpeechConfig.menu[moodID] = {type = "Tickbox", title = moodID, tooltip = "", }
+		cndSpeechConfig.config[moodID] = cndSpeechConfig.config[moodID] or true
+	end
+end
 
 EasyConfig_Chucked = EasyConfig_Chucked or {}
 EasyConfig_Chucked.mods = EasyConfig_Chucked.mods or {}
 EasyConfig_Chucked.mods[cndSpeechConfig.modId] = cndSpeechConfig
+
+Events.OnGameBoot.Add(cndSpeechConfig.loadMoodTableToConfig)
