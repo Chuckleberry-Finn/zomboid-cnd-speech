@@ -40,7 +40,6 @@ end
 
 -- Swears are ranked by intensity
 ConditionalSpeech.Phrases.SWEAR = {}
-ConditionalSpeech.Phrases.FUCKS = {}
 -- useful list of plosives for stammering
 ConditionalSpeech.Phrases.Plosives = {}
 ConditionalSpeech.Phrases.FOOD = {}

@@ -323,9 +323,6 @@ UI_Phrases_SWEAR2 = "demonios",
 UI_Phrases_SWEAR3 = "maldita sea",
 UI_Phrases_SWEAR4 = "mierda",
 UI_Phrases_SWEAR5 = "joder",
---UI_Phrases_FUCKS
-UI_Phrases_FUCKS1 = "joder",
-UI_Phrases_FUCKS2 = "maldito",
 --UI_Phrases_Plosives
 UI_Phrases_Plosives1 = "f",
 UI_Phrases_Plosives2 = "F",

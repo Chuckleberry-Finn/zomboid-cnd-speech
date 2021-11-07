@@ -325,9 +325,6 @@ UI_Phrases_SWEAR4 = "пиздец",
 UI_Phrases_SWEAR5 = "блять",
 UI_Phrases_SWEAR6 = "сука",
 UI_Phrases_SWEAR7 = "ахуеть",
---UI_Phrases_FUCKS
-UI_Phrases_FUCKS1 = "ебать",
-UI_Phrases_FUCKS2 = "ёбанный",
 --UI_Phrases_Plosives
 UI_Phrases_Plosives1 = "б",
 UI_Phrases_Plosives2 = "Б",

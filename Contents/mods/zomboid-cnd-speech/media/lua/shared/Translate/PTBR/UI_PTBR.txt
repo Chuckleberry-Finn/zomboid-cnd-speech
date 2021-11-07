@@ -323,9 +323,6 @@ UI_Phrases_SWEAR2 = "porra",
 UI_Phrases_SWEAR3 = "droga",
 UI_Phrases_SWEAR4 = "merda",
 UI_Phrases_SWEAR5 = "caralhos",
---UI_Phrases_FUCKS
-UI_Phrases_FUCKS1 = "de foder",
-UI_Phrases_FUCKS2 = "porcaria de",
 --UI_Phrases_Plosives
 UI_Phrases_Plosives1 = "f",
 UI_Phrases_Plosives2 = "F",

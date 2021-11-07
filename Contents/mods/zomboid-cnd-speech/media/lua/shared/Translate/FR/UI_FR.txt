@@ -300,9 +300,6 @@ UI_Phrases_SWEAR2 = "bordel",
 UI_Phrases_SWEAR3 = "bordel de merde",
 UI_Phrases_SWEAR4 = "merde",
 UI_Phrases_SWEAR5 = "putain",
---UI_Phrases_FUCKS
-UI_Phrases_FUCKS1 = "putain",
-UI_Phrases_FUCKS2 = "putain de merde",
 --UI_Phrases_Plosives
 UI_Phrases_Plosives1 = "f",
 UI_Phrases_Plosives2 = "F",

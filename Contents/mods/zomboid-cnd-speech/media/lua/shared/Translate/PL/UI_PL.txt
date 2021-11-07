@@ -326,9 +326,6 @@ UI_Phrases_SWEAR1 = "ja pierdole",
 UI_Phrases_SWEAR2 = "cholera",
 UI_Phrases_SWEAR3 = "jasna cholera",
 UI_Phrases_SWEAR4 = "kurwa",
---UI_Phrases_FUCKS
-UI_Phrases_FUCKS1 = "kurwa",
-UI_Phrases_FUCKS2 = "pieprzony",
 --UI_Phrases_Plosives
 UI_Phrases_Plosives1 = "f",
 UI_Phrases_Plosives2 = "F",
