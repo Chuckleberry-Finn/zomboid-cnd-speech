@@ -21,6 +21,7 @@ description=Polish Translation: Koteczek
 description=Portuguese (BR) Translation: Renkien
 description=Russian Translation: MRSEEO
 description=Spanish Translation: JhonArroyo
+description=Turkish Translation: Batur123
 description=
 description=[h3]Thank you to everyone helped translate/contribute to the mod![/h3]
 description=
