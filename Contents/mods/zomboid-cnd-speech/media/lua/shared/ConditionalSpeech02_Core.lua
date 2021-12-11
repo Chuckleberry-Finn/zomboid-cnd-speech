@@ -1,5 +1,5 @@
 require "ConditionalSpeech00_Util"
-require "OptionScreens/MainOptions"
+require "ConditionalSpeech000_MpText"
 
 ---@class ConditionalSpeech
 ConditionalSpeech = {}
@@ -452,9 +452,3 @@ function ConditionalSpeech.setSpeakColor(playerObject)
 	print("CND-SPEECH: Setting Speak Color on: "..playerObject:getFullName())
 end
 Events.OnCreateLivingCharacter.Add(ConditionalSpeech.setSpeakColor)
-
-MainOptions_pickedMPTextColor = MainOptions.pickedMPTextColor
-function MainOptions:pickedMPTextColor(color, mouseUp)
-	MainOptions_pickedMPTextColor(self, color, mouseUp)
-	ConditionalSpeech.setSpeakColor(getPlayer())
-end
