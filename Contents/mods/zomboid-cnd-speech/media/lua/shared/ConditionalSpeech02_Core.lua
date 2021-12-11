@@ -1,4 +1,5 @@
-require "ConditionalSpeech___Util"
+require "ConditionalSpeech00_Util"
+require "OptionScreens/MainOptions"
 
 ---@class ConditionalSpeech
 ConditionalSpeech = {}

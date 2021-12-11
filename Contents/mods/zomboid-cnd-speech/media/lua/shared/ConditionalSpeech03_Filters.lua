@@ -1,4 +1,4 @@
-require "ConditionalSpeech__Core"
+require "ConditionalSpeech02_Core"
 
 --- Filter Template
 --[[

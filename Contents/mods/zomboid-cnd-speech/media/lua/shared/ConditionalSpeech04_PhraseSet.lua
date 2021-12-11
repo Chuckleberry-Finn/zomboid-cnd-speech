@@ -1,4 +1,4 @@
-require "ConditionalSpeech__Core"
+require "ConditionalSpeech02_Core"
 
 ---unused phrase sets for moods
 -- ConditionalSpeech.Phrases.Angry = nil
