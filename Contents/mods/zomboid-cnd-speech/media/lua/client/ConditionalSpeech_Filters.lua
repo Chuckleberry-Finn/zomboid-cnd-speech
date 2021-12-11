@@ -39,7 +39,7 @@ function ConditionalSpeech_Filter.BlurtOut(text, intensity)
     local volumeShift = 0
 
     if is_prob(((intensity^2)+intensity)*4) then
-        volumeShift = VolumeMAX/5
+        volumeShift = VolumeMAX/6
     end
 
     local results = filterResults:new(text,volumeShift)
