@@ -397,17 +397,19 @@ end
 ---@param player IsoGameCharacter
 ---@param weapon InventoryItem
 function ConditionalSpeech.check_WeaponStatus(player,weapon)
-	if player and weapon and weapon:getCategory() == "Weapon" and weapon:isRanged() and not player:isShoving() then
-		if weapon:isJammed() then
-			ConditionalSpeech.generateSpeechFrom(player,"GunJammed")
-		elseif (weapon:haveChamber() and not weapon:isRoundChambered()) or (not weapon:haveChamber() and weapon:getCurrentAmmoCount() <= 0) then
-			ConditionalSpeech.generateSpeechFrom(player,"OutOfAmmo")
-		elseif weapon:getMaxAmmo()>0 then
-			if player:getPerkLevel(Perks.Reloading)>=5 then
-				ConditionalSpeech.Speech(player,weapon:getCurrentAmmoCount().." shots left")
-			elseif player:getPerkLevel(Perks.Reloading)>=2 then
-				if weapon:getCurrentAmmoCount()<(weapon:getMaxAmmo()/4) then
-					ConditionalSpeech.generateSpeechFrom(player,"LowAmmo")
+	if player and weapon and weapon:getCategory() == "Weapon" and weapon:isRanged() then
+		if (player.isShoving and not player:isShoving()) or (player.isDoShove and not player:isDoShove()) then
+			if weapon:isJammed() then
+				ConditionalSpeech.generateSpeechFrom(player,"GunJammed")
+			elseif (weapon:haveChamber() and not weapon:isRoundChambered()) or (not weapon:haveChamber() and weapon:getCurrentAmmoCount() <= 0) then
+				ConditionalSpeech.generateSpeechFrom(player,"OutOfAmmo")
+			elseif weapon:getMaxAmmo()>0 then
+				if player:getPerkLevel(Perks.Reloading)>=5 then
+					ConditionalSpeech.Speech(player,weapon:getCurrentAmmoCount().." shots left")
+				elseif player:getPerkLevel(Perks.Reloading)>=2 then
+					if weapon:getCurrentAmmoCount()<(weapon:getMaxAmmo()/4) then
+						ConditionalSpeech.generateSpeechFrom(player,"LowAmmo")
+					end
 				end
 			end
 		end
