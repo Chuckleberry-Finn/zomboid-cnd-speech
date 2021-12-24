@@ -26,5 +26,5 @@ description=
 description=[h3]Thank you to everyone helped translate/contribute to the mod![/h3]
 description=
 description=Tags:B41,Framework,Lang,Translation,Language
-tags=Build 41;Framework;Misc;Realistic;Silly/Fun
+tags=Build 41;Framework;Hardmode;Misc;Multiplayer;Realistic;Silly/Fun
 visibility=public
