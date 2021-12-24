@@ -383,8 +383,8 @@ function ConditionalSpeech.check_PlayerStatus(player)
 					end
 					--generate speech
 					ConditionalSpeech.generateSpeechFrom(player, phraseSet, currentMoodleLevel,4, volumeBlock, zombiesNearBy)
-					spoke = true
 				end
+				spoke = true
 			end
 			--match stored mood level to current regardless of above outcome
 			player:getModData().moodleTable[MoodleID] = currentMoodleLevel
