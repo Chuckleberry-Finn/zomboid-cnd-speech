@@ -5,7 +5,7 @@ require "OptionScreens/SandBoxOptions"
 cndSpeechConfig = cndSpeechConfig or {}
 
 cndSpeechConfig.config = {
-	NPCsDontTalk = false,
+	NPCsDontTalk = true,
 	SpeechCanAttractsZombies = true,
 	ShowOnlyAudibleSpeech = false,
 }
@@ -14,9 +14,9 @@ cndSpeechConfig.modId = "Conditional-Speech" -- needs to the same as in your mod
 cndSpeechConfig.name = "Conditional Speech" -- the name that will be shown in the MOD tab
 
 cndSpeechConfig.menu = {
-	NPCsDontTalk = {type = "Tickbox", title = "Disable Non-Players' Speech",},
-	NPCsDontTalkToolTip = {type = "Text", text = "Non-player characters (NPCs) don't speak with Conditional Speech.\n", a=0.65, customX=-100},
-	generalSpaceA = {type = "Space"},
+	--NPCsDontTalk = {type = "Tickbox", title = "Disable Non-Players' Speech",},
+	--NPCsDontTalkToolTip = {type = "Text", text = "Non-player characters (NPCs) don't speak with Conditional Speech.\n", a=0.65, customX=-100},
+	--generalSpaceA = {type = "Space"},
 
 	SpeechCanAttractsZombies = {type = "Tickbox", title = "Speech Can Attract Zombies",},
 	SpeechCanAttractsZombiesToolTip = {type = "Text", text = "Even in extreme circumstances zombies can't hear conditional speech.\n", a=0.65, customX=-100},
