@@ -82,6 +82,7 @@ function ConditionalSpeech.load_n_set_Moodles(player)
 	end
 
 	player:getModData().cs_lastspoke = {[1]=getTimestamp(), [2]=""}
+	player:getModData().cs_lastPanicTime = getTimestamp()
 	player:getModData().moodleTable = {}
 
 	--fetches moodles index num
@@ -296,7 +297,7 @@ function ConditionalSpeech.applyVolumetricColor_Say(player,text,vol)
 		return
 	end
 
-	local vc_shift = 0.40+(0.60*(vol/VolumeMAX))--have a 0.3 base --difference of 0.7 is then multipled against volume/maxvolume
+	local vc_shift = 0.40+(0.60*(vol/VolumeMAX))--have a 0.3 base --difference of 0.7 is then multiplied against volume/maxvolume
 	local Text_Color = player:getSpeakColour()
 
 	if not Text_Color then
@@ -345,9 +346,14 @@ function ConditionalSpeech.check_PlayerStatus(player)
 	local zombiesNearBy = (playerStats:getNumVisibleZombies() + playerStats:getNumChasingZombies()) > 0
 	--prevent vocalization if any zombies are visible or chasing
 	local volumeBlock = (is_prob(100-(panicLevel^2)) and zombiesNearBy)
-	--check if agoraphobic is actively enducing panic
+	--check if agoraphobic is actively inducing panic
 	local agora = (player:isOutside() and player:HasTrait("Agoraphobic"))
 	local claustro = ((not player:isOutside()) and player:HasTrait("Claustophobic"))
+
+	local impactedByPanic = (panicLevel>0 and zombiesNearBy)
+	if impactedByPanic then
+		player:getModData().cs_lastPanicTime = getTimestamp()+5
+	end
 
 	local spoke = false
 
@@ -360,22 +366,25 @@ function ConditionalSpeech.check_PlayerStatus(player)
 			--if moodlevel has increased
 			if currentMoodleLevel > storedmoodleLevel then
 				local phraseSet = MoodleID
-				--space-phobic conditions met, set MoodleID\Phraset
-				if MoodleID=="Panic" then
-					if agora then
-						phraseSet = "Agoraphobic"
+
+				if (impactedByPanic) and (MoodleID~="Panic") and (getTimestamp() < player:getModData().cs_lastPanicTime) then
+				else
+					--space-phobic conditions met, set MoodleID\Phraset
+					if MoodleID=="Panic" then
+						if agora then
+							phraseSet = "Agoraphobic"
+						elseif claustro then
+							phraseSet = "Claustrophobic"
+						end
 					end
-					if claustro then
-						phraseSet = "Claustrophobic"
+					--pain overrides volumeBlock
+					if MoodleID == "Pain" then
+						volumeBlock = false
 					end
+					--generate speech
+					ConditionalSpeech.generateSpeechFrom(player, phraseSet, currentMoodleLevel,4, volumeBlock, zombiesNearBy)
+					spoke = true
 				end
-				--pain overrides volumeBlock
-				if MoodleID == "Pain" then
-					volumeBlock = false
-				end
-				--generate speech
-				ConditionalSpeech.generateSpeechFrom(player, phraseSet, currentMoodleLevel,4, volumeBlock, zombiesNearBy)
-				spoke = true
 			end
 			--match stored mood level to current regardless of above outcome
 			player:getModData().moodleTable[MoodleID] = currentMoodleLevel
