@@ -5,7 +5,7 @@ require "OptionScreens/SandBoxOptions"
 cndSpeechConfig = cndSpeechConfig or {}
 
 cndSpeechConfig.config = {
-	NPCsDontTalk = true,
+	--NPCsDontTalk = true,
 	SpeechCanAttractsZombies = true,
 	ShowOnlyAudibleSpeech = false,
 }
