@@ -4,7 +4,6 @@ title=Conditional-Speech
 description=[h3]This mod generates speech utilizing a number of conditions as well as some randomization to create dynamic dialogue.[/h3]
 description=
 description=[img]https://i.imgur.com/p7Fv1Z6.gif[/img]
-description=[img]https://raw.githubusercontent.com/sharkster91/ExpandedHelicopterEvents/main/Contents/mods/Expanded%20Helicopter%20Events/SteamDescSpacer.png[/img][img]https://raw.githubusercontent.com/sharkster91/ExpandedHelicopterEvents/main/Contents/mods/Expanded%20Helicopter%20Events/SteamDescSpacer.png[/img][img]https://raw.githubusercontent.com/sharkster91/ExpandedHelicopterEvents/main/Contents/mods/Expanded%20Helicopter%20Events/SteamDescSpacer.png[/img][img]https://raw.githubusercontent.com/sharkster91/ExpandedHelicopterEvents/main/Contents/mods/Expanded%20Helicopter%20Events/SteamDescSpacer.png[/img][url=https://ko-fi.com/chuckleberryfinn][img]https://raw.githubusercontent.com/sharkster91/ExpandedHelicopterEvents/main/Contents/mods/Expanded%20Helicopter%20Events/supportLogo_alt.png[/img][/url]
 description=
 description=[h1]If you're having an issue or encountering errors:[/h1]
 description=[h3]First, [b]resubscribe[/b] to this mod, and any related mod.[/h3]
@@ -32,6 +31,7 @@ description=Turkish Translation: Batur123
 description=
 description=[h3]Thank you to everyone helped translate/contribute to the mod![/h3]
 description=
-description=Tags:B41,Framework,Lang,Translation,Language
+description=
+description=[img]https://raw.githubusercontent.com/sharkster91/ExpandedHelicopterEvents/main/Contents/mods/Expanded%20Helicopter%20Events/SteamDescSpacer.png[/img][img]https://raw.githubusercontent.com/sharkster91/ExpandedHelicopterEvents/main/Contents/mods/Expanded%20Helicopter%20Events/SteamDescSpacer.png[/img][img]https://raw.githubusercontent.com/sharkster91/ExpandedHelicopterEvents/main/Contents/mods/Expanded%20Helicopter%20Events/SteamDescSpacer.png[/img][img]https://raw.githubusercontent.com/sharkster91/ExpandedHelicopterEvents/main/Contents/mods/Expanded%20Helicopter%20Events/SteamDescSpacer.png[/img][url=https://ko-fi.com/chuckleberryfinn][img]https://raw.githubusercontent.com/sharkster91/ExpandedHelicopterEvents/main/Contents/mods/Expanded%20Helicopter%20Events/supportLogo_alt.png[/img][/url]
 tags=Build 41;Framework;Hardmode;Misc;Multiplayer;Realistic;Silly/Fun
 visibility=public
