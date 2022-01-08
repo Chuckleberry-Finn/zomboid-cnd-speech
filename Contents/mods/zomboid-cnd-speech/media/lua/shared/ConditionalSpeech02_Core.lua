@@ -64,7 +64,7 @@ end
 
 --- Retrieve MoodLevel Values and Set up MoodArray per player.
 ---@param player IsoLivingCharacter | IsoGameCharacter
-function ConditionalSpeech.load_n_set_Moodles(player)
+function ConditionalSpeech.load_n_set_Moodles(id,player)
 	if not player or player:isDead() then
 		return
 	end
@@ -450,7 +450,7 @@ end
 
 
 --- Event Hooks ---
-Events.OnCreateLivingCharacter.Add(ConditionalSpeech.load_n_set_Moodles)--OnCreateLivingCharacter(playerObj) --Starts up ConditionalSpeech
+Events.OnCreatePlayer.Add(ConditionalSpeech.load_n_set_Moodles)--OnCreateLivingCharacter(playerObj) --Starts up ConditionalSpeech
 Events.EveryHours.Add(ConditionalSpeech.check_Time)--EveryHours(?) --check every in-game hour for events
 Events.OnWeaponSwing.Add(ConditionalSpeech.check_WeaponStatus) --OnWeaponSwing(playerObj,weapon)
 Events.OnPlayerUpdate.Add(ConditionalSpeech.check_PlayerStatus) --OnPlayerUpdate(playerObj) --checks moodlestatus
