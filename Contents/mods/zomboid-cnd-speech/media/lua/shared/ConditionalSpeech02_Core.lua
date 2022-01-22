@@ -329,7 +329,6 @@ function ConditionalSpeech.check_PlayerStatus(player)
 
 	if (not player:getModData().moodleTable) then
 		ConditionalSpeech.load_n_set_Moodles(player)
-		ConditionalSpeech.setSpeakColor(player)
 	end
 
 	local playerStats = player:getStats()
