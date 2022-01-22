@@ -296,21 +296,23 @@ function ConditionalSpeech.applyVolumetricColor_Say(player,text,vol)
 	local vc_shift = 0.40+(0.60*(vol/VolumeMAX))--have a 0.3 base --difference of 0.7 is then multiplied against volume/maxvolume
 	---@type ColorInfo
 	local Text_Color = getCore():getMpTextColor()
+	local tR, tG, tB = Text_Color:getR(), Text_Color:getG(), Text_Color:getB()
 
-	local text_color = { r = Text_Color:getR()*vc_shift, g = Text_Color:getG()*vc_shift, b = Text_Color:getB()*vc_shift, a = vc_shift}--alpha shift based on vc_shift
+	local text_color = { r = tR*vc_shift, g = tG*vc_shift, b = tB*vc_shift, a = vc_shift}--alpha shift based on vc_shift
 	local graybase = {r=0.45, g=0.45, b=0.45, a=1}--gray base text_color will be overlayed onto
-	local return_color = {r=0, g=0, b=0, a=0}--set up return color
+	local return_color = {r=tR, g=tG, b=tB, a=1}--set up return color
 
-	return_color.a = 1 - (1 - text_color.a) * (1 - graybase.a)--alpha
-	return_color.r = text_color.r * text_color.r / return_color.a + graybase.r * graybase.a * (1 - text_color.a) / return_color.a--red
-	return_color.g = text_color.g * text_color.g / return_color.a + graybase.g * graybase.a * (1 - text_color.a) / return_color.a--green
-	return_color.b = text_color.b * text_color.b / return_color.a + graybase.b * graybase.a * (1 - text_color.a) / return_color.a--blue
+	if cndSpeechConfig.config.SpeechCanAttractsZombies==true then
+		return_color.a = 1 - (1 - text_color.a) * (1 - graybase.a)--alpha
+		return_color.r = text_color.r * text_color.r / return_color.a + graybase.r * graybase.a * (1 - text_color.a) / return_color.a--red
+		return_color.g = text_color.g * text_color.g / return_color.a + graybase.g * graybase.a * (1 - text_color.a) / return_color.a--green
+		return_color.b = text_color.b * text_color.b / return_color.a + graybase.b * graybase.a * (1 - text_color.a) / return_color.a--blue
+		player:setSpeakColour(Color.new(return_color.r,return_color.g,return_color.b,1))
+	end
 
 	--print(" --Text_Color: "..Text_Color:getR()..","..Text_Color:getG()..","..Text_Color:getB())
 	--print(" --text_color: "..text_color.r..","..text_color.g..","..text_color.b)
 	--print(" --return_color: "..return_color.r..","..return_color.g..","..return_color.b)
-
-	player:setSpeakColour(Color.new(return_color.r,return_color.g,return_color.b,1))
 
 	print(" ---applyVolumetric: "..player:getFullName()," (vol:",vol,") : ",text)
 	player:Say(text, return_color.r, return_color.g, return_color.b, UIFont.NewSmall, vol, "default")
