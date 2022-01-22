@@ -71,28 +71,25 @@ function ConditionalSpeech.load_n_set_Moodles(id,player)
 
 	ConditionalSpeech.Speakers[player] = true
 
-	--local bIsNPC = ConditionalSpeech.bIsNPC(player)
-	--print("CND-SPEECH: load_n_set_Moodles: "..tostring(player:getFullName()).." (NPC:"..tostring(bIsNPC)..")")
+	local pModData = player:getModData()
+	if pModData then
+		pModData.cs_lastspoke = {[1]=getTimestamp(), [2]=""}
+		pModData.cs_lastPanicTime = getTimestamp()
+		pModData.moodleTable = {}
 
-	local moodles = player:getMoodles()
-
-	if not moodles then
-		return
-	end
-
-	player:getModData().cs_lastspoke = {[1]=getTimestamp(), [2]=""}
-	player:getModData().cs_lastPanicTime = getTimestamp()
-	player:getModData().moodleTable = {}
-
-	--fetches moodles index num
-	local moodNum = moodles:getNumMoodles()
-	for i=0, moodNum-1 do
-		--fetches mood type string based on index
-		local moodType = moodles:getMoodleType(i)
-		--fetches moodle level based on fetched type
-		local foundlevel = moodles:getMoodleLevel(moodType)
-		--creates a key value pair of type and found level
-		player:getModData().moodleTable[tostring(moodType)] = foundlevel
+		local moodles = player:getMoodles()
+		if moodles then
+			--fetches moodles index num
+			local moodNum = moodles:getNumMoodles()
+			for i=0, moodNum-1 do
+				--fetches mood type string based on index
+				local moodType = moodles:getMoodleType(i)
+				--fetches moodle level based on fetched type
+				local foundlevel = moodles:getMoodleLevel(moodType)
+				--creates a key value pair of type and found level
+				pModData.moodleTable[tostring(moodType)] = foundlevel
+			end
+		end
 	end
 end
 
@@ -327,8 +324,16 @@ function ConditionalSpeech.check_PlayerStatus(player)
 		return
 	end
 
-	if (not player:getModData().moodleTable) then
+	local pModData = player:getModData()
+	if not pModData then
+		return
+	end
+
+	if (not pModData.moodleTable) then
 		ConditionalSpeech.load_n_set_Moodles(player)
+	end
+	if (not pModData.moodleTable) then
+		return
 	end
 
 	local playerStats = player:getStats()
@@ -351,13 +356,11 @@ function ConditionalSpeech.check_PlayerStatus(player)
 
 	local impactedByPanic = (panicLevel>0 and zombiesNearBy)
 	if impactedByPanic then
-		player:getModData().cs_lastPanicTime = getTimestamp()+5
+		pModData.cs_lastPanicTime = getTimestamp()+5
 	end
 
 	local spoke = false
-
-	for MoodleID,lvl in pairs(player:getModData().moodleTable) do
-
+	for MoodleID,lvl in pairs(pModData.moodleTable) do
 		local storedmoodleLevel = lvl
 		local currentMoodleLevel = player:getMoodles():getMoodleLevel(MoodleType[MoodleID])
 		--currentMoodleLevel(current mood level) is not equal to stored mood level then
@@ -366,7 +369,7 @@ function ConditionalSpeech.check_PlayerStatus(player)
 			if currentMoodleLevel > storedmoodleLevel then
 				local phraseSet = MoodleID
 
-				if (impactedByPanic) and (MoodleID~="Panic") and (MoodleID~="Pain") and (getTimestamp() < player:getModData().cs_lastPanicTime) then
+				if (impactedByPanic) and (MoodleID~="Panic") and (MoodleID~="Pain") and (getTimestamp() < pModData.cs_lastPanicTime) then
 				else
 					--space-phobic conditions met, set MoodleID\Phraset
 					if MoodleID=="Panic" then
@@ -386,17 +389,17 @@ function ConditionalSpeech.check_PlayerStatus(player)
 				spoke = true
 			end
 			--match stored mood level to current regardless of above outcome
-			player:getModData().moodleTable[MoodleID] = currentMoodleLevel
+			pModData.moodleTable[MoodleID] = currentMoodleLevel
 		end
 	end
 
 	if not spoke then
-		local tellTime = player:getModData().CndSpeech_tellTime
+		local tellTime = pModData.CndSpeech_tellTime
 		local validTime = ((getGameTime():getHour() == DUSK_TIME) or (getGameTime():getHour() == DAWN_TIME))
 
 		if tellTime and validTime then
 			ConditionalSpeech.generateSpeechFrom(player,tellTime)
-			player:getModData().CndSpeech_tellTime = false
+			pModData.CndSpeech_tellTime = false
 		end
 	end
 end
