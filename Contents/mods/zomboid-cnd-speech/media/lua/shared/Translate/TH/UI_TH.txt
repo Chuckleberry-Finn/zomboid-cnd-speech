@@ -280,10 +280,10 @@ UI_Phrases_Claustrophobic6 = "อยู่ในนี้หายใจไม�
 --UI_Phrases_Panic
 UI_Phrases_Panic1 = "*เฮือก*",
 UI_Phrases_Panic2 = "เห้ย!",
-UI_Phrases_Panic3 = "ว้าย!",
+UI_Phrases_Panic3 = "อย่านะเว้ย!",
 UI_Phrases_Panic4 = "โอ๊ะ!",
 UI_Phrases_Panic5 = "ไม่นะ!",
-UI_Phrases_Panic6 = "อุ๊ย!",
+UI_Phrases_Panic6 = "อะไรวะ!",
 UI_Phrases_Panic7 = "อ๊าก!",
 UI_Phrases_Panic8 = "โอย!",
 UI_Phrases_Panic9 = "โอ๊ย!",
