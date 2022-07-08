@@ -419,7 +419,9 @@ function ConditionalSpeech.check_WeaponStatus(player,weapon)
 				ConditionalSpeech.generateSpeechFrom(player,"OutOfAmmo")
 			elseif weapon:getMaxAmmo()>0 then
 				if player:getPerkLevel(Perks.Reloading)>=5 then
-					ConditionalSpeech.Speech(player,weapon:getCurrentAmmoCount().." shots left")
+					if cndSpeechConfig.config["LowAmmo"] ~= false then
+						ConditionalSpeech.Speech(player,weapon:getCurrentAmmoCount().." "..getText("UI_shotsLeft"))
+					end
 				elseif player:getPerkLevel(Perks.Reloading)>=2 then
 					if weapon:getCurrentAmmoCount()<(weapon:getMaxAmmo()/4) then
 						ConditionalSpeech.generateSpeechFrom(player,"LowAmmo")

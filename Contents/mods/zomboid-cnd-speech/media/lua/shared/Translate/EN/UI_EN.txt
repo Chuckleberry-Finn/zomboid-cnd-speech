@@ -31,6 +31,9 @@
 -- NOTE: THE TABLE HEADER "UI_XX" MUST MATCH THE IN GAME LANGUAGE ABBREVIATION
 UI_EN = {
 
+-- This phrase is used for remaining ammunition left in the gun.
+UI_shotsLeft = "shots left"
+
 --UI_Phrases_Drunk
 UI_Phrases_Drunk1 = "feeling tipsy",
 UI_Phrases_Drunk2 = "feeling good",
