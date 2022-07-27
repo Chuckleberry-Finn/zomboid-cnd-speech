@@ -19,11 +19,11 @@ cndSpeechConfig.menu = {
 	--generalSpaceA = {type = "Space"},
 
 	SpeechCanAttractsZombies = {type = "Tickbox", title = "Speech Can Attract Zombies",},
-	SpeechCanAttractsZombiesToolTip = {type = "Text", text = "Even in extreme circumstances zombies can't hear conditional speech.\n", a=0.65, customX=-100},
+	SpeechCanAttractsZombiesToolTip = {type = "Text", text = "Even in extreme circumstances zombies can't hear conditional speech.", a=0.65, customX=-100, spaceAfter="\n"},
 	generalSpaceB = {type = "Space"},
 
 	ShowOnlyAudibleSpeech = {type = "Tickbox", title = "Show Only Audible Speech",},
-	ShowOnlyAudibleSpeechToolTip = {type = "Text", text = "Show only speech that can actually be heard.\n", a=0.65, customX=-100},
+	ShowOnlyAudibleSpeechToolTip = {type = "Text", text = "Show only speech that can actually be heard.", a=0.65, customX=-100, addAfter="\n"},
 	generalSpaceC = {type = "Space"},
 }
 

@@ -47,7 +47,7 @@ ConditionalSpeech.Phrases.SARCASM = {}
 
 
 function SetPhraseSetLANGUAGE()
-	--[[debug]] print("CND-SPEECH: Ignore the following ERRORS they are apart of the phrase loading process.")
+	--[debug]] print("CND-SPEECH: Ignore the following ERRORS they are apart of the phrase loading process.")
 	for k,_ in pairs(ConditionalSpeech.Phrases) do
 
 		local phraseNum = 0
@@ -56,9 +56,10 @@ function SetPhraseSetLANGUAGE()
 			phraseNum = phraseNum+1
 			local foundPhrase = ""
 			local phraseID = "UI_Phrases_"..k..phraseNum
-			foundPhrase = getText(phraseID)
+
+			foundPhrase = getTextOrNull(phraseID)
 			--[debug]] print("CND-SPEECH: phraseNum:"..phraseNum.."  foundPhrase:"..foundPhrase)
-			if (foundPhrase == phraseID) then
+			if (foundPhrase) then
 				break
 			else
 				table.insert(ConditionalSpeech.Phrases[k], foundPhrase)
