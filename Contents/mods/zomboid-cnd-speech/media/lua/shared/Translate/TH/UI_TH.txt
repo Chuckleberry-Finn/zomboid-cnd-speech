@@ -31,6 +31,8 @@
 -- NOTE: THE TABLE HEADER "UI_XX" MUST MATCH THE IN GAME LANGUAGE ABBREVIATION
 UI_TH = {
 
+UI_shotsLeft = "ลูก"
+
 --UI_Phrases_Drunk
 UI_Phrases_Drunk1 = "กรึ่ม ๆ เคลิ้ม ๆ",
 UI_Phrases_Drunk2 = "มันดีอะ",
@@ -301,6 +303,8 @@ UI_Phrases_Panic20 = "อย่านะ!",
 UI_Phrases_Panic21 = "ช่วยด้วย!",
 UI_Phrases_Panic22 = "ใครก็ได้ช่วยที!",
 UI_Phrases_Panic23 = "ไม่นะ! อ๊ากกกกก!",
+UI_Phrases_Panic24 = "ไอ้พวกชาตินรก!",
+UI_Phrases_Panic25 = "ผีห่าซาตาน!",
 --UI_Phrases_Hypothermia
 UI_Phrases_Hypothermia1 = "หนาวจังเลย",
 UI_Phrases_Hypothermia2 = "บรื๋ออออ",
@@ -328,9 +332,12 @@ UI_Phrases_Pain19 = "แม่งเอ้ยยยย",
 --UI_Phrases_SWEAR
 UI_Phrases_SWEAR1 = "สัดเอ้ย",
 UI_Phrases_SWEAR2 = "แม่ง",
-UI_Phrases_SWEAR3 = "เวรเอ้ย",
-UI_Phrases_SWEAR4 = "ฉิบหาย",
-UI_Phrases_SWEAR5 = "เหี้ย",
+UI_Phrases_SWEAR3 = "แม่งเอ้ย",
+UI_Phrases_SWEAR4 = "เวรเอ้ย",
+UI_Phrases_SWEAR5 = "ฉิบหาย",
+UI_Phrases_SWEAR6 = "ตายห่า",
+UI_Phrases_SWEAR7 = "เหี้ยแล้ว",
+UI_Phrases_SWEAR8 = "เหี้ย",
 --UI_Phrases_Plosives
 UI_Phrases_Plosives1 = "ฟ",
 UI_Phrases_Plosives2 = "ฟ",
@@ -368,6 +375,11 @@ UI_Phrases_FOOD14 = "ซูชิ",
 UI_Phrases_FOOD15 = "คุกกี้",
 UI_Phrases_FOOD16 = "ของอร่อย",
 UI_Phrases_FOOD17 = "ของกิน",
+UI_Phrases_FOOD18 = "ลาบ",
+UI_Phrases_FOOD19 = "ซอยจุ๊",
+UI_Phrases_FOOD20 = "ข้าวเหนียวมะม่วง",
+UI_Phrases_FOOD21 = "ทุเรียน",
+
 --UI_Phrases_SARCASM
 UI_Phrases_SARCASM1 = "เยี่ยมไปเลย",
 UI_Phrases_SARCASM2 = "ชีวิตดีเหลือเกิน",
