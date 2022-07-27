@@ -33,7 +33,7 @@ UI_EN = {
 
 -- These are for the config options - leave "\n" in for line break purposes.
 -- Each phrase set that has a config option for it has the prefix "UI_Config_" followed by the same MoodID
-UI_Config_MODID_Conditional-Speech = "Conditional Speech",
+UI_ConfigMODID_Conditional-Speech = "Conditional Speech",
 UI_Config_SpeechCanAttractsZombies = "Speech Can Attract Zombies",
 UI_Config_SpeechCanAttractsZombiesToolTip = "Even in extreme circumstances zombies can't hear conditional speech."
 UI_Config_ShowOnlyAudibleSpeech = "Show Only Audible Speech"
