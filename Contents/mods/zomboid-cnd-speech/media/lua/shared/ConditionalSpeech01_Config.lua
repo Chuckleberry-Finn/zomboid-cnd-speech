@@ -18,18 +18,18 @@ cndSpeechConfig.menu = {
 	--NPCsDontTalkToolTip = {type = "Text", text = "Non-player characters (NPCs) don't speak with Conditional Speech.\n", a=0.65, customX=-100},
 	--generalSpaceA = {type = "Space"},
 
-	SpeechCanAttractsZombies = {type = "Tickbox", title = "Speech Can Attract Zombies",},
-	SpeechCanAttractsZombiesToolTip = {type = "Text", text = "Even in extreme circumstances zombies can't hear conditional speech.", a=0.65, customX=-100, spaceAfter="\n"},
+	SpeechCanAttractsZombies = {type = "Tickbox",},
+	SpeechCanAttractsZombiesToolTip = {type = "Text", a=0.65, customX=-100, addAfter="\n"},
 	generalSpaceB = {type = "Space"},
 
-	ShowOnlyAudibleSpeech = {type = "Tickbox", title = "Show Only Audible Speech",},
-	ShowOnlyAudibleSpeechToolTip = {type = "Text", text = "Show only speech that can actually be heard.", a=0.65, customX=-100, addAfter="\n"},
+	ShowOnlyAudibleSpeech = {type = "Tickbox",},
+	ShowOnlyAudibleSpeechToolTip = {type = "Text", a=0.65, customX=-100, addAfter="\n"},
 	generalSpaceC = {type = "Space"},
 }
 
 function cndSpeechConfig.loadMoodTableToConfig()
 	cndSpeechConfig.menu.generalSpaceD = {type = "Space"}
-	cndSpeechConfig.menu.moodTableToolTip = {type = "Text", text = "Phrase Sets:", a=0.65, customX=-20}
+	cndSpeechConfig.menu.moodTableToolTip = {type = "Text", a=0.65, customX=-20}
 	for key,moodID in pairs(ConditionalSpeech.PhrasesForConfig) do
 		cndSpeechConfig.menu[moodID] = {type = "Tickbox", title = moodID, tooltip = "", }
 		cndSpeechConfig.config[moodID] = cndSpeechConfig.config[moodID] or true
