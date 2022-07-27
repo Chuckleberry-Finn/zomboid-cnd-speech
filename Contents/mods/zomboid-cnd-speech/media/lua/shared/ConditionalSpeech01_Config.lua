@@ -11,7 +11,6 @@ cndSpeechConfig.config = {
 }
 
 cndSpeechConfig.modId = "Conditional-Speech" -- needs to the same as in your mod.info
-cndSpeechConfig.name = "Conditional Speech" -- the name that will be shown in the MOD tab
 
 cndSpeechConfig.menu = {
 	--NPCsDontTalk = {type = "Tickbox", title = "Disable Non-Players' Speech",},
