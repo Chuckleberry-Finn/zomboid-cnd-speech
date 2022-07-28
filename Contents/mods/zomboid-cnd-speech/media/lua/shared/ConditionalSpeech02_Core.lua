@@ -320,7 +320,7 @@ end
 
 
 --- Tracks moodle levels overtime, runs generate speech.
----@param player IsoGameCharacter
+---@param player IsoGameCharacter|IsoPlayer
 function ConditionalSpeech.check_PlayerStatus(player)
 	if (not player) then--or (not player:getModData().moodleTable) then
 		return
@@ -348,8 +348,9 @@ function ConditionalSpeech.check_PlayerStatus(player)
 		ConditionalSpeech.generateSpeechFrom(player,"Panic",panicLevel,4, false, true)
 		return
 	end
+	
+	local zombiesNearBy = (playerStats:getNumVisibleZombies() > 0) or (player:getLastSeenZomboidTime() < 1)
 
-	local zombiesNearBy = playerStats:getNumVisibleZombies() > 0
 	--prevent vocalization if any zombies are visible or chasing
 	local volumeBlock = (is_prob(100-(panicLevel^2)) and zombiesNearBy)
 	--check if agoraphobic is actively inducing panic
