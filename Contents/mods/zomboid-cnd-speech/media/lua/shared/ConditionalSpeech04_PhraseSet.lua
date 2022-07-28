@@ -51,8 +51,7 @@ function SetPhraseSetLANGUAGE()
 	for k,_ in pairs(ConditionalSpeech.Phrases) do
 
 		local phraseNum = 0
-
-		while phraseNum < 100 do
+		while phraseNum < 1000 do
 			phraseNum = phraseNum+1
 			local foundPhrase = ""
 			local phraseID = "UI_Phrases_"..k..phraseNum
@@ -60,9 +59,9 @@ function SetPhraseSetLANGUAGE()
 			foundPhrase = getTextOrNull(phraseID)
 			--[debug]] print("CND-SPEECH: phraseNum:"..phraseNum.."  foundPhrase:"..foundPhrase)
 			if (foundPhrase) then
-				break
-			else
 				table.insert(ConditionalSpeech.Phrases[k], foundPhrase)
+			else
+				break
 			end
 		end
 	end
