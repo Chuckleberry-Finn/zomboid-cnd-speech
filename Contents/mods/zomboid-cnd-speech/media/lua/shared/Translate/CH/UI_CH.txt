@@ -3,13 +3,13 @@ UI_CH = {
 --Each phrase set that has a config option for it has the prefix "UI_Config_" followed by the same MoodID
     UI_ConfigMODID_Conditional-Speech = "Conditional Speech (適機談話)",
     UI_Config_SpeechCanAttractsZombies = "談話會吸引殭屍",
-    UI_Config_SpeechCanAttractsZombiesToolTip = "即使在最極端的狀況下, 殭屍也聽不見適機談話."
-    UI_Config_ShowOnlyAudibleSpeech = "只顯示可聽談話"
-    UI_Config_ShowOnlyAudibleSpeechToolTip = "只顯示可以被聽見的談話."
-    UI_Config_moodTableToolTip = "詞句組:"
+    UI_Config_SpeechCanAttractsZombiesToolTip = "即使在最極端的狀況下, 殭屍也聽不見適機談話.",
+    UI_Config_ShowOnlyAudibleSpeech = "只顯示可聽談話",
+    UI_Config_ShowOnlyAudibleSpeechToolTip = "只顯示可以被聽見的談話.",
+    UI_Config_moodTableToolTip = "詞句組:",
 
 --This phrase is used for remaining ammunition left in the gun.
-    UI_shotsLeft = "shots left"
+    UI_shotsLeft = "shots left",
 
 --UI_Phrases_Drunk
     UI_Config_Drunk = "酒醉",
@@ -77,7 +77,7 @@ UI_CH = {
     UI_Phrases_Bleeding3 = "我得止血才行",
     UI_Phrases_Bleeding4 = "我正在大量失血",
     UI_Phrases_Bleeding5 = "我再繼續流血會死",
-    UI_Phrases_Bleeding6 = "再繼續這樣出血, 我會死"
+    UI_Phrases_Bleeding6 = "再繼續這樣出血, 我會死",
 
 --UI_Phrases_FoodEaten
     UI_Config_FoodEaten = "吃食物",
@@ -87,7 +87,7 @@ UI_CH = {
     UI_Phrases_FoodEaten4 = "好撐喔",
     UI_Phrases_FoodEaten5 = "我的肚子好撐",
     UI_Phrases_FoodEaten6 = "一口也吃不下了",
-    UI_Phrases_FoodEaten7 = "我吃不下了"
+    UI_Phrases_FoodEaten7 = "我吃不下了",
 
 --UI_Phrases_Injured
     UI_Config_Injured = "受傷",
