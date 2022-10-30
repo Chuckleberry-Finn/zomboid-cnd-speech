@@ -2,27 +2,27 @@ UI_CH = {
 
 -- These are for the config options - leave "\n" in for line break purposes.
 -- Each phrase set that has a config option for it has the prefix "    UI_Config_" followed by the same MoodID
-        UI_ConfigMODID_Conditional-Speech = "Conditional Speech (適機談話)",
-        UI_Config_SpeechCanAttractsZombies = "談話會吸引殭屍",
-        UI_Config_SpeechCanAttractsZombiesToolTip = "即使在最極端的狀況下, 殭屍也聽不見適機談話."
-        UI_Config_ShowOnlyAudibleSpeech = "只顯示可聽談話"
-        UI_Config_ShowOnlyAudibleSpeechToolTip = "只顯示可以被聽見的談話."
-        UI_Config_moodTableToolTip = "詞句組:"
+    UI_ConfigMODID_Conditional-Speech = "Conditional Speech (適機談話)",
+    UI_Config_SpeechCanAttractsZombies = "談話會吸引殭屍",
+    UI_Config_SpeechCanAttractsZombiesToolTip = "即使在最極端的狀況下, 殭屍也聽不見適機談話."
+    UI_Config_ShowOnlyAudibleSpeech = "只顯示可聽談話"
+    UI_Config_ShowOnlyAudibleSpeechToolTip = "只顯示可以被聽見的談話."
+    UI_Config_moodTableToolTip = "詞句組:"
 
 -- This phrase is used for remaining ammunition left in the gun.
-        UI_shotsLeft = "shots left"
+    UI_shotsLeft = "shots left"
 
 --UI_Phrases_Drunk
-        UI_Config_Drunk = "酒醉",
-        UI_Phrases_Drunk1 = "感覺微醺",
-        UI_Phrases_Drunk2 = "感覺不錯",
-        UI_Phrases_Drunk3 = "這真是好貨",
-        UI_Phrases_Drunk4 = "我可以再喝一些",
-        UI_Phrases_Drunk5 = "那真是好酒",
-        UI_Phrases_Drunk6 = "這真是太棒了",
-        UI_Phrases_Drunk7 = "派對時間到了",
-        UI_Phrases_Drunk8 = "我要醉倒了",
-        UI_Phrases_Drunk9 = "我什麼都不怕了",
+    UI_Config_Drunk = "酒醉",
+    UI_Phrases_Drunk1 = "感覺微醺",
+    UI_Phrases_Drunk2 = "感覺不錯",
+    UI_Phrases_Drunk3 = "這真是好貨",
+    UI_Phrases_Drunk4 = "我可以再喝一些",
+    UI_Phrases_Drunk5 = "那真是好酒",
+    UI_Phrases_Drunk6 = "這真是太棒了",
+    UI_Phrases_Drunk7 = "派對時間到了",
+    UI_Phrases_Drunk8 = "我要醉倒了",
+    UI_Phrases_Drunk9 = "我什麼都不怕了",
 
 --UI_Phrases_HasACold
     UI_Config_HasACold = "感冒",
