@@ -238,14 +238,14 @@ function ConditionalSpeech.Speech(player, dialogue, PhraseSetID, volumeBlock)
 		return
 	end
 
-	-- prevent the player from speaking too soon -- getTimestamp is in seconds
-	local lastspoke = player:getModData().cs_lastspoke or {[1]=getTimestamp(), [2]=""}
-
-	if (lastspoke[1]+1 > getTimestamp()) or (lastspoke[1]+3 > getTimestamp() and lastspoke[2]==PhraseSetID) then
-		return
+	if PhraseSetID then
+		-- prevent the player from speaking too soon -- getTimestamp is in seconds
+		local lastspoke = player:getModData().cs_lastspoke or {[1]=getTimestamp(), [2]=""}
+		if (lastspoke[1]+1 > getTimestamp()) or (lastspoke[1]+3 > getTimestamp() and lastspoke[2]==PhraseSetID) then
+			return
+		end
+		player:getModData().cs_lastspoke = {[1]=getTimestamp(),[2]=PhraseSetID}
 	end
-
-	player:getModData().cs_lastspoke = {[1]=getTimestamp(),[2]=PhraseSetID}
 
 	local fc = string.sub(dialogue, 1,1) --fc=first character
 	local lc = string.sub(dialogue, -1) --lc=last character
