@@ -1,3 +1,4 @@
+if isServer() then return end
 
 --- Useful function to check if a value is in a list.
 ---@param tab table

@@ -1,3 +1,5 @@
+if isServer() then return end
+
 require "ConditionalSpeech02_Core"
 
 ---unused phrase sets for moods

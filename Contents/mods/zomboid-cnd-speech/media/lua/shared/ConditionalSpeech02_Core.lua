@@ -1,3 +1,5 @@
+if isServer() then return end
+
 require "ConditionalSpeech00_Util"
 require "ConditionalSpeech000_MpText"
 

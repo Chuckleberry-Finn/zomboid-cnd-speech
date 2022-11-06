@@ -1,3 +1,5 @@
+if isServer() then return end
+
 require "EasyConfigChucked1_Main"
 require "OptionScreens/ServerSettingsScreen"
 require "OptionScreens/SandBoxOptions"
