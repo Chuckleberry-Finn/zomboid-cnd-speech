@@ -210,7 +210,7 @@ function ConditionalSpeech_Filter.Congested(text, intensity)
     for _,value in pairs(characters) do
         local c = value
         if c~=" " and max_slurring > 0 and replaceCharacters[c] then
-            local chance = intensity*44
+            local chance = intensity*25
             max_slurring = max_slurring-1
             if is_prob(chance) then c = (replaceCharacters[c] or c) end
         end
