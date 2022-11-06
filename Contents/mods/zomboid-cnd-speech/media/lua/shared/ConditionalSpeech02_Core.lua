@@ -42,9 +42,9 @@ ConditionalSpeech.filterTable = {
 	--["Thirst"] = nil,
 	--["Injured"] = nil,
 	--["HeavyLoad"] = nil,
-	--[Dead] = nil,
-	--[Zombie] = nil,
-	--"Hyperthermia"] = nil,
+	--["Dead"] = nil,
+	--["Zombie"] = nil,
+	--["Hyperthermia"] = nil,
 	--["Windchill"] = nil,
 	--["FoodEaten"] = nil
 }
