@@ -15,9 +15,9 @@ ConditionalSpeech.Phrases = {}
 ---@type table|number
 ConditionalSpeech.Speakers = {}
 
-VolumeMAX = 60
-DAWN_TIME = 6
-DUSK_TIME = 22
+ConditionalSpeech.VolumeMAX = 60
+ConditionalSpeech.DAWN_TIME = 6
+ConditionalSpeech.DUSK_TIME = 22
 
 --- filters that shouldn't run if volume is 0
 ConditionalSpeech.volumeSensitiveFilters = {"Stutter","Stammer"}
@@ -37,7 +37,6 @@ ConditionalSpeech.filterTable = {
 	--["Sick"] = nil,
 	--["Unhappy"] = nil,
 	--["Wet"] = nil,
-	--["HasACold"] = nil,
 	--["Stress"] = nil,
 	--["Thirst"] = nil,
 	--["Injured"] = nil,
@@ -163,7 +162,7 @@ function ConditionalSpeech.passMoodleFilters(player,text)
 		end
 	end
 
-	if filtered_vol == VolumeMAX then
+	if filtered_vol == ConditionalSpeech.VolumeMAX then
 		text = text:upper()
 	end
 	local total_results = filterResults:new(text,filtered_vol)
@@ -295,7 +294,7 @@ function ConditionalSpeech.applyVolumetricColor_Say(player,text,vol)
 		return
 	end
 
-	local vc_shift = 0.40+(0.60*(vol/VolumeMAX))--have a 0.3 base --difference of 0.7 is then multiplied against volume/maxvolume
+	local vc_shift = 0.40+(0.60*(vol/ConditionalSpeech.VolumeMAX))--have a 0.3 base --difference of 0.7 is then multiplied against volume/maxvolume
 	---@type ColorInfo
 	local Text_Color = getCore():getMpTextColor()
 	local tR, tG, tB = Text_Color:getR(), Text_Color:getG(), Text_Color:getB()
@@ -410,7 +409,7 @@ function ConditionalSpeech.check_PlayerStatus(player)
 
 	if not spoke then
 		local tellTime = pModData.CndSpeech_tellTime
-		local validTime = ((getGameTime():getHour() == DUSK_TIME) or (getGameTime():getHour() == DAWN_TIME))
+		local validTime = ((getGameTime():getHour() == ConditionalSpeech.DUSK_TIME) or (getGameTime():getHour() == ConditionalSpeech.DAWN_TIME))
 
 		if tellTime and validTime then
 			ConditionalSpeech.generateSpeechFrom(player,tellTime)
@@ -456,9 +455,9 @@ function ConditionalSpeech.check_Time()
 
 		if player and not player:isDead() then
 			if player:isOutside() and is_prob(75) then
-				if TIME==DAWN_TIME then
+				if TIME==ConditionalSpeech.DAWN_TIME then
 					player:getModData().CndSpeech_tellTime = "OnDawn"
-				elseif TIME==DUSK_TIME then
+				elseif TIME==ConditionalSpeech.DUSK_TIME then
 					player:getModData().CndSpeech_tellTime = "OnDusk"
 				end
 			end

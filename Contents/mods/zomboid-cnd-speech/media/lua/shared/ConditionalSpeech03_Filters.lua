@@ -40,7 +40,7 @@ function ConditionalSpeech_Filter.BlurtOut(text, intensity)
     local volumeShift = 0
 
     if is_prob(((intensity^2)+intensity)*4) then
-        volumeShift = VolumeMAX/6
+        volumeShift = ConditionalSpeech.VolumeMAX/6
     end
 
     local results = filterResults:new(text,volumeShift)
@@ -51,11 +51,11 @@ end
 --- SCREAM FILTER!
 function ConditionalSpeech_Filter.SCREAM(text, intensity)
 
-    local volumeShift = VolumeMAX/2
+    local volumeShift = ConditionalSpeech.VolumeMAX/2
 
     text = text:gsub("%.", "%!")
     if is_prob(((intensity^2)+intensity)*4) then
-        volumeShift = VolumeMAX
+        volumeShift = ConditionalSpeech.VolumeMAX
     end
 
     local results = filterResults:new(text,volumeShift)
