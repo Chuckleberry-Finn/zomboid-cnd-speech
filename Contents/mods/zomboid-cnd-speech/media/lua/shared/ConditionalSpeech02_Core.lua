@@ -317,7 +317,8 @@ function ConditionalSpeech.applyVolumetricColor_Say(player,text,vol)
 	--print(" --return_color: "..return_color.r..","..return_color.g..","..return_color.b)
 
 	print(" ---applyVolumetric: "..player:getFullName()," (vol:",vol,") : ",text)
-	player:Say(text, return_color.r, return_color.g, return_color.b, UIFont.NewSmall, vol, "default")
+	player:addLineChatElement(text, return_color.r, return_color.g, return_color.b, UIFont.Dialogue, vol, "default", true, true, true, true, true, true)
+	--player:Say(text, return_color.r, return_color.g, return_color.b, UIFont.Dialogue, vol, "default")
 end
 
 
