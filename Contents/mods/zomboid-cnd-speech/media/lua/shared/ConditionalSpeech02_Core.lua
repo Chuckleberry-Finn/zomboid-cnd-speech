@@ -322,6 +322,14 @@ function ConditionalSpeech.applyVolumetricColor_Say(player,text,vol)
 end
 
 
+local original_processSayMessage = processSayMessage
+function processSayMessage(command)
+	command = ConditionalSpeech.Speech(getPlayer(), command)
+	return original_processSayMessage(command)
+end
+
+
+
 --- Tracks moodle levels overtime, runs generate speech.
 ---@param player IsoGameCharacter|IsoPlayer
 function ConditionalSpeech.check_PlayerStatus(player)
