@@ -167,7 +167,7 @@ function ConditionalSpeech_Filter.Slurring(text, intensity)
     local replaceCharacters = {}
     for _,string in pairs(ConditionalSpeech.Phrases.Slurring) do
         local find, replace = string:match("(.+):(.+)")
-        print("<"..find..">:<"..replace..">")
+        --print("<"..find..">:<"..replace..">")
         replaceCharacters[find] = replace
     end
 
@@ -175,7 +175,7 @@ function ConditionalSpeech_Filter.Slurring(text, intensity)
         local c = value
         if c~=" " and max_slurring > 0 and replaceCharacters[c] then
 
-            local chance = intensity*27
+            local chance = intensity*33
             max_slurring = max_slurring-1
 
             if is_prob(chance/1.5) and is_valueIn(ConditionalSpeech.Phrases.Plosives,c) then c = "'" end
@@ -183,6 +183,37 @@ function ConditionalSpeech_Filter.Slurring(text, intensity)
             if is_prob(chance) then c = (replaceCharacters[c] or c) end
         end
 
+        table.insert(post_characters, c)
+    end
+
+    text = table.concat(post_characters)
+
+    local results = filterResults:new(text)
+    return results
+end
+
+
+--- Logic for congested
+function ConditionalSpeech_Filter.Congested(text, intensity)
+
+    local characters = splitText_byChar(text)
+    local post_characters = {}
+    local max_slurring = intensity
+
+    local replaceCharacters = {}
+    for _,string in pairs(ConditionalSpeech.Phrases.Congested) do
+        local find, replace = string:match("(.+):(.+)")
+        --print("<"..find..">:<"..replace..">")
+        replaceCharacters[find] = replace
+    end
+
+    for _,value in pairs(characters) do
+        local c = value
+        if c~=" " and max_slurring > 0 and replaceCharacters[c] then
+            local chance = intensity*44
+            max_slurring = max_slurring-1
+            if is_prob(chance) then c = (replaceCharacters[c] or c) end
+        end
         table.insert(post_characters, c)
     end
 

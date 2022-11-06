@@ -447,13 +447,23 @@ UI_Phrases_SARCASM3 = "fantastic",
 UI_Phrases_SARCASM4 = "just what I needed",
 UI_Phrases_SARCASM5 = "just my luck",
 
---UI_Phrases_Slurring
---This set of phrases are unique in that they are parsed to replace the string before `:` with the one after it.
+
+--These set of phrases are unique in that they are parsed to replace the string before `:` with the one after it.
 --The left side of the `:` should be ONLY 1 character
-UI_Phrases_Slurring1 = "o:u"
-UI_Phrases_Slurring2 = "s:ch"
-UI_Phrases_Slurring3 = "a:ah"
-UI_Phrases_Slurring4 = "u:oo"
-UI_Phrases_Slurring5 = "c:k"
+--UI_Phrases_Slurring
+UI_Phrases_Slurring1 = "o:u",
+UI_Phrases_Slurring2 = "s:ch",
+UI_Phrases_Slurring3 = "a:ah",
+UI_Phrases_Slurring4 = "u:oo",
+UI_Phrases_Slurring5 = "c:k",
+
+--UI_Phrases_Congested
+UI_Phrases_Congested1 = "k:g",
+UI_Phrases_Congested2 = "p:b",
+UI_Phrases_Congested3 = "t:d",
+UI_Phrases_Congested4 = "n:ng",
+UI_Phrases_Congested5 = "m:b",
+UI_Phrases_Congested6 = "v:b",
+UI_Phrases_Congested6 = "f:b",
 
 }

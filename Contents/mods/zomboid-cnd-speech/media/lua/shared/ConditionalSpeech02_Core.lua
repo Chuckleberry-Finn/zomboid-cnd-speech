@@ -32,7 +32,9 @@ ConditionalSpeech.filterTable = {
 	["Angry"] = {"SCREAM"},
 	["Pain"] = {"BlurtOut","SCREAM"},
 	["Drunk"] = {"BlurtOut","Slurring"},
-	["Hyperthermia"] = {"Stammer","BlurtOut"}
+	["Hyperthermia"] = {"Stammer","BlurtOut"},
+	["HasACold"] = {"Congested"},
+
 	--["Hungry"] = nil,
 	--["Sick"] = nil,
 	--["Unhappy"] = nil,
