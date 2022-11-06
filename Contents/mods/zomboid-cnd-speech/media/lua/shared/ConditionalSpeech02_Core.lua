@@ -322,10 +322,11 @@ function ConditionalSpeech.applyVolumetricColor_Say(player,text,vol)
 end
 
 
+--- Apply filters to process say
 local original_processSayMessage = processSayMessage
-function processSayMessage(command)
+function processSayMessage(command, ...)
 	command = ConditionalSpeech.Speech(getPlayer(), command)
-	return original_processSayMessage(command)
+	return original_processSayMessage(command, ...)
 end
 
 
