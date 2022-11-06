@@ -46,6 +46,7 @@ ConditionalSpeech.Phrases.SWEAR = {}
 ConditionalSpeech.Phrases.Plosives = {}
 ConditionalSpeech.Phrases.FOOD = {}
 ConditionalSpeech.Phrases.SARCASM = {}
+ConditionalSpeech.Phrases.Slurring = {}
 
 
 function SetPhraseSetLANGUAGE()

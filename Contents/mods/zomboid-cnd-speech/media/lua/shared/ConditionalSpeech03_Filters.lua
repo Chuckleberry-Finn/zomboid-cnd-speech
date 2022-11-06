@@ -37,7 +37,6 @@ end
 
 --- Blurt Out
 function ConditionalSpeech_Filter.BlurtOut(text, intensity)
-
     local volumeShift = 0
 
     if is_prob(((intensity^2)+intensity)*4) then
@@ -95,7 +94,6 @@ function ConditionalSpeech_Filter.Stutter(text, intensity)
     text = table.concat(post_words," ")
 
     local results = filterResults:new(text)
-
     return results
 end
 
@@ -128,7 +126,6 @@ function ConditionalSpeech_Filter.Stammer(text, intensity)
     text = table.concat(post_characters)
 
     local results = filterResults:new(text)
-
     return results
 end
 
@@ -154,6 +151,42 @@ function ConditionalSpeech_Filter.panicSwear(text, intensity)
             text = text .. " " .. randswear --50% before or after text
         end
     end
+
+    local results = filterResults:new(text)
+    return results
+end
+
+
+--- Logic for slurring
+function ConditionalSpeech_Filter.Slurring(text, intensity)
+
+    local characters = splitText_byChar(text)
+    local post_characters = {}
+    local max_slurring = intensity
+
+    local replaceCharacters = {}
+    for _,string in pairs(ConditionalSpeech.Phrases.Slurring) do
+        local find, replace = string:match("(.+):(.+)")
+        print("<"..find..">:<"..replace..">")
+        replaceCharacters[find] = replace
+    end
+
+    for _,value in pairs(characters) do
+        local c = value
+        if c~=" " and max_slurring > 0 and replaceCharacters[c] then
+
+            local chance = intensity*27
+            max_slurring = max_slurring-1
+
+            if is_prob(chance/1.5) and is_valueIn(ConditionalSpeech.Phrases.Plosives,c) then c = "'" end
+            if is_prob(chance/3) then c = c.."'" end
+            if is_prob(chance) then c = (replaceCharacters[c] or c) end
+        end
+
+        table.insert(post_characters, c)
+    end
+
+    text = table.concat(post_characters)
 
     local results = filterResults:new(text)
     return results
