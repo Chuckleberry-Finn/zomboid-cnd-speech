@@ -30,6 +30,7 @@ description=Spanish Translation: JhonArroyo
 description=Turkish Translation: Batur123
 description=Thai Translation: radiusgreenhill
 description=Japanese Translation: RedRenga
+description=Chinese (Traditional) Translation: mrazgrass
 description=
 description=[h3]Thank you to everyone helped translate/contribute to the mod![/h3]
 description=
