@@ -222,16 +222,30 @@ function ConditionalSpeech.generateSpeechFrom(player, PhraseSetID, intensity, MA
 			dialogue = dialogue:gsub("<"..KEYWORD..">", pickFrom(phrases))
 		end
 	end
-	ConditionalSpeech.Speech(player,dialogue,PhraseSetID, volumeBlock)
+
+	local vocal_volume = 0
+	dialogue, vocal_volume = ConditionalSpeech.ProcessSpeech(player,dialogue,PhraseSetID, volumeBlock)
+
+	ConditionalSpeech.Say(player, dialogue, vocal_volume)
 end
 
 
+--- Our own version of Say()
+function ConditionalSpeech.Say(player, dialogue, vocal_volume)
+
+	--[[debug]] print("CND-SPEECH: "..player:getFullName()," (vol:",vocal_volume,") : ",dialogue)
+	ConditionalSpeech.applyVolumetricColor_Say(player,tostring(dialogue),vocal_volume)
+
+	if cndSpeechConfig.config.SpeechCanAttractsZombies==true then
+		addSound(nil, player:getX(), player:getY(), player:getZ(), vocal_volume, vocal_volume)
+	end
+end
 
 
 --- Cleans up the dialogue and applies filters.
 ---@param player IsoGameCharacter
 ---@param dialogue string
-function ConditionalSpeech.Speech(player, dialogue, PhraseSetID, volumeBlock)
+function ConditionalSpeech.ProcessSpeech(player, dialogue, PhraseSetID, volumeBlock)
 
 	--prevent MPCs from speaking if config is set to such
 	if ConditionalSpeech.bIsNPC(player)==true then--and cndSpeechConfig.config.NPCsDontTalk==true then
@@ -279,12 +293,7 @@ function ConditionalSpeech.Speech(player, dialogue, PhraseSetID, volumeBlock)
 		return
 	end
 
-	--[[debug]] print("CND-SPEECH: "..player:getFullName()," (vol:",vocal_volume,") : ",dialogue)
-	ConditionalSpeech.applyVolumetricColor_Say(player,tostring(dialogue),vocal_volume)
-
-	if cndSpeechConfig.config.SpeechCanAttractsZombies==true then
-		addSound(nil, player:getX(), player:getY(), player:getZ(), vocal_volume, vocal_volume)
-	end
+	return dialogue, vocal_volume
 
 end
 
@@ -326,7 +335,7 @@ end
 --- Apply filters to process say
 local original_processSayMessage = processSayMessage
 function processSayMessage(command, ...)
-	command = ConditionalSpeech.Speech(getPlayer(), command)
+	command = ConditionalSpeech.ProcessSpeech(getPlayer(), command)
 	return original_processSayMessage(command, ...)
 end
 
@@ -434,7 +443,8 @@ function ConditionalSpeech.check_WeaponStatus(player,weapon)
 			elseif weapon:getMaxAmmo()>0 then
 				if player:getPerkLevel(Perks.Reloading)>=5 then
 					if cndSpeechConfig.config["LowAmmo"] ~= false then
-						ConditionalSpeech.Speech(player,weapon:getCurrentAmmoCount().." "..getText("UI_shotsLeft"))
+						local dialogue, vocal_volume = ConditionalSpeech.ProcessSpeech(player,weapon:getCurrentAmmoCount().." "..getText("UI_shotsLeft"))
+						ConditionalSpeech.Say(player, dialogue, vocal_volume)
 					end
 				elseif player:getPerkLevel(Perks.Reloading)>=2 then
 					if weapon:getCurrentAmmoCount()<(weapon:getMaxAmmo()/4) then
