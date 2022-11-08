@@ -305,7 +305,7 @@ function ConditionalSpeech.applyVolumetricColor_Say(player,text,vol)
 		return
 	end
 
-	local vc_shift = 0.40+(0.60*(vol/ConditionalSpeech.VolumeMAX))--have a 0.3 base --difference of 0.7 is then multiplied against volume/maxvolume
+	local vc_shift = 0.40+(0.60*((vol or 0)/ConditionalSpeech.VolumeMAX))--have a 0.3 base --difference of 0.7 is then multiplied against volume/maxvolume
 	---@type ColorInfo
 	local Text_Color = getCore():getMpTextColor()
 	local tR, tG, tB = Text_Color:getR(), Text_Color:getG(), Text_Color:getB()
