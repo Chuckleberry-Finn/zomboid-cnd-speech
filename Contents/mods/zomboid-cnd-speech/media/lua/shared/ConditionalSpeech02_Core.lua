@@ -245,7 +245,7 @@ end
 --- Cleans up the dialogue and applies filters.
 ---@param player IsoGameCharacter
 ---@param dialogue string
-function ConditionalSpeech.ProcessSpeech(player, dialogue, PhraseSetID, volumeBlock)
+function ConditionalSpeech.ProcessSpeech(player, dialogue, PhraseSetID, volumeBlock, volumeOverride)
 
 	--prevent MPCs from speaking if config is set to such
 	if ConditionalSpeech.bIsNPC(player)==true then--and cndSpeechConfig.config.NPCsDontTalk==true then
