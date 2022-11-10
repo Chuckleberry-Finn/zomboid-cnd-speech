@@ -249,7 +249,7 @@ function ConditionalSpeech.ProcessSpeech(player, dialogue, PhraseSetID, volumeBl
 
 	--prevent MPCs from speaking if config is set to such
 	if ConditionalSpeech.bIsNPC(player)==true then--and cndSpeechConfig.config.NPCsDontTalk==true then
-		--[DEBUG]] print("CND-SPEECH: NO NPC TALK ("..player:getFullName()..")")
+		--[[DEBUG]] print("CND-SPEECH: NO NPC TALK ("..player:getFullName()..")")
 		return
 	end
 
@@ -451,7 +451,7 @@ function ConditionalSpeech.check_WeaponStatus(player,weapon)
 				if player:getPerkLevel(Perks.Reloading)>=5 then
 					if cndSpeechConfig.config["LowAmmo"] ~= false then
 						local dialogue, vocal_volume = ConditionalSpeech.ProcessSpeech(player,weapon:getCurrentAmmoCount().." "..getText("UI_shotsLeft"))
-						ConditionalSpeech.Say(player, dialogue, vocal_volume)
+						if dialogue and vocal_volume then ConditionalSpeech.Say(player, dialogue, vocal_volume) end
 					end
 				elseif player:getPerkLevel(Perks.Reloading)>=2 then
 					if weapon:getCurrentAmmoCount()<(weapon:getMaxAmmo()/4) then
