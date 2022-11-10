@@ -285,16 +285,15 @@ function ConditionalSpeech.ProcessSpeech(player, dialogue, PhraseSetID, volumeBl
 		dialogue = dialogue:gsub("[!?.]%s", "%0\0"):gsub("%f[%Z]%s*%l", dialogue.upper):gsub("%z", "")
 	end
 
+	if volumeOverride then
+		vocal_volume = math.max(volumeOverride, vocal_volume)
+	end
+
 	if volumeBlock then
 		vocal_volume = 0
 	end
 
-	if (vocal_volume <= 0) and (cndSpeechConfig.config.ShowOnlyAudibleSpeech==true) then
-		return
-	end
-
 	return dialogue, vocal_volume
-
 end
 
 
@@ -302,6 +301,15 @@ end
 ---@param player IsoGameCharacter | IsoPlayer
 function ConditionalSpeech.applyVolumetricColor_Say(player,text,vol)
 	if not player or not text then
+		return
+	end
+
+	if not vol then
+		print("WARN: vol received as nil!  <txt:"..text..">")
+		vol = 0
+	end
+	
+	if (vol <= 0) and (cndSpeechConfig.config.ShowOnlyAudibleSpeech==true) then
 		return
 	end
 
@@ -334,11 +342,10 @@ end
 
 --- Apply filters to process say
 local original_processSayMessage = processSayMessage
-function processSayMessage(command, ...)
-	command = ConditionalSpeech.ProcessSpeech(getPlayer(), command)
-	return original_processSayMessage(command, ...)
+function processSayMessage(text, ...)
+	text = ConditionalSpeech.ProcessSpeech(getPlayer(), text, nil, nil, ConditionalSpeech.VolumeMAX/2)
+	return original_processSayMessage(text, ...)
 end
-
 
 
 --- Tracks moodle levels overtime, runs generate speech.
