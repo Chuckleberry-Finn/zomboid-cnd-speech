@@ -267,7 +267,7 @@ function ConditionalSpeech.ProcessSpeech(player, dialogue, PhraseSetID, volumeBl
 	local vocal_volume = 0
 
 	--avoid filtering/messing with *emotive* text
-	if fc~="*" and lc~="*" then
+	if (fc~="*" and lc~="*") and (fc~="[" and lc~="]") and (fc~="<" and lc~=">") then
 
 		--just in case of no punctuation add some
 		if lc~="." and lc~="!" and lc~="?" then
