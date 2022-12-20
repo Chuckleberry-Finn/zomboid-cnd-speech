@@ -1,0 +1,442 @@
+-- -=[ Instructions for Contributors ]=-
+-- Firstly, thank you for stopping in; I hope you enjoy your time here.
+
+-- Steps:
+---- 1. If there is not a directory for your language with in "/media/lua/client/shared/Translate/" then create one.
+------ 1a. Copy over this file to "Translate/<LANGUAGE>" and rename it to "UI_<LANGUAGE>" (for example: UI_EN.txt)
+---- 2. Under the instructions there is the 'header' for a list - make sure the name matches the text file's name.
+------ For example: Both the text file and list should be UI_EN, UI_RU, UI_FR, etc.
+---- 3. You're ready to translate! Only change things bellow
+
+-- Phrases can be found in "/media/lua/client/shared/Translate/"
+--- (the folder of your language, for example: EN, RU, FR, will include everything you need.)
+
+-- You can add more phrases than what is available, just make sure the numbers at the end of the entry follows numerically.
+--- (1, 2, 3, 4, 5, etc)
+
+-- When Writing New Phrases:
+-- 1. Keep them short when you can.
+-- 2. Don't capitalize anything other than 'I' or proper nouns.
+-- 3. Punctuation is fine, but keep in mind all '.' can become '!' - so avoid things like U.S.A. or F.B.I. (USA and FBI are fine)
+-- 4. Avoid swears (as there is dynamic swearing built-in), instead use <SWEAR>.
+-- 5. For the moment any *emotive actions* have to be the entire phrase (which won't be filtered).
+
+-- For more variety and to avoid bloat from repetitive phrases, phrases can be used as Keywords to replace parts of another phrase at random.
+-- Format: "<WORD> in the phrase." Make sure there is a corresponding PhrasesWORD phrase-set.
+-- When writing new Phrases to be used as keywords: Read through some lines with <WORD> to make sure it sounds correct before adding them in.
+-- For example: Look at "UI_Phrases_FOOD" and <FOOD> below.
+
+-- DO NOT TRANSLATE KEYWORDS LIKE <WORD> OR <SWEAR>.
+
+-- NOTE: THE TABLE HEADER "UI_XX" MUST MATCH THE IN GAME LANGUAGE ABBREVIATION
+UI_IT = {
+
+-- These are for the config options - leave "\n" in for line break purposes.
+-- Each phrase set that has a config option for it has the prefix "UI_Config_" followed by the same MoodID
+UI_ConfigMODID_Conditional-Speech = "Conditional Speech",
+UI_Config_SpeechCanAttractsZombies = "Speech Can Attract Zombies",
+UI_Config_SpeechCanAttractsZombiesToolTip = "Even in extreme circumstances zombies can't hear conditional speech."
+UI_Config_ShowOnlyAudibleSpeech = "Show Only Audible Speech"
+UI_Config_ShowOnlyAudibleSpeechToolTip = "Show only speech that can actually be heard."
+UI_Config_moodTableToolTip = "Phrase Sets:"
+
+-- This phrase is used for remaining ammunition left in the gun.
+UI_shotsLeft = "colpi rimanenti"
+
+--UI_Phrases_Drunk
+UI_Phrases_Drunk1 = "mi sento brillo",
+UI_Phrases_Drunk2 = "mi sento leggero",
+UI_Phrases_Drunk3 = "mi mancava l'alcool",
+UI_Phrases_Drunk4 = "ne voglio ancora",
+UI_Phrases_Drunk5 = "questa si che è roba buona",
+UI_Phrases_Drunk6 = "sto una bomba",
+UI_Phrases_Drunk7 = "è tempo di festeggiare",
+UI_Phrases_Drunk8 = "mi sento un dio",
+UI_Phrases_Drunk9 = "non ho preoccupazioni",
+UI_Phrases_Drunk10 = "è uno sballo mi piace"
+UI_Phrases_Drunk11 = "vedo i sorci volà"
+
+
+--UI_Phrases_HasACold
+UI_Phrases_HasACold1 = "ho il naso che sgocciola",
+UI_Phrases_HasACold2 = "ho il naso attappato",
+UI_Phrases_HasACold3 = "ho di sicuro un raffreddore",
+UI_Phrases_HasACold4 = "questo freddo è un problema",
+UI_Phrases_HasACold5 = "mi fa male la gola",
+UI_Phrases_HasACold6 = "devo fare qualcosa per questo freddo",
+UI_Phrases_HasACold7 = "ho la febbre?",
+
+--UI_Phrases_Windchill
+UI_Phrases_Windchill1 = "fuori c'è vento",
+UI_Phrases_Windchill2 = "c'è tanto vento",
+UI_Phrases_Windchill3 = "il vento è forte",
+UI_Phrases_Windchill4 = "c'è decisamente troppo vento",
+UI_Phrases_Windchill5 = "è molto ventoso",
+UI_Phrases_Windchill6 = "c'è un vento assurdo",
+UI_Phrases_Windchill7 = "questo vento è anormale",
+UI_Phrases_Windchill8 = "c'è parecchio vento",
+
+--UI_Phrases_Hyperthermia
+UI_Phrases_Hyperthermia1 = "questo caldo fa schifo",
+UI_Phrases_Hyperthermia2 = "questo caldo mi fa venire sete",
+UI_Phrases_Hyperthermia3 = "fa troppo caldo",
+UI_Phrases_Hyperthermia4 = "fa decisamente troppo caldo",
+UI_Phrases_Hyperthermia5 = "questo caldo mi sta uccidendo",
+UI_Phrases_Hyperthermia6 = "questo caldo è insopportabile",
+UI_Phrases_Hyperthermia7 = "potrei svenire dal caldo",
+UI_Phrases_Hyperthermia8 = "non riesco a vedere bene",
+
+--UI_Phrases_Endurance
+UI_Phrases_Endurance1 = "tempo scaduto",
+UI_Phrases_Endurance2 = "mi serve una pausa",
+UI_Phrases_Endurance3 = "*gasp*",
+UI_Phrases_Endurance4 = "dovrei fare più cardio",
+UI_Phrases_Endurance5 = "ho bisogno di riposare",
+UI_Phrases_Endurance6 = "riesco a malapena a correre",
+UI_Phrases_Endurance7 = "non so quanto ancora posso andare avanti",
+UI_Phrases_Endurance8 = "riesco a malapena a camminare",
+UI_Phrases_Endurance9 = "sto per svenire",
+UI_Phrases_Endurance10 = "riesco a malapena a muovermi",
+UI_Phrases_Endurance11 = "riesco a malapena a muovere le braccia",
+UI_Phrases_Endurance12 = "riesco a malapena a muovere le gambe",
+
+--UI_Phrases_Bleeding
+UI_Phrases_Bleeding1 = "sto sanguinando un po'",
+UI_Phrases_Bleeding2 = "sto sanguinando",
+UI_Phrases_Bleeding3 = "devo fermare l'emorragia",
+UI_Phrases_Bleeding4 = "sto perdendo sangue",
+UI_Phrases_Bleeding5 = "sto morendo dissanguato",
+UI_Phrases_Bleeding6 = "di questo passo morirò dissanguato"
+
+--UI_Phrases_FoodEaten
+UI_Phrases_FoodEaten1 = "questo si che era un pasto",
+UI_Phrases_FoodEaten2 = "sono pieno",
+UI_Phrases_FoodEaten3 = "il mio stomaco è pieno",
+UI_Phrases_FoodEaten4 = "mi sento pienissimo",
+UI_Phrases_FoodEaten5 = "il mio stomaco sta esplodendo",
+UI_Phrases_FoodEaten6 = "un altro morso e vomito",
+UI_Phrases_FoodEaten7 = "non riesco più a mangiare"
+
+--UI_Phrases_Injured
+UI_Phrases_Injured1 = "devo curarmi il prima possibile",
+UI_Phrases_Injured2 = "<SARCASM>, una ferita",
+UI_Phrases_Injured3 = "<SWEAR>",
+UI_Phrases_Injured4 = "questo mi lascerà il segno",
+UI_Phrases_Injured5 = "mi servirà un kit di pronto soccorso",
+UI_Phrases_Injured6 = "mi serviranno dei kit di pronto soccorso",
+
+--UI_Phrases_Unhappy
+UI_Phrases_Unhappy1 = "mi manca la mia famiglia",
+UI_Phrases_Unhappy2 = "si sta mettendo male",
+UI_Phrases_Unhappy3 = "quanto a lungo potrò resistere?",
+UI_Phrases_Unhappy4 = "è questa la mia vita ora?",
+UI_Phrases_Unhappy5 = "che senso ha andare avanti?",
+UI_Phrases_Unhappy6 = "tutto questo non ha senso",
+UI_Phrases_Unhappy7 = "che razza di vita è questa?",
+UI_Phrases_Unhappy8 = "questo non è vivere",
+UI_Phrases_Unhappy9 = "dovrei diventare uno zombie?",
+UI_Phrases_Unhappy10 = "perchè io?",
+UI_Phrases_Unhappy11 = "non c'è un futuro",
+UI_Phrases_Unhappy12 = "questo mondo è marcio",
+UI_Phrases_Unhappy13 = "non riesco a continuare",
+
+--UI_Phrases_Wet
+UI_Phrases_Wet1 = "mi sto bagnando i vestiti",
+UI_Phrases_Wet2 = "sono leggermente bagnato",
+UI_Phrases_Wet3 = "sono fradicio",
+UI_Phrases_Wet4 = "<SARCASM>, sono bagnato",
+UI_Phrases_Wet5 = "mi verrà un raffreddore a questo punto",
+UI_Phrases_Wet6 = "sono zuppo",
+
+--UI_Phrases_Sick
+UI_Phrases_Sick1 = "ho la nausea",
+UI_Phrases_Sick2 = "non mi sento bene",
+UI_Phrases_Sick3 = "sono malato",
+UI_Phrases_Sick4 = "mi sento un po male",
+UI_Phrases_Sick5 = "sto male",
+UI_Phrases_Sick6 = "mi sento nauseato",
+UI_Phrases_Sick7 = "ho la febbre?",
+UI_Phrases_Sick8 = "ho la febbre",
+
+--UI_Phrases_HeavyLoad
+UI_Phrases_HeavyLoad1 = "*grunt*",
+UI_Phrases_HeavyLoad2 = "questo è pesante",
+UI_Phrases_HeavyLoad3 = "sto portando troppo",
+UI_Phrases_HeavyLoad4 = "è davvero un carico pesante",
+UI_Phrases_HeavyLoad5 = "<SWEAR>, questo è veramente pesante",
+UI_Phrases_HeavyLoad6 = "<Pain>. la mia schiena",
+
+--UI_Phrases_OnDusk
+UI_Phrases_OnDusk1 = "sta diventando buio",
+UI_Phrases_OnDusk2 = "sembra che il sole stia calando",
+UI_Phrases_OnDusk3 = "sta tramontando",
+
+--UI_Phrases_OnDawn
+UI_Phrases_OnDawn1 = "un altro giorno",
+UI_Phrases_OnDawn2 = "ed ecco un altro giorno",
+UI_Phrases_OnDawn3 = "il sole sta salendo",
+UI_Phrases_OnDawn4 = "il mattino ha l'oro in bocca",
+
+--UI_Phrases_GunJammed
+UI_Phrases_GunJammed1 = "inceppata",
+UI_Phrases_GunJammed2 = "l'arma è inceppata.",
+UI_Phrases_GunJammed3 = "merda è inceppata",
+UI_Phrases_GunJammed4 = "l'arma è bloccata.",
+
+--UI_Phrases_LowAmmo
+UI_Phrases_LowAmmo1 = "sono a corto",
+UI_Phrases_LowAmmo2 = "sono a corto di munizioni",
+UI_Phrases_LowAmmo3 = "ho bisogno di ricaricare",
+UI_Phrases_LowAmmo4 = "mi restano pochi colpi",
+UI_Phrases_LowAmmo5 = "ho pochi proiettili",
+
+--UI_Phrases_OutOfAmmo
+UI_Phrases_OutOfAmmo1 = "ho finito i proiettili",
+UI_Phrases_OutOfAmmo2 = "vuoto",
+UI_Phrases_OutOfAmmo3 = "niente colpi",
+UI_Phrases_OutOfAmmo4 = "non ho colpi",
+UI_Phrases_OutOfAmmo5 = "ho finito i colpi",
+UI_Phrases_OutOfAmmo6 = "l'arma non ha proiettili",
+UI_Phrases_OutOfAmmo7 = "l'arma è vuota",
+UI_Phrases_OutOfAmmo8 = "questa cosa è vuota",
+UI_Phrases_OutOfAmmo9 = "l'arma è scarica",
+UI_Phrases_OutOfAmmo10 = "ho finito i proiettili",
+UI_Phrases_OutOfAmmo11 = "niente proiettili",
+UI_Phrases_OutOfAmmo12 = "non ci sono proiettili",
+
+--UI_Phrases_Hungry
+UI_Phrases_Hungry1 = "potrei mangiarmi uno snack",
+UI_Phrases_Hungry2 = "*borbottio allo stomaco*",
+UI_Phrases_Hungry3 = "potrei mangiare <FOOD>",
+UI_Phrases_Hungry4 = "devo mangiare uno snack o qualcosa",
+UI_Phrases_Hungry5 = "<FOOD> sarebbe bello in questo momento",
+UI_Phrases_Hungry6 = "dovrei prendere un po di cibo",
+UI_Phrases_Hungry7 = "*stomaco brontolante*",
+UI_Phrases_Hungry8 = "è meglio se prendo qualcosa da mangiare",
+UI_Phrases_Hungry9 = "dovrei mangiare qualcosa",
+UI_Phrases_Hungry10 = "mi brontola lo stomaco",
+UI_Phrases_Hungry11 = "ugh, ho davvero bisogno di mangiare",
+UI_Phrases_Hungry12 = "potrei andare di <FOOD>",
+UI_Phrases_Hungry13 = "potrei andare di <FOOD> ora",
+UI_Phrases_Hungry14 = "*stomaco brontolante*",
+UI_Phrases_Hungry15 = "questa fame mi sta facendo impazzire!",
+UI_Phrases_Hungry16 = "ci deve pur essere del cibo da qualche parte",
+UI_Phrases_Hungry17 = "ho bisogno di cibo",
+UI_Phrases_Hungry18 = "aaghhh. la fame.",
+UI_Phrases_Hungry19 = "dove <SWEAR> trovo un po di cibo!?",
+UI_Phrases_Hungry20 = "ho cosi fame",
+UI_Phrases_Hungry21 = "uhnnng. la fame",
+UI_Phrases_Hungry22 = "sto morendo di fame",
+
+--UI_Phrases_Thirst
+UI_Phrases_Thirst1 = "mi sento la gola secca.",
+UI_Phrases_Thirst2 = "*schiarisce la voce*",
+UI_Phrases_Thirst3 = "vorrei bere un po di acqua ora.",
+UI_Phrases_Thirst4 = "un bicchiere d'acqua sarebbe fantastico.",
+UI_Phrases_Thirst5 = "ho bisogno di qualcosa da bere.",
+UI_Phrases_Thirst6 = "dovrei prendere qualcosa da bere.",
+UI_Phrases_Thirst7 = "la mia bocca è asciutta",
+UI_Phrases_Thirst8 = "potrei bere un bel bicchiere d'acqua ora.",
+UI_Phrases_Thirst9 = "dovrei bere qualcosa.",
+UI_Phrases_Thirst10 = "la mia bocca è cosi asciutta",
+UI_Phrases_Thirst11 = "dovrei davvero bere qualcosa ora.",
+UI_Phrases_Thirst12 = "ho bisogno d'acqua!",
+UI_Phrases_Thirst13 = "ci deve pur essere dell'acqua qui intorno",
+UI_Phrases_Thirst14 = "ho bisogno d'acqua.",
+
+--UI_Phrases_Tired
+UI_Phrases_Tired1 = "*yawn*",
+UI_Phrases_Tired2 = "potrei fare un pisolino.",
+UI_Phrases_Tired3 = "mi sento assonnato.",
+UI_Phrases_Tired4 = "dovrei dormire un pò.",
+UI_Phrases_Tired5 = "vorrei sdraiarmi un pò.",
+UI_Phrases_Tired6 = "*yaaawn*",
+UI_Phrases_Tired7 = "vorrei andare a dormire",
+UI_Phrases_Tired8 = "dovrei andare a dormire presto",
+UI_Phrases_Tired9 = "probabilmente mi dovrei riposare",
+UI_Phrases_Tired10 = "comincio a sentire le borse sotto gli occhi.",
+UI_Phrases_Tired11 = "cavolo se ho sonno.",
+UI_Phrases_Tired12 = "*yaaaaaawn*",
+UI_Phrases_Tired13 = "sono cosi stanco",
+UI_Phrases_Tired14 = "dovrei decisamente dormire.",
+UI_Phrases_Tired15 = "non sto capendo nulla. dovrei dormire.",
+UI_Phrases_Tired16 = "riesco a malapena a tenere gli occhi aperti",
+UI_Phrases_Tired17 = "sento che sto per svenire dal sonno",
+UI_Phrases_Tired18 = "da quanto è che non dormo?",
+UI_Phrases_Tired19 = "uhnng, sono cosi stanco",
+UI_Phrases_Tired20 = "dovrei andare a dormire ora.",
+UI_Phrases_Tired21 = "*hai le palpebre pesanti*",
+UI_Phrases_Tired22 = "non riesco a stare in piedi. sono stanchissimo.",
+
+--UI_Phrases_Bored
+UI_Phrases_Bored1 = "dovrei fare qualcosa.",
+UI_Phrases_Bored2 = "devo cercare qualcosa da fare",
+UI_Phrases_Bored3 = "*sigh*",
+UI_Phrases_Bored4 = "ci deve essere qualcosa da fare",
+UI_Phrases_Bored5 = "beh, mi sto annoiando",
+UI_Phrases_Bored6 = "che noia",
+UI_Phrases_Bored7 = "non ho niente da fare",
+UI_Phrases_Bored11 = "sono annoiato a morte.",
+UI_Phrases_Bored9 = "*sigh*",
+UI_Phrases_Bored10 = "è tutto cosi noioso.",
+UI_Phrases_Bored8 = "sono cosi annoiato <SWEAR>",
+UI_Phrases_Bored12 = "*sigh*",
+UI_Phrases_Bored13 = "devo seriamente fare qualcosa",
+UI_Phrases_Bored14 = "ci deve essere qualcosa da fare! qualsiasi cosa! aghh!",
+UI_Phrases_Bored15 = "infilarmi dei cucchiai negli occhi sarebbe meglio di così",
+UI_Phrases_Bored16 = "questa noia mi fa diventare matto!",
+
+--UI_Phrases_Stress
+UI_Phrases_Stress1 = "mi sento stressato",
+UI_Phrases_Stress2 = "devo rilassarmi in qualche modo",
+UI_Phrases_Stress3 = "*respiro profondo*",
+UI_Phrases_Stress4 = "devo rilassarmi",
+UI_Phrases_Stress5 = "ugh",
+UI_Phrases_Stress6 = "dovrei meditare",
+UI_Phrases_Stress7 = "*respiro molto profondo*",
+UI_Phrases_Stress8 = "dovrei davvero rilassarmi",
+UI_Phrases_Stress9 = "questo stress mi sta uccidendo",
+UI_Phrases_Stress10 = "non riesco a trattenermi",
+UI_Phrases_Stress11 = "questo cazzo di stress mi sta uccidendo",
+UI_Phrases_Stress12 = "fanculo questa merda",
+
+--UI_Phrases_Agoraphobic
+UI_Phrases_Agoraphobic1 = "stai calmo e respira",
+UI_Phrases_Agoraphobic2 = "odio questo",
+UI_Phrases_Agoraphobic3 = "non dovrei essere qui fuori",
+UI_Phrases_Agoraphobic4 = "non dovrei farlo",
+UI_Phrases_Agoraphobic5 = "cosa era quello?",
+UI_Phrases_Agoraphobic6 = "perchè non posso restare al chiuso?",
+
+--UI_Phrases_Claustrophobic
+UI_Phrases_Claustrophobic1 = "stai calmo e respira",
+UI_Phrases_Claustrophobic2 = "odio questa sensazione",
+UI_Phrases_Claustrophobic3 = "le pareti si stanno chiudendo",
+UI_Phrases_Claustrophobic4 = "*respiro profondo*",
+UI_Phrases_Claustrophobic5 = "<SWEAR>, odio tutto questo",
+UI_Phrases_Claustrophobic6 = "non riesco a respirare qui",
+
+--UI_Phrases_Panic
+UI_Phrases_Panic1 = "*gasp*",
+UI_Phrases_Panic2 = "uh oh!",
+UI_Phrases_Panic3 = "woah!",
+UI_Phrases_Panic4 = "oh!",
+UI_Phrases_Panic5 = "oh no!",
+UI_Phrases_Panic6 = "ohh!",
+UI_Phrases_Panic7 = "ah!",
+UI_Phrases_Panic8 = "ahh!",
+UI_Phrases_Panic9 = "gah!",
+UI_Phrases_Panic10 = "woahh!",
+UI_Phrases_Panic11 = "<SWEAR>",
+UI_Phrases_Panic12 = "ah <SWEAR>!",
+UI_Phrases_Panic13 = "oh <SWEAR>!",
+UI_Phrases_Panic14 = "No!",
+UI_Phrases_Panic15 = "ma che <SWEAR>!",
+UI_Phrases_Panic16 = "perchè!?",
+UI_Phrases_Panic17 = "gahh!",
+UI_Phrases_Panic18 = "ahhh!",
+UI_Phrases_Panic19 = "perchè!?",
+UI_Phrases_Panic20 = "per favore no!",
+UI_Phrases_Panic21 = "qualcuno mi aiuti!",
+UI_Phrases_Panic22 = "aiutatemi!",
+UI_Phrases_Panic23 = "oh merda! ahhh!",
+
+--UI_Phrases_Hypothermia
+UI_Phrases_Hypothermia1 = "fa cosi freddo",
+UI_Phrases_Hypothermia2 = "brrrrr",
+UI_Phrases_Hypothermia3 = "*brividi*",
+
+--UI_Phrases_Pain
+UI_Phrases_Pain1 = "ouch",
+UI_Phrases_Pain2 = "ow",
+UI_Phrases_Pain3 = "argh",
+UI_Phrases_Pain4 = "fa male",
+UI_Phrases_Pain5 = "ouch",
+UI_Phrases_Pain6 = "ow",
+UI_Phrases_Pain7 = "aagghh",
+UI_Phrases_Pain8 = "fa molto male",
+UI_Phrases_Pain9 = "aaaaghhh",
+UI_Phrases_Pain10 = "arrgh",
+UI_Phrases_Pain11 = "owww",
+UI_Phrases_Pain12 = "fa un male atroce",
+UI_Phrases_Pain13 = "arrrgh",
+UI_Phrases_Pain14 = "il dolore",
+UI_Phrases_Pain15 = "fatelo smettere",
+UI_Phrases_Pain16 = "aagghhh",
+UI_Phrases_Pain17 = "aaaggghhh",
+UI_Phrases_Pain18 = "basta!",
+UI_Phrases_Pain19 = "aaghh",
+
+--UI_Phrases_SWEAR
+UI_Phrases_SWEAR1 = "minchia",
+UI_Phrases_SWEAR2 = "dannazione",
+UI_Phrases_SWEAR3 = "cristo",
+UI_Phrases_SWEAR4 = "merda",
+UI_Phrases_SWEAR5 = "cazzo",
+
+--UI_Phrases_Plosives
+UI_Phrases_Plosives1 = "f",
+UI_Phrases_Plosives2 = "F",
+UI_Phrases_Plosives3 = "p",
+UI_Phrases_Plosives4 = "P",
+UI_Phrases_Plosives5 = "t",
+UI_Phrases_Plosives6 = "T",
+UI_Phrases_Plosives7 = "k",
+UI_Phrases_Plosives8 = "K",
+UI_Phrases_Plosives9 = "b",
+UI_Phrases_Plosives10 = "B",
+UI_Phrases_Plosives11 = "d",
+UI_Phrases_Plosives12 = "D",
+UI_Phrases_Plosives13 = "g",
+UI_Phrases_Plosives14 = "G",
+UI_Phrases_Plosives15 = "s",
+UI_Phrases_Plosives16 = "S",
+UI_Phrases_Plosives17 = "m",
+UI_Phrases_Plosives18 = "M",
+
+--UI_Phrases_FOOD
+UI_Phrases_FOOD1 = "un aperitivo",
+UI_Phrases_FOOD2 = "un po di patatine",
+UI_Phrases_FOOD3 = "uno snack",
+UI_Phrases_FOOD4 = "una pizza intera",
+UI_Phrases_FOOD5 = "un po di pizza",
+UI_Phrases_FOOD6 = "una fetta di pizza",
+UI_Phrases_FOOD7 = "una fetta di torta",
+UI_Phrases_FOOD8 = "qualcosa di gustoso",
+UI_Phrases_FOOD9 = "una torta",
+UI_Phrases_FOOD10 = "un cesto di pollo",
+UI_Phrases_FOOD11 = "un po di pollo",
+UI_Phrases_FOOD12 = "un hamburger di Spiffo",
+UI_Phrases_FOOD13 = "Un menù per bambini di Spiffo",
+UI_Phrases_FOOD14 = "un cesto di pollo di Jay",
+UI_Phrases_FOOD15 = "qualche biscotto di Jay",
+UI_Phrases_FOOD16 = "qualsiasi cosa",
+UI_Phrases_FOOD17 = "mangiare qualsiasi cosa",
+
+--UI_Phrases_SARCASM
+UI_Phrases_SARCASM1 = "ottimo",
+UI_Phrases_SARCASM2 = "magnifico",
+UI_Phrases_SARCASM3 = "fantastico",
+UI_Phrases_SARCASM4 = "proprio quello che mi serviva",
+UI_Phrases_SARCASM5 = "che fortuna",
+
+
+--These set of phrases are unique in that they are parsed to replace the string before `:` with the one after it.
+--The left side of the `:` should be ONLY 1 character
+--UI_Phrases_Slurring
+UI_Phrases_Slurring1 = "o:u",
+UI_Phrases_Slurring2 = "s:ch",
+UI_Phrases_Slurring3 = "a:ah",
+UI_Phrases_Slurring4 = "u:oo",
+UI_Phrases_Slurring5 = "c:k",
+
+--UI_Phrases_Congested
+UI_Phrases_Congested1 = "k:g",
+UI_Phrases_Congested2 = "p:b",
+UI_Phrases_Congested3 = "t:d",
+UI_Phrases_Congested4 = "n:ng",
+UI_Phrases_Congested5 = "m:b",
+UI_Phrases_Congested6 = "v:b",
+UI_Phrases_Congested6 = "f:b",
+
+}
