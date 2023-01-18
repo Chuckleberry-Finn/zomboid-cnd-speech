@@ -12,7 +12,8 @@ description=[b]If the problem persists, please supply a error log, which can be 
 description=[quote]`C:\Users\<username>\Zomboid\console.txt`[/quote]
 description=Uploaded to any online text viewer, [url=https://pastebin.com/]pastebin[/url] is recomended.
 description=Share the link in a comment below.
-description=You can also report bugs, offer ideas, or provide translation/new phrases here: [url=https://github.com/ChuckTheSheep/zomboid-cnd-speech]Github.[/url]
+description=
+description=[h3]Report bugs, offer ideas, or provide translation/new phrases here: [url=https://github.com/ChuckTheSheep/zomboid-cnd-speech]Github.[/url][/h3]
 description=
 description=Note:[list]
 description=[*] Color of speech can be changed in the in-game menu under "multiplayer".
