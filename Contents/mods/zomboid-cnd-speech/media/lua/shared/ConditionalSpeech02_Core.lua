@@ -233,7 +233,7 @@ end
 --- Our own version of Say()
 function ConditionalSpeech.Say(player, dialogue, vocal_volume)
 
-	--[[debug]] print("CND-SPEECH: "..player:getFullName()," (vol:",vocal_volume,") : ",dialogue)
+	--[debug]] print("CND-SPEECH: "..player:getFullName()," (vol:",vocal_volume,") : ",dialogue)
 	ConditionalSpeech.applyVolumetricColor_Say(player,tostring(dialogue),vocal_volume)
 
 	if cndSpeechConfig.config.SpeechCanAttractsZombies==true then
@@ -308,7 +308,7 @@ function ConditionalSpeech.applyVolumetricColor_Say(player,text,vol)
 		print("WARN: vol received as nil!  <txt:"..text..">")
 		vol = 0
 	end
-	
+
 	if (vol <= 0) and (cndSpeechConfig.config.ShowOnlyAudibleSpeech==true) then
 		return
 	end
@@ -322,6 +322,7 @@ function ConditionalSpeech.applyVolumetricColor_Say(player,text,vol)
 	local graybase = {r=0.45, g=0.45, b=0.45, a=1}--gray base text_color will be overlayed onto
 	local return_color = {r=tR, g=tG, b=tB, a=1}--set up return color
 
+
 	if cndSpeechConfig.config.SpeechCanAttractsZombies==true then
 		return_color.a = 1 - (1 - text_color.a) * (1 - graybase.a)--alpha
 		return_color.r = text_color.r * text_color.r / return_color.a + graybase.r * graybase.a * (1 - text_color.a) / return_color.a--red
@@ -334,8 +335,13 @@ function ConditionalSpeech.applyVolumetricColor_Say(player,text,vol)
 	--print(" --text_color: "..text_color.r..","..text_color.g..","..text_color.b)
 	--print(" --return_color: "..return_color.r..","..return_color.g..","..return_color.b)
 
-	print(" ---applyVolumetric: "..player:getFullName()," (vol:",vol,") : ",text)
-	player:addLineChatElement(text, return_color.r, return_color.g, return_color.b, UIFont.Dialogue, vol, "default", true, true, true, true, true, true)
+	if getDebug() then print(" ---applyVolumetric: "..player:getFullName()," (vol:",vol,") : ",text) end
+
+	if isClient() then
+		sendClientCommand(player, "cndSpeech", "addLineChatElement", {text=text, return_color=return_color, vol=vol}) -- to server
+	else
+		player:addLineChatElement(text, return_color.r, return_color.g, return_color.b, UIFont.Dialogue, vol, "default", true, true, true, true, true, true)
+	end
 	--player:Say(text, return_color.r, return_color.g, return_color.b, UIFont.Dialogue, vol, "default")
 	player:getBodyDamage():setBoredomLevel( player:getBodyDamage():getBoredomLevel() + (ZomboidGlobals.BoredomDecrease * getGameTime():getMultiplier()) )
 end
@@ -378,7 +384,7 @@ function ConditionalSpeech.check_PlayerStatus(player)
 		ConditionalSpeech.generateSpeechFrom(player,"Panic",panicLevel,4, false, true)
 		return
 	end
-	
+
 	local zombiesNearBy = (playerStats:getNumVisibleZombies() > 0) or (player:getLastSeenZomboidTime() < 1)
 
 	--prevent vocalization if any zombies are visible or chasing
