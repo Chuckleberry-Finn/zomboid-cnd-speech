@@ -337,6 +337,7 @@ function ConditionalSpeech.applyVolumetricColor_Say(player,text,vol)
 	print(" ---applyVolumetric: "..player:getFullName()," (vol:",vol,") : ",text)
 	player:addLineChatElement(text, return_color.r, return_color.g, return_color.b, UIFont.Dialogue, vol, "default", true, true, true, true, true, true)
 	--player:Say(text, return_color.r, return_color.g, return_color.b, UIFont.Dialogue, vol, "default")
+	player:getBodyDamage():setBoredomLevel( player:getBodyDamage():getBoredomLevel() + (ZomboidGlobals.BoredomDecrease * getGameTime():getMultiplier()) )
 end
 
 
