@@ -162,7 +162,7 @@ function ConditionalSpeech_Filter.Slurring(text, intensity)
 
     local characters = splitText_byChar(text)
     local post_characters = {}
-    local max_slurring = intensity
+    local _intensity = intensity
 
     local replaceCharacters = {}
     for _,string in pairs(ConditionalSpeech.Phrases.Slurring) do
@@ -173,10 +173,10 @@ function ConditionalSpeech_Filter.Slurring(text, intensity)
 
     for _,value in pairs(characters) do
         local c = value
-        if c~=" " and max_slurring > 0 and replaceCharacters[c] then
+        if c~=" " and _intensity > 0 and replaceCharacters[c] then
 
             local chance = intensity*33
-            max_slurring = max_slurring-1
+            _intensity = _intensity-1
 
             if is_prob(chance/1.5) and is_valueIn(ConditionalSpeech.Phrases.Plosives,c) then c = "'" end
             if is_prob(chance/3) then c = c.."'" end
@@ -198,7 +198,7 @@ function ConditionalSpeech_Filter.Congested(text, intensity)
 
     local characters = splitText_byChar(text)
     local post_characters = {}
-    local max_slurring = intensity
+    local _intensity = intensity
 
     local replaceCharacters = {}
     for _,string in pairs(ConditionalSpeech.Phrases.Congested) do
@@ -209,9 +209,9 @@ function ConditionalSpeech_Filter.Congested(text, intensity)
 
     for _,value in pairs(characters) do
         local c = value
-        if c~=" " and max_slurring > 0 and replaceCharacters[c] then
+        if c~=" " and _intensity > 0 and replaceCharacters[c] then
             local chance = intensity*25
-            max_slurring = max_slurring-1
+            _intensity = _intensity-1
             if is_prob(chance) then c = (replaceCharacters[c] or c) end
         end
         table.insert(post_characters, c)
