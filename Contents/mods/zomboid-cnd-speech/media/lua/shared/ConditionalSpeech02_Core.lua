@@ -236,7 +236,7 @@ function ConditionalSpeech.Say(player, dialogue, vocal_volume)
 	--[debug]] print("CND-SPEECH: "..player:getFullName()," (vol:",vocal_volume,") : ",dialogue)
 	ConditionalSpeech.applyVolumetricColor_Say(player,tostring(dialogue),vocal_volume)
 
-	if cndSpeechConfig.config.SpeechCanAttractsZombies==true then
+	if cndSpeechConfig.config.SpeechCanAttractsZombies==true and player and vocal_volume and vocal_volume>0 then
 		addSound(nil, player:getX(), player:getY(), player:getZ(), vocal_volume, vocal_volume)
 	end
 end
