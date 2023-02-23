@@ -1,0 +1,545 @@
+-- -=[ Instructions for Contributors ]=-
+-- Firstly, thank you for stopping in; I hope you enjoy your time here.
+
+-- Steps:
+---- 1. If there is not a directory for your language with in "/media/lua/client/shared/Translate/" then create one.
+------ 1a. Copy over this file to "Translate/<LANGUAGE>" and rename it to "UI_<LANGUAGE>" (for example: UI_EN.txt)
+---- 2. Under the instructions there is the 'header' for a list - make sure the name matches the text file's name.
+------ For example: Both the text file and list should be UI_EN, UI_RU, UI_FR, etc.
+---- 3. You're ready to translate! Only change things bellow
+
+-- Phrases can be found in "/media/lua/client/shared/Translate/"
+--- (the folder of your language, for example: EN, RU, FR, will include everything you need.)
+
+-- You can add more phrases than what is available, just make sure the numbers at the end of the entry follows numerically.
+--- (1, 2, 3, 4, 5, etc)
+
+-- When Writing New Phrases:
+-- 1. Keep them short when you can.
+-- 2. Don't capitalize anything other than 'I' or proper nouns.
+-- 3. Punctuation is fine, but keep in mind all '.' can become '!' - so avoid things like U.S.A. or F.B.I. (USA and FBI are fine)
+-- 4. Avoid swears (as there is dynamic swearing built-in), instead use <SWEAR>.
+-- 5. For the moment any *emotive actions* have to be the entire phrase (which won't be filtered).
+
+-- For more variety and to avoid bloat from repetitive phrases, phrases can be used as Keywords to replace parts of another phrase at random.
+-- Format: "<WORD> in the phrase." Make sure there is a corresponding PhrasesWORD phrase-set.
+-- When writing new Phrases to be used as keywords: Read through some lines with <WORD> to make sure it sounds correct before adding them in.
+-- For example: Look at "UI_Phrases_FOOD" and <FOOD> below.
+
+-- DO NOT TRANSLATE KEYWORDS LIKE <WORD> OR <SWEAR>.
+
+-- NOTE: THE TABLE HEADER "UI_XX" MUST MATCH THE IN GAME LANGUAGE ABBREVIATION
+UI_UA = {
+
+-- These are for the config options - leave "\n" in for line break purposes.
+-- Each phrase set that has a config option for it has the prefix "UI_Config_" followed by the same MoodID
+UI_ConfigMODID_Conditional-Speech = "РЈРјРѕРІРЅРµ РјРѕРІР»РµРЅРЅСЏ",
+UI_Config_SpeechCanAttractsZombies = "РўРІС–Р№ РіРѕР»РѕСЃ РјРѕР¶Рµ РїСЂРёРІР°Р±Р»СЋРІР°С‚Рё Р·РѕРјР±С–",
+UI_Config_SpeechCanAttractsZombiesToolTip = "РќР°РІС–С‚СЊ Р·Р° РµРєСЃС‚СЂРµРјР°Р»СЊРЅРёС… РѕР±СЃС‚Р°РІРёРЅ Р·РѕРјР±С– РЅРµ РјРѕР¶СѓС‚СЊ РїРѕС‡СѓС‚Рё СЂРѕР·РјРѕРІСѓ".
+UI_Config_ShowOnlyAudibleSpeech = "РџРѕРєР°Р·СѓРІР°С‚Рё Р»РёС€Рµ РѕР·РІСѓС‡РµРЅСѓ СЂРѕР·РјРѕРІСѓ"
+UI_Config_ShowOnlyAudibleSpeechToolTip = "РџРѕРєР°Р·СѓРІР°С‚Рё Р»РёС€Рµ СЂРѕР·РјРѕРІСѓ, СЏРєР° Р±СѓР»Р° РѕР·РІСѓС‡РµРЅР°".
+UI_Config_moodTableToolTip = "РќР°Р±РѕСЂРё С„СЂР°Р·:"
+
+-- This phrase is used for remaining ammunition left in the gun.
+UI_shotsLeft = "Р·Р°Р»РёС€РёР»РѕСЃСЏ РЅР°Р±РѕС—РІ"
+
+--UI_Phrases_Drunk
+UI_Config_Drunk = "Рџ'СЏРЅРёР№",
+UI_Phrases_Drunk1 = "Р·РґР°С”С‚СЊСЃСЏ СЏ РІР¶Рµ Рї'СЏРЅРёР№",
+UI_Phrases_Drunk2 = "СЏРє Р¶Рµ РјРµРЅС– РґРѕР±СЂРµ",
+UI_Phrases_Drunk3 = "С‚Рµ, С‰Рѕ С‚СЂРµР±Р° <SWEAR>",
+UI_Phrases_Drunk4 = "С‰Рµ РїРѕ РѕРґРЅС–Р№",
+UI_Phrases_Drunk5 = "РѕСЃСЊ С†Рµ СЏ Р»СЋР±Р»СЋ",
+UI_Phrases_Drunk6 = "С‡СѓРґРѕРІРѕ <SWEAR>",
+UI_Phrases_Drunk7 = "С‡Р°СЃ РїРѕРІРµСЃРµР»РёС‚РёСЃСЊ",
+UI_Phrases_Drunk8 = "СЏ Рї'СЏРЅРёР№",
+UI_Phrases_Drunk9 = "СЏ РІ РґСЂСѓР·РєРё",
+UI_Phrases_Drunk10 = "РјРµРЅС– РѕРґРЅР°РєРѕРІРѕ С‡Рё Р±СѓРґСѓ, Р±СЂСЂСЂСЂ",
+UI_Phrases_Drunk11 = "С…Р°Р№ Р»СѓРЅР°СЋС‚СЊ С‚РѕСЃС‚Рё, С‚РѕСЃС‚Рё, С‚РѕСЃС‚Рё, РіРёРє",
+UI_Phrases_Drunk12 = "Р±СѓС…Р»Рѕ, <SWEAR>, - РЅР°Р№РєСЂР°С‰РёР№ Р»С–РєРё РІС–Рґ СѓСЃСЊРѕРіРѕ",
+UI_Phrases_Drunk13 = "Р©Рµ РѕРґРёРЅ СЂР°Р·! Р† С‰Рµ РѕРґРёРЅ СЂР°Р·!",
+
+--UI_Phrases_HasACold
+UI_Config_HasACold = "Р—Р°СЃС‚СѓРґРёРІСЃСЏ",
+UI_Phrases_HasACold1 = "Р· РЅРѕСЃР° С‚РµС‡Рµ",
+UI_Phrases_HasACold2 = "РЅС–СЃ Р·Р°РєР»Р°РґРµРЅРёР№",
+UI_Phrases_HasACold3 = "Р·РґР°С”С‚СЃСЊСЏ СЏ Р·Р°СЃС‚СѓРґРёРІСЃСЏ",
+UI_Phrases_HasACold4 = "Р·Р°СЃС‚СѓРґР° СЃС‚Р°С” РїСЂРѕР±Р»РµРјРѕСЋ",
+UI_Phrases_HasACold5 = "РіРѕСЂР»Рѕ Р±РѕР»РёС‚СЊ <PAIN>",
+UI_Phrases_HasACold6 = "РњРµРЅС– РїРѕС‚СЂС–Р±РЅРѕ С‰РѕСЃСЊ Р·СЂРѕР±РёС‚Рё С–Р· Р·Р°СЃС‚СѓРґРѕСЋ",
+UI_Phrases_HasACold7 = "Сѓ РјРµРЅРµ Р¶Р°СЂ?",
+
+--UI_Phrases_Windchill
+UI_Config_Windchill = "Р’С–С‚СЂСЏРЅРѕ",
+UI_Phrases_Windchill1 = "РЅСѓ С– РІС–С‚РµСЂ",
+UI_Phrases_Windchill2 = "С‚СѓС‚ С‚Р°Рє РІС–С‚СЂСЏРЅРѕ",
+UI_Phrases_Windchill3 = "РІС–С‚РµСЂ РґРѕСЃРёС‚СЊ СЃРёР»СЊРЅРёР№",
+UI_Phrases_Windchill4 = "РјРµРЅРµ Р·Р°СЂР°Р· Р·РґСѓС”",
+UI_Phrases_Windchill5 = "СЃРёР»СЊРЅРѕ РґРјРµ",
+UI_Phrases_Windchill6 = "РґРѕРґРѕР»Сѓ РІРµСЂР±Рё РіРЅРµ РІРёСЃРѕРєС–",
+UI_Phrases_Windchill7 = "РјРµРЅРµ Р·Р°СЂР°Р· Р·РґСѓС”",
+UI_Phrases_Windchill8 = "Р·РґР°С”С‚СЊСЃСЏ РІС–С‚РµСЂ Р°Р¶ Р·Р°РІРёРІР°С”",
+
+--UI_Phrases_Hyperthermia
+UI_Config_Hyperthermia = "Р“С–РїРµСЂС‚РµСЂРјС–СЏ",
+UI_Phrases_Hyperthermia1 = "СЃРїРµРєРѕС‚РЅРѕ",
+UI_Phrases_Hyperthermia2 = "С‚Р°Рє Р¶Р°СЂРєРѕ Р°Р¶ С…РѕС‡РµС‚СЊСЃСЏ РїРёС‚Рё",
+UI_Phrases_Hyperthermia3 = "Р¶Р°СЂР°-Р°-Р°",
+UI_Phrases_Hyperthermia4 = "РґСѓР¶Рµ РіР°СЂСЏС‡Рµ",
+UI_Phrases_Hyperthermia5 = "РЅРµСЃС‚РµСЂРїРЅР° Р¶Р°СЂР°",
+UI_Phrases_Hyperthermia6 = "<SWEAR>, РЇ Р·Р°СЂР°Р· Р·РіРѕСЂСЋ",
+UI_Phrases_Hyperthermia7 = "<PAIN>, Р·Р°СЂР°Р· РІС‚СЂР°С‡Сѓ СЃРІС–РґРѕРјС–СЃС‚СЊ",
+UI_Phrases_Hyperthermia8 = "РІ РѕС‡Р°С… РјСѓС‚РЅС–С”",
+UI_Phrases_Hyperthermia9 = "СЏ Р·Р°СЂР°Р· СЂРѕР·С‚Р°РЅСѓ!",
+UI_Phrases_Hyperthermia10 = "С†Рµ С‚РѕС‡РЅРѕ РїРµРєР»Рѕ РЅР° Р·РµРјР»С–",
+
+--UI_Phrases_Endurance
+UI_Config_Endurance = "Р’РёРґРёС…СЃСЏ",
+UI_Phrases_Endurance1 = "СѓРіС…",
+UI_Phrases_Endurance2 = "РњРµРЅС– РїРѕС‚СЂС–Р±РЅР° РїРµСЂРµСЂРІР°",
+UI_Phrases_Endurance3 = "*РґРёС…Р°С” РЅР°СЃРёР»Сѓ*",
+UI_Phrases_Endurance4 = "РїРѕС‚СЂС–Р±РЅРѕ РїРµСЂРµРїРѕС‡РёС‚Рё",
+UI_Phrases_Endurance5 = "РЇ РІР¶Рµ РЅРµ РјРѕР¶Сѓ Р±С–РіС‚Рё",
+UI_Phrases_Endurance6 = "РЇ Р»РµРґРІРµ С…РѕРґР¶Сѓ",
+UI_Phrases_Endurance7 = "РЇ Р·Р°СЂР°Р· РєС–РЅС†С– РІС–РґРєРёРЅСѓ",
+UI_Phrases_Endurance8 = "РјРµРЅС– РІР°Р¶РєРѕ РїРѕРІРѕСЂСѓС€РёС‚РёСЃСЊ",
+UI_Phrases_Endurance9 = "Р»РµРґСЊ РјРѕР¶Сѓ РїРѕРІРѕСЂСѓС…РЅСѓС‚Рё СЂСѓРєР°РјРё",
+UI_Phrases_Endurance10 = "Р»РµРґСЊ РјРѕР¶Сѓ РїРѕРІРѕСЂСѓС…РЅСѓС‚Рё РЅРѕРіР°РјРё",
+UI_Phrases_Endurance11 = "Р·Р°РІС‚СЂР° РѕР±РѕРІ'СЏР·РєРѕРІРѕ РІС–РґРїРѕС‡РёРЅСѓ...",
+
+--UI_Phrases_Bleeding
+UI_Config_Bleeding = "РЎС‚С–РєР°С” РєСЂРѕРІ'СЋ",
+UI_Phrases_Bleeding1 = "РЅСѓ, С†Рµ С‚РѕС‡РЅРѕ РЅРµ С„Р°СЂР±Р°!",
+UI_Phrases_Bleeding2 = "Сѓ РјРµРЅРµ РєСЂРѕРІРѕС‚РµС‡Р°",
+UI_Phrases_Bleeding3 = "РјРµРЅС– РїРѕС‚СЂС–Р±РЅРѕ Р·СѓРїРёРЅРёС‚Рё РєСЂРѕРІРѕС‚РµС‡Сѓ",
+UI_Phrases_Bleeding4 = "РЇ СЃС‚С–РєР°СЋ РєСЂРѕРІ'СЋ",
+UI_Phrases_Bleeding5 = "РЇ СЃРёР»СЊРЅРѕ СЃС‚С–РєР°СЋ РєСЂРѕРІ'СЋ",
+UI_Phrases_Bleeding6 = "<SWEAR>, РЇ РїРѕРјСЂСѓ СЏРєС‰Рѕ С‚Р°Рє РїСЂРѕРґРѕРІР¶РёС‚СЊСЃСЏ"
+UI_Phrases_Bleeding7 = "<PAIN>, РЅРµС…Р°Р№ РєСЂРѕРІ РєСЂР°С‰Рµ Р·Р°Р»РёС€РёС‚СЊСЃСЏ РІ РјРµРЅС–!"
+
+--UI_Phrases_FoodEaten
+UI_Config_FoodEaten = "С—СЃС‚СЊ",
+UI_Phrases_FoodEaten1 = "Р±СѓР»Рѕ СЃРјР°С‡РЅРѕ",
+UI_Phrases_FoodEaten2 = "РЇ РІСЃРµ",
+UI_Phrases_FoodEaten3 = "РјС–Р№ С€Р»СѓРЅРѕРє РїРѕРІРЅРёР№",
+UI_Phrases_FoodEaten4 = "СЃРёС‚РЅРѕ",
+UI_Phrases_FoodEaten5 = "РјС–Р№ Р¶РёРІС–С‚ РЅР°РґСѓРІСЃСЏ",
+UI_Phrases_FoodEaten6 = "С€РјР°С‚РѕРє Сѓ РіРѕСЂР»Рѕ РЅРµ Р»С–Р·Рµ",
+UI_Phrases_FoodEaten7 = "РЇ Р±С–Р»СЊС€Рµ РЅРµ Р·'С—Рј"
+UI_Phrases_FoodEaten8 = "РѕС†Рµ С‰Рѕ Р·РЅР°С‡РёС‚СЊ Р¶РёС‚Рё!"
+UI_Phrases_FoodEaten8 = "РєСЂР°С‰Рµ Р± РІРјРµСЂ РІС–Рґ РіРѕР»РѕРґСѓ!"
+
+--UI_Phrases_Injured
+UI_Config_Injured = "РџРѕСЂР°РЅРµРЅРЅСЏ",
+UI_Phrases_Injured1 = "РІР°СЂС‚Рѕ РїС–РґР»С–РєСѓРІР°С‚РёСЃСЏ",
+UI_Phrases_Injured2 = "<SARCASM>, С†Рµ СЂР°РЅР°",
+UI_Phrases_Injured3 = "Р·РґР°С”С‚СЊСЃСЏ Р·Р°Р»РёС€РёС‚СЊСЃСЏ С€СЂР°Рј",
+UI_Phrases_Injured4 = "РјРµРЅС– РїРѕС‚СЂС–Р±РЅР° Р°РїС‚РµС‡РєР°",
+UI_Phrases_Injured5 = "С†Рµ РІСЃСЊРѕРіРѕ Р»РёС€ РїРѕРґСЂСЏРїРёРЅР°",
+UI_Phrases_Injured6 = "РіРµРЅС–Р№! <SWEAR>",
+UI_Phrases_Injured7 = "СЏРє Р·Р°РІР¶РґРё - РјРѕСЏ РІРёРЅР°",
+UI_Phrases_Injured8 = "Р»РёС€Рµ РЅРµ С†Рµ, РЅРµ Р·Р°СЂР°Р·!",
+UI_Phrases_Injured9 = "РЅСѓ РѕСЃСЊ, Р·РЅРѕРІСѓ СЏ!",
+UI_Phrases_Injured10 = "РґРѕ РІРµСЃС–Р»Р»СЏ Р·Р°Р¶РёРІРµ, РЅР°РїРµРІРЅРѕ",
+
+--UI_Phrases_Unhappy
+UI_Config_Unhappy = "Р—Р°СЃРјСѓС‡РµРЅРёР№",
+UI_Phrases_Unhappy1 = "СЃСѓРјСѓСЋ Р·Р° СЃС–Рј'С”СЋ",
+UI_Phrases_Unhappy2 = "СЃС‚Р°С” РІСЃРµ РІР°Р¶С‡Рµ",
+UI_Phrases_Unhappy3 = "СЏРє РґРѕРІРіРѕ СЏ Р·РјРѕР¶Сѓ РїСЂРѕС‚СЂРёРјР°С‚РёСЃСЏ?",
+UI_Phrases_Unhappy4 = "С‚РµРїРµСЂ С†Рµ РјРѕС” Р¶РёС‚С‚СЏ?",
+UI_Phrases_Unhappy5 = "СЏРєРёР№ СЃРµРЅСЃ С–С‚Рё РґР°Р»С–",
+UI_Phrases_Unhappy6 = "СЏРєРёР№ Сѓ С†СЊРѕРјСѓ СЃРµРЅСЃ",
+UI_Phrases_Unhappy7 = "С‰Рѕ С†Рµ Р·Р° Р¶РёС‚С‚СЏ С‚Р°РєРµ?",
+UI_Phrases_Unhappy8 = "С†Рµ РЅРµ Р¶РёС‚С‚СЏ",
+UI_Phrases_Unhappy9 = "РјРѕР¶Рµ РєСЂР°С‰Рµ РїСЂРёС”РґРЅР°С‚РёСЃСЏ РґРѕ РјРµСЂС†С–РІ",
+UI_Phrases_Unhappy10 = "С‡РѕРјСѓ СЏ?",
+UI_Phrases_Unhappy11 = "Сѓ РјРµРЅРµ РЅРµРјР°С” РјР°Р№Р±СѓС‚РЅСЊРѕРіРѕ",
+UI_Phrases_Unhappy12 = "С†РµР№ СЃРІС–С‚ <SWEAR>",
+UI_Phrases_Unhappy13 = "Сѓ С†СЊРѕРјСѓ РЅРµРјР°С” СЃРµРЅСЃСѓ",
+UI_Phrases_Unhappy14 = "С‡РѕРјСѓ Р¶РёС‚С‚СЏ С‚Р°РєРµ СЃРєР»Р°РґРЅРµ?",
+UI_Phrases_Unhappy15 = "РєСЂР°С‰Рµ РІР¶Рµ Р± РЅРµ РїСЂРѕРєРёРґР°С‚РёСЃСЊ",
+UI_Phrases_Unhappy16 = "РјРѕР¶Рµ, РєСЂР°С‰Рµ РІСЃРµ С‚Р°РєРё Р·Р°РєС–РЅС‡РёС‚Рё Р· С†РёРј?",
+
+--UI_Phrases_Wet
+UI_Config_Wet = "РџСЂРѕРјРѕРє",
+UI_Phrases_Wet1 = "СЃС‚Р°С” РІРѕР»РѕРіРѕ",
+UI_Phrases_Wet2 = "СЏ СѓРІРµСЃСЊ РјРѕРєСЂРёР№",
+UI_Phrases_Wet3 = "РѕРґСЏРі РїСЂРѕРјРѕРє РЅР°СЃРєСЂС–Р·СЊ",
+UI_Phrases_Wet4 = "<SARCASM>, РѕРґСЏРі РїСЂРѕРјРѕРє",
+UI_Phrases_Wet5 = "РЇ Р·Р°СЃС‚СѓРґР¶СѓСЃСЏ Р·Р° С‚Р°РєРѕРіРѕ СЂРѕР·РєР»Р°РґСѓ",
+UI_Phrases_Wet6 = "РІСЃРµ РїСЂРѕРјРѕРєР»Рѕ",
+UI_Phrases_Wet7 = "РЅР°РІС–С‚СЊ Р·РѕРјР±С– Р·РЅР°СЋС‚СЊ, С‰Рѕ СЏ РјРѕРєСЂРёР№",
+UI_Phrases_Wet8 = "С…РѕС‡Сѓ Р»РёС€Рµ СЃСѓС…Сѓ РєСѓСЂС‚РєСѓ",
+
+--UI_Phrases_Sick
+UI_Config_Sick = "РќРµР·РґСѓР¶Р°С”",
+UI_Phrases_Sick1 = "РјРµРЅРµ РЅСѓРґРёС‚СЊ",
+UI_Phrases_Sick2 = "РїРѕС‡СѓРІР°СЋСЃСЏ РЅРµ РґСѓР¶Рµ РґРѕР±СЂРµ",
+UI_Phrases_Sick3 = "Р·РґР°С”С‚СЊСЃСЏ, СЏ Р·Р°С…РІРѕСЂС–РІ",
+UI_Phrases_Sick4 = "РјРµРЅС– РїРѕРіР°РЅРѕ",
+UI_Phrases_Sick5 = "РјРµРЅРµ Р·Р°СЂР°Р· РІРёСЂРІРµ",
+UI_Phrases_Sick6 = "РІ РіРѕР»РѕРІС– РїР°РјРѕСЂРѕС‡РёС‚СЊСЃСЏ",
+UI_Phrases_Sick7 = "Сѓ РјРµРЅРµ Р¶Р°СЂ? <SWEAR>",
+UI_Phrases_Sick8 = "Сѓ РјРµРЅРµ С‚РѕС‡РЅРѕ Р¶Р°СЂ",
+UI_Phrases_Sick9 = "Р·РѕРјР±С–РІ Р»РµРіС€Рµ РІР±РёРІР°С‚Рё, РЅС–Р¶ С†СЋ С…РІРѕСЂРѕР±Сѓ",
+UI_Phrases_Sick10 = "РЅР°РґС–СЏ РїРѕРјРёСЂР°С” РѕСЃС‚Р°РЅРЅСЊРѕСЋ...СЏРє С– СЏ",
+UI_Phrases_Sick11 = "Р·РѕРјР±С– Р°РїРѕРєР°Р»С–РїСЃРёСЃ - С†Рµ РїРµРєР»Рѕ, Р° С…РІРѕСЂРѕР±Р° - С†Рµ Р№РѕРіРѕ РІРѕРіРѕРЅСЊ",
+
+--UI_Phrases_HeavyLoad
+UI_Config_HeavyLoad = "РџРµСЂРµРІР°РЅС‚Р°Р¶РµРЅРёР№",
+UI_Phrases_HeavyLoad1 = "*РїРёС…С‚РёС‚СЊ*",
+UI_Phrases_HeavyLoad2 = "<SWEAR>, РІР°Р¶РєРѕ",
+UI_Phrases_HeavyLoad3 = "Р·РґР°С”С‚СЊСЃСЏ СЏ РЅРµСЃСѓ Р·Р°РЅР°РґС‚Рѕ Р±Р°РіР°С‚Рѕ СЂРµС‡РµР№",
+UI_Phrases_HeavyLoad4 = "С†Рµ РІР¶Рµ Р·Р°РЅР°РґС‚Рѕ Р±Р°РіР°С‚Рѕ СЂРµС‡РµР№",
+UI_Phrases_HeavyLoad5 = "<SWEAR>, РІР°Р¶РєРѕ РЅРµСЃС‚Рё",
+UI_Phrases_HeavyLoad6 = "<Pain>. РјРѕСЏ СЃРїРёРЅР°",
+UI_Phrases_HeavyLoad7 = "<Pain>, РЇ РЅРµРЅР°РІРёРґР¶Сѓ С†СЋ СЃСѓРјРєСѓ",
+UI_Phrases_HeavyLoad8 = "РЅСѓ С– РіСЂСѓР·... СЏРє Р·Р°РІР¶РґРё",
+UI_Phrases_HeavyLoad9 = "РЅР°СЂРµС€С‚С– Р±, РїРѕРєР»Р°СЃС‚Рё С†СЋ РєСѓРїСѓ Р·Р°Р»С–Р·Р°",
+UI_Phrases_HeavyLoad10 = "РјРѕС”РјСѓ С…СЂРµР±С‚Сѓ РєС–РЅРµС†СЊ",
+UI_Phrases_HeavyLoad11 = "СЃРёР»СЊРЅС–С€РёРј РІРёР¶РёРІР°С”С‚СЊСЃСЏ, Р°Р»Рµ СЃР»Р°Р±С€РёРј Р»РµРіС€Рµ",
+UI_Phrases_HeavyLoad12 = "С‡Рё РїРѕС‚СЂС–Р±РЅРѕ СЃС‚С–Р»СЊРєРё СЂРµС‡РµР№, РєРѕР»Рё СЏ РїРѕРјСЂСѓ",
+
+--UI_Phrases_OnDusk
+UI_Config_OnDusk = "Р—Р°С…С–Рґ РЎРѕРЅС†СЏ",
+UI_Phrases_OnDusk1 = "С‚РµРјРЅС–С”",
+UI_Phrases_OnDusk2 = "СЃС…РѕР¶Рµ, СЃРѕРЅС†Рµ СЃС–РґР°С”",
+UI_Phrases_OnDusk3 = "СЃРѕРЅС†Рµ СЃС–РґР°С”",
+UI_Phrases_OnDusk4 = "РЅСѓ С…РѕС‡Р° Р± Р·С–СЂРєРё Р·С–Р№С€Р»Рё",
+UI_Phrases_OnDusk5 = "Р·РѕРјР±С– С‚РµР¶ Р»СЋР±Р»СЏС‚СЊ РіСѓР»СЏС‚Рё РІ С‚РµРјСЂСЏРІС–",
+UI_Phrases_OnDusk6 = "СЏРєР±Рё РЅРµ Р·РѕРјР±С–, С‚Рѕ РІР¶Рµ Р±СѓР»Рѕ Р± РґСѓР¶Рµ С‚РµРјРЅРѕ",
+UI_Phrases_OnDusk7 = "РєРѕР»Рё РІР¶Рµ РІРєР»СЋС‡Р°С‚СЊ Р»С–С…С‚Р°СЂС– РЅР° РІСѓР»РёС†С–, Р°С… С‚РѕС‡РЅРѕ",
+UI_Phrases_OnDusk8 = "Р·С–СЂРєРё СЃС…РѕРґСЏС‚СЊ",
+UI_Phrases_OnDusk9 = "С‚Р°Рј РґРµ С‚РµРјРЅРѕ, С‚Р°Рј - Р·РѕРјР±С–",
+UI_Phrases_OnDusk10 = "РќС–С‡ СЏРєР° РјС–СЃСЏС‡РЅР°, Р·РѕСЂСЏРЅР°, СЏСЃРЅР°СЏ",
+
+--UI_Phrases_OnDawn
+UI_Config_OnDawn = "РЎС…С–Рґ РЎРѕРЅС†СЏ",
+UI_Phrases_OnDawn1 = "С‰Рµ РѕРґРёРЅ РґРµРЅСЊ РЅР°СЂРµС€С‚С– РЅР°СЃС‚Р°РІ",
+UI_Phrases_OnDawn2 = "С– Р·РЅРѕРІСѓ СЂР°РЅРѕРє",
+UI_Phrases_OnDawn3 = "СЃРѕРЅС†Рµ РІСЃС‚Р°С”",
+UI_Phrases_OnDawn4 = "СЃРІС–С‚Р»С–С€Р°С”",
+UI_Phrases_OnDawn5 = "РїСЂРёРІС–С‚, РЎРѕРЅРµС‡РєРѕ, СЏРє С‚Рё СЃРїР°Р»Рѕ?",
+UI_Phrases_OnDawn6 = "РЅР°РґС–СЋСЃСЏ, СЃСЊРѕРіРѕРґРЅС– Р±СѓРґРµ РєСЂР°С‰Рµ",
+UI_Phrases_OnDawn7 = "РІСЃРµ С‰Рµ Р¶РёРІРёР№, РІСЃРµ С‰Рµ Р±'СЋСЃСЊ",
+UI_Phrases_OnDawn8 = "РЎРѕРЅС†Рµ СЃС…РѕРґРёС‚СЊ, Р° СЏ РІСЃРµ С‰Рµ Р¶РёРІРёР№",
+
+--UI_Phrases_GunJammed
+UI_Config_GunJammed = "Р—Р°РєР»РёРЅРёР»Рѕ Р·Р±СЂРѕСЋ",
+UI_Phrases_GunJammed1 = "Р·Р°РєР»РёРЅРёР»Рѕ! <SWEAR>",
+UI_Phrases_GunJammed2 = "СЃС‚РІРѕР» Р·Р°РєР»РёРЅРёР»Рѕ",
+UI_Phrases_GunJammed3 = "С†СЋ С…РµСЂРЅСЋ Р·Р°РєР»РёРЅРёР»Рѕ",
+UI_Phrases_GunJammed4 = "РїР°С‚СЂРѕРЅ Р·Р°СЃС‚СЂСЏРі!",
+UI_Phrases_GunJammed5 = "<SWEAR>, РєСЂР°С‰Рµ Р± СЏ РІР·СЏРІ РјРѕР»РѕС‚РѕРє",
+UI_Phrases_GunJammed6 = "РЎС‚СЂС–Р»СЏР№, <SWEAR>!",
+UI_Phrases_GunJammed7 = "РўР° СЏРєРѕРіРѕ С…СЂС–РЅР°, СЃС‚СЂС–Р»СЏР№!",
+UI_Phrases_GunJammed8 = "Р—Р°РєР»РёРЅРёР»Рѕ! РЇРє С€РІРµР№С†Р°СЂСЃСЊРєРёР№ РіРѕРґРёРЅРЅРёРє",
+
+--UI_Phrases_LowAmmo
+UI_Config_LowAmmo = "РњР°Р»Рѕ РїР°С‚СЂРѕРЅС–РІ",
+UI_Phrases_LowAmmo1 = "Р·Р°Р»РёС€РёР»РѕСЃСЏ РјР°Р»Рѕ РїР°С‚СЂРѕРЅС–РІ",
+UI_Phrases_LowAmmo2 = "РїР°С‚СЂРѕРЅРё Р·Р°РєС–РЅС‡СѓСЋС‚СЊСЃСЏ",
+UI_Phrases_LowAmmo3 = "РїРѕС‚СЂС–Р±РЅРѕ РїРµСЂРµР·Р°СЂСЏРґРёС‚РёСЃСЏ",
+UI_Phrases_LowAmmo4 = "Р·Р°Р»РёС€РёР»РѕСЃСЏ РјР°Р»Рѕ РїРѕСЃС‚СЂС–Р»С–РІ",
+UI_Phrases_LowAmmo5 = "РїР°С‚СЂРѕРЅС–РІ РјР°Р»Рѕ",
+UI_Phrases_LowAmmo6 = "СЂС–Р¶РѕРє РїСЂР°РєС‚РёС‡РЅРѕ РїСѓСЃС‚РёР№!",
+
+--UI_Phrases_OutOfAmmo
+UI_Phrases_OutOfAmmo1 = "РїР°С‚СЂРѕРЅРё Р·Р°РєС–РЅС‡РёР»РёСЃСЏ",
+UI_Phrases_OutOfAmmo2 = "РїРѕСЂРѕР¶РЅСЊРѕ",
+UI_Phrases_OutOfAmmo3 = "РїР°С‚СЂРѕРЅС–РІ РЅРµРјР°С”",
+UI_Phrases_OutOfAmmo4 = "Р±РѕС”РїСЂРёРїР°СЃ РІРёС‡РµСЂРїР°РІСЃСЏ",
+UI_Phrases_OutOfAmmo5 = "С‚СѓС‚ РЅРµРјР°С” РїР°С‚СЂРѕРЅС–РІ",
+UI_Phrases_OutOfAmmo6 = "Сѓ РіР°СЂРјР°С‚С– РїРѕСЂРѕР¶РЅСЊРѕ",
+UI_Phrases_OutOfAmmo7 = "Р·Р±СЂРѕСЏ РїРѕСЂРѕР¶РЅСЏ",
+UI_Phrases_OutOfAmmo8 = "С†СЏ С€С‚СѓРєР° РїРѕСЂРѕР¶РЅСЏ",
+UI_Phrases_OutOfAmmo9 = "РіР°СЂРјР°С‚Р° РїРѕСЂРѕР¶РЅСЏ",
+UI_Phrases_OutOfAmmo10 = "Р·Р°РєС–РЅС‡РёР»РёСЃСЏ РїР°С‚СЂРѕРЅРё",
+UI_Phrases_OutOfAmmo11 = "РЅРµРјР°С” РїР°С‚СЂРѕРЅС–РІ",
+UI_Phrases_OutOfAmmo12 = "Сѓ РјРµРЅРµ РЅРµРјР°С” РїР°С‚СЂРѕРЅС–РІ",
+UI_Phrases_OutOfAmmo13 = "<SWEAR>, РґРµ РїР°С‚СЂРѕРЅРё?",
+UI_Phrases_OutOfAmmo14 = "СЏ РїСѓСЃС‚РёР№",
+UI_Phrases_OutOfAmmo15 = "Р»РµРЅС‚Р° РїСѓСЃС‚Р°",
+
+--UI_Phrases_Hungry
+UI_Config_Hungry = "Р“РѕР»РѕРґРЅРёР№",
+UI_Phrases_Hungry1 = "РѕС‚ Р±Рё РїРµСЂРµРєСѓСЃРёС‚Рё",
+UI_Phrases_Hungry2 = "*С‚РёС…Рµ Р±СѓСЂС‡Р°РЅРЅСЏ С€Р»СѓРЅРєР°*",
+UI_Phrases_Hungry3 = "РѕС‚ Р±Рё Р·'С—СЃС‚Рё <FOOD>",
+UI_Phrases_Hungry4 = "РїРѕС‚СЂС–Р±РЅРѕ РїРµСЂРµРєСѓСЃРёС‚Рё С‡РёРјРѕСЃСЊ",
+UI_Phrases_Hungry5 = "Р·'С—СЃС‚Рё <FOOD> Р±СѓР»Рѕ Р± РЅРµРїРѕРіР°РЅРѕ",
+UI_Phrases_Hungry6 = "РїРѕС‚СЂС–Р±РЅРѕ СЂРѕР·РґРѕР±СѓС‚Рё С—Р¶С–",
+UI_Phrases_Hungry7 = "*СѓСЂС‡Р°РЅРЅСЏ С€Р»СѓРЅРєР°*",
+UI_Phrases_Hungry8 = "РјРµРЅС– РєСЂР°С‰Рµ Р·РЅР°Р№С‚Рё С—Р¶Сѓ",
+UI_Phrases_Hungry9 = "С‚СЂРµР±Р° С‰РѕСЃСЊ Р·'С—СЃС‚Рё",
+UI_Phrases_Hungry10 = "РјС–Р№ Р¶РёРІС–С‚ Р±СѓСЂС‡РёС‚СЊ",
+UI_Phrases_Hungry11 = "СѓРіС…, РјРµРЅС– СЃРµСЂР№РѕР·РЅРѕ РїРѕС‚СЂС–Р±РЅРѕ РїРѕС—СЃС‚Рё",
+UI_Phrases_Hungry12 = "РњРµРЅС– РІР°СЂС‚Рѕ РїРѕС€СѓРєР°С‚Рё <FOOD>",
+UI_Phrases_Hungry13 = "РњРµРЅС– РїРѕС‚СЂС–Р±РЅРѕ Р·РЅР°Р№С‚Рё <FOOD> РїСЂРѕСЃС‚Рѕ Р·Р°СЂР°Р·",
+UI_Phrases_Hungry14 = "*РіСѓС‡РЅРµ Р±СѓСЂС‡Р°РЅРЅСЏ С€Р»СѓРЅРєР°*",
+UI_Phrases_Hungry15 = "С†РµР№ РіСЂРёР·СѓС‡РёР№ РіРѕР»РѕРґ Р·РІРѕРґРёС‚СЊ РјРµРЅРµ Р· СЂРѕР·СѓРјСѓ!",
+UI_Phrases_Hungry16 = "РґРµСЃСЊ С‚СѓС‚ С‚РѕС‡РЅРѕ РјР°С” Р±СѓС‚Рё С—Р¶Р°",
+UI_Phrases_Hungry17 = "РњРµРЅС– РїРѕС‚СЂС–Р±РЅР° С—Р¶Р°",
+UI_Phrases_Hungry18 = "Р°-Р°РіС…-С…. РіРѕР»РѕРґ.",
+UI_Phrases_Hungry19 = "РґРµ <SWEAR> С…РѕС‡ СЏРєР°СЃСЊ С—Р¶Р°!?",
+UI_Phrases_Hungry20 = "Сѓ С€Р»СѓРЅРєСѓ С‚Р°Рє РїРѕСЂРѕР¶РЅСЊРѕ",
+UI_Phrases_Hungry21 = "СѓС…РЅ-РЅ-РЅ. РіРѕР»РѕРґ",
+UI_Phrases_Hungry22 = "РЇ РіРѕР»РѕРґРЅРёР№",
+
+--UI_Phrases_Thirst
+UI_Config_Thirst = "РЎРїСЂР°РіР»РёР№",
+UI_Phrases_Thirst1 = "Сѓ СЂРѕС‚С– РїРµСЂРµСЃРѕС…Р»Рѕ",
+UI_Phrases_Thirst2 = "*РїСЂРѕС‡РёС‰Р°С” РіРѕСЂР»Рѕ*",
+UI_Phrases_Thirst3 = "РІР°СЂС‚Рѕ РїРѕРїРёС‚Рё.",
+UI_Phrases_Thirst4 = "РєРѕРІС‚РЅСѓС‚Рё РІРѕРґРё Р±.",
+UI_Phrases_Thirst5 = "РјРµРЅС– РїРѕС‚СЂС–Р±РЅРѕ С‰Рѕ-РЅРµР±СѓРґСЊ РїРѕРїРёС‚Рё.",
+UI_Phrases_Thirst6 = "РјРµРЅС– РІР°СЂС‚Рѕ Р·РЅР°Р№С‚Рё С‰Рѕ-РЅРµР±СѓРґСЊ РїРѕРїРёС‚Рё.",
+UI_Phrases_Thirst7 = "РЈ СЂРѕС‚С– СЃСѓС…Рѕ.",
+UI_Phrases_Thirst8 = "С…РѕСЂРѕС€РёР№ РєРѕРІС‚РѕРє РІРѕРґРё РЅРµ Р·Р°РІР°РґРёРІ Р±Рё.",
+UI_Phrases_Thirst9 = "РґСѓР¶Рµ С…РѕС‡РµС‚СЊСЃСЏ РїРёС‚Рё.",
+UI_Phrases_Thirst10 = "Сѓ СЂРѕС‚С– РЅРµРјРѕРІ РїСѓСЃС‚РµР»СЏ",
+UI_Phrases_Thirst11 = "Р±РѕР¶Рµ, СЏРє С…РѕС‡РµС‚СЊСЃСЏ РїРёС‚Рё.",
+UI_Phrases_Thirst12 = "РјРµРЅС– РїРѕС‚СЂС–Р±РЅРѕ С‚СЂРѕС…Рё РІРѕРґРё!",
+UI_Phrases_Thirst13 = "С‚СѓС‚ С‚РѕС‡РЅРѕ РјР°С” Р±СѓС‚Рё РІРѕРґР°",
+UI_Phrases_Thirst14 = "РњРµРЅС– РїРѕС‚СЂС–Р±РЅР° РІРѕРґР°",
+
+--UI_Phrases_Tired
+UI_Config_Tired = "Р’С‚РѕРјР»РµРЅРёР№",
+UI_Phrases_Tired1 = "*Р·С–РІР°С”*",
+UI_Phrases_Tired2 = "С…РѕС‡РµС‚СЊСЃСЏ РїРѕРґСЂС–РјР°С‚Рё.",
+UI_Phrases_Tired3 = "РїРѕС‡СѓРІР°СЋСЃСЏ РјР»СЏРІРѕ.",
+UI_Phrases_Tired4 = "РњРµРЅС– РІР°СЂС‚Рѕ С‚СЂРѕС…Рё РїРѕСЃРїР°С‚Рё.",
+UI_Phrases_Tired5 = "Р±Р»С–РЅ, СЏ Р± РїСЂРёР»С–Рі.",
+UI_Phrases_Tired6 = "*С‚СЂРёРІР°Р»РёР№ РїРѕР·С–С…Р°РЅРЅСЏ*",
+UI_Phrases_Tired7 = "РјРµРЅС– Р± РїРѕСЃРїР°С‚Рё",
+UI_Phrases_Tired8 = "РјРµРЅС– РІР°СЂС‚Рѕ СЃРєРѕСЂРѕ Р»СЏРіС‚Рё РІ Р»С–Р¶РєРѕ",
+UI_Phrases_Tired9 = "Р·РґР°С”С‚СЊСЃСЏ РЅС–С‡ СЃРєРѕСЂРѕ СЃС‚Р°РЅРµ РјРѕС—Рј РґРЅРµРј",
+UI_Phrases_Tired10 = "Р·РґР°С”С‚СЊСЃСЏ, Сѓ РјРµРЅРµ Р·'СЏРІР»СЏСЋС‚СЊСЃСЏ РјС–С€РєРё РїС–Рґ РѕС‡РёРјР°.",
+UI_Phrases_Tired11 = "С‡РѕСЂС‚, СЏ РјР°Р№Р¶Рµ Р±РµР· СЃРёР».",
+UI_Phrases_Tired12 = "*РґСѓР¶Рµ РґРѕРІРіРёР№ РїРѕР·С–С…Р°РЅРЅСЏ*",
+UI_Phrases_Tired13 = "С‚С–Р»Рѕ С‚Р°Рє РІС‚РѕРјРёР»РѕСЃСЏ",
+UI_Phrases_Tired14 = "Р±Р»С–РЅ, РјРµРЅС– Р± РЅРµ Р·Р°РІР°РґРёР»Рѕ РїРѕСЃРїР°С‚Рё.",
+UI_Phrases_Tired15 = "Р·РґР°С”С‚СЊСЃСЏ, СЏ Р±РѕР¶РµРІРѕР»С–СЋ. РњРµРЅС– РґС–Р№СЃРЅРѕ РїРѕС‚СЂС–Р±РЅРѕ РїРѕСЃРїР°С‚Рё.",
+UI_Phrases_Tired16 = "РњРµРЅС– СЃРєР»Р°РґРЅРѕ РЅРµ Р·Р°РєСЂРёРІР°С‚Рё РѕС‡С–",
+UI_Phrases_Tired17 = "РЇ Р·Р°СЂР°Р· РІРёСЂСѓР±Р»СЋСЃСЊ",
+UI_Phrases_Tired18 = "СЃРєС–Р»СЊРєРё РјРёРЅСѓР»Рѕ Р· РјРѕРјРµРЅС‚Сѓ РѕСЃС‚Р°РЅРЅСЊРѕРіРѕ СЃРЅСѓ?",
+UI_Phrases_Tired19 = "СѓС…-С…Рі, СЏРєРµ С‚С–Р»Рѕ РІР°Р¶РєРµ",
+UI_Phrases_Tired20 = "РЇ РґСѓР¶Рµ С…РѕС‡Сѓ РїРѕСЃРїР°С‚Рё.",
+UI_Phrases_Tired21 = "*РІР°С€С– РїРѕРІС–РєРё РІР°Р¶С‡Р°СЋС‚СЊ*",
+UI_Phrases_Tired22 = "РЇ Р·Р°СЂР°Р· СѓРїР°РґСѓ, СЃРёР» Р·РѕРІСЃС–Рј РЅРµРјР°С”.",
+
+--UI_Phrases_Bored
+UI_Config_Bored = "РќСѓРґСЊРіР°",
+UI_Phrases_Bored1 = "РїРѕС‚СЂС–Р±РЅРѕ С‡РёРјРѕСЃСЊ Р·Р°Р№РЅСЏС‚РёСЃСЏ.",
+UI_Phrases_Bored2 = "РјРµРЅС– Р± РЅРµ Р·Р°РІР°РґРёР»Рѕ С‡РёРјРѕСЃСЊ Р·Р°Р№РЅСЏС‚РёСЃСЏ",
+UI_Phrases_Bored3 = "*Р·С–С‚С…Р°С”*",
+UI_Phrases_Bored4 = "РїРѕС‚СЂС–Р±РЅРѕ С‰РѕСЃСЊ СЂРѕР±РёС‚Рё",
+UI_Phrases_Bored5 = "РЅСѓ, С†Рµ РЅСѓРґРЅРѕ",
+UI_Phrases_Bored6 = "Р±Р»С–РЅ, РјРµРЅС– РЅСѓРґРЅРѕ",
+UI_Phrases_Bored7 = "С‚Р°Рє РјР°Р»Рѕ РїРѕС‚СЂС–Р±РЅРѕ Р·СЂРѕР±РёС‚Рё, С‰РѕР± СЂРѕР·РІС–СЏС‚Рё РЅСѓРґСЊРіСѓ",
+UI_Phrases_Bored8 = "Р¶Р°С… СЏРє РјРµРЅС– РЅСѓРґРЅРѕ РїСЂРѕСЃС‚Рѕ",
+UI_Phrases_Bored9 = "*С‚СЂРёРІР°Р»РёР№ Р·С–С‚С…Р°РЅРЅСЏ*",
+UI_Phrases_Bored10 = "С‚Р°Рє РЅСѓРґРЅРѕ.",
+UI_Phrases_Bored11 = "РјРµРЅРµ РІР±'С” РЅСѓРґСЊРіР°",
+UI_Phrases_Bored12 = "*РіР»РёР±РѕРєРёР№ Р·С–С‚С…Р°РЅРЅСЏ*",
+UI_Phrases_Bored13 = "СЃРµСЂР№РѕР·РЅРѕ, РїРѕС‚СЂС–Р±РЅРѕ СЃРµР±Рµ С‡РёРјРѕСЃСЊ Р·Р°Р№РЅСЏС‚Рё",
+UI_Phrases_Bored14 = "РјР°С” Р¶ Р±СѓС‚Рё С‰РѕСЃСЊ, С‡РёРј РјРѕР¶РЅР° Р·Р°Р№РЅСЏС‚РёСЃСЏ! С‰Рѕ-РЅРµР±СѓРґСЊ! С‰Рѕ Р·Р°РІРіРѕРґРЅРѕ! Р°РіС…-С…!",
+UI_Phrases_Bored15 = "Р·Р°Р»РёРїР°С‚Рё РІ СЃС‚С–РЅСѓ Р±СѓР»Рѕ Р± С– С‚Рѕ РІРµСЃРµР»С–С€Рµ, РЅС–Р¶ С†Рµ",
+UI_Phrases_Bored16 = "С†СЏ РЅСѓРґРѕС‚Р° РІРёРІРѕРґРёС‚СЊ РјРµРЅРµ Р· СЃРµР±Рµ!",
+
+--UI_Phrases_Stress
+UI_Config_Stress = "РЎС‚СЂРµСЃ",
+UI_Phrases_Stress1 = "С‚СЂРёРІРѕР¶РЅРѕ СЏРєРѕСЃСЊ",
+UI_Phrases_Stress2 = "РїРѕС‚СЂС–Р±РЅРѕ СЏРєРѕСЃСЊ СЂРѕР·СЃР»Р°Р±РёС‚РёСЃСЏ",
+UI_Phrases_Stress3 = "*РіР»РёР±РѕРєРёР№ Р·С–С‚С…Р°РЅРЅСЏ*",
+UI_Phrases_Stress4 = "РњРµРЅС– РїРѕС‚СЂС–Р±РЅРѕ СЂРѕР·СЃР»Р°Р±РёС‚РёСЃСЏ",
+UI_Phrases_Stress5 = "СѓРіС…",
+UI_Phrases_Stress6 = "РњРµРЅС– Р± РЅРµ Р·Р°РІР°РґРёР»Рѕ С‚СЂРѕС…Рё СЂРѕР·СЃР»Р°Р±РёС‚РёСЃСЏ",
+UI_Phrases_Stress7 = "*РіР»РёР±РѕРєРёР№ РґРѕРІРіРёР№ Р·С–С‚С…Р°РЅРЅСЏ*",
+UI_Phrases_Stress8 = "РїРѕС‚СЂС–Р±РЅРѕ С…РѕС‡ С‚СЂРѕС…Рё Р·РјРµРЅС€РёС‚Рё РѕР±РµСЂС‚Рё",
+UI_Phrases_Stress9 = "СЏ Р±С–Р»СЊС€Рµ С‚Р°Рє РЅРµ РјРѕР¶Сѓ",
+UI_Phrases_Stress10 = "С†РµР№ РґРѕРІР±Р°РЅРёР№ СЃС‚СЂРµСЃ",
+UI_Phrases_Stress11 = "РЅР°С…СѓР№ С†Рµ Р»Р°Р№РЅРѕ",
+
+--UI_Phrases_Agoraphobic
+UI_Config_Agoraphobic = "РђРіРѕСЂР°С„РѕР±С–СЏ",
+UI_Phrases_Agoraphobic1 = "РІРґРёС…, РІРёРґРѕС…, РІРґРёС…, РІРёРґРѕС…",
+UI_Phrases_Agoraphobic2 = "РЅРµРЅР°РІРёРґР¶Сѓ С†Рµ",
+UI_Phrases_Agoraphobic3 = "РњРµРЅС– РЅРµ РІР°СЂС‚Рѕ Р±СѓС‚Рё Р·РѕРІРЅС–",
+UI_Phrases_Agoraphobic4 = "РњРµРЅС– РЅРµ РІР°СЂС‚Рѕ С†СЊРѕРіРѕ СЂРѕР±РёС‚Рё",
+UI_Phrases_Agoraphobic5 = "С‰Рѕ С†Рµ Р±СѓР»Рѕ?",
+UI_Phrases_Agoraphobic6 = "С‡РѕРјСѓ СЏ РЅРµ РјРѕР¶Сѓ Р·Р°Р»РёС€РёС‚РёСЃСЏ РІСЃРµСЂРµРґРёРЅС–?",
+
+--UI_Phrases_Claustrophobic
+UI_Config_Claustrophobic = "Claustrophobic",
+UI_Phrases_Claustrophobic1 = "РіР»РёР±РѕРєРёР№ РІРґРёС…, РіР»РёР±РѕРєРёР№ РІРёРґРёС…",
+UI_Phrases_Claustrophobic2 = "РЅРµРЅР°РІРёРґР¶Сѓ С†Рµ РїРѕС‡СѓС‚С‚СЏ",
+UI_Phrases_Claustrophobic3 = "СЃС‚С–РЅРё РїРѕС‡РёРЅР°СЋС‚СЊ Р·РјРёРєР°С‚РёСЃСЏ",
+UI_Phrases_Claustrophobic4 = "*РіР»РёР±РѕРєРѕ РґРёС…Р°С”*",
+UI_Phrases_Claustrophobic5 = "<SWEAR>, СЏРє Р¶Рµ СЏ РЅРµРЅР°РІРёРґР¶Сѓ С†Рµ",
+UI_Phrases_Claustrophobic6 = "РЇ РЅРµ РјРѕР¶Сѓ С‚СѓС‚ РґРёС…Р°С‚Рё",
+
+--UI_Phrases_Panic
+UI_Config_Panic = "РџР°РЅС–РєР°",
+UI_Phrases_Panic1 = "*РІР·РґРѕС…*",
+UI_Phrases_Panic2 = "Р°Р°Р°Р°Р°!",
+UI_Phrases_Panic3 = "РІРѕСѓС…!",
+UI_Phrases_Panic4 = "РѕС…!",
+UI_Phrases_Panic5 = "Рѕ РЅС–!",
+UI_Phrases_Panic6 = "РѕС…С…!",
+UI_Phrases_Panic7 = "Р°С…!",
+UI_Phrases_Panic8 = "Р°С…С…!",
+UI_Phrases_Panic9 = "РЅС–! РЅС–! РЅС–!",
+UI_Phrases_Panic10 = "Р±РѕР¶Рµ!",
+UI_Phrases_Panic11 = "<SWEAR>",
+UI_Phrases_Panic12 = "Р°С… <SWEAR>!",
+UI_Phrases_Panic13 = "РѕС… <SWEAR>!",
+UI_Phrases_Panic14 = "Р±РѕР¶Рµ!",
+UI_Phrases_Panic15 = "Р±РѕР¶Рµ, <SWEAR>!",
+UI_Phrases_Panic16 = "С‡РѕРјСѓ РЇ!?",
+UI_Phrases_Panic17 = "РіР°С…С…!",
+UI_Phrases_Panic18 = "Р°С…С…С…!",
+UI_Phrases_Panic19 = "С‡РѕРјСѓ!?",
+UI_Phrases_Panic20 = "РїСЂРѕС€Сѓ РЅС–!",
+UI_Phrases_Panic21 = "С…С‚Рѕ-РЅРµР±СѓРґСЊ, РЅР° РґРѕРїРѕРјРѕРіСѓ!",
+UI_Phrases_Panic22 = "С…С‚Рѕ-РЅРµР±СѓРґСЊ, РґРѕРїРѕРјРѕР¶С–С‚СЊ РјРµРЅС–!",
+UI_Phrases_Panic23 = "Рѕ, Р±РѕР¶Рµ!",
+
+--UI_Phrases_Hypothermia
+UI_Config_Hypothermia = "Р“С–РїРѕС‚РµСЂРјС–СЏ",
+UI_Phrases_Hypothermia1 = "С‚СѓС‚ С‚Р°Рє С…РѕР»РѕРґРЅРѕ",
+UI_Phrases_Hypothermia2 = "Р±СЂСЂСЂСЂ",
+UI_Phrases_Hypothermia3 = "*С‚СЂРµРјС‚РёС‚СЊ*",
+UI_Phrases_Hypothermia4 = "Р·Р°РјРµСЂР·",
+UI_Phrases_Hypothermia5 = "С…РѕС‡РµС‚СЊСЃСЏ Р·С–РіСЂС–С‚РёСЃСЊ",
+UI_Phrases_Hypothermia6 = "РќРµ РїС–РґРјРѕСЂРѕР·СЊ РЅРѕРіРё, Р±Рѕ Р±РµР· РЅС–Рі С‚СЂСѓРґРЅРѕ Р¶РёС‚Рё",
+UI_Phrases_Hypothermia7 = "С…РѕР»РѕРґРЅРѕ! РҐС‚Рѕ РЅРµ СЃРєР°С‡Рµ",
+UI_Phrases_Hypothermia8 = "РґРµ РјРѕСЏ РєРѕРІРґСЂР°?",
+UI_Phrases_Hypothermia9 = "РїСЂРѕРјРµСЂР· РґРѕ РєС–СЃС‚РѕРє",
+UI_Phrases_Hypothermia10 = "РїР°Р»СЊС†С– РѕРґСѓР±С–Р»Рё",
+UI_Phrases_Hypothermia11 = "Р·СѓР±Рё С†РѕРєРѕС‚СЏС‚СЊ РІС–Рґ С…РѕР»РѕРґСѓ",
+UI_Phrases_Hypothermia12 = "РІ РєРѕРЅС†С‚Р°Р±РѕСЂС– С‚РµРїР»С–С€Рµ",
+
+--UI_Phrases_Pain
+UI_Config_Pain = "Р‘С–Р»СЊ",
+UI_Phrases_Pain1 = "Р°СѓС‡",
+UI_Phrases_Pain2 = "Р°РІ",
+UI_Phrases_Pain3 = "Р°СЂРіС…",
+UI_Phrases_Pain4 = "С†Рµ Р±РѕР»СЏС‡Рµ",
+UI_Phrases_Pain5 = "Р°СѓС‡",
+UI_Phrases_Pain6 = "Р°РІ",
+UI_Phrases_Pain7 = "Р°Р°РіС…С…С…",
+UI_Phrases_Pain8 = "РґСѓР¶Рµ Р±РѕР»РёС‚СЊ",
+UI_Phrases_Pain9 = "Р°Р°Р°РіС…С…С…С…",
+UI_Phrases_Pain10 = "Р°СЂСЂСЂРіРіС…",
+UI_Phrases_Pain11 = "РѕСѓРІРІРІРІ",
+UI_Phrases_Pain12 = "С†Рµ СЃС‚СЂР°С€РµРЅРЅРѕ Р±РѕР»СЏС‡Рµ",
+UI_Phrases_Pain13 = "Р°СЂСЂСЂРіС…",
+UI_Phrases_Pain14 = "С†РµР№ Р±С–Р»СЊ",
+UI_Phrases_Pain15 = "Р±РѕР»РёС‚СЊ",
+UI_Phrases_Pain16 = "Р°Р°РіС…С…С…",
+UI_Phrases_Pain17 = "Р°Р°Р°РіС…С…С…С…С…",
+UI_Phrases_Pain18 = "РѕС… Р±РѕР¶Рµ",
+UI_Phrases_Pain19 = "Р°Р°РіС…С…С…",
+UI_Phrases_Pain20 = "С‚СЊС…Сѓ",
+
+--UI_Phrases_SWEAR
+UI_Phrases_SWEAR1 = "Р»Р°Р№РЅРѕ",
+UI_Phrases_SWEAR2 = "С‡РѕСЂС‚",
+UI_Phrases_SWEAR3 = "С‡РѕСЂС‚ Р·Р°Р±РёСЂР°Р№",
+UI_Phrases_SWEAR4 = "РїС–Р·РґРµС†СЊ",
+UI_Phrases_SWEAR5 = "Р±Р»СЏС‚СЊ",
+UI_Phrases_SWEAR6 = "СЃСѓРєР°",
+UI_Phrases_SWEAR7 = "РѕС…СѓС—С‚Рё",
+UI_Phrases_SWEAR8 = "РєСѓСЂРІР°",
+UI_Phrases_SWEAR9 = "Р»Р°Р№РЅРѕ",
+UI_Phrases_SWEAR10 = "Р»СЏСЂРІР°",
+UI_Phrases_SWEAR11 = "РЅР°РІРѕР»РѕС‡",
+UI_Phrases_SWEAR12 = "РѕРґРѕСЂРѕР±Р»Рѕ",
+UI_Phrases_SWEAR13 = "РїР°РґР»Рѕ",
+UI_Phrases_SWEAR14 = "СЃСЂР°РєР°",
+UI_Phrases_SWEAR15 = "РјР°С‚С–СЂ С‚РІРѕСЋ",
+UI_Phrases_SWEAR16 = "С‰РѕР± С‚РѕР±С– РїСѓСЃС‚Рѕ Р±СѓР»Рѕ",
+UI_Phrases_SWEAR17 = "СЃСЂР°РІ РїРµСЃ",
+UI_Phrases_SWEAR18 = "СЃС‚РµСЂРІРѕ",
+
+--UI_Phrases_Plosives
+UI_Phrases_Plosives1 = "Р±",
+UI_Phrases_Plosives2 = "Р‘",
+UI_Phrases_Plosives3 = "Рґ",
+UI_Phrases_Plosives4 = "Р”",
+UI_Phrases_Plosives5 = "С„",
+UI_Phrases_Plosives6 = "Р¤",
+UI_Phrases_Plosives7 = "Т‘",
+UI_Phrases_Plosives8 = "Тђ",
+UI_Phrases_Plosives9 = "Рі",
+UI_Phrases_Plosives10 = "Р“",
+UI_Phrases_Plosives11 = "Рє",
+UI_Phrases_Plosives12 = "Рљ",
+UI_Phrases_Plosives13 = "Рј",
+UI_Phrases_Plosives14 = "Рњ",
+UI_Phrases_Plosives15 = "Рї",
+UI_Phrases_Plosives16 = "Рџ",
+UI_Phrases_Plosives17 = "СЃ",
+UI_Phrases_Plosives18 = "РЎ",
+UI_Phrases_Plosives19 = "С‚",
+UI_Phrases_Plosives20 = "Рў",
+
+--UI_Phrases_FOOD
+UI_Phrases_FOOD1 = "РїРµСЂРµРєСѓСЃ",
+UI_Phrases_FOOD2 = "С†С–Р»Сѓ РїС–С†Сѓ",
+UI_Phrases_FOOD3 = "С‚СЂРѕС…Рё РїС–С†Рё",
+UI_Phrases_FOOD4 = "С€РјР°С‚РѕС‡РѕРє РїС–С†Рё",
+UI_Phrases_FOOD5 = "С€РјР°С‚РѕС‡РѕРє С‚РѕСЂС‚Р°",
+UI_Phrases_FOOD6 = "С‰Рѕ-РЅРµР±СѓРґСЊ СЃРјР°С‡РЅРµ",
+UI_Phrases_FOOD7 = "С‚СЂРѕС…Рё С‚РѕСЂС‚Р°",
+UI_Phrases_FOOD8 = "РєСѓСЂСЏС‡РёС… РєСЂРёР»РµС†СЊ",
+UI_Phrases_FOOD9 = "С‚СЂРѕС…Рё РєСѓСЂРєРё",
+UI_Phrases_FOOD10 = "Р±СѓСЂРіРµСЂ Р·С– РјР°РєСѓ",
+UI_Phrases_FOOD11 = "РіРµРїС–РјС–Р»",
+UI_Phrases_FOOD12 = "РєСЂРёР»СЊС†СЏ Р· РљР¤РЎ",
+UI_Phrases_FOOD13 = "РІС–РґРµСЂС†Рµ РљР¤РЎ",
+UI_Phrases_FOOD14 = "С‰Рѕ-РЅРµР±СѓРґСЊ С—СЃС‚С–РІРЅРµ",
+UI_Phrases_FOOD15 = "С‚Рµ, С‰Рѕ РјРѕР¶РЅР° Р·'С—СЃС‚Рё",
+UI_Phrases_FOOD16 = "СЃРЅРµРє",
+UI_Phrases_FOOD17 = "С‰РѕСЃСЊ С–Р· РЎС–Р»СЊРїРѕ",
+
+--UI_Phrases_SARCASM
+UI_Phrases_SARCASM1 = "РїСЂРѕСЃС‚Рѕ С‡СѓРґРѕРІРѕ",
+UI_Phrases_SARCASM2 = "РїСЂРёРіРѕР»РѕРјС€Р»РёРІРѕ",
+UI_Phrases_SARCASM3 = "С„Р°РЅС‚Р°СЃС‚РёС‡РЅРѕ",
+UI_Phrases_SARCASM4 = "СЃР°РјРµ С‚Рµ, С‰Рѕ РјРµРЅС– РїРѕС‚СЂС–Р±РЅРѕ",
+UI_Phrases_SARCASM5 = "РїСЂРѕСЃС‚Рѕ РїРѕС‰Р°СЃС‚РёР»Рѕ",
+
+
+--These set of phrases are unique in that they are parsed to replace the string before `:` with the one after it.
+--The left side of the `:` should be ONLY 1 character
+--UI_Phrases_Slurring
+UI_Phrases_Slurring1 = "Рѕ:Сѓ",
+UI_Phrases_Slurring2 = "СЃ:С€",
+UI_Phrases_Slurring3 = "Р·:Р¶",
+UI_Phrases_Slurring4 = "С–:Рё",
+UI_Phrases_Slurring5 = "С†:С†С†",
+UI_Phrases_Slurring6 = "Рµ:С”",
+UI_Phrases_Slurring7 = "Рі:Т‘",
+UI_Phrases_Slurring8 = "Р·:Р¶",
+UI_Phrases_Slurring9 = "С…:РіС…",
+UI_Phrases_Slurring10 = "С‡:С‰",
+
+--UI_Phrases_Congested
+UI_Phrases_Congested1 = "Рє:Т‘",
+UI_Phrases_Congested2 = "Рї:Р±",
+UI_Phrases_Congested3 = "С‚:Рґ",
+UI_Phrases_Congested4 = "РЅ:РЅРі",
+UI_Phrases_Congested5 = "Рј:Р±",
+UI_Phrases_Congested6 = "РІ:Р±",
+UI_Phrases_Congested7 = "С„:РІ",
+UI_Phrases_Congested8 = "СЃ:Р·",
+UI_Phrases_Congested9 = "Р·:РґР·",
+UI_Phrases_Congested10 = "Р»:РІР»",
+UI_Phrases_Congested11 = "СЂ:РІСЂ",
+UI_Phrases_Congested12 = "СЂ:Р»",
+UI_Phrases_Congested13 = "СЃ:С€",
+UI_Phrases_Congested14 = "С€:Р¶",
+}
