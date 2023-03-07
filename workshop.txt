@@ -33,6 +33,7 @@ description=Thai Translation: radiusgreenhill
 description=Japanese Translation: RedRenga
 description=Chinese (Traditional) Translation: mrazgrass
 description=Italian Translation: Kev1931
+description=Ukrainian Translation: Reveta
 description=
 description=[h3]Thank you to everyone helped translate/contribute to the mod![/h3]
 description=
