@@ -1,6 +1,38 @@
+﻿-- -=[ 貢獻者須知 ]=-
+-- 首先感謝您的光臨； 希望你在這兒玩的愉快。
+
+-- 步驟：
+---- 1. 如果在"/media/lua/client/shared/Translate/"中沒有您的語言目錄，則創建一個。
+------ 1a。 將此文件複製到"Translate/<LANGUAGE>"並將其重命名為"UI_<LANGUAGE>"(例如：UI_EN.txt)
+---- 2. 在說明下有一個列表的'標題' - 確保名稱與文本文件的名稱相匹配。
+------ 例如：文本文件和列表都應為 UI_EN、UI_RU、UI_FR 等。
+---- 3. 你可以開始翻譯了！ 只改變下面的東西
+
+-- 短語可以在"/media/lua/client/shared/Translate/"中找到
+---(您的語言文件夾，例如：EN、RU、FR，將包含您需要的所有內容。)
+
+-- 您可以添加比可用短語更多的短語，只需確保條目末尾的數字跟在數字後面即可。
+---(1、2、3、4、5, 等)
+
+-- 寫新短語時：
+-- 1. 盡可能簡短。
+-- 2. 除了'I'或專有名詞外，不要大寫任何東西。
+-- 3. 標點符號沒問題，但要記住所有的'.' 可以變成 '!' - 所以避免像美國或聯邦調查局這樣的事情。 (美國和聯邦調查局沒問題)
+-- 4. 避免發誓(因為內置了動態發誓)，而是使用 <SWEAR>。
+-- 5. 目前任何*情緒化的行為*都必須是整個短語(不會被過濾)。
+
+-- 為了獲得更多多樣性並避免重複短語的膨脹，可以將短語用作關鍵字來隨機替換另一個短語的部分內容。
+-- 格式："<WORD>中的詞組。" 確保有相應的 PhrasesWORD 短語集。
+-- 編寫用作關鍵字的新短語時：使用 <WORD> 通讀一些行以確保在添加它們之前它聽起來正確。
+-- 例如：查看下面的“UI_Phrases_FOOD”和<FOOD>。
+
+-- 不要翻譯像 <WORD> 或 <SWEAR> 這樣的關鍵詞。
+
+-- 注意：表格標題“UI_XX”必須與遊戲語言縮寫匹配
+
 UI_CH = {
---These are for the config options - leave "\n" in for line break purposes.
---Each phrase set that has a config option for it has the prefix "UI_Config_" followed by the same MoodID
+-- 這些用於配置選項 - 保留"\n"用於換行。
+-- 每個具有配置選項的短語集都具有前綴"UI_Config_"，後跟相同的 MoodID
     UI_ConfigMODID_Conditional-Speech = "Conditional Speech (適機談話)",
     UI_Config_SpeechCanAttractsZombies = "談話會吸引殭屍",
     UI_Config_SpeechCanAttractsZombiesToolTip = "即使在最極端的狀況下, 殭屍也聽不見適機談話.",
@@ -8,8 +40,8 @@ UI_CH = {
     UI_Config_ShowOnlyAudibleSpeechToolTip = "只顯示可以被聽見的談話.",
     UI_Config_moodTableToolTip = "詞句組:",
 
---This phrase is used for remaining ammunition left in the gun.
-    UI_shotsLeft = "shots left",
+--這句話是用來指槍裡剩下的彈藥。
+    UI_shotsLeft = "還剩幾發子彈",
 
 --UI_Phrases_Drunk
     UI_Config_Drunk = "酒醉",
@@ -22,6 +54,22 @@ UI_CH = {
     UI_Phrases_Drunk7 = "派對時間到了",
     UI_Phrases_Drunk8 = "我要醉倒了",
     UI_Phrases_Drunk9 = "我什麼都不怕了",
+    UI_Phrases_Drunk10 = "現在沒有什麼可以阻止我",
+    UI_Phrases_Drunk11 = "開槍",
+    UI_Phrases_Drunk12 = "讓我們瘋狂起來",
+    UI_Phrases_Drunk13 = "我在世界之巔",
+    UI_Phrases_Drunk14 = "我是無敵的",
+    UI_Phrases_Drunk15 = "我可以承擔任何事情",
+    UI_Phrases_Drunk16 = "沒有人能讓我失望",
+    UI_Phrases_Drunk17 = "我勢不可擋",
+    UI_Phrases_Drunk18 = "讓我們徹夜狂歡",
+    UI_Phrases_Drunk19 = "派對永不停止",
+    UI_Phrases_Drunk20 = "我是派對的主角",
+    UI_Phrases_Drunk21 = "我能應付任何事",
+    UI_Phrases_Drunk22 = "來吧",
+    UI_Phrases_Drunk23 = "我著火了",
+    UI_Phrases_Drunk24 = "我是世界之王",
+    UI_Phrases_Drunk25 = "我是無所不能的",
 
 --UI_Phrases_HasACold
     UI_Config_HasACold = "感冒",
@@ -32,6 +80,24 @@ UI_CH = {
     UI_Phrases_HasACold5 = "我的喉嚨好痛",
     UI_Phrases_HasACold6 = "我得想辦法解決這個感冒才行",
     UI_Phrases_HasACold7 = "我有發燒嗎?",
+    UI_Phrases_HasACold8 = "我感覺真的很糟糕",
+    UI_Phrases_HasACold9 = "這感冒不會消失",
+    UI_Phrases_HasACold10 = "我再也受不了了",
+    UI_Phrases_HasACold11 = "我感覺像被卡車撞了",
+    UI_Phrases_HasACold12 = "我的頭在砰",
+    UI_Phrases_HasACold13 = "我無法正常呼吸",
+    UI_Phrases_HasACold14 = "我全身都痛",
+    UI_Phrases_HasACold15 = "我又累又虛弱",
+    UI_Phrases_HasACold16 = "我只想蜷縮在床上",
+    UI_Phrases_HasACold17 = "我的能量完全耗盡",
+    UI_Phrases_HasACold18 = "這是我多年以來感覺最糟糕的一次",
+    UI_Phrases_HasACold19 = "每一次呼吸都是一次掙扎",
+    UI_Phrases_HasACold20 = "我嘗不到任何味道",
+    UI_Phrases_HasACold21 = "我不停地咳嗽",
+    UI_Phrases_HasACold22 = "我是如此的阻塞",
+    UI_Phrases_HasACold23 = "我感覺快要窒息了",
+    UI_Phrases_HasACold24 = "這感冒讓我很痛苦",
+    UI_Phrases_HasACold25 = "我迫不及待地想再次恢復健康",
 
 --UI_Phrases_Windchill
     UI_Config_Windchill = "冷風",
@@ -43,6 +109,23 @@ UI_CH = {
     UI_Phrases_Windchill6 = "這強風也太誇張了吧",
     UI_Phrases_Windchill7 = "這強風實在太瘋狂了",
     UI_Phrases_Windchill8 = "風吹得好大",
+    UI_Phrases_Windchill9 = "我的頭髮亂糟糟的",
+    UI_Phrases_Windchill10 = "我睜不開眼睛",
+    UI_Phrases_Windchill11 = "我感覺像是被人推來推去的",
+    UI_Phrases_Windchill12 = "我走路很吃力",
+    UI_Phrases_Windchill13 = "我幾乎聽不到自己在想什麼",
+    UI_Phrases_Windchill14 = "我的衣服像是發了瘋了似的拍打著",
+    UI_Phrases_Windchill15 = "我的脊椎開始發冷",
+    UI_Phrases_Windchill16 = "我的臉開始疼了",
+    UI_Phrases_Windchill17 = "我呼吸困難",
+    UI_Phrases_Windchill18 = "這陣風刺骨刺骨的要命",
+    UI_Phrases_Windchill19 = "我的手冷得要命",
+    UI_Phrases_Windchill20 = "我等不及要進去了",
+    UI_Phrases_Windchill21 = "我感覺自己正處於颶風中",
+    UI_Phrases_Windchill22 = "風吹得我頭暈目眩",
+    UI_Phrases_Windchill23 = "我像是被碎片擊中",
+    UI_Phrases_Windchill24 = "我擔心我會被吹走",
+    UI_Phrases_Windchill25 = "這股風絕對是無情的",
 
 --UI_Phrases_Hyperthermia
     UI_Config_Hyperthermia = "過熱",
@@ -54,6 +137,15 @@ UI_CH = {
     UI_Phrases_Hyperthermia6 = "熱到受不了",
     UI_Phrases_Hyperthermia7 = "我可能會熱昏",
     UI_Phrases_Hyperthermia8 = "熱到眼花",
+    UI_Phrases_Hyperthermia9 = "我需要找一些陰涼的地方",
+    UI_Phrases_Hyperthermia10 = "這種高溫很危險",
+    UI_Phrases_Hyperthermia11 = "我感覺頭暈目眩",
+    UI_Phrases_Hyperthermia12 = "我脫水了",
+    UI_Phrases_Hyperthermia13 = "感覺就像一個烤箱",
+    UI_Phrases_Hyperthermia14 = "我開始產生幻覺",
+    UI_Phrases_Hyperthermia15 = "這熱度讓人難以忍受",
+    UI_Phrases_Hyperthermia16 = "我需要進入室內",
+    UI_Phrases_Hyperthermia17 = "我感覺頭真的很暈",
 
 --UI_Phrases_Endurance
     UI_Config_Endurance = "耐力",
@@ -69,6 +161,19 @@ UI_CH = {
     UI_Phrases_Endurance10 = "我快不能動了",
     UI_Phrases_Endurance11 = "我的手幾乎動不了了",
     UI_Phrases_Endurance12 = "我的腿幾乎動不了了",
+    UI_Phrases_Endurance13 = "我累壞了",
+    UI_Phrases_Endurance14 = "我需要喘口氣",
+    UI_Phrases_Endurance15 = "我筋疲力盡了",
+    UI_Phrases_Endurance16 = "我正在達到我的極限",
+    UI_Phrases_Endurance17 = "我正在冒煙",
+    UI_Phrases_Endurance18 = "我的肌肉在燃燒",
+    UI_Phrases_Endurance19 = "我的腿感覺像鉛一樣",
+    UI_Phrases_Endurance20 = "我快沒力氣了",
+    UI_Phrases_Endurance21 = "我的心都要跳出來了",
+    UI_Phrases_Endurance22 = "我快要崩潰了",
+    UI_Phrases_Endurance23 = "我幾乎站不起來了",
+    UI_Phrases_Endurance24 = "我正處於崩潰的邊緣",
+    UI_Phrases_Endurance25 = "我把自己逼到了極限",
 
 --UI_Phrases_Bleeding
     UI_Config_Bleeding = "流血",
@@ -78,6 +183,22 @@ UI_CH = {
     UI_Phrases_Bleeding4 = "我正在大量失血",
     UI_Phrases_Bleeding5 = "我再繼續流血會死",
     UI_Phrases_Bleeding6 = "再繼續這樣出血, 我會死",
+UI_Phrases_Bleeding7 = "這是大量的血",
+UI_Phrases_Bleeding8 = "必需停止出血",
+UI_Phrases_Bleeding9 = "這不太好",
+UI_Phrases_Bleeding10 = "我現在需要幫助",
+UI_Phrases_Bleeding11 = "我不想死",
+UI_Phrases_Bleeding12 = "我感覺很虛弱",
+UI_Phrases_Bleeding13 = "我開始看到鎂光燈了",
+UI_Phrases_Bleeding14 = "我頭暈目眩",
+UI_Phrases_Bleeding15 = "我感覺不到我的四肢",
+UI_Phrases_Bleeding16 = "我失血過多",
+UI_Phrases_Bleeding17 = "誰來幫幫我~~~",
+UI_Phrases_Bleeding18 = "我要休克了",
+UI_Phrases_Bleeding19 = "我正在快速衰落",
+UI_Phrases_Bleeding20 = "我需要就醫",
+UI_Phrases_Bleeding21 = "我正在失去意識",
+UI_Phrases_Bleeding22 = "我好痛苦",
 
 --UI_Phrases_FoodEaten
     UI_Config_FoodEaten = "吃食物",
@@ -88,6 +209,20 @@ UI_CH = {
     UI_Phrases_FoodEaten5 = "我的肚子好撐",
     UI_Phrases_FoodEaten6 = "一口也吃不下了",
     UI_Phrases_FoodEaten7 = "我吃不下了",
+    UI_Phrases_FoodEaten8 = "恰到好處",
+    UI_Phrases_FoodEaten9 = "之後我需要去散散步",
+    UI_Phrases_FoodEaten10 = "我現在想小睡一下",
+    UI_Phrases_FoodEaten11 = "我應該早點停止進食",
+    UI_Phrases_FoodEaten12 = "我暫時不會餓了",
+    UI_Phrases_FoodEaten13 = "我可能需要鬆開腰帶",
+    UI_Phrases_FoodEaten14 = "我需要喝點水",
+    UI_Phrases_FoodEaten15 = "在那之後我會胃灼熱",
+    UI_Phrases_FoodEaten16 = "我需要少吃一點",
+    UI_Phrases_FoodEaten17 = "我希望我能保存一些以備後用",
+    UI_Phrases_FoodEaten18 = "我不敢相信我完成了所有這些",
+    UI_Phrases_FoodEaten19 = "我需要大一碼的褲子",
+    UI_Phrases_FoodEaten20 = "我今天剩下的時間都不會餓",
+    UI_Phrases_FoodEaten21 = "飯後我需要去健身房".
 
 --UI_Phrases_Injured
     UI_Config_Injured = "受傷",
@@ -96,6 +231,8 @@ UI_CH = {
     UI_Phrases_Injured3 = "<SWEAR>",
     UI_Phrases_Injured4 = "那會留疤的",
     UI_Phrases_Injured5 = "我需要急救",
+    UI_Phrases_Injured6 = "我需要一些急救",
+    UI_Phrases_Injured7 = "我需要一些急救",
 
 --UI_Phrases_Unhappy
     UI_Config_Unhappy = "心情差",
@@ -112,6 +249,18 @@ UI_CH = {
     UI_Phrases_Unhappy11 = "根本沒有未來",
     UI_Phrases_Unhappy12 = "這世界",
     UI_Phrases_Unhappy13 = "根本沒意義",
+    UI_Phrases_Unhappy14 = "我不能再這樣做了",
+    UI_Phrases_Unhappy15 = "我感到很絕望",
+    UI_Phrases_Unhappy16 = "我在生活中找不到任何樂趣",
+    UI_Phrases_Unhappy17 = "我已經厭倦了掙扎",
+    UI_Phrases_Unhappy18 = "我看不到出路",
+    UI_Phrases_Unhappy19 = "生活就是一次又一次的失望",
+    UI_Phrases_Unhappy20 = "我希望情況有所不同",
+    UI_Phrases_Unhappy21 = "我看不出有什麼意義",
+    UI_Phrases_Unhappy22 = "何必呢？",
+    UI_Phrases_Unhappy23 = "我感到如此孤獨",
+    UI_Phrases_Unhappy24 = "我厭倦了假裝一切都正常",
+    UI_Phrases_Unhappy25 = "我不知道我還能堅持多久".
 
 --UI_Phrases_Wet
     UI_Config_Wet = "潮濕",
@@ -147,6 +296,13 @@ UI_CH = {
     UI_Phrases_OnDusk1 = "天色變暗了",
     UI_Phrases_OnDusk2 = "看來太陽快下山了",
     UI_Phrases_OnDusk3 = "太陽要下山了",
+    UI_Phrases_OnDusk4 = "天空正在變成橙色",
+    UI_Phrases_OnDusk5 = "光線正在減弱",
+    UI_Phrases_OnDusk6 = "太陽正在下山",
+    UI_Phrases_OnDusk7 = "越來越難看見",
+    UI_Phrases_OnDusk8 = "越來越難看到周圍的環境",
+    UI_Phrases_OnDusk9 = "越來越難看到遠處",
+    UI_Phrases_OnDusk10 = "黑暗正在逼近",
 
 --UI_Phrases_OnDawn
     UI_Config_OnDawn = "日出",
@@ -359,7 +515,7 @@ UI_CH = {
     UI_Phrases_Pain19 = "啊啊",
 
 
---The phrase sets below don't have config options
+--下面的短語集沒有配置選項
 
 --UI_Phrases_SWEAR
     UI_Phrases_SWEAR1 = "靠",
@@ -406,6 +562,17 @@ UI_CH = {
     UI_Phrases_FOOD15 = "一份 Jay's 比司吉加肉醬",
     UI_Phrases_FOOD16 = "任何東西",
     UI_Phrases_FOOD17 = "任何食物",
+    UI_Phrases_FOOD18 = "小菜一碟",
+    UI_Phrases_FOOD19 = "一些蛋糕",
+    UI_Phrases_FOOD20 = "沙拉或其他東西",
+    UI_Phrases_FOOD21 = "一桶雞肉",
+    UI_Phrases_FOOD22 = "一些雞肉",
+    UI_Phrases_FOOD23 = "一份斯皮福漢堡",
+    UI_Phrases_FOOD24 = "一份斯皮福兒童套餐",
+    UI_Phrases_FOOD25 = "一桶傑伊的雞肉",
+    UI_Phrases_FOOD26 = "一份傑伊的肉汁餅乾",
+    UI_Phrases_FOOD27 = "什麼都吃",
+    UI_Phrases_FOOD28 = "吃什麼都行",
 
 --UI_Phrases_SARCASM
     UI_Phrases_SARCASM1 = "真是太棒了",
@@ -413,4 +580,24 @@ UI_CH = {
     UI_Phrases_SARCASM3 = "讚喔",
     UI_Phrases_SARCASM4 = "正是時候啊",
     UI_Phrases_SARCASM5 = "運氣還真好",
+
+
+--這組短語的獨特之處在於它們被解析為將`:`之前的字符串替換為它之後的字符串。
+-- `:` 的左邊應該只有 1 個字符
+--UI_Phrases_Slurring
+UI_Phrases_Slurring1 = "o:u",
+UI_Phrases_Slurring2 = "s:ch",
+UI_Phrases_Slurring3 = "a:ah",
+UI_Phrases_Slurring4 = "u:oo",
+UI_Phrases_Slurring5 = "c:k",
+
+--UI_Phrases_Congested
+UI_Phrases_Congested1 = "k:g",
+UI_Phrases_Congested2 = "p:b",
+UI_Phrases_Congested3 = "t:d",
+UI_Phrases_Congested4 = "n:ng",
+UI_Phrases_Congested5 = "m:b",
+UI_Phrases_Congested6 = "v:b",
+UI_Phrases_Congested6 = "f:b",
+
 }
