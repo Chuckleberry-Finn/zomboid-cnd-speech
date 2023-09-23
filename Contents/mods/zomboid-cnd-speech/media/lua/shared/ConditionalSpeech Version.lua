@@ -10,7 +10,7 @@ ConditionalSpeech_Filter = {}
 
 ConditionalSpeech = {}
 ConditionalSpeech.Phrases = {}
-ConditionalSpeech.Phrases.Slurring = {"o:u","s:ch","a:ah","u:oo","c:k"}
+ConditionalSpeech.Phrases.Slurring = {"o:u","s:ch","s:sh","a:ah","u:oo","c:sch","tion:shun","i:ii"}
 ConditionalSpeech.Phrases.Plosives = {"f","F","p","P","t","T","k","K","b","B","d","D","g","G","s","S","m","M"}
 
 --]]
