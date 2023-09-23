@@ -13,4 +13,8 @@ ConditionalSpeech.Phrases = {}
 ConditionalSpeech.Phrases.Slurring = {"o:u","s:ch","s:sh","a:ah","u:oo","c:sch","tion:shun","i:ii"}
 ConditionalSpeech.Phrases.Plosives = {"f","F","p","P","t","T","k","K","b","B","d","D","g","G","s","S","m","M"}
 
+DRUNK:
+local chance = intensity*20
+--_intensity = _intensity-0.33
+
 --]]
