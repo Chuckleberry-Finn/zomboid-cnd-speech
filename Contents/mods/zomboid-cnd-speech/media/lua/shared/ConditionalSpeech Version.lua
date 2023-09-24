@@ -1,1 +1,1 @@
-Events.OnGameBoot.Add(function() print("Conditional Speech: ver:0.9--FEB-18-23") end)
+Events.OnGameBoot.Add(function() print("Conditional Speech: SEPT-24-23") end)

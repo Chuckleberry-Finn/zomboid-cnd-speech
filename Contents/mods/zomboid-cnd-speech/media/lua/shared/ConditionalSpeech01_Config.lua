@@ -4,6 +4,8 @@ require "EasyConfigChucked1_Main"
 require "OptionScreens/ServerSettingsScreen"
 require "OptionScreens/SandBoxOptions"
 
+local phraseSets = require "ConditionalSpeech04_PhraseSet"
+
 cndSpeechConfig = cndSpeechConfig or {}
 
 cndSpeechConfig.config = {
@@ -31,7 +33,7 @@ cndSpeechConfig.menu = {
 function cndSpeechConfig.loadMoodTableToConfig()
 	cndSpeechConfig.menu.generalSpaceD = {type = "Space"}
 	cndSpeechConfig.menu.moodTableToolTip = {type = "Text", a=0.65, customX=-20}
-	for key,moodID in pairs(ConditionalSpeech.PhrasesForConfig) do
+	for key,moodID in pairs(phraseSets.PhrasesForConfig) do
 		cndSpeechConfig.menu[moodID] = {type = "Tickbox", title = moodID, tooltip = "", }
 		cndSpeechConfig.config[moodID] = cndSpeechConfig.config[moodID] or true
 	end

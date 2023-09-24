@@ -589,10 +589,12 @@ UI_Phrases_SARCASM5 = "just my luck",
 --The left side of the `:` should be ONLY 1 character
 --UI_Phrases_Slurring
 UI_Phrases_Slurring1 = "o:u",
-UI_Phrases_Slurring2 = "s:ch",
+UI_Phrases_Slurring2 = "s:sh",
 UI_Phrases_Slurring3 = "a:ah",
 UI_Phrases_Slurring4 = "u:oo",
-UI_Phrases_Slurring5 = "c:k",
+UI_Phrases_Slurring5 = "c:sch",
+UI_Phrases_Slurring6 = "tion:shun",
+UI_Phrases_Slurring7 = "i:ii",
 
 --UI_Phrases_Congested
 UI_Phrases_Congested1 = "k:g",

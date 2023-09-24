@@ -1,26 +1,17 @@
 if isServer() then return end
 
-require "ConditionalSpeech00_Util"
-require "ConditionalSpeech000_MpText"
+require "ConditionalSpeech01_Config"
+local cndSpeechUtil = require "ConditionalSpeech00_Util"
+local conditionalSpeechFilter = require "ConditionalSpeech03_Filters"
+local phraseSets = require "ConditionalSpeech04_PhraseSet"
+local metaValues = require "ConditionalSpeech02b_metaValues"
 
----@class ConditionalSpeech
-ConditionalSpeech = {}
+local ConditionalSpeech = {}
 
----@class ConditionalSpeech_Filter
-ConditionalSpeech_Filter = {}
-
----@type table|table
-ConditionalSpeech.Phrases = {}
-
----@type table|number
 ConditionalSpeech.Speakers = {}
 
-ConditionalSpeech.VolumeMAX = 60
-ConditionalSpeech.DAWN_TIME = 6
-ConditionalSpeech.DUSK_TIME = 22
-
---- filters that shouldn't run if volume is 0
-ConditionalSpeech.volumeSensitiveFilters = {"Stutter","Stammer"}
+--- filters that shouldn't run if volume is 0 or thoughts
+ConditionalSpeech.volumeSensitiveFilters = {["Stutter"]=true,["Stammer"]=true}
 
 --- global paired list of mood types and corresponding filters
 ConditionalSpeech.filterTable = {
@@ -121,22 +112,15 @@ function ConditionalSpeech.passMoodleFilters(player,text)
 
 			--trackPos to maintain order through sorting
 			local trackPos = 0
-			--for each filter in MoodID_filters
-
 			for _,Filter in pairs(MoodID_filters) do
-				--if Filter is not already in filtersToPass or if the stored level is lower, then
-				-- --set filtersToPass[Filter] = moodleLevel
-				if not is_keyIn(filtersToPass,Filter) or (is_keyIn(filtersToPass,Filter) and moodleLevel > filtersToPass[Filter]) then
+				if moodleLevel > (filtersToPass[Filter] or 0) then
 					filtersToPass[Filter] = moodleLevel
-					--set up the processing order based on if found in volumeSensitiveFilters
-					if not is_valueIn(sortFilters,Filter) then
-						--adds to the end of the order if found in volumeSensitiveFilters, or in "trackPos" pos
-						if is_valueIn(ConditionalSpeech.volumeSensitiveFilters,Filter) then
-							table.insert(sortFilters,Filter)
-						else
-							trackPos = trackPos+1
-							table.insert(sortFilters,trackPos,Filter)
-						end
+
+					if ConditionalSpeech.volumeSensitiveFilters[Filter] then
+						table.insert(sortFilters,Filter)
+					else
+						trackPos = trackPos+1
+						table.insert(sortFilters,trackPos,Filter)
 					end
 				end
 			end
@@ -147,29 +131,23 @@ function ConditionalSpeech.passMoodleFilters(player,text)
 	local filtered_vol = 0
 
 	for _,FilterType in ipairs(sortFilters) do
-		if not is_valueIn(ConditionalSpeech.volumeSensitiveFilters,FilterType) or (filtered_vol > 0 and is_valueIn(ConditionalSpeech.volumeSensitiveFilters,FilterType)) then
+		if not ConditionalSpeech.volumeSensitiveFilters[FilterType] or (filtered_vol > 0 and ConditionalSpeech.volumeSensitiveFilters[FilterType]) then
 			--compare sortFilters's value to filtersToPass's keys to find stored intensity
 			--[debug]] print("CND-SPEECH: RUN FILTER: ",FilterType,"-")
 			local intensity = filtersToPass[FilterType]
-			local filter = ConditionalSpeech_Filter[FilterType]
-			local filter_results = filter(text, intensity)
+			local filter = conditionalSpeechFilter[FilterType]
+			local resultText, resultVolume = filter(text, intensity)
 
-			if filter_results.return_text then
-				text = filter_results.return_text
-			end
-
-			if filter_results.return_vol and filter_results.return_vol > filtered_vol then
-				filtered_vol = filter_results.return_vol
-			end
+			text = resultText or text
+			if resultVolume and resultVolume > filtered_vol then filtered_vol = resultVolume end
 		end
 	end
 
-	if filtered_vol == ConditionalSpeech.VolumeMAX then
+	if filtered_vol >= metaValues.volumeMax then
 		text = text:upper()
 	end
-	local total_results = filterResults:new(text,filtered_vol)
 
-	return total_results
+	return text,filtered_vol
 end
 
 
@@ -201,12 +179,12 @@ function ConditionalSpeech.generateSpeechFrom(player, PhraseSetID, intensity, MA
 		return
 	end
 
-	local PhraseTable = ConditionalSpeech.Phrases[PhraseSetID]
+	local PhraseTable = phraseSets.Phrases[PhraseSetID]
 	if not PhraseTable then
 		return
 	end
 
-	local dialogue = RangedRandPick(PhraseTable,intensity,MAXintensity)
+	local dialogue = cndSpeechUtil.rangedRandPick(PhraseTable,intensity,MAXintensity)
 	if not dialogue then
 		return
 	end
@@ -214,12 +192,10 @@ function ConditionalSpeech.generateSpeechFrom(player, PhraseSetID, intensity, MA
 	--If "<" is found within the phrase - assume there's a keyword
 	while string.find(dialogue, "<") do
 		--replace text matching PhraseSetID (KEYWORD) with words from phraseset
-		for KEYWORD, PHRASE in pairs(ConditionalSpeech.Phrases) do
+		for KEYWORD, PHRASE in pairs(phraseSets.Phrases) do
 			local phrases = PHRASE
-			if danger and (KEYWORD=="SARCASM") then
-				phrases = ConditionalSpeech.Phrases["SWEAR"]
-			end
-			dialogue = dialogue:gsub("<"..KEYWORD..">", pickFrom(phrases))
+			if danger and (KEYWORD=="SARCASM") then phrases = phraseSets.Phrases["SWEAR"] end
+			dialogue = dialogue:gsub("<"..KEYWORD..">", cndSpeechUtil.pickFrom(phrases))
 		end
 	end
 
@@ -276,9 +252,9 @@ function ConditionalSpeech.ProcessSpeech(player, dialogue, PhraseSetID, volumeBl
 
 		--pass moodle filters if player has a moodle array
 		if player:getModData().moodleTable then
-			local passMF_results = ConditionalSpeech.passMoodleFilters(player,dialogue)--have other moods impact dialogue
-			dialogue = passMF_results.return_text
-			vocal_volume = passMF_results.return_vol
+			local textResult, volumeResult = ConditionalSpeech.passMoodleFilters(player,dialogue)--have other moods impact dialogue
+			dialogue = textResult
+			vocal_volume = volumeResult
 		end
 
 		--Proper sentence capitalization. Like so.
@@ -313,7 +289,7 @@ function ConditionalSpeech.applyVolumetricColor_Say(player,text,vol)
 		return
 	end
 
-	local vc_shift = 0.40+(0.60*((vol or 0)/ConditionalSpeech.VolumeMAX))--have a 0.3 base --difference of 0.7 is then multiplied against volume/maxvolume
+	local vc_shift = 0.40+(0.60*((vol or 0)/metaValues.volumeMax))--have a 0.3 base --difference of 0.7 is then multiplied against volume/maxvolume
 	---@type ColorInfo
 	local Text_Color = getCore():getMpTextColor()
 	local tR, tG, tB = Text_Color:getR(), Text_Color:getG(), Text_Color:getB()
@@ -350,7 +326,7 @@ end
 --- Apply filters to process say
 local original_processSayMessage = processSayMessage
 function processSayMessage(text, ...)
-	text = ConditionalSpeech.ProcessSpeech(getPlayer(), text, nil, nil, ConditionalSpeech.VolumeMAX/2)
+	text = ConditionalSpeech.ProcessSpeech(getPlayer(), text, nil, nil, metaValues.volumeMax/2)
 	return original_processSayMessage(text, ...)
 end
 
@@ -388,7 +364,7 @@ function ConditionalSpeech.check_PlayerStatus(player)
 	local zombiesNearBy = (playerStats:getNumVisibleZombies() > 0) or (player:getLastSeenZomboidTime() < 1)
 
 	--prevent vocalization if any zombies are visible or chasing
-	local volumeBlock = (is_prob(100-(panicLevel^2)) and zombiesNearBy)
+	local volumeBlock = (cndSpeechUtil.prob(100-(panicLevel^2)) and zombiesNearBy)
 	--check if agoraphobic is actively inducing panic
 	local agora = (player:isOutside() and player:HasTrait("Agoraphobic"))
 	local claustro = ((not player:isOutside()) and player:HasTrait("Claustophobic"))
@@ -434,7 +410,7 @@ function ConditionalSpeech.check_PlayerStatus(player)
 
 	if not spoke then
 		local tellTime = pModData.CndSpeech_tellTime
-		local validTime = ((getGameTime():getHour() == ConditionalSpeech.DUSK_TIME) or (getGameTime():getHour() == ConditionalSpeech.DAWN_TIME))
+		local validTime = ((getGameTime():getHour() == ConditionalSpeech.DUSK_TIME) or (getGameTime():getHour() == metaValues.DAWN_TIME))
 
 		if tellTime and validTime then
 			ConditionalSpeech.generateSpeechFrom(player,tellTime)
@@ -480,7 +456,7 @@ function ConditionalSpeech.check_Time()
 		local player = playerObject
 
 		if player and not player:isDead() then
-			if player:isOutside() and is_prob(75) then
+			if player:isOutside() and cndSpeechUtil.prob(75) then
 				if TIME==ConditionalSpeech.DAWN_TIME then
 					player:getModData().CndSpeech_tellTime = "OnDawn"
 				elseif TIME==ConditionalSpeech.DUSK_TIME then
@@ -491,10 +467,4 @@ function ConditionalSpeech.check_Time()
 	end
 end
 
-
-
---- Event Hooks ---
-Events.OnCreatePlayer.Add(ConditionalSpeech.load_n_set_Moodles)--OnCreateLivingCharacter(playerObj) --Starts up ConditionalSpeech
-Events.EveryHours.Add(ConditionalSpeech.check_Time)--EveryHours(?) --check every in-game hour for events
-Events.OnWeaponSwing.Add(ConditionalSpeech.check_WeaponStatus) --OnWeaponSwing(playerObj,weapon)
-Events.OnPlayerUpdate.Add(ConditionalSpeech.check_PlayerStatus) --OnPlayerUpdate(playerObj) --checks moodlestatus
+return ConditionalSpeech

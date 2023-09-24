@@ -1,58 +1,59 @@
 if isServer() then return end
 
-require "ConditionalSpeech02_Core"
+local phraseSets = {}
 
 ---unused phrase sets for moods
--- ConditionalSpeech.Phrases.Angry = nil
--- ConditionalSpeech.Phrases.Dead = nil
+-- phraseSets.Phrases.Angry = nil
+-- phraseSets.Phrases.Dead = nil
 
-ConditionalSpeech.Phrases.Drunk = {}
-ConditionalSpeech.Phrases.HasACold = {}
-ConditionalSpeech.Phrases.Windchill = {}
-ConditionalSpeech.Phrases.Hyperthermia = {}
-ConditionalSpeech.Phrases.Endurance = {}
-ConditionalSpeech.Phrases.Bleeding = {}
-ConditionalSpeech.Phrases.FoodEaten = {}
-ConditionalSpeech.Phrases.Injured = {}
-ConditionalSpeech.Phrases.Unhappy = {}
-ConditionalSpeech.Phrases.Wet = {}
-ConditionalSpeech.Phrases.Sick = {}
-ConditionalSpeech.Phrases.HeavyLoad = {}
-ConditionalSpeech.Phrases.OnDusk = {}
-ConditionalSpeech.Phrases.OnDawn = {}
-ConditionalSpeech.Phrases.GunJammed = {}
-ConditionalSpeech.Phrases.LowAmmo = {}
-ConditionalSpeech.Phrases.OutOfAmmo = {}
-ConditionalSpeech.Phrases.Hungry = {}
-ConditionalSpeech.Phrases.Thirst = {}
-ConditionalSpeech.Phrases.Tired = {}
-ConditionalSpeech.Phrases.Bored = {}
-ConditionalSpeech.Phrases.Stress = {}
-ConditionalSpeech.Phrases.Agoraphobic = {}
-ConditionalSpeech.Phrases.Claustrophobic = {}
-ConditionalSpeech.Phrases.Panic = {}
-ConditionalSpeech.Phrases.Hypothermia = {}
-ConditionalSpeech.Phrases.Pain = {}
+phraseSets.Phrases = {}
+
+phraseSets.Phrases.Drunk = {}
+phraseSets.Phrases.HasACold = {}
+phraseSets.Phrases.Windchill = {}
+phraseSets.Phrases.Hyperthermia = {}
+phraseSets.Phrases.Endurance = {}
+phraseSets.Phrases.Bleeding = {}
+phraseSets.Phrases.FoodEaten = {}
+phraseSets.Phrases.Injured = {}
+phraseSets.Phrases.Unhappy = {}
+phraseSets.Phrases.Wet = {}
+phraseSets.Phrases.Sick = {}
+phraseSets.Phrases.HeavyLoad = {}
+phraseSets.Phrases.OnDusk = {}
+phraseSets.Phrases.OnDawn = {}
+phraseSets.Phrases.GunJammed = {}
+phraseSets.Phrases.LowAmmo = {}
+phraseSets.Phrases.OutOfAmmo = {}
+phraseSets.Phrases.Hungry = {}
+phraseSets.Phrases.Thirst = {}
+phraseSets.Phrases.Tired = {}
+phraseSets.Phrases.Bored = {}
+phraseSets.Phrases.Stress = {}
+phraseSets.Phrases.Agoraphobic = {}
+phraseSets.Phrases.Claustrophobic = {}
+phraseSets.Phrases.Panic = {}
+phraseSets.Phrases.Hypothermia = {}
+phraseSets.Phrases.Pain = {}
 
 ---Load the above phraseSet IDs into a list used for the config menu.
-ConditionalSpeech.PhrasesForConfig = {}
-for moodID,phrases in pairs(ConditionalSpeech.Phrases) do
-	table.insert(ConditionalSpeech.PhrasesForConfig,moodID)
+phraseSets.PhrasesForConfig = {}
+for moodID,phrases in pairs(phraseSets.Phrases) do
+	table.insert(phraseSets.PhrasesForConfig,moodID)
 end
 
 -- Swears are ranked by intensity
-ConditionalSpeech.Phrases.SWEAR = {}
+phraseSets.Phrases.SWEAR = {}
 -- useful list of plosives for stammering
-ConditionalSpeech.Phrases.Plosives = {}
-ConditionalSpeech.Phrases.FOOD = {}
-ConditionalSpeech.Phrases.SARCASM = {}
-ConditionalSpeech.Phrases.Slurring = {}
-ConditionalSpeech.Phrases.Congested = {}
+phraseSets.Phrases.Plosives = {}
+phraseSets.Phrases.FOOD = {}
+phraseSets.Phrases.SARCASM = {}
+phraseSets.Phrases.Slurring = {}
+phraseSets.Phrases.Congested = {}
 
 
-function SetPhraseSetLANGUAGE()
-	--[debug]] print("CND-SPEECH: Ignore the following ERRORS they are apart of the phrase loading process.")
-	for k,_ in pairs(ConditionalSpeech.Phrases) do
+function phraseSets.LoadFromTranslation()
+	for k,_ in pairs(phraseSets.Phrases) do
 
 		local phraseNum = 0
 		while phraseNum < 1000 do
@@ -63,7 +64,7 @@ function SetPhraseSetLANGUAGE()
 			foundPhrase = getTextOrNull(phraseID)
 			--[debug]] print("CND-SPEECH: phraseNum:"..phraseNum.."  foundPhrase:"..foundPhrase)
 			if (foundPhrase) then
-				table.insert(ConditionalSpeech.Phrases[k], foundPhrase)
+				table.insert(phraseSets.Phrases[k], foundPhrase)
 			else
 				break
 			end
@@ -71,4 +72,5 @@ function SetPhraseSetLANGUAGE()
 	end
 end
 
-Events.OnGameStart.Add(SetPhraseSetLANGUAGE)
+
+return phraseSets
