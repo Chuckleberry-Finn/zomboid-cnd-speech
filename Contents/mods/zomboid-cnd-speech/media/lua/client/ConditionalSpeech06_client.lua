@@ -6,3 +6,7 @@ local function onServerCommand(_module, _command, _data)
     end
 end
 Events.OnServerCommand.Add(onServerCommand)--/server/ to client
+
+local modCountSystem = require "chuckleberryFinnModding_modCountSystem"
+if modCountSystem then modCountSystem.pullAndAddModID()
+else print("ERR: MISSING MOD: `ChuckleberryFinnAlertSystem` (Workshop ID: `3077900375`)") end
