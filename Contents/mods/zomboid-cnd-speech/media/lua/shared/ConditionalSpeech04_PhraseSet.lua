@@ -58,10 +58,8 @@ function phraseSets.LoadFromTranslation()
 		local phraseNum = 0
 		while phraseNum < 1000 do
 			phraseNum = phraseNum+1
-			local foundPhrase = ""
 			local phraseID = "UI_Phrases_"..k..phraseNum
-
-			foundPhrase = getTextOrNull(phraseID)
+			local foundPhrase = getTextOrNull(phraseID)
 			--[debug]] print("CND-SPEECH: phraseNum:"..phraseNum.."  foundPhrase:"..foundPhrase)
 			if (foundPhrase) then
 				table.insert(phraseSets.Phrases[k], foundPhrase)
