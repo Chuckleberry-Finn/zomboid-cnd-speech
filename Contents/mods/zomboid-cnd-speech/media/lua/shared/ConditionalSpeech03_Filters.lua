@@ -106,7 +106,7 @@ function conditionalSpeechFilter.panicSwear(text, intensity)
     if randswear then
         randswear = randswear .. "."
 
-        local chance = intensity*15
+        local chance = intensity*5
 
         while chance > 0 do
             if cndSpeechUtil.prob(chance) then randswear = randswear .. " " .. randswear end
