@@ -80,7 +80,7 @@ UI_Phrases_HasACold4 = "I have a cold for sure",
 UI_Phrases_HasACold5 = "this cold is a problem",
 UI_Phrases_HasACold6 = "I need to do something about this cold",
 UI_Phrases_HasACold7 = "do I have a fever?",
-UI_Phrases_HasACold8 = "I'm feeling <AMMOUNT> lousy",
+UI_Phrases_HasACold8 = "I'm feeling <AMOUNT> lousy",
 UI_Phrases_HasACold9 = "this cold won't go away",
 UI_Phrases_HasACold10 = "I can't take this anymore",
 UI_Phrases_HasACold11 = "I feel like I've been hit by a truck",
@@ -584,11 +584,11 @@ UI_Phrases_SARCASM3 = "fantastic",
 UI_Phrases_SARCASM4 = "just what I needed",
 UI_Phrases_SARCASM5 = "just my luck",
 
---UI_Phrases_AMMOUNT
-UI_Phrases_AMMOUNT1 = "super",
-UI_Phrases_AMMOUNT2 = "pretty",
-UI_Phrases_AMMOUNT3 = "really",
-UI_Phrases_AMMOUNT4 = "incredibly",
+--UI_Phrases_AMOUNT
+UI_Phrases_AMOUNT1 = "super",
+UI_Phrases_AMOUNT2 = "pretty",
+UI_Phrases_AMOUNT3 = "really",
+UI_Phrases_AMOUNT4 = "incredibly",
 
 --These set of phrases are unique in that they are parsed to replace the string before `:` with the one after it.
 --The left side of the `:` should be ONLY 1 character
