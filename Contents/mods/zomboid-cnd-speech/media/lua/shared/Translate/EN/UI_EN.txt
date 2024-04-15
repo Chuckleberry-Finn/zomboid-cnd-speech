@@ -98,6 +98,7 @@ UI_Phrases_HasACold22 = "I'm so congested",
 UI_Phrases_HasACold23 = "I feel like I'm suffocating",
 UI_Phrases_HasACold24 = "this cold is making me miserable",
 UI_Phrases_HasACold25 = "I can't wait to be healthy again",
+UI_Phrases_HasACold26 = "my head feels hot",
 
 --UI_Phrases_Windchill
 UI_Config_Windchill = "Windchill",
@@ -205,8 +206,10 @@ UI_Phrases_Bleeding23 = "<SWEAR> I'm in a lot of pain",
 UI_Phrases_Bleeding24 = "<SWEAR> I can't feel my limbs",
 UI_Phrases_Bleeding25 = "I don't want to die!",
 UI_Phrases_Bleeding26 = "<Pain>, this is a lot of blood",
-UI_Phrases_Bleeding27 = "<SWEAR> I need to stop the bleeding",
-
+UI_Phrases_Bleeding27 = "<Pain>, I'm losing too much blood",
+UI_Phrases_Bleeding28 = "<SWEAR> I need to stop the bleeding",
+UI_Phrases_Bleeding29 = "somebody please help me",
+UI_Phrases_Bleeding30 = "somebody help me",
 
 --UI_Phrases_FoodEaten
 UI_Config_FoodEaten = "Food Eaten",
