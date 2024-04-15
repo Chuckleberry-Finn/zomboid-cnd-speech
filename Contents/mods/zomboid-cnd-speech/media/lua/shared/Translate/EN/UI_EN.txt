@@ -203,6 +203,10 @@ UI_Phrases_Bleeding21 = "I'm losing consciousness",
 UI_Phrases_Bleeding22 = "I'm in a lot of pain",
 UI_Phrases_Bleeding23 = "<SWEAR> I'm in a lot of pain",
 UI_Phrases_Bleeding24 = "<SWEAR> I can't feel my limbs",
+UI_Phrases_Bleeding25 = "I don't want to die!",
+UI_Phrases_Bleeding26 = "<Pain>, this is a lot of blood",
+UI_Phrases_Bleeding27 = "<SWEAR> I need to stop the bleeding",
+
 
 --UI_Phrases_FoodEaten
 UI_Config_FoodEaten = "Food Eaten",
@@ -303,6 +307,10 @@ UI_Phrases_HeavyLoad3 = "this is alot to carry",
 UI_Phrases_HeavyLoad4 = "this is a heavy load",
 UI_Phrases_HeavyLoad5 = "<SWEAR>, this is heavy",
 UI_Phrases_HeavyLoad6 = "<Pain>. my back",
+UI_Phrases_HeavyLoad7 = "man this is heavy",
+UI_Phrases_HeavyLoad8 = "holy crap this is heavy",
+UI_Phrases_HeavyLoad9 = "I might need a forklift for this",
+
 
 --UI_Phrases_OnDusk
 UI_Config_OnDusk = "On Dusk",
@@ -361,6 +369,7 @@ UI_Phrases_OutOfAmmo9 = "gun is empty",
 UI_Phrases_OutOfAmmo10 = "out of bullets",
 UI_Phrases_OutOfAmmo11 = "no bullets",
 UI_Phrases_OutOfAmmo12 = "there is no bullets",
+UI_Phrases_OutOfAmmo13 = "<SWEAR>",
 
 --UI_Phrases_Hungry
 UI_Config_Hungry = "Hungry",
@@ -386,6 +395,7 @@ UI_Phrases_Hungry19 = "where the <SWEAR> is some food!?",
 UI_Phrases_Hungry20 = "I am so hungry",
 UI_Phrases_Hungry21 = "uhnnng. the hunger",
 UI_Phrases_Hungry22 = "I am starving",
+UI_Phrases_Hungry18 = "<Pain>. the hunger.",
 
 --UI_Phrases_Thirst
 UI_Config_Thirst = "Thirst",
@@ -597,6 +607,8 @@ UI_Phrases_FOOD25 = "a bucket of Jay's Chicken",
 UI_Phrases_FOOD26 = "an order of Jay's biscuits with gravy",
 UI_Phrases_FOOD27 = "eating anything",
 UI_Phrases_FOOD28 = "anything to eat",
+UI_Phrases_FOOD29 = "a everything bagel",
+UI_Phrases_FOOD30 = "a entire pizza",
 
 --UI_Phrases_SARCASM
 UI_Phrases_SARCASM1 = "just great",
