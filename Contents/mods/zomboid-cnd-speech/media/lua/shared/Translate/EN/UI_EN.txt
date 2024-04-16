@@ -277,8 +277,9 @@ UI_Phrases_Unhappy23 = "I feel so alone",
 UI_Phrases_Unhappy24 = "I'm tired of pretending everything is okay",
 UI_Phrases_Unhappy25 = "I don't know how much longer I can keep going",
 UI_Phrases_Unhappy26 = "this isn't okay",
-UI_Phrases_Unhappy27 = "things wont get better",
+UI_Phrases_Unhappy27 = "things won't get better",
 UI_Phrases_Unhappy28 = "I miss <FOOD>",
+UI_Phrases_Unhappy29 = "life is just a sea of disappointment",
 
 --UI_Phrases_Wet
 UI_Config_Wet = "Wet",
@@ -468,6 +469,8 @@ UI_Phrases_Bored14 = "there has gotta be something to do! something! anything! a
 UI_Phrases_Bored15 = "sticking spoons in my eyes would be better than this",
 UI_Phrases_Bored16 = "this boredom is driving me insane!",
 UI_Phrases_Bored17 = "this boredom is driving me crazy!",
+UI_Phrases_Bored18 = "I would rather have a tea party with a zombie",
+UI_Phrases_Bored19 = "I would rather do anything else",
 
 --UI_Phrases_Stress
 UI_Config_Stress = "Stress",
@@ -572,6 +575,7 @@ UI_Phrases_SWEAR2 = "damn",
 UI_Phrases_SWEAR3 = "god damn",
 UI_Phrases_SWEAR4 = "shit",
 UI_Phrases_SWEAR5 = "fuck",
+UI_Phrases_SWEAR6 = "damn it",
 
 --UI_Phrases_Plosives
 UI_Phrases_Plosives1 = "f",
@@ -636,8 +640,6 @@ UI_Phrases_SARCASM4 = "just what I needed",
 UI_Phrases_SARCASM5 = "just my luck",
 UI_Phrases_SARCASM6 = "of course",
 UI_Phrases_SARCASM7 = "oh great",
-UI_Phrases_SARCASM8 = "I just looove",
-
 
 --These set of phrases are unique in that they are parsed to replace the string before `:` with the one after it.
 --The left side of the `:` should be ONLY 1 character
