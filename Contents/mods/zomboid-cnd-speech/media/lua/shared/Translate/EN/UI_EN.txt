@@ -441,6 +441,7 @@ UI_Phrases_Tired20 = "I really should go to sleep soon.",
 UI_Phrases_Tired21 = "*your eyelids feel heavy*",
 UI_Phrases_Tired22 = "I can barely stand. I am so tired.",
 UI_Phrases_Tired23 = "I miss my bed",
+UI_Phrases_Tired24 = "<SWEAR> I am tired.",
 
 --UI_Phrases_Bored
 UI_Config_Bored = "Bored",
@@ -460,6 +461,7 @@ UI_Phrases_Bored13 = "I really need something to do",
 UI_Phrases_Bored14 = "there has gotta be something to do! something! anything! aghh!",
 UI_Phrases_Bored15 = "sticking spoons in my eyes would be better than this",
 UI_Phrases_Bored16 = "this boredom is driving me insane!",
+UI_Phrases_Bored17 = "this boredom is driving me crazy!",
 
 --UI_Phrases_Stress
 UI_Config_Stress = "Stress",
@@ -476,6 +478,7 @@ UI_Phrases_Stress10 = "can't anymore",
 UI_Phrases_Stress11 = "this fucking stress is killing me",
 UI_Phrases_Stress12 = "fuck this bullshit",
 UI_Phrases_Stress13 = "my head is killing me",
+UI_Phrases_Stress14 = "I can't do this",
 
 --UI_Phrases_Agoraphobic
 UI_Config_Agoraphobic = "Agoraphobic",
@@ -485,6 +488,7 @@ UI_Phrases_Agoraphobic3 = "should not be outside",
 UI_Phrases_Agoraphobic4 = "I should not be doing this",
 UI_Phrases_Agoraphobic5 = "what was that?",
 UI_Phrases_Agoraphobic6 = "why can't I stay inside?",
+UI_Phrases_Agoraphobic7 = "I don't want to be out here",
 
 --UI_Phrases_Claustrophobic
 UI_Config_Claustrophobic = "Claustrophobic",
@@ -495,6 +499,7 @@ UI_Phrases_Claustrophobic4 = "*deep breaths*",
 UI_Phrases_Claustrophobic5 = "<SWEAR>, I hate this",
 UI_Phrases_Claustrophobic6 = "I can't breath in here",
 UI_Phrases_Claustrophobic7 = "*fast breathing*",
+UI_Phrases_Claustrophobic8 = "*really fast breathing*",
 
 --UI_Phrases_Panic
 UI_Config_Panic = "Panic",
