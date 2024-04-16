@@ -337,7 +337,7 @@ UI_Phrases_OnDawn2 = "made it to another day",
 UI_Phrases_OnDawn3 = "the sun is coming up",
 UI_Phrases_OnDawn4 = "the sun is rising",
 UI_Phrases_OnDawn5 = "the sunrise is beautiful today",
-UI_Phrases_OnDawn6 = "i always like watching the sunrise",
+UI_Phrases_OnDawn6 = "I always like watching the sunrise",
 
 --UI_Phrases_GunJammed
 UI_Config_GunJammed = "Gun Jammed",
@@ -624,7 +624,7 @@ UI_Phrases_SARCASM4 = "just what I needed",
 UI_Phrases_SARCASM5 = "just my luck",
 UI_Phrases_SARCASM6 = "of course",
 UI_Phrases_SARCASM7 = "oh great",
-UI_Phrases_SARCASM8 = "i just looove",
+UI_Phrases_SARCASM8 = "I just looove",
 
 
 --These set of phrases are unique in that they are parsed to replace the string before `:` with the one after it.
