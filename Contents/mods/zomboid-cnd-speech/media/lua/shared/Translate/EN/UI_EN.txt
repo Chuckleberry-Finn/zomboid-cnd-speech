@@ -149,6 +149,8 @@ UI_Phrases_Hyperthermia16 = "I need to get indoors",
 UI_Phrases_Hyperthermia17 = "I'm feeling really dizzy",
 UI_Phrases_Hyperthermia18 = "I'm feeling dizzy",
 UI_Phrases_Hyperthermia19 = "I hate the heat",
+UI_Phrases_Hyperthermia20 = "it's way too hot out",
+UI_Phrases_Hyperthermia21 = "it's way too hot today",
 
 --UI_Phrases_Endurance
 UI_Config_Endurance = "Endurance",
@@ -285,7 +287,6 @@ UI_Phrases_Wet5 = "I will catch a cold at this rate",
 UI_Phrases_Wet6 = "I am drenched",
 UI_Phrases_Wet7 = "<SWEAR>, I am drenched",
 
-
 --UI_Phrases_Sick
 UI_Config_Sick = "Sick",
 UI_Phrases_Sick1 = "I feel queasy",
@@ -311,7 +312,7 @@ UI_Phrases_HeavyLoad6 = "<Pain>. my back",
 UI_Phrases_HeavyLoad7 = "man this is heavy",
 UI_Phrases_HeavyLoad8 = "holy crap this is heavy",
 UI_Phrases_HeavyLoad9 = "I might need a forklift for this",
-
+UI_Phrases_HeavyLoad10 = "I might need a wheelbarrow for this",
 
 --UI_Phrases_OnDusk
 UI_Config_OnDusk = "On Dusk",
@@ -325,10 +326,11 @@ UI_Phrases_OnDusk7 = "it's getting harder to see",
 UI_Phrases_OnDusk8 = "it's getting harder to see my surroundings",
 UI_Phrases_OnDusk9 = "it's getting harder to see in the distance",
 UI_Phrases_OnDusk10 = "the darkness is closing in",
-UI_Phrases_OnDusk11 = "Moonrise",
+UI_Phrases_OnDusk11 = "moonrise",
 UI_Phrases_OnDusk12 = "this is a beautiful sunset",
 UI_Phrases_OnDusk13 = "I always like watching the sunset",
 UI_Phrases_OnDusk14 = "what a day",
+UI_Phrases_OnDusk15 = "what a day, what a day",
 
 --UI_Phrases_OnDawn
 UI_Config_OnDawn = "On Dawn",
