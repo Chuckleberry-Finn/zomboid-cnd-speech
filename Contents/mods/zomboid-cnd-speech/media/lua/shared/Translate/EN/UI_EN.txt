@@ -278,6 +278,7 @@ UI_Phrases_Unhappy24 = "I'm tired of pretending everything is okay",
 UI_Phrases_Unhappy25 = "I don't know how much longer I can keep going",
 UI_Phrases_Unhappy26 = "this isn't okay",
 UI_Phrases_Unhappy27 = "things wont get better",
+UI_Phrases_Unhappy28 = "I miss <FOOD>",
 
 --UI_Phrases_Wet
 UI_Config_Wet = "Wet",
@@ -352,8 +353,6 @@ UI_Phrases_GunJammed1 = "jam",
 UI_Phrases_GunJammed2 = "gun is jammed",
 UI_Phrases_GunJammed3 = "damn thing is jammed",
 UI_Phrases_GunJammed4 = "jammed",
-UI_Phrases_GunJammed5 = "<SWEAR> damn thing is jammed",
-UI_Phrases_GunJammed6 = "<SWEAR> gun is jammed",
 
 --UI_Phrases_LowAmmo
 UI_Config_LowAmmo = "LowAmmo",
