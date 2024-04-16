@@ -212,6 +212,7 @@ UI_Phrases_Bleeding27 = "<Pain>, I'm losing too much blood",
 UI_Phrases_Bleeding28 = "<SWEAR> I need to stop the bleeding",
 UI_Phrases_Bleeding29 = "somebody please help me",
 UI_Phrases_Bleeding30 = "somebody help me",
+UI_Phrases_Bleeding31 = "I'm seeing spots",
 
 --UI_Phrases_FoodEaten
 UI_Config_FoodEaten = "Food Eaten",
@@ -276,6 +277,7 @@ UI_Phrases_Unhappy23 = "I feel so alone",
 UI_Phrases_Unhappy24 = "I'm tired of pretending everything is okay",
 UI_Phrases_Unhappy25 = "I don't know how much longer I can keep going",
 UI_Phrases_Unhappy26 = "this isn't okay",
+UI_Phrases_Unhappy27 = "things wont get better",
 
 --UI_Phrases_Wet
 UI_Config_Wet = "Wet",
@@ -299,7 +301,9 @@ UI_Phrases_Sick7 = "do I have a fever?",
 UI_Phrases_Sick8 = "I have a fever",
 UI_Phrases_Sick9 = "my head feels hot",
 UI_Phrases_Sick10 = "I'm gonna hurl",
-UI_Phrases_Sick11 = "I'm gonna throw up",
+UI_Phrases_Sick11 = "I'm gonna heave",
+UI_Phrases_Sick12 = "I'm gonna barf",
+UI_Phrases_Sick13 = "I'm gonna throw up",
 
 --UI_Phrases_HeavyLoad
 UI_Config_HeavyLoad = "Heavy Load",
@@ -331,6 +335,7 @@ UI_Phrases_OnDusk12 = "this is a beautiful sunset",
 UI_Phrases_OnDusk13 = "I always like watching the sunset",
 UI_Phrases_OnDusk14 = "what a day",
 UI_Phrases_OnDusk15 = "what a day, what a day",
+UI_Phrases_OnDusk16 = "what a fucking day,
 
 --UI_Phrases_OnDawn
 UI_Config_OnDawn = "On Dawn",
@@ -619,9 +624,10 @@ UI_Phrases_FOOD26 = "an order of Jay's biscuits with gravy",
 UI_Phrases_FOOD27 = "eating anything",
 UI_Phrases_FOOD28 = "anything to eat",
 UI_Phrases_FOOD29 = "a everything bagel",
-UI_Phrases_FOOD30 = "a entire pizza",
-UI_Phrases_FOOD31 = "some cereal",
-UI_Phrases_FOOD32 = "a bowl of cereal",
+UI_Phrases_FOOD30 = "a bagel with cream cheese",
+UI_Phrases_FOOD31 = "a entire pizza",
+UI_Phrases_FOOD32 = "some cereal",
+UI_Phrases_FOOD33 = "a bowl of cereal",
 
 --UI_Phrases_SARCASM
 UI_Phrases_SARCASM1 = "just great",
@@ -644,6 +650,7 @@ UI_Phrases_Slurring4 = "u:oo",
 UI_Phrases_Slurring5 = "c:sch",
 UI_Phrases_Slurring6 = "tion:shun",
 UI_Phrases_Slurring7 = "i:ii",
+UI_Phrases_Slurring8 = "my:mi",
 
 --UI_Phrases_Congested
 UI_Phrases_Congested1 = "k:g",
