@@ -313,11 +313,11 @@ function ConditionalSpeech.applyVolumetricColor_Say(player,text,vol)
 
 	if getDebug() then print(" ---applyVolumetric: "..player:getFullName()," (vol:",vol,") : ",text) end
 
+	ConditionalSpeech.playerJustSpoke[player] = 3
 	if isClient() then
 		sendClientCommand(player, "cndSpeech", "addLineChatElement", {text=text, return_color=return_color, vol=vol}) -- to server
 	else
 		player:addLineChatElement(text, return_color.r, return_color.g, return_color.b, UIFont.Dialogue, vol, "default", true, true, true, true, true, true)
-		player:getBodyDamage():setBoredomLevel( player:getBodyDamage():getBoredomLevel() + (ZomboidGlobals.BoredomDecrease * getGameTime():getMultiplier()) )
 	end
 end
 
@@ -329,6 +329,7 @@ function processSayMessage(text, ...)
 	return original_processSayMessage(text, ...)
 end
 
+ConditionalSpeech.playerJustSpoke = {}
 
 --- Tracks moodle levels overtime, runs generate speech.
 ---@param player IsoGameCharacter|IsoPlayer
@@ -337,6 +338,15 @@ function ConditionalSpeech.check_PlayerStatus(player)
 		return
 	end
 
+	if ConditionalSpeech.playerJustSpoke[player] then
+		ConditionalSpeech.playerJustSpoke[player] = ConditionalSpeech.playerJustSpoke[player] - 1
+		local pSpeaking = player:isSpeaking()
+		if pSpeaking then
+			player:getBodyDamage():setBoredomLevel( player:getBodyDamage():getBoredomLevel() + (ZomboidGlobals.BoredomDecrease * getGameTime():getMultiplier()) )
+		end
+		if (not pSpeaking) or ConditionalSpeech.playerJustSpoke[player] <= 0 then ConditionalSpeech.playerJustSpoke[player] = nil end
+	end
+	
 	local pModData = player:getModData()
 	if not pModData then
 		return
