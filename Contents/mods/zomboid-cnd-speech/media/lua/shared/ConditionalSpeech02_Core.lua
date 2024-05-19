@@ -339,14 +339,18 @@ function ConditionalSpeech.check_PlayerStatus(player)
 	end
 
 	if ConditionalSpeech.playerJustSpoke[player] then
-		ConditionalSpeech.playerJustSpoke[player] = ConditionalSpeech.playerJustSpoke[player] - 1
 		local pSpeaking = player:isSpeaking()
 		if pSpeaking then
 			player:getBodyDamage():setBoredomLevel( player:getBodyDamage():getBoredomLevel() + (ZomboidGlobals.BoredomDecrease * getGameTime():getMultiplier()) )
 		end
-		if (not pSpeaking) or ConditionalSpeech.playerJustSpoke[player] <= 0 then ConditionalSpeech.playerJustSpoke[player] = nil end
+		if (not pSpeaking) then
+			ConditionalSpeech.playerJustSpoke[player] = ConditionalSpeech.playerJustSpoke[player] - 1
+			if ConditionalSpeech.playerJustSpoke[player] <= 0 then
+				ConditionalSpeech.playerJustSpoke[player] = nil
+			end
+		end
 	end
-	
+
 	local pModData = player:getModData()
 	if not pModData then
 		return
