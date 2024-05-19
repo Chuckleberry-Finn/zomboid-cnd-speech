@@ -316,9 +316,8 @@ function ConditionalSpeech.applyVolumetricColor_Say(player,text,vol)
 	if isClient() then
 		sendClientCommand(player, "cndSpeech", "addLineChatElement", {text=text, return_color=return_color, vol=vol}) -- to server
 	else
-		local beforeBoredom = player:getBodyDamage():getBoredomLevel()
 		player:addLineChatElement(text, return_color.r, return_color.g, return_color.b, UIFont.Dialogue, vol, "default", true, true, true, true, true, true)
-		player:getBodyDamage():setBoredomLevel(beforeBoredom)
+		player:getBodyDamage():setBoredomLevel( player:getBodyDamage():getBoredomLevel() + (ZomboidGlobals.BoredomDecrease * getGameTime():getMultiplier()) )
 	end
 end
 
