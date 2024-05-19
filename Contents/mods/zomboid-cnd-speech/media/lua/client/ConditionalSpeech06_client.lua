@@ -2,7 +2,9 @@
 local function onServerCommand(_module, _command, _data)
     --clientside
     if _module == "cndSpeech" and  _command == "addLineChatElement" then
+        local beforeBoredom = getPlayer():getBodyDamage():getBoredomLevel()
         getPlayer():addLineChatElement(_data.text, _data.return_color.r, _data.return_color.g, _data.return_color.b, UIFont.Dialogue, _data.vol, "default", true, true, true, true, true, true)
+        getPlayer():getBodyDamage():setBoredomLevel(beforeBoredom)
     end
 end
 Events.OnServerCommand.Add(onServerCommand)--/server/ to client
