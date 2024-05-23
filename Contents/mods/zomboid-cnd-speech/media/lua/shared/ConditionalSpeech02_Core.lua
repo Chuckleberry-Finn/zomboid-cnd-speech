@@ -332,14 +332,14 @@ end
 ConditionalSpeech.playerJustSpoke = {}
 
 --- Tracks moodle levels overtime, runs generate speech.
----@param player IsoGameCharacter|IsoPlayer
+---@param player IsoGameCharacter|IsoPlayer|IsoMovingObject|IsoObject
 function ConditionalSpeech.check_PlayerStatus(player)
 	if (not player) then--or (not player:getModData().moodleTable) then
 		return
 	end
 
 	if ConditionalSpeech.playerJustSpoke[player] then
-		local pSpeaking = player:isSpeaking()
+		local pSpeaking = player:isSpeaking() and player:getCurrentSquare():isInARoom()
 		if pSpeaking then
 			player:getBodyDamage():setBoredomLevel( player:getBodyDamage():getBoredomLevel() + (ZomboidGlobals.BoredomDecrease * getGameTime():getMultiplier()) )
 		end
