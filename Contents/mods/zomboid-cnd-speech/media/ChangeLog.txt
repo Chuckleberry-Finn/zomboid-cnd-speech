@@ -5,3 +5,7 @@
 [ 5/18/24 ]
 - Corrected boredom adjustment when speaking.
 [ ------ ]
+
+[ 5/22/24 ]
+- Hot fix: Boredom issue with reloading/ammo-count.
+[ ------ ]
