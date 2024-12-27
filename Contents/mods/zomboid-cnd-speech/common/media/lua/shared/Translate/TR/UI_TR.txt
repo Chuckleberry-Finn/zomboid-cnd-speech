@@ -1,0 +1,285 @@
+-- -=[ Instructions for Contributors ]=-
+-- Firstly, thank you for stopping in; I hope you enjoy your time here.
+
+-- Steps:
+---- 1. If there is not a directory for your language with in "/media/lua/client/shared/Translate/" then create one.
+------ 1a. Copy over this file to "Translate/<LANGUAGE>" and rename it to "UI_<LANGUAGE>" (for example: UI_EN.txt)
+---- 2. Under the instructions there is the 'header' for a list - make sure the name matches the text file's name.
+------ For example: Both the text file and list should be UI_EN, UI_RU, UI_FR, etc.
+---- 3. You're ready to translate! Only change things bellow
+
+-- Phrases can be found in "/media/lua/client/shared/Translate/"
+--- (the folder of your language, for example: EN, RU, FR, will include everything you need.)
+
+-- You can add more phrases than what is available, just make sure the numbers at the end of the entry follows numerically.
+--- (1, 2, 3, 4, 5, etc)
+
+-- When Writing New Phrases:
+-- 1. Keep them short when you can.
+-- 2. Don't capitalize anything other than 'I' or proper nouns.
+-- 3. Punctuation is fine, but keep in mind all '.' can become '!' - so avoid things like U.S.A. or F.B.I. (USA and FBI are fine)
+-- 4. Avoid swears (as there is dynamic swearing built-in), instead use <SWEAR>.
+-- 5. For the moment any *emotive actions* have to be the entire phrase (which won't be filtered).
+
+-- For more variety and to avoid bloat from repetitive phrases, phrases can be used as Keywords to replace parts of another phrase at random.
+-- Format: "<WORD> in the phrase." Make sure there is a corresponding PhrasesWORD phrase-set.
+-- When writing new Phrases to be used as keywords: Read through some lines with <WORD> to make sure it sounds correct before adding them in.
+-- For example: Look at "UI_Phrases_FOOD" and <FOOD> below.
+
+-- DO NOT TRANSLATE KEYWORDS LIKE <WORD> OR <SWEAR>.
+
+-- NOTE: THE TABLE HEADER "UI_XX" MUST MATCH THE IN GAME LANGUAGE ABBREVIATION
+UI_TR = {
+
+--UI_Phrases_Drunk
+UI_Phrases_Drunk1 = "Ay bana bir şeyler oluyor",
+UI_Phrases_Drunk2 = "Bir tane daha içebilirim",
+UI_Phrases_Drunk3 = "O son alkolü içmeyecektim",
+UI_Phrases_Drunk4 = "O kadar sarhoşum ki",
+UI_Phrases_Drunk5 = "Kafam dönüyor",
+UI_Phrases_Drunk6 = "Alkol aldım sallanıyorum",
+UI_Phrases_Drunk7 = "Etrafı çift görmeye başladım",
+--UI_Phrases_HasACold
+UI_Phrases_HasACold1 = "burnum akıyor",
+UI_Phrases_HasACold2 = "Üşüttüm galiba",
+UI_Phrases_HasACold3 = "Burnum akıyor gibi sanki",
+UI_Phrases_HasACold4 = "Hastalandım mı?",
+UI_Phrases_HasACold5 = "Ateşim mi var?",
+--UI_Phrases_Windchill
+UI_Phrases_Windchill1 = "dışarısı çok rüzgarlı",
+UI_Phrases_Windchill2 = "hava esiyor",
+--UI_Phrases_Hyperthermia
+UI_Phrases_Hyperthermia1 = "Cehennem gibi oldu",
+UI_Phrases_Hyperthermia2 = "Bu sıcak beni çok susattı",
+UI_Phrases_Hyperthermia3 = "Çok sıcak",
+UI_Phrases_Hyperthermia4 = "Terliyorum",
+UI_Phrases_Hyperthermia5 = "Bu sıcak beni öldürecek",
+UI_Phrases_Hyperthermia6 = "Sıcaktan bayılacam az kaldı",
+UI_Phrases_Hyperthermia7 = "Önümü düzgün göremiyorum",
+--UI_Phrases_Endurance
+UI_Phrases_Endurance1 = "Ayaklarımı bile zar zor hareket ettirebiliyorum",
+UI_Phrases_Endurance2 = "Ara vermem lazım",
+UI_Phrases_Endurance3 = "*nefes nefese kaldın*",
+UI_Phrases_Endurance4 = "Dinlemem lazım",
+UI_Phrases_Endurance5 = "Zar zor koşabilirim",
+UI_Phrases_Endurance6 = "Ne kadar daha gidebileceğimi bilmiyorum",
+UI_Phrases_Endurance7 = "Zar zor hareket yürüyebiliyorum
+UI_Phrases_Endurance8 = "Bayılmak üzereyim",
+UI_Phrases_Endurance9 = "Zar zor hareket edebiliyorum",
+UI_Phrases_Endurance10 = "Kollarımı bile zar zor hareket ettirebiliyorum",
+--UI_Phrases_Bleeding
+UI_Phrases_Bleeding1 = "Biraz kanamam var",
+UI_Phrases_Bleeding2 = "Kanamam var",
+UI_Phrases_Bleeding3 = "Kanamayı durdurmam gerekiyor",
+UI_Phrases_Bleeding4 = "Çok kan kaybediyorum",
+UI_Phrases_Bleeding5 = "Kan kaybından öleceğim",
+UI_Phrases_Bleeding6 = "Bu gidişle öleceğim"
+--UI_Phrases_FoodEaten
+UI_Phrases_FoodEaten1 = "Tıka basayım",
+UI_Phrases_FoodEaten2 = "Karnım dolu",
+UI_Phrases_FoodEaten3 = "Tıkandım",
+UI_Phrases_FoodEaten4 = "Midem şişti",
+UI_Phrases_FoodEaten5 = "Bir ısırık daha alamam",
+UI_Phrases_FoodEaten6 = "Daha fazla yiyemeyeceğim"
+--UI_Phrases_Injured
+UI_Phrases_Injured1 = "Bunu tedavi etmeliyim",
+UI_Phrases_Injured2 = "Yaralandım, <SARCASM>",
+UI_Phrases_Injured3 = "<SWEAR>",
+UI_Phrases_Injured4 = "Bu iz bırakacak",
+UI_Phrases_Injured5 = "İlk yardıma ihtiyacım olacak",
+UI_Phrases_Injured6 = "Yaralarımı sarmam gerekiyor",
+--UI_Phrases_Unhappy
+UI_Phrases_Unhappy1 = "ailemi çok özlüyorum",
+UI_Phrases_Unhappy2 = "hayat iyice zor olmaya başladı",
+UI_Phrases_Unhappy3 = "daha ne kadar böyle devam edeceğim",
+UI_Phrases_Unhappy4 = "bundan sonra benim hayatım böyle mi devam edecek?",
+UI_Phrases_Unhappy5 = "hayata devam etmenin mantığı ne ki",
+UI_Phrases_Unhappy6 = "amaç ne ki",
+UI_Phrases_Unhappy7 = "masıl bir hayat bu?",
+UI_Phrases_Unhappy8 = "bu yaşamak değil ki",
+UI_Phrases_Unhappy9 = "bende ölülere katılmalıyım belkide",
+UI_Phrases_Unhappy10 = "neden ben?",
+UI_Phrases_Unhappy11 = "geleceğim yok",
+UI_Phrases_Unhappy12 = "bir anlamı yok",
+--UI_Phrases_Wet
+UI_Phrases_Wet1 = "Islandım",
+UI_Phrases_Wet2 = "Sırılsıklam ıslandım",
+UI_Phrases_Wet3 = "Sırılsıklamım",
+UI_Phrases_Wet4 = "Sırılsıklam oldum, <SARCASM>",
+UI_Phrases_Wet5 = "Bu gidişle üşüteceğim",
+UI_Phrases_Wet6 = "Bu gidişle hastalanacağım",
+--UI_Phrases_Sick
+UI_Phrases_Sick1 = "Burnum akıyor",
+UI_Phrases_Sick2 = "Galiba hasta oldum",
+UI_Phrases_Sick3 = "Kendimi rahatsız hissediyorum",
+UI_Phrases_Sick4 = "Kendimi iyi hissetmiyorum",
+UI_Phrases_Sick5 = "Midem bulanıyor",
+UI_Phrases_Sick6 = "Ateşim mi çıktı",
+UI_Phrases_Sick7 = "Ateşim var",
+--UI_Phrases_HeavyLoad
+UI_Phrases_HeavyLoad1 = "*homurdanma*",
+UI_Phrases_HeavyLoad2 = "Çok ağır",
+UI_Phrases_HeavyLoad3 = "Taşıyamacak kadar ağır",
+UI_Phrases_HeavyLoad4 = "Sırtım yamuldu",
+UI_Phrases_HeavyLoad5 = "<SWEAR>, bu çok ağır",
+UI_Phrases_HeavyLoad6 = "<Pain>. sırtım",
+--UI_Phrases_OnDusk
+UI_Phrases_OnDusk1 = "karanlık oluyor",
+UI_Phrases_OnDusk2 = "güneş batıyor",
+UI_Phrases_OnDusk3 = "gece oluyor",
+--UI_Phrases_OnDawn
+UI_Phrases_OnDawn1 = "yeni bir gün",
+UI_Phrases_OnDawn2 = "bugünü de atlattık",
+UI_Phrases_OnDawn3 = "gün doğumu",
+UI_Phrases_OnDawn4 = "güneş doğuyor",
+--UI_Phrases_GunJammed
+UI_Phrases_GunJammed1 = "silah takıldı",
+UI_Phrases_GunJammed2 = "silah tutukluk yaptı",
+--UI_Phrases_LowAmmo
+UI_Phrases_LowAmmo1 = "mermim azalmaya başladı",
+UI_Phrases_LowAmmo2 = "mermim azalıyor",
+UI_Phrases_LowAmmo3 = "şarjörü yenilemem lazım",
+UI_Phrases_LowAmmo4 = "silahı tekrardan doldurmam lazım",
+--UI_Phrases_OutOfAmmo
+UI_Phrases_OutOfAmmo1 = "mermim kalmadı",
+UI_Phrases_OutOfAmmo2 = "şarjör boş",
+UI_Phrases_OutOfAmmo3 = "mermim yok",
+UI_Phrases_OutOfAmmo4 = "bu boş",
+UI_Phrases_OutOfAmmo5 = "silahın mermisi yok",
+UI_Phrases_OutOfAmmo6 = "bu silah boş",
+--UI_Phrases_Hungry
+UI_Phrases_Hungry1 = "Bir şeyler yiyebilirim",
+UI_Phrases_Hungry2 = "<FOOD> yemek istiyorum",
+UI_Phrases_Hungry3 = "Yemek yemem lazım",
+UI_Phrases_Hungry4 = "Canım <FOOD> yemek istiyor",
+UI_Phrases_Hungry5 = "Düşünsene bu kıyamette bir <FOOD> yiyorsun",
+UI_Phrases_Hungry6 = "*karın guruldaması*",
+UI_Phrases_Hungry7 = "Bir şeyler yesem iyi olacak",
+UI_Phrases_Hungry8 = "Bir şeyler yemeliyim",
+UI_Phrases_Hungry9 = "*sesli bir karın guruldaması*",
+UI_Phrases_Hungry10 = "Buralarda bir yerde yiyecek olması lazımdı",
+UI_Phrases_Hungry11 = "Çok acıktım",
+UI_Phrases_Hungry12 = "Karnım gurulduyor",
+UI_Phrases_Hungry13 = "Açlıktan gebericem",
+UI_Phrases_Hungry14 = "Açlıktan ölüyorum",
+UI_Phrases_Hungry15 = "<FOOD> yesem süper olurdu",
+UI_Phrases_Hungry16 = "Canım <FOOD> istiyor",
+--UI_Phrases_Thirst
+UI_Phrases_Thirst1 = "ağzım kurudu",
+UI_Phrases_Thirst2 = "*yutkunur*",
+UI_Phrases_Thirst3 = "Bir şeyler içmem lazım",
+UI_Phrases_Thirst4 = "İçeçecek bir şey almam lazım",
+UI_Phrases_Thirst5 = "ağzım kurudu",
+UI_Phrases_Thirst6 = "susuzluktan öldüm",
+UI_Phrases_Thirst7 = "Çok susadım",
+UI_Phrases_Thirst8 = "içeçecek bir şey yok mu?",
+--UI_Phrases_Tired
+UI_Phrases_Tired1 = "Uyumalıyım",
+UI_Phrases_Tired2 = "Yatağa yatmalıyım",
+UI_Phrases_Tired3 = "yoruldum",
+UI_Phrases_Tired3 = "çok yoruldum",
+UI_Phrases_Tired4 = "Uyumaya ihtiyacım var",
+UI_Phrases_Tired5 = "Bayılmak üzereyim",
+UI_Phrases_Tired6 = "Bayılacam az kaldı",
+UI_Phrases_Tired7 = "En son ne zaman uyudum hatırlamıyorum bile",
+UI_Phrases_Tired8 = "Çok yorgunum",
+UI_Phrases_Tired9 = "Uyumam lazım",
+UI_Phrases_Tired10 = "*gözlerin ara sıra kapanıyor*",
+UI_Phrases_Tired11 = "Zar zor ayakta durabiliyorum. Çok yoruldum",
+--UI_Phrases_Bored
+UI_Phrases_Bored1 = "Sıkıntıdan kafayı yicem",
+UI_Phrases_Bored2 = "Sıkıntıdan patlıcam",
+UI_Phrases_Bored3 = "Canım çok sıkıldı.",
+UI_Phrases_Bored4 = "<SWEAR> çok canım sıkıldı",
+UI_Phrases_Bored5 = "*iç çekme*",
+UI_Phrases_Bored6 = "Bir şeyler yapmam lazım",
+--UI_Phrases_Stress
+UI_Phrases_Stress1 = "psikolojim bozuldu",
+UI_Phrases_Stress2 = "*derin nefes*",
+UI_Phrases_Stress3 = "Rahatlamam lazım",
+UI_Phrases_Stress4 = "*derin bir iç çekme*",
+UI_Phrases_Stress5 = "Biraz rahatlamak istiyorum",
+UI_Phrases_Stress6 = "stresten kafayı yicem",
+UI_Phrases_Stress7 = "çıldırıcam",
+UI_Phrases_Stress8 = "delirecem",
+UI_Phrases_Stress9 = "sikerim amına korum ya",
+--UI_Phrases_Agoraphobic
+UI_Phrases_Agoraphobic1 = "derin nefes alıp verme",
+UI_Phrases_Agoraphobic2 = "bundan nefret ediyorum",
+UI_Phrases_Agoraphobic3 = "dışarıda olmamalıyım",
+UI_Phrases_Agoraphobic4 = "bunu yapmamalıyım",
+UI_Phrases_Agoraphobic5 = "o ses neydi lan?",
+UI_Phrases_Agoraphobic6 = "neden dışarı çıkıyorum ki",
+--UI_Phrases_Claustrophobic
+UI_Phrases_Claustrophobic1 = "derin nefes alıp verme",
+UI_Phrases_Claustrophobic2 = "Bu histen nefret ediyorum",
+UI_Phrases_Claustrophobic3 = "duvarlar üzerime üzerime geliyor",
+UI_Phrases_Claustrophobic4 = "*derin nefes*",
+UI_Phrases_Claustrophobic5 = "<SWEAR>, bundan nefret ediyorum",
+UI_Phrases_Claustrophobic6 = "Burada nefes alamıyorum",
+--UI_Phrases_Panic
+UI_Phrases_Panic1 = "*nefes nefese kaldın*",
+UI_Phrases_Panic3 = "Ananı! <SWEAR>",
+UI_Phrases_Panic4 = "Hayır!",
+UI_Phrases_Panic5 = "Hayır olamaz!",
+UI_Phrases_Panic6 = "Noluyo lan?!",
+UI_Phrases_Panic7 = "<SWEAR>",
+UI_Phrases_Panic8 = "<SWEAR>!",
+UI_Phrases_Panic9 = "<SWEAR>!",
+UI_Phrases_Panic10 = "ahh!",
+UI_Phrases_Panic11 = "neden!?",
+UI_Phrases_Panic12 = "hayır lütfen!",
+UI_Phrases_Panic13 = "lütfen yardım edin!",
+UI_Phrases_Panic14 = "yalvarırım birisi yardım etsin!",
+UI_Phrases_Panic15 = "tanrım! ahhh!",
+--UI_Phrases_Hypothermia
+UI_Phrases_Hypothermia1 = "çok soğuk",
+UI_Phrases_Hypothermia2 = "brrrrr",
+UI_Phrases_Hypothermia3 = "*titreme*",
+--UI_Phrases_Pain
+UI_Phrases_Pain1 = "Ahhh",
+UI_Phrases_Pain2 = "Ağğğğhhh",
+UI_Phrases_Pain3 = "Tanrım",
+UI_Phrases_Pain4 = "Ahhh",
+--UI_Phrases_SWEAR
+UI_Phrases_SWEAR1 = "lanet olsun",
+UI_Phrases_SWEAR2 = "kahretsin",
+UI_Phrases_SWEAR3 = "siktir",
+UI_Phrases_SWEAR5 = "hassiktir",
+UI_Phrases_SWEAR6 = "sikeyim",
+UI_Phrases_SWEAR7 = "amına koyayım",
+--UI_Phrases_Plosives
+UI_Phrases_Plosives1 = "f",
+UI_Phrases_Plosives2 = "F",
+UI_Phrases_Plosives3 = "p",
+UI_Phrases_Plosives4 = "P",
+UI_Phrases_Plosives5 = "t",
+UI_Phrases_Plosives6 = "T",
+UI_Phrases_Plosives7 = "k",
+UI_Phrases_Plosives8 = "K",
+UI_Phrases_Plosives9 = "b",
+UI_Phrases_Plosives10 = "B",
+UI_Phrases_Plosives11 = "d",
+UI_Phrases_Plosives12 = "D",
+UI_Phrases_Plosives13 = "g",
+UI_Phrases_Plosives14 = "G",
+UI_Phrases_Plosives15 = "s",
+UI_Phrases_Plosives16 = "S",
+UI_Phrases_Plosives17 = "m",
+UI_Phrases_Plosives18 = "M",
+--UI_Phrases_FOOD
+UI_Phrases_FOOD1 = "pizza",
+UI_Phrases_FOOD2 = "kek",
+UI_Phrases_FOOD3 = "hamburger",
+UI_Phrases_FOOD4 = "tavuk",
+UI_Phrases_FOOD5 = "pilav",
+UI_Phrases_FOOD6 = "fasulye",
+UI_Phrases_FOOD7 = "bamya",
+UI_Phrases_FOOD8 = "karnıbahar",
+UI_Phrases_FOOD9 = "döner",
+UI_Phrases_FOOD10 = "tavuk döner",
+UI_Phrases_FOOD11 = "iskender",
+--UI_Phrases_SARCASM
+UI_Phrases_SARCASM1 = "tamda ihtiyacım olan şey",
+UI_Phrases_SARCASM2 = "sadece şanslıyım",
+}

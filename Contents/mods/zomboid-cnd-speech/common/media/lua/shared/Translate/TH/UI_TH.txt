@@ -1,0 +1,458 @@
+-- -=[ Instructions for Contributors ]=-
+-- Firstly, thank you for stopping in; I hope you enjoy your time here.
+
+-- Steps:
+---- 1. If there is not a directory for your language with in "/media/lua/client/shared/Translate/" then create one.
+------ 1a. Copy over this file to "Translate/<LANGUAGE>" and rename it to "UI_<LANGUAGE>" (for example: UI_EN.txt)
+---- 2. Under the instructions there is the 'header' for a list - make sure the name matches the text file's name.
+------ For example: Both the text file and list should be UI_EN, UI_RU, UI_FR, etc.
+---- 3. You're ready to translate! Only change things bellow
+
+-- Phrases can be found in "/media/lua/client/shared/Translate/"
+--- (the folder of your language, for example: EN, RU, FR, will include everything you need.)
+
+-- You can add more phrases than what is available, just make sure the numbers at the end of the entry follows numerically.
+--- (1, 2, 3, 4, 5, etc)
+
+-- When Writing New Phrases:
+-- 1. Keep them short when you can.
+-- 2. Don't capitalize anything other than 'I' or proper nouns.
+-- 3. Punctuation is fine, but keep in mind all '.' can become '!' - so avoid things like U.S.A. or F.B.I. (USA and FBI are fine)
+-- 4. Avoid swears (as there is dynamic swearing built-in), instead use <SWEAR>.
+-- 5. For the moment any *emotive actions* have to be the entire phrase (which won't be filtered).
+
+-- For more variety and to avoid bloat from repetitive phrases, phrases can be used as Keywords to replace parts of another phrase at random.
+-- Format: "<WORD> in the phrase." Make sure there is a corresponding PhrasesWORD phrase-set.
+-- When writing new Phrases to be used as keywords: Read through some lines with <WORD> to make sure it sounds correct before adding them in.
+-- For example: Look at "UI_Phrases_FOOD" and <FOOD> below.
+
+-- DO NOT TRANSLATE KEYWORDS LIKE <WORD> OR <SWEAR>.
+
+-- NOTE: THE TABLE HEADER "UI_XX" MUST MATCH THE IN GAME LANGUAGE ABBREVIATION
+UI_TH = {
+
+-- These are for the config options - leave "\n" in for line break purposes.
+-- Each phrase set that has a config option for it has the prefix "UI_Config_" followed by the same MoodID
+UI_ConfigMODID_Conditional-Speech = "คำพูดตามเงื่อนไข",
+UI_Config_SpeechCanAttractsZombies = "คำพูดล่อซอมบี้มาหาได้",
+UI_Config_SpeechCanAttractsZombiesToolTip = "แม้ในสถานการณ์เลวร้าย ซอมบี้ก็จะไม่ได้ยินคำพูดตามเงื่อนไข"
+UI_Config_ShowOnlyAudibleSpeech = "แสดงเฉพาะคำพูดที่ส่งเสียง"
+UI_Config_ShowOnlyAudibleSpeechToolTip = "แสดงเฉพาะคำพูดที่ผู้เล่นคนอื่นรวมทั้งซอมบี้จะได้ยินจริง ๆ เท่านั้น"
+UI_Config_moodTableToolTip = "กำหนดค่าสถานการณ์:"
+
+-- This phrase is used for remaining ammunition left in the gun.
+UI_shotsLeft = "ลูก"
+
+--UI_Phrases_Drunk
+UI_Config_Drunk = "เมา",
+UI_Phrases_Drunk1 = "กรึ่ม ๆ เคลิ้ม ๆ",
+UI_Phrases_Drunk2 = "มันดีอะ",
+UI_Phrases_Drunk3 = "นุ่มลึก",
+UI_Phrases_Drunk4 = "อีกขวดก็ยังไหว",
+UI_Phrases_Drunk5 = "ของดีไม่เบา",
+UI_Phrases_Drunk6 = "ดื่มเพื่อลืมเธอ",
+UI_Phrases_Drunk7 = "สุดเหวี่ยงไปเลย",
+UI_Phrases_Drunk8 = "เมาว่ะ",
+UI_Phrases_Drunk9 = "เมาให้ลืมโลกไปเลย",
+
+--UI_Phrases_HasACold
+UI_Config_HasACold = "เป็นหวัด",
+UI_Phrases_HasACold1 = "น้ำมูกไหลแล้ว",
+UI_Phrases_HasACold2 = "คัดจมูกจังเลย",
+UI_Phrases_HasACold3 = "เป็นหวัดแน่เลย",
+UI_Phrases_HasACold4 = "แย่จัง เป็นหวัดซะแล้ว",
+UI_Phrases_HasACold5 = "เจ็บคอจังเลย",
+UI_Phrases_HasACold6 = "ต้องรักษาโรคหวัดให้หาย",
+UI_Phrases_HasACold7 = "จะมีไข้หรือเปล่านะ?",
+
+--UI_Phrases_Windchill
+UI_Config_Windchill = "ลมแรง",
+UI_Phrases_Windchill1 = "ลมแรงจัง",
+UI_Phrases_Windchill2 = "ลมแรงมาก",
+UI_Phrases_Windchill3 = "ลมแรงสุด ๆ ไปเลย",
+UI_Phrases_Windchill4 = "ลมพัดแรงจริง ๆ",
+UI_Phrases_Windchill5 = "ลมแรงมากเลย",
+UI_Phrases_Windchill6 = "ลมจะแรงไปไหน",
+UI_Phrases_Windchill7 = "ลมพัดแรงสุด ๆ เลย",
+UI_Phrases_Windchill8 = "ลมแรงจนตัวจะปลิวอยู่แล้ว",
+
+--UI_Phrases_Hyperthermia
+UI_Config_Hyperthermia = "ร้อน",
+UI_Phrases_Hyperthermia1 = "ร้อนจัง",
+UI_Phrases_Hyperthermia2 = "ร้อนมาก คอแห้งเลย",
+UI_Phrases_Hyperthermia3 = "ร้อนมาก",
+UI_Phrases_Hyperthermia4 = "ร้อนสุด ๆ",
+UI_Phrases_Hyperthermia5 = "ร้อนตับแตก",
+UI_Phrases_Hyperthermia6 = "ร้อนแทบจะเป็นบ้า",
+UI_Phrases_Hyperthermia7 = "ร้อนจนจะเป็นลมแล้ว",
+UI_Phrases_Hyperthermia8 = "จะไม่ไหวแล้ว",
+
+--UI_Phrases_Endurance
+UI_Config_Endurance = "เหนื่อย",
+UI_Phrases_Endurance1 = "ไม่ไหวแล้ว",
+UI_Phrases_Endurance2 = "ได้พักสักนิดคงดี",
+UI_Phrases_Endurance3 = "*แฮ่ก ๆ*",
+UI_Phrases_Endurance4 = "ต้องออกกำลังกายบ่อย ๆ ซะแล้ว",
+UI_Phrases_Endurance5 = "ขอพักก่อนได้ไหม",
+UI_Phrases_Endurance6 = "วิ่งจะไม่ไหวแล้ว",
+UI_Phrases_Endurance7 = "จะไปต่อไม่ไหวแล้วนะ",
+UI_Phrases_Endurance8 = "ก้าวขาไม่ออกแล้ว",
+UI_Phrases_Endurance9 = "จะเป็นลมแล้วนะ",
+UI_Phrases_Endurance10 = "โอย ปวดขา",
+UI_Phrases_Endurance11 = "เมื่อยไปหมดทั้งตัวเลย",
+UI_Phrases_Endurance12 = "ขาเป็นตะคริวหมดแล้ว",
+
+--UI_Phrases_Bleeding
+UI_Config_Bleeding = "เลือดไหล",
+UI_Phrases_Bleeding1 = "มีเลือดออกนิดหน่อยนะ",
+UI_Phrases_Bleeding2 = "เลือดไหลเยอะมาก",
+UI_Phrases_Bleeding3 = "ต้องห้ามเลือด",
+UI_Phrases_Bleeding4 = "เลือดไหลไม่หยุดเลย",
+UI_Phrases_Bleeding5 = "เลือดออกจนจะหมดตัวแล้ว",
+UI_Phrases_Bleeding6 = "ไม่รอดแน่แบบนี้"
+
+--UI_Phrases_FoodEaten
+UI_Config_FoodEaten = "กินอาหาร",
+UI_Phrases_FoodEaten1 = "อร่อยอ่ะ",
+UI_Phrases_FoodEaten2 = "อิ่มจัง",
+UI_Phrases_FoodEaten3 = "อิ่มมากเลย",
+UI_Phrases_FoodEaten4 = "อิ่มพุงกาง",
+UI_Phrases_FoodEaten5 = "อิ่มจนพุงจะแตกแล้ว",
+UI_Phrases_FoodEaten6 = "กินอีกคำพุงแตกแน่นอน",
+UI_Phrases_FoodEaten7 = "กินต่อไม่ไหวแล้ว"
+
+--UI_Phrases_Injured
+UI_Config_Injured = "บาดเจ็บ",
+UI_Phrases_Injured1 = "เจ็บตัวอีกแล้ว",
+UI_Phrases_Injured2 = "<SARCASM> ได้แผลอีกแล้วจ้า",
+UI_Phrases_Injured3 = "<SWEAR>",
+UI_Phrases_Injured4 = "ได้แผลเป็นเพิ่มซะแล้ว",
+UI_Phrases_Injured5 = "ปฐมพยาบาลด่วน",
+UI_Phrases_Injured6 = "ชุดปฐมพยาบาลอยู่ไหน",
+
+--UI_Phrases_Unhappy
+UI_Config_Unhappy = "ทุกข์ใจ",
+UI_Phrases_Unhappy1 = "คิดถึงที่บ้านจัง",
+UI_Phrases_Unhappy2 = "ทำไมต้องมาเจออะไรแบบนี้ด้วย",
+UI_Phrases_Unhappy3 = "ไม่รู้จะทนต่อไปได้อีกนานแค่ไหน?",
+UI_Phrases_Unhappy4 = "ทำไมชีวิตเป็นแบบนี้วะ?",
+UI_Phrases_Unhappy5 = "อยู่ไปเพื่ออะไรวะ",
+UI_Phrases_Unhappy6 = "สิ้นหวังแล้ว",
+UI_Phrases_Unhappy7 = "จะมีชีวิตต่อไปเพื่ออะไร?",
+UI_Phrases_Unhappy8 = "ให้ทนอยู่แบบนี้ตายดีกว่าไหม",
+UI_Phrases_Unhappy9 = "ไปให้ซอมบี้แดกเลยดีไหม",
+UI_Phrases_Unhappy10 = "ทำไมต้องมาเจออะไรแบบนี้ด้วย?",
+UI_Phrases_Unhappy11 = "มองไม่เห็นอนาคตเลย",
+UI_Phrases_Unhappy12 = "โลกนี้จบสิ้นแล้ว",
+UI_Phrases_Unhappy13 = "จะอยู่ไปทำไม",
+
+--UI_Phrases_Wet
+UI_Config_Wet = "เปียก",
+UI_Phrases_Wet1 = "แฉะไปหมดแล้ว",
+UI_Phrases_Wet2 = "เปียกไปทั้งตัวเลย",
+UI_Phrases_Wet3 = "ชุ่มฉ่ำทั้งตัว",
+UI_Phrases_Wet4 = "<SARCASM> แฉะไปหมดแล้วจ้า",
+UI_Phrases_Wet5 = "หวัดแดกแน่นอนแบบนี้",
+UI_Phrases_Wet6 = "เปียกโชกเลย",
+
+--UI_Phrases_Sick
+UI_Config_Sick = "ป่วย",
+UI_Phrases_Sick1 = "รู้สึกไม่ค่อยสบาย",
+UI_Phrases_Sick2 = "อาการไม่ค่อยดี",
+UI_Phrases_Sick3 = "รู้สึกไม่ค่อยดีเลย",
+UI_Phrases_Sick4 = "รู้สึกไม่สบายนิดหน่อย",
+UI_Phrases_Sick5 = "เหมือนจะป่วย",
+UI_Phrases_Sick6 = "อยากอ้วก",
+UI_Phrases_Sick7 = "มีไข้หรือเปล่าเนี่ย?",
+UI_Phrases_Sick8 = "เป็นไข้ซะแล้ว",
+
+--UI_Phrases_HeavyLoad
+UI_Config_HeavyLoad = "แบกของหนัก",
+UI_Phrases_HeavyLoad1 = "*ฮึบ*",
+UI_Phrases_HeavyLoad2 = "หนักจัง",
+UI_Phrases_HeavyLoad3 = "แบกเยอะไปไหมเนี่ย",
+UI_Phrases_HeavyLoad4 = "หนักจังเลยโว้ย",
+UI_Phrases_HeavyLoad5 = "<SWEAR> โคตรหนัก",
+UI_Phrases_HeavyLoad6 = "<Pain> หลังจะหักแล้ว",
+
+--UI_Phrases_OnDusk
+UI_Config_OnDusk = "พลบค่ำ",
+UI_Phrases_OnDusk1 = "เริ่มมืดแล้ว",
+UI_Phrases_OnDusk2 = "ใกล้ค่ำแล้ว",
+UI_Phrases_OnDusk3 = "ดวงอาทิตย์ลับขอบฟ้า",
+
+--UI_Phrases_OnDawn
+UI_Config_OnDawn = "รุ่งสาง",
+UI_Phrases_OnDawn1 = "เช้าวันใหม่",
+UI_Phrases_OnDawn2 = "สดใสยามเช้า",
+UI_Phrases_OnDawn3 = "สวัสดีเช้าวันใหม่",
+UI_Phrases_OnDawn4 = "แสงยามเช้านี่ดีจัง",
+
+--UI_Phrases_GunJammed
+UI_Config_GunJammed = "ปืนขัดลำกล้อง",
+UI_Phrases_GunJammed1 = "ไม่ออก",
+UI_Phrases_GunJammed2 = "ปืนขัดลำกล้อง",
+UI_Phrases_GunJammed3 = "เวร ยิงไม่ออก",
+UI_Phrases_GunJammed4 = "ยิงไม่ออก",
+
+--UI_Phrases_LowAmmo
+UI_Config_LowAmmo = "กระสุนเหลือน้อย",
+UI_Phrases_LowAmmo1 = "ลูกจะหมดแล้ว",
+UI_Phrases_LowAmmo2 = "กระสุนใกล้หมดแล้ว",
+UI_Phrases_LowAmmo3 = "ต้องบรรจุกระสุนใหม่",
+UI_Phrases_LowAmmo4 = "ยิงได้อีกไม่กี่นัด",
+UI_Phrases_LowAmmo5 = "กระสุนเหลือน้อย",
+
+--UI_Phrases_OutOfAmmo
+UI_Config_OutOfAmmo = "กระสุนหมด",
+UI_Phrases_OutOfAmmo1 = "กระสุนหมดแล้ว",
+UI_Phrases_OutOfAmmo2 = "ยิงหมดแล้ว",
+UI_Phrases_OutOfAmmo3 = "ไม่มีกระสุน",
+UI_Phrases_OutOfAmmo4 = "กระสุนหมดเกลี้ยง",
+UI_Phrases_OutOfAmmo5 = "กระสุนไม่เหลือแล้ว",
+UI_Phrases_OutOfAmmo6 = "ปืนไม่มีกระสุนแล้ว",
+UI_Phrases_OutOfAmmo7 = "ไม่มีลูกกระสุน",
+UI_Phrases_OutOfAmmo8 = "ลูกปืนหมด",
+UI_Phrases_OutOfAmmo9 = "ปืนไม่มีลูก",
+UI_Phrases_OutOfAmmo10 = "ลูกหมด",
+UI_Phrases_OutOfAmmo11 = "ไม่มีลูก",
+UI_Phrases_OutOfAmmo12 = "ไม่เหลือลูกปืนแล้ว",
+
+--UI_Phrases_Hungry
+UI_Config_Hungry = "หิว",
+UI_Phrases_Hungry1 = "หิวขนมจัง",
+UI_Phrases_Hungry2 = "*จ๊อก ๆ*",
+UI_Phrases_Hungry3 = "อยากกิน<FOOD>",
+UI_Phrases_Hungry4 = "หาอะไรยัดปากสักหน่อย",
+UI_Phrases_Hungry5 = "ถ้าได้กิน<FOOD>สักหน่อยก็คงจะดี",
+UI_Phrases_Hungry6 = "ไปหาอะไรกินสักหน่อยดีกว่า",
+UI_Phrases_Hungry7 = "*โครก*",
+UI_Phrases_Hungry8 = "ต้องหาอะไรมารองท้องสักหน่อบ",
+UI_Phrases_Hungry9 = "ต้องกินอะไรสักอย่าง",
+UI_Phrases_Hungry10 = "ท้องร้องประท้วงแล้ว",
+UI_Phrases_Hungry11 = "โอ้ย หิวจังเลย",
+UI_Phrases_Hungry12 = "ไปหา<FOOD>ดีกว่า",
+UI_Phrases_Hungry13 = "ไปหา<FOOD>มากินตอนนี้เลยน่าจะดี",
+UI_Phrases_Hungry14 = "*โครก ๆ คราก ๆ*",
+UI_Phrases_Hungry15 = "หิวแทบบ้า!",
+UI_Phrases_Hungry16 = "แถวนี้ต้องมีอะไรให้กินบ้างแหละ",
+UI_Phrases_Hungry17 = "อาหารอยู่ไหน",
+UI_Phrases_Hungry18 = "โอย หิวโว้ย",
+UI_Phrases_Hungry19 = "<SWEAR> ของกินไปไหนหมดวะ!?",
+UI_Phrases_Hungry20 = "หิววววว",
+UI_Phrases_Hungry21 = "หิวจนไส้กิ่วแล้ว",
+UI_Phrases_Hungry22 = "หิวจะตายอยู่แล้ว",
+
+--UI_Phrases_Thirst
+UI_Config_Thirst = "กระหายน้ำ",
+UI_Phrases_Thirst1 = "คอแห้งจัง",
+UI_Phrases_Thirst2 = "*แค่ก ๆ*",
+UI_Phrases_Thirst3 = "หิวน้ำ",
+UI_Phrases_Thirst4 = "ได้กินน้ำสักอึกคงจะดี",
+UI_Phrases_Thirst5 = "มีอะไรให้ดื่มบ้างไหมนะ",
+UI_Phrases_Thirst6 = "น้ำอยู่ไหน",
+UI_Phrases_Thirst7 = "คอแห้งเป็นผงแล้ว",
+UI_Phrases_Thirst8 = "กระหายน้ำสุด ๆ",
+UI_Phrases_Thirst9 = "หาอะไรดื่มสักหน่อยคงจะดี",
+UI_Phrases_Thirst10 = "คอแห้งไม่ไหวแล้ว",
+UI_Phrases_Thirst11 = "ต้องหาน้ำมาดื่มสักหน่อยแล้ว",
+UI_Phrases_Thirst12 = "อยากกินน้ำ!",
+UI_Phrases_Thirst13 = "แถวนี้ต้องมีน้ำให้กินบ้างแหละ",
+UI_Phrases_Thirst14 = "ขอน้ำหน่อย",
+
+--UI_Phrases_Tired
+UI_Config_Tired = "เหนื่อย",
+UI_Phrases_Tired1 = "*หาว*",
+UI_Phrases_Tired2 = "ได้งีบสักหน่อยคงจะดี",
+UI_Phrases_Tired3 = "เริ่มหมดแรง",
+UI_Phrases_Tired4 = "ไปนอนดีกว่าไหม",
+UI_Phrases_Tired5 = "นอนมันตรงนี้เลยดีไหม",
+UI_Phrases_Tired6 = "*หาวววว*",
+UI_Phrases_Tired7 = "อีกสักพักคงต้องไปนอนแล้วแหละ",
+UI_Phrases_Tired8 = "ไปนอนกันเถอะ",
+UI_Phrases_Tired9 = "ไม่ไหวแล้ววันนี้",
+UI_Phrases_Tired10 = "ขอบตาดำเป็นหมีแพนด้าแล้ว",
+UI_Phrases_Tired11 = "โอ้ย เหนื่อยจังเลยโว้ย",
+UI_Phrases_Tired12 = "*หาววววววว ง่วง*",
+UI_Phrases_Tired13 = "เหนื่อยร่างพัง",
+UI_Phrases_Tired14 = "ขอนอนก่อนได้ไหม",
+UI_Phrases_Tired15 = "สมองไปหมดแล้ว คงต้องนอนแล้วแหละ",
+UI_Phrases_Tired16 = "ถ่างตาไม่ไหวแล้ว",
+UI_Phrases_Tired17 = "รู้สึกเหมือนจะเป็นลม",
+UI_Phrases_Tired18 = "ไม่ได้นอนมานานแค่ไหนแล้วนะ?",
+UI_Phrases_Tired19 = "โอยยย เหนื่อย",
+UI_Phrases_Tired20 = "คงต้องไปนอนจริง ๆ แล้วแหละ",
+UI_Phrases_Tired21 = "*ตาจะปิดแล้ว*",
+UI_Phrases_Tired22 = "ยืนจะไม่ไหวแล้ว เหนื่อยโว้ย",
+
+--UI_Phrases_Bored
+UI_Config_Bored = "เบื่อ",
+UI_Phrases_Bored1 = "คงต้องหาอะไรทำแก้เซ็ง",
+UI_Phrases_Bored2 = "เบื่อจัง",
+UI_Phrases_Bored3 = "*เฮ้อ*",
+UI_Phrases_Bored4 = "ไม่มีอะไรให้ทำเลย",
+UI_Phrases_Bored5 = "น่าเบื่อชะมัด",
+UI_Phrases_Bored6 = "โอ้ย เบื่อ",
+UI_Phrases_Bored7 = "เบื่อจริง ๆ",
+UI_Phrases_Bored11 = "ทำไมมันช่างน่าเบื่อขนาดนี้",
+UI_Phrases_Bored9 = "*เฮ้อออออ*",
+UI_Phrases_Bored10 = "เบื่อว่ะ",
+UI_Phrases_Bored8 = "<SWEAR> โคตรน่าเบื่อเลย",
+UI_Phrases_Bored12 = "*ถอนหายใจ*",
+UI_Phrases_Bored13 = "หาอะไรทำดีกว่าไหม",
+UI_Phrases_Bored14 = "ทำไมมันน่าเบื่ออย่างนี้!",
+UI_Phrases_Bored15 = "เดินไปให้ซอมบี้กินยังจะดีกว่า",
+UI_Phrases_Bored16 = "เบื่อจนจะเป็นบ้าแล้ว!",
+
+--UI_Phrases_Stress
+UI_Config_Stress = "เครียด",
+UI_Phrases_Stress1 = "รู้สึกกดดัน",
+UI_Phrases_Stress2 = "ผ่อนคลายเข้าไว้",
+UI_Phrases_Stress3 = "*เฮือก*",
+UI_Phrases_Stress4 = "ใจเย็นเข้าไว้",
+UI_Phrases_Stress5 = "อ๊ากกก",
+UI_Phrases_Stress6 = "เย็นไว้นะ ผ่อนคลาย สูดหายใจลึก ๆ",
+UI_Phrases_Stress7 = "*เฮือกกกกก*",
+UI_Phrases_Stress8 = "สูดหายใจเข้าลึก ๆ",
+UI_Phrases_Stress9 = "จะทนไม่ไหวแล้วนะ",
+UI_Phrases_Stress10 = "จะไม่ไหวแล้ว",
+UI_Phrases_Stress11 = "กดดันจังเลย",
+UI_Phrases_Stress12 = "ไม่ไหวแล้วโว้ย",
+
+--UI_Phrases_Agoraphobic
+UI_Config_Agoraphobic = "กลัวที่โล่ง",
+UI_Phrases_Agoraphobic1 = "สูดหายใจลึก ๆ หายใจเข้า หายใจออก",
+UI_Phrases_Agoraphobic2 = "ไม่ชอบข้างนอก",
+UI_Phrases_Agoraphobic3 = "ไม่อยากออกไปไหนเลย",
+UI_Phrases_Agoraphobic4 = "กลับเข้าไปข้างในได้ไหม",
+UI_Phrases_Agoraphobic5 = "อะไรวะนั่น?",
+UI_Phrases_Agoraphobic6 = "อยู่แต่ข้างในดีกว่าไหม?",
+
+--UI_Phrases_Claustrophobic
+UI_Config_Claustrophobic = "กลัวที่แคบ",
+UI_Phrases_Claustrophobic1 = "สูดหายใจลึก ๆ หายใจเข้า หายใจออก",
+UI_Phrases_Claustrophobic2 = "ไม่ชอบความรู้สึกแบบนี้เลย",
+UI_Phrases_Claustrophobic3 = "อึดอัด หายใจไม่ออก",
+UI_Phrases_Claustrophobic4 = "*เฮือก*",
+UI_Phrases_Claustrophobic5 = "<SWEAR> ไม่เอาแบบนี้",
+UI_Phrases_Claustrophobic6 = "อยู่ในนี้หายใจไม่ออก",
+
+--UI_Phrases_Panic
+UI_Config_Panic = "ตื่นตระหนก",
+UI_Phrases_Panic1 = "*เฮือก*",
+UI_Phrases_Panic2 = "เห้ย!",
+UI_Phrases_Panic3 = "อย่านะเว้ย!",
+UI_Phrases_Panic4 = "โอ๊ะ!",
+UI_Phrases_Panic5 = "ไม่นะ!",
+UI_Phrases_Panic6 = "อะไรวะ!",
+UI_Phrases_Panic7 = "อ๊าก!",
+UI_Phrases_Panic8 = "โอย!",
+UI_Phrases_Panic9 = "โอ๊ย!",
+UI_Phrases_Panic10 = "ไม่!",
+UI_Phrases_Panic11 = "<SWEAR>",
+UI_Phrases_Panic12 = "อ๊าก <SWEAR>!",
+UI_Phrases_Panic13 = "โอ๊ย <SWEAR>!",
+UI_Phrases_Panic14 = "ห่าเอ้ย!",
+UI_Phrases_Panic15 = "<SWEAR> !",
+UI_Phrases_Panic16 = "ซวยแล้ว!",
+UI_Phrases_Panic17 = "อ๊ากกก!",
+UI_Phrases_Panic18 = "ฮือออ!",
+UI_Phrases_Panic19 = "เฮ้ย!?",
+UI_Phrases_Panic20 = "อย่านะ!",
+UI_Phrases_Panic21 = "ช่วยด้วย!",
+UI_Phrases_Panic22 = "ใครก็ได้ช่วยที!",
+UI_Phrases_Panic23 = "ไม่นะ! อ๊ากกกกก!",
+UI_Phrases_Panic24 = "ไอ้พวกชาตินรก!",
+UI_Phrases_Panic25 = "ผีห่าซาตาน!",
+
+--UI_Phrases_Hypothermia
+UI_Config_Hypothermia = "หนาว",
+UI_Phrases_Hypothermia1 = "หนาวจังเลย",
+UI_Phrases_Hypothermia2 = "บรื๋ออออ",
+UI_Phrases_Hypothermia3 = "*หนาวสั่น*",
+
+--UI_Phrases_Pain
+UI_Config_Pain = "เจ็บปวด",
+UI_Phrases_Pain1 = "อ๊าก",
+UI_Phrases_Pain2 = "โอ๊ย",
+UI_Phrases_Pain3 = "แอ่ก",
+UI_Phrases_Pain4 = "เจ็บ",
+UI_Phrases_Pain5 = "อูย",
+UI_Phrases_Pain6 = "โอย",
+UI_Phrases_Pain7 = "ซี๊ดดดดด",
+UI_Phrases_Pain8 = "โคตรเจ็บ",
+UI_Phrases_Pain9 = "อ๊ากกกกก",
+UI_Phrases_Pain10 = "อูยยย",
+UI_Phrases_Pain11 = "โอ๊ยยยยย",
+UI_Phrases_Pain12 = "เจ็บเป็นบ้าเลยโว้ย",
+UI_Phrases_Pain13 = "ฮืออออ",
+UI_Phrases_Pain14 = "เจ็บปวด",
+UI_Phrases_Pain15 = "ทรมานเหลือเกิน",
+UI_Phrases_Pain16 = "ฮ้ากกกกก",
+UI_Phrases_Pain17 = "เจ็บปวดรวดร้าว",
+UI_Phrases_Pain18 = "พระเจ้าช่วย",
+UI_Phrases_Pain19 = "แม่งเอ้ยยยย",
+
+
+--The phrase sets below don't have config options
+
+--UI_Phrases_SWEAR
+UI_Phrases_SWEAR1 = "สัดเอ้ย",
+UI_Phrases_SWEAR2 = "แม่ง",
+UI_Phrases_SWEAR3 = "แม่งเอ้ย",
+UI_Phrases_SWEAR4 = "เวรเอ้ย",
+UI_Phrases_SWEAR5 = "ฉิบหาย",
+UI_Phrases_SWEAR6 = "ตายห่า",
+UI_Phrases_SWEAR7 = "เหี้ยแล้ว",
+UI_Phrases_SWEAR8 = "เหี้ย",
+
+--UI_Phrases_Plosives
+UI_Phrases_Plosives1 = "ฟ",
+UI_Phrases_Plosives2 = "ฟ",
+UI_Phrases_Plosives3 = "พ",
+UI_Phrases_Plosives4 = "พ",
+UI_Phrases_Plosives5 = "ท",
+UI_Phrases_Plosives6 = "ท",
+UI_Phrases_Plosives7 = "ค",
+UI_Phrases_Plosives8 = "ค",
+UI_Phrases_Plosives9 = "บ",
+UI_Phrases_Plosives10 = "บ",
+UI_Phrases_Plosives11 = "ด",
+UI_Phrases_Plosives12 = "ด",
+UI_Phrases_Plosives13 = "ก",
+UI_Phrases_Plosives14 = "ก",
+UI_Phrases_Plosives15 = "ส",
+UI_Phrases_Plosives16 = "ส",
+UI_Phrases_Plosives17 = "ม",
+UI_Phrases_Plosives18 = "ม",
+
+--UI_Phrases_FOOD
+UI_Phrases_FOOD1 = "ขนมปัง",
+UI_Phrases_FOOD2 = "มันฝรั่งทอด",
+UI_Phrases_FOOD3 = "ขนม",
+UI_Phrases_FOOD4 = "พิซซ่าทั้งถาด",
+UI_Phrases_FOOD5 = "สเต็ก",
+UI_Phrases_FOOD6 = "โดนัท",
+UI_Phrases_FOOD7 = "ชีสเค้ก",
+UI_Phrases_FOOD8 = "อะไรอร่อย ๆ ",
+UI_Phrases_FOOD9 = "เค้กนุ่ม ๆ ",
+UI_Phrases_FOOD10 = "ข้าวเหนียวหมูปิ้ง",
+UI_Phrases_FOOD11 = "ไก่ทอดร้อน ๆ ",
+UI_Phrases_FOOD12 = "เบอร์เกอร์",
+UI_Phrases_FOOD13 = "ไอศกรีม",
+UI_Phrases_FOOD14 = "ซูชิ",
+UI_Phrases_FOOD15 = "คุกกี้",
+UI_Phrases_FOOD16 = "ของอร่อย",
+UI_Phrases_FOOD17 = "ของกิน",
+UI_Phrases_FOOD18 = "ลาบ",
+UI_Phrases_FOOD19 = "ซอยจุ๊",
+UI_Phrases_FOOD20 = "ข้าวเหนียวมะม่วง",
+UI_Phrases_FOOD21 = "ทุเรียน",
+
+--UI_Phrases_SARCASM
+UI_Phrases_SARCASM1 = "เยี่ยมไปเลย",
+UI_Phrases_SARCASM2 = "ชีวิตดีเหลือเกิน",
+UI_Phrases_SARCASM3 = "เอาให้สุด",
+UI_Phrases_SARCASM4 = "ให้มันได้แบบนี้สิ",
+UI_Phrases_SARCASM5 = "ชีวิตดี ๆ ที่ลงตัว",
+}

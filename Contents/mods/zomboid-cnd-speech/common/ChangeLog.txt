@@ -9,3 +9,7 @@
 [ 5/22/24 ]
 - Hot fix: Boredom issue with reloading/ammo-count.
 [ ------ ]
+
+[ 12/26/24 ]
+- B42
+[ ------ ]

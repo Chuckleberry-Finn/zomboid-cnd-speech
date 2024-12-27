@@ -1,0 +1,423 @@
+-- -=[ Instructions for Contributors ]=-
+-- Firstly, thank you for stopping in; I hope you enjoy your time here.
+
+-- Steps:
+---- 1. If there is not a directory for your language with in "/media/lua/client/shared/Translate/" then create one.
+------ 1a. Copy over this file to "Translate/<LANGUAGE>" and rename it to "UI_<LANGUAGE>" (for example: UI_EN.txt)
+---- 2. Under the instructions there is the 'header' for a list - make sure the name matches the text file's name.
+------ For example: Both the text file and list should be UI_EN, UI_RU, UI_FR, etc.
+---- 3. You're ready to translate! Only change things bellow
+
+-- Phrases can be found in "/media/lua/client/shared/Translate/"
+--- (the folder of your language, for example: EN, RU, FR, will include everything you need.)
+
+-- You can add more phrases than what is available, just make sure the numbers at the end of the entry follows numerically.
+--- (1, 2, 3, 4, 5, etc)
+
+-- When Writing New Phrases:
+-- 1. Keep them short when you can.
+-- 2. Don't capitalize anything other than 'I' or proper nouns.
+-- 3. Punctuation is fine, but keep in mind all '.' can become '!' - so avoid things like U.S.A. or F.B.I. (USA and FBI are fine)
+-- 4. Avoid swears (as there is dynamic swearing built-in), instead use <SWEAR>.
+-- 5. For the moment any *emotive actions* have to be the entire phrase (which won't be filtered).
+
+-- For more variety and to avoid bloat from repetitive phrases, phrases can be used as Keywords to replace parts of another phrase at random.
+-- Format: "<WORD> in the phrase." Make sure there is a corresponding PhrasesWORD phrase-set.
+-- When writing new Phrases to be used as keywords: Read through some lines with <WORD> to make sure it sounds correct before adding them in.
+-- For example: Look at "UI_Phrases_FOOD" and <FOOD> below.
+
+-- DO NOT TRANSLATE KEYWORDS LIKE <WORD> OR <SWEAR>.
+-- Encoded to: EUC-KR
+-- NOTE: THE TABLE HEADER "UI_XX" MUST MATCH THE IN GAME LANGUAGE ABBREVIATION
+UI_KO = {
+
+--UI_Phrases_Drunk
+UI_Phrases_Drunk1 = "슬슬 술기운이 도는데…",
+UI_Phrases_Drunk2 = "좋은 기분이야",
+UI_Phrases_Drunk3 = "음…? 저게 뭐지?",
+UI_Phrases_Drunk4 = "한잔 더!",
+UI_Phrases_Drunk5 = "취한다, 취해!",
+UI_Phrases_Drunk6 = "죽이는데",
+UI_Phrases_Drunk7 = "파티를 열자고!",
+UI_Phrases_Drunk8 = "그래, 취했어",
+UI_Phrases_Drunk9 = "난 무적이야. 아무것도 걱정할 거 없어!",
+
+--UI_Phrases_HasACold
+UI_Phrases_HasACold1 = "*훌쩍*",
+UI_Phrases_HasACold2 = "코가 밍밍해",
+UI_Phrases_HasACold3 = "감기 걸린 거 아닐까",
+UI_Phrases_HasACold4 = "이런, 감기가 분명해…",
+UI_Phrases_HasACold5 = "목이 아파.",
+UI_Phrases_HasACold6 = "얼어죽겠어…",
+UI_Phrases_HasACold7 = "내가 열이 있나?",
+
+--UI_Phrases_Windchill
+UI_Phrases_Windchill1 = "약간 춥군",
+UI_Phrases_Windchill2 = "쌀쌀하네",
+UI_Phrases_Windchill3 = "좀 찬데",
+UI_Phrases_Windchill4 = "으슬으슬해",
+UI_Phrases_Windchill5 = "바람이 너무 세",
+UI_Phrases_Windchill6 = "미친, 추워.",
+UI_Phrases_Windchill7 = "코가 시려워",
+UI_Phrases_Windchill8 = "태풍급이잖아",
+
+--UI_Phrases_Hyperthermia
+UI_Phrases_Hyperthermia1 = "찝찝해",
+UI_Phrases_Hyperthermia2 = "좀 더운데",
+UI_Phrases_Hyperthermia3 = "너무 더워",
+UI_Phrases_Hyperthermia4 = "너무 찜통이야",
+UI_Phrases_Hyperthermia5 = "더워죽겠어",
+UI_Phrases_Hyperthermia6 = "더워서 못 참겠어",
+UI_Phrases_Hyperthermia7 = "기절할 거 같아…",
+UI_Phrases_Hyperthermia8 = "앞이 제대로 안 보여…",
+
+--UI_Phrases_Endurance
+UI_Phrases_Endurance1 = "슬슬 지치는데",
+UI_Phrases_Endurance2 = "좀 쉬고 싶은데",
+UI_Phrases_Endurance3 = "*헉헉*",
+UI_Phrases_Endurance4 = "체력딸려…",
+UI_Phrases_Endurance5 = "좀 앉고 싶어",
+UI_Phrases_Endurance6 = "더는 안되겠어…",
+UI_Phrases_Endurance7 = "얼마나 더 계속할 수 있을까…",
+UI_Phrases_Endurance8 = "간신히 걷고 있어…",
+UI_Phrases_Endurance9 = "이러다 기절하겠어…",
+UI_Phrases_Endurance10 = "겨우 움직이는 중이야…",
+UI_Phrases_Endurance11 = "이젠 팔도 못 들겠어…",
+UI_Phrases_Endurance12 = "다리가 납덩이 같아…",
+
+--UI_Phrases_Bleeding
+UI_Phrases_Bleeding1 = "긁혔어",
+UI_Phrases_Bleeding2 = "윽! 피 나잖아",
+UI_Phrases_Bleeding3 = "지혈 해야 돼…",
+UI_Phrases_Bleeding4 = "출혈이 너무 심해",
+UI_Phrases_Bleeding5 = "과다출혈로 죽겠어…",
+UI_Phrases_Bleeding6 = "난 아마 죽을 거야…"
+
+--UI_Phrases_FoodEaten
+UI_Phrases_FoodEaten1 = "가벼운 식사였어",
+UI_Phrases_FoodEaten2 = "좀 든든하네",
+UI_Phrases_FoodEaten3 = "적당히 배불러.",
+UI_Phrases_FoodEaten4 = "이제야 좀 배부르네.",
+UI_Phrases_FoodEaten5 = "위가 꽉찼어.",
+UI_Phrases_FoodEaten6 = "한 입 밖에 더 못 먹겠어",
+UI_Phrases_FoodEaten7 = "우웁… 더 먹었다간 토할지도"
+
+--UI_Phrases_Injured
+UI_Phrases_Injured1 = "빨리 치료해야 돼",
+UI_Phrases_Injured2 = "<SARCASM>, 아파…!",
+UI_Phrases_Injured3 = "<SWEAR>",
+UI_Phrases_Injured4 = "찢어졌어",
+UI_Phrases_Injured5 = "응급처치 해야 돼…",
+UI_Phrases_Injured6 = "당장 지혈해야 해",
+
+--UI_Phrases_Unhappy
+UI_Phrases_Unhappy1 = "가족들이 그리워…",
+UI_Phrases_Unhappy2 = "사는 게 점점 힘들어져…",
+UI_Phrases_Unhappy3 = "얼마나 더 이러고 살아야 해?",
+UI_Phrases_Unhappy4 = "이딴 게 지금 내 현실이라고?",
+UI_Phrases_Unhappy5 = "다 무슨 소용이야",
+UI_Phrases_Unhappy6 = "의미 없어…",
+UI_Phrases_Unhappy7 = "이런 삶을 뭐라고 할 수 있는데?",
+UI_Phrases_Unhappy8 = "사는 게 사는 게 아니야…",
+UI_Phrases_Unhappy9 = "좀비가 되는 게 낫겠어…",
+UI_Phrases_Unhappy10 = "…왜 나야?",
+UI_Phrases_Unhappy11 = "여긴 미래가 없어…",
+UI_Phrases_Unhappy12 = "이런 세상은…",
+UI_Phrases_Unhappy13 = "다 부질없어…",
+
+--UI_Phrases_Wet
+UI_Phrases_Wet1 = "축축해.",
+UI_Phrases_Wet2 = "몸이 끈적거려…",
+UI_Phrases_Wet3 = "옷이 젖어서 무거워…",
+UI_Phrases_Wet4 = "찝찝해…",
+UI_Phrases_Wet5 = "<SARCASM>, 이러다 감기 걸릴 거야",
+UI_Phrases_Wet6 = "물에 담궈졌다 나온 것 같아…",
+
+--UI_Phrases_Sick
+UI_Phrases_Sick1 = "좀 메스꺼운데",
+UI_Phrases_Sick2 = "기분이 별로 안 좋아…",
+UI_Phrases_Sick3 = "머리 아파…",
+UI_Phrases_Sick4 = "속이 울렁거려…",
+UI_Phrases_Sick5 = "감기 걸렸나?",
+UI_Phrases_Sick6 = "자꾸 토할 것 같아…",
+UI_Phrases_Sick7 = "나 열 있나?",
+UI_Phrases_Sick8 = "분명 38도가 넘었을 거야",
+
+--UI_Phrases_HeavyLoad
+UI_Phrases_HeavyLoad1 = "*끄응*",
+UI_Phrases_HeavyLoad2 = "무거워…",
+UI_Phrases_HeavyLoad3 = "짐이 너무 많아",
+UI_Phrases_HeavyLoad4 = "너무 무거워, 못 들겠어",
+UI_Phrases_HeavyLoad5 = "<SWEAR>, 너무 무겁잖아",
+UI_Phrases_HeavyLoad6 = "<Pain>. 허리가 나갈 거 같아!",
+
+--UI_Phrases_OnDusk
+UI_Phrases_OnDusk1 = "어두워졌네",
+UI_Phrases_OnDusk2 = "해가 졌어",
+UI_Phrases_OnDusk3 = "어두워지네",
+
+--UI_Phrases_OnDawn
+UI_Phrases_OnDawn1 = "새벽이군",
+UI_Phrases_OnDawn2 = "이제 다음날이군",
+UI_Phrases_OnDawn3 = "금방 해가 뜨겠지",
+UI_Phrases_OnDawn4 = "해가 뜨고있어",
+
+--UI_Phrases_GunJammed
+UI_Phrases_GunJammed1 = "뭔가 걸렸어",
+UI_Phrases_GunJammed2 = "총알이 걸렸어",
+UI_Phrases_GunJammed3 = "<SWEAR> 걸렸잖아",
+UI_Phrases_GunJammed4 = "걸렸어",
+
+--UI_Phrases_LowAmmo
+UI_Phrases_LowAmmo1 = "바닥나고 있어",
+UI_Phrases_LowAmmo2 = "총알이 거의 다 떨어지고 있어",
+UI_Phrases_LowAmmo3 = "재장전 해야 돼",
+UI_Phrases_LowAmmo4 = "얼마 못 쏠 거야…",
+UI_Phrases_LowAmmo5 = "총알이 거의 없어",
+
+--UI_Phrases_OutOfAmmo
+UI_Phrases_OutOfAmmo1 = "<SWEAR> 난 끝났어",
+UI_Phrases_OutOfAmmo2 = "탄창이 비었어!",
+UI_Phrases_OutOfAmmo3 = "총알이 없잖아?",
+UI_Phrases_OutOfAmmo4 = "총알이 바닥났어! <SWEAR>",
+UI_Phrases_OutOfAmmo5 = "탄창이 비었어",
+UI_Phrases_OutOfAmmo6 = "재장전 하지 않으면",
+UI_Phrases_OutOfAmmo7 = "비어있어!",
+UI_Phrases_OutOfAmmo8 = "탄창이 비었잖아",
+UI_Phrases_OutOfAmmo9 = "이제 빈 총이야",
+UI_Phrases_OutOfAmmo10 = "총알이 떨어졌어",
+UI_Phrases_OutOfAmmo11 = "총알이 없어",
+UI_Phrases_OutOfAmmo12 = "총알이 더 없어",
+
+--UI_Phrases_Hungry
+UI_Phrases_Hungry1 = "군것질 하고 싶다",
+UI_Phrases_Hungry2 = "*꼬르륵*",
+UI_Phrases_Hungry3 = "<FOOD> 필요해",
+UI_Phrases_Hungry4 = "뭔가 간식 좀 먹고 싶어.",
+UI_Phrases_Hungry5 = "지금 당장 <FOOD> 있다면 좋을 텐데…",
+UI_Phrases_Hungry6 = "뭔가 먹으러 가고 싶어",
+UI_Phrases_Hungry7 = "*꼬르르륵*",
+UI_Phrases_Hungry8 = "뭔가 좀 먹으면 나아질 거 같아",
+UI_Phrases_Hungry9 = "뭐라도 먹어야겠어",
+UI_Phrases_Hungry10 = "배가 요동치는데",
+UI_Phrases_Hungry11 = "윽, 진짜 배고파죽겠어! <SWEAR>",
+UI_Phrases_Hungry12 = "<FOOD> 있는 곳에 가야겠어.",
+UI_Phrases_Hungry13 = "지금 당장 뭔가 먹으러 갈 거야",
+UI_Phrases_Hungry14 = "*배가 요동치는 소리*",
+UI_Phrases_Hungry15 = "배가 홀쭉해졌어",
+UI_Phrases_Hungry16 = "어딘가 먹을 게 있겠지",
+UI_Phrases_Hungry17 = "먹을 게 필요해…",
+UI_Phrases_Hungry18 = "아아아악, 너무 배고파!",
+UI_Phrases_Hungry19 = "<SWEAR>, 대체 음식은 어디있는 거야!?",
+UI_Phrases_Hungry20 = "배고파 뒤지겠어",
+UI_Phrases_Hungry21 = "으으윽, 너무 굶주렸어!",
+UI_Phrases_Hungry22 = "뱃가죽이 등에 붙겠어!",
+
+--UI_Phrases_Thirst
+UI_Phrases_Thirst1 = "입술이 건조해",
+UI_Phrases_Thirst2 = "*콜록*",
+UI_Phrases_Thirst3 = "당장 마실 게 필요해",
+UI_Phrases_Thirst4 = "물 한모금만 먹고 싶은데",
+UI_Phrases_Thirst5 = "물이나 쥬스, 아무거나. 마실 게 필요해",
+UI_Phrases_Thirst6 = "마실 걸 구해야겠어",
+UI_Phrases_Thirst7 = "입 안이 마르고 있어…",
+UI_Phrases_Thirst8 = "당장 물 한 모금이라도 마셔야 해",
+UI_Phrases_Thirst9 = "뭐 좀 마셔야겠어",
+UI_Phrases_Thirst10 = "입 안이 텁텁해",
+UI_Phrases_Thirst11 = "너무 목 말라.",
+UI_Phrases_Thirst12 = "물은 어디있는 거야!",
+UI_Phrases_Thirst13 = "어딘가에는 물이 있을 거야.",
+UI_Phrases_Thirst14 = "물, 물! 물!",
+
+--UI_Phrases_Tired
+UI_Phrases_Tired1 = "*하품*",
+UI_Phrases_Tired2 = "잠깐 눈 좀 붙여야겠네.",
+UI_Phrases_Tired3 = "나른하네.",
+UI_Phrases_Tired4 = "피곤해.",
+UI_Phrases_Tired5 = "너무 피곤해.",
+UI_Phrases_Tired6 = "*하아아품*",
+UI_Phrases_Tired7 = "자고 싶어.",
+UI_Phrases_Tired8 = "이제 곧 잠들 거 같아…",
+UI_Phrases_Tired9 = "졸려… 눈 앞이 흐릿해…",
+UI_Phrases_Tired10 = "눈이 감기기 시작했어…",
+UI_Phrases_Tired11 = "진짜 피곤해.",
+UI_Phrases_Tired12 = "*흐아아아암*",
+UI_Phrases_Tired13 = "너무 피곤해…",
+UI_Phrases_Tired14 = "잠 좀 자자, 제발.",
+UI_Phrases_Tired15 = "정신이 혼미해, 정말 자야 돼…",
+UI_Phrases_Tired16 = "눈을 거의 못 뜨겠어…",
+UI_Phrases_Tired17 = "금방 기절해버릴 거야…",
+UI_Phrases_Tired18 = "내가 마지막으로 잔 게 언제더라…?",
+UI_Phrases_Tired19 = "으으윽, 너무 피곤해…",
+UI_Phrases_Tired20 = "진짜 눕고 싶어…",
+UI_Phrases_Tired21 = "*꿈뻑꿈뻑*",
+UI_Phrases_Tired22 = "거의 가까스로 서 있어. 이젠 한계야… 눈이 감겨…"
+,
+--UI_Phrases_Bored
+UI_Phrases_Bored1 = "뭔가 해야겠어.",
+UI_Phrases_Bored2 = "뭔가 할 게 필요해.",
+UI_Phrases_Bored3 = "*한숨*",
+UI_Phrases_Bored4 = "아무거나 할 거리가 필요해.",
+UI_Phrases_Bored5 = "음, 좀 지루해",
+UI_Phrases_Bored6 = "아, 심심해…",
+UI_Phrases_Bored7 = "뭔가 좀 하고 싶어, 아니면 보거나.",
+UI_Phrases_Bored11 = "너무 심심해…",
+UI_Phrases_Bored9 = "*깊은 한숨*",
+UI_Phrases_Bored10 = "지루해.",
+UI_Phrases_Bored8 = "지루해 죽겠네. <SWEAR>",
+UI_Phrases_Bored12 = "*하아아아……*",
+UI_Phrases_Bored13 = "<SWEAR> 심심해 죽겠어, 뭐 없어?",
+UI_Phrases_Bored14 = "<SWEAR> 뭔가 해야 해! 뭐든! 뭐라도! 아악!",
+UI_Phrases_Bored15 = "내 눈에 열 손가락을 집어넣는 게 지금보다 재밌을 거야.",
+UI_Phrases_Bored16 = "너무 지루해서 돌아버릴 거 같아! <SWEAR>",
+
+--UI_Phrases_Stress
+UI_Phrases_Stress1 = "스트레스야",
+UI_Phrases_Stress2 = "골 아파…",
+UI_Phrases_Stress3 = "*후우…*",
+UI_Phrases_Stress4 = "<SWEAR> 진정해야지, 진정",
+UI_Phrases_Stress5 = "윽.",
+UI_Phrases_Stress6 = "좀 쉬어야겠어…",
+UI_Phrases_Stress7 = "*깊은 심호흡*",
+UI_Phrases_Stress8 = "조금이라도 쉬어야 해",
+UI_Phrases_Stress9 = "스트레스 받아 죽겠어",
+UI_Phrases_Stress10 = "더는 못 참겠어",
+UI_Phrases_Stress11 = "머리털이 다 빠질 것 같아",
+UI_Phrases_Stress12 = "이 세상이 미친 거야, 아니면 내가 미친 거야?!",
+
+--UI_Phrases_Agoraphobic
+UI_Phrases_Agoraphobic1 = "*깊은 심호흡*",
+UI_Phrases_Agoraphobic2 = "<SWEAR>! 이래서 밖은 싫다니까!",
+UI_Phrases_Agoraphobic3 = "나가기 싫어.",
+UI_Phrases_Agoraphobic4 = "이 짓거리를 왜 해야 되는데?",
+UI_Phrases_Agoraphobic5 = "심장이 터질 것 같아",
+UI_Phrases_Agoraphobic6 = "왜 안에만 있을 수 없는 거냐고",
+
+--UI_Phrases_Claustrophobic
+UI_Phrases_Claustrophobic1 = "*심호흡*",
+UI_Phrases_Claustrophobic2 = "이 느낌, 정말 싫다고.",
+UI_Phrases_Claustrophobic3 = "눈 앞이 흔들려",
+UI_Phrases_Claustrophobic4 = "*후우, 후우*",
+UI_Phrases_Claustrophobic5 = "<SWEAR>, 밀폐된 곳은 싫어…",
+UI_Phrases_Claustrophobic6 = "숨을 더 못쉬겠어…",
+
+--UI_Phrases_Panic
+UI_Phrases_Panic1 = "*심호흡*",
+UI_Phrases_Panic2 = "으악!",
+UI_Phrases_Panic3 = "우왁!",
+UI_Phrases_Panic4 = "헉!",
+UI_Phrases_Panic5 = "뭐야!",
+UI_Phrases_Panic6 = "허억…!",
+UI_Phrases_Panic7 = "허억!",
+UI_Phrases_Panic8 = "으아악!",
+UI_Phrases_Panic9 = "허어억!",
+UI_Phrases_Panic10 = "깜짝이야!",
+UI_Phrases_Panic11 = "<SWEAR>",
+UI_Phrases_Panic12 = "이런, <SWEAR>!",
+UI_Phrases_Panic13 = "헉, <SWEAR>!",
+UI_Phrases_Panic14 = "무슨……!",
+UI_Phrases_Panic15 = "으악, <SWEAR>!",
+UI_Phrases_Panic16 = "뭐야!?",
+UI_Phrases_Panic17 = "끄아악!",
+UI_Phrases_Panic18 = "아악!",
+UI_Phrases_Panic19 = "뭐지!?",
+UI_Phrases_Panic20 = "제발, 안 돼!",
+UI_Phrases_Panic21 = "누가 좀 도와줘!",
+UI_Phrases_Panic22 = "거기 아무도 없어요?!",
+UI_Phrases_Panic23 = "아아아악!! 제길!!",
+
+--UI_Phrases_Hypothermia
+UI_Phrases_Hypothermia1 = "너무 추워.",
+UI_Phrases_Hypothermia2 = "쌀쌀해",
+UI_Phrases_Hypothermia3 = "*덜덜덜*",
+
+--UI_Phrases_Pain
+UI_Phrases_Pain1 = "아야",
+UI_Phrases_Pain2 = "윽…",
+UI_Phrases_Pain3 = "큭…!",
+UI_Phrases_Pain4 = "아파…!",
+UI_Phrases_Pain5 = "아얏!",
+UI_Phrases_Pain6 = "으!",
+UI_Phrases_Pain7 = "아악…!",
+UI_Phrases_Pain8 = "으윽, 아파…",
+UI_Phrases_Pain9 = "으아아악!",
+UI_Phrases_Pain10 = "흐아아악!",
+UI_Phrases_Pain11 = "으, 으윽…",
+UI_Phrases_Pain12 = "너무 아프잖아",
+UI_Phrases_Pain13 = "씁…",
+UI_Phrases_Pain14 = "너무 쓰라려",
+UI_Phrases_Pain15 = "온몸이 아파…",
+UI_Phrases_Pain16 = "아아아아악……",
+UI_Phrases_Pain17 = "아파 죽을 거 같아!",
+UI_Phrases_Pain18 = "제발! 죽겠다고!",
+UI_Phrases_Pain19 = "온몸이 너덜거려",
+
+--UI_Phrases_SWEAR
+UI_Phrases_SWEAR1 = "후우…",
+UI_Phrases_SWEAR2 = "제길",
+UI_Phrases_SWEAR3 = "젠장",
+UI_Phrases_SWEAR4 = "미친…",
+UI_Phrases_SWEAR5 = "씨발",
+
+--UI_Phrases_Plosives
+UI_Phrases_Plosives1 = "씨발",
+UI_Phrases_Plosives2 = "씨",
+UI_Phrases_Plosives3 = "염병",
+UI_Phrases_Plosives4 = "여",
+UI_Phrases_Plosives5 = "이게",
+UI_Phrases_Plosives6 = "이",
+UI_Phrases_Plosives7 = "제길",
+UI_Phrases_Plosives8 = "제",
+UI_Phrases_Plosives9 = "제기랄",
+UI_Phrases_Plosives10 = "제",
+UI_Phrases_Plosives11 = "이런",
+UI_Phrases_Plosives12 = "이",
+UI_Phrases_Plosives13 = "너무",
+UI_Phrases_Plosives14 = "너",
+UI_Phrases_Plosives15 = "아악",
+UI_Phrases_Plosives16 = "아",
+UI_Phrases_Plosives17 = "개같게",
+UI_Phrases_Plosives18 = "개",
+UI_Phrases_Plosives19 = "제발",
+UI_Phrases_Plosives20 = "제",
+UI_Phrases_Plosives21 = "후우…",
+UI_Phrases_Plosives22 = "후…",
+UI_Phrases_Plosives23 = "더는",
+UI_Phrases_Plosives24 = "더",
+UI_Phrases_Plosives25 = "미친",
+UI_Phrases_Plosives26 = "미",
+UI_Phrases_Plosives27 = "빌어먹을",
+UI_Phrases_Plosives28 = "비",
+UI_Phrases_Plosives29 = "심장",
+UI_Phrases_Plosives30 = "시",
+UI_Phrases_Plosives31 = "추워",
+UI_Phrases_Plosives32 = "추",
+
+
+
+--UI_Phrases_FOOD
+UI_Phrases_FOOD1 = "먹을 게",
+UI_Phrases_FOOD2 = "씹을 게",
+UI_Phrases_FOOD3 = "간식 거리가",
+UI_Phrases_FOOD4 = "피자 한조각이라도",
+UI_Phrases_FOOD5 = "주전부리라도",
+UI_Phrases_FOOD6 = "밥 한숟갈이라도",
+UI_Phrases_FOOD7 = "두부 하나라도",
+UI_Phrases_FOOD8 = "뭔가 먹을 게",
+UI_Phrases_FOOD9 = "콩 한 쪽이라도",
+UI_Phrases_FOOD10 = "치킨 쪼가리라도",
+UI_Phrases_FOOD11 = "시리얼이라도",
+UI_Phrases_FOOD12 = "햄버거라도",
+UI_Phrases_FOOD13 = "애들 군것질거리라도",
+UI_Phrases_FOOD14 = "뭐라도 좋으니까 먹을 게",
+UI_Phrases_FOOD15 = "뭐라도 좋으니까 씹을 게",
+UI_Phrases_FOOD16 = "뭐든 먹을 수 있는 게",
+UI_Phrases_FOOD17 = "아무거나 먹을 게",
+
+--UI_Phrases_SARCASM
+UI_Phrases_SARCASM1 = "멋지군",
+UI_Phrases_SARCASM2 = "멋진 꼴이군",
+UI_Phrases_SARCASM3 = "대단하군",
+UI_Phrases_SARCASM4 = "거참 죽여주네",
+UI_Phrases_SARCASM5 = "운 좋기도 하지.",
+}
