@@ -1,6 +1,6 @@
 --- Thank you to dhert
 ------ local options = PZAPI.ModOptions:getOptions("Conditional-Speech")
------- local option = options:getOption(""cndSpeech_Phrase_"..moodID")
+------ local option = options:getOption("cndSpeech_Phrase_"..moodID")
 
 local phraseSets = require "ConditionalSpeech_PhraseSet"
 

@@ -13,3 +13,8 @@
 [ 12/26/24 ]
 - B42
 [ ------ ]
+
+[ 12/28/24 ]
+B42:
+- Fixed mod options typos, extra hidden options, issues with value fetching.
+[ ------ ]

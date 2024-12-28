@@ -1,7 +1,3 @@
-local options = PZAPI.ModOptions:getOptions("Conditional-Speech")
------- local option = options:getOption(""cndSpeech_Phrase_"..moodID")
-
-
 local cndSpeechUtil = require "ConditionalSpeech_Util"
 local conditionalSpeechFilter = require "ConditionalSpeech_Filters"
 local phraseSets = require "ConditionalSpeech_PhraseSet"
@@ -10,7 +6,11 @@ local metaValues = require "ConditionalSpeech_metaValues"
 local ConditionalSpeech = {}
 
 function ConditionalSpeech.checkConfig(ID)
-	return options and options:getOption(ID)
+	local options = PZAPI.ModOptions:getOptions("Conditional-Speech")
+	local option = options and options:getOption(ID)
+	local value = option and option:getValue()
+	print("value: ", ID, " ", value)
+	return value
 end
 
 function ConditionalSpeech.enabledPhraseSet(moodID)
@@ -177,9 +177,7 @@ function ConditionalSpeech.generateSpeechFrom(player, PhraseSetID, intensity, MA
 		return
 	end
 
-	if ConditionalSpeech.enabledPhraseSet(PhraseSetID)==false then
-		return
-	end
+	if ConditionalSpeech.enabledPhraseSet(PhraseSetID) ~= true then return end
 
 	if not intensity or intensity <=0 then
 		intensity = 1

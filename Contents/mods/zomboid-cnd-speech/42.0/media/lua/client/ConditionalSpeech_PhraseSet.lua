@@ -39,6 +39,10 @@ phraseSets.Phrases.Pain = {}
 
 ---Load the above phraseSet IDs into a list used for the config menu.
 phraseSets.PhrasesForConfig = {}
+for moodID,phrases in pairs(phraseSets.Phrases) do
+	table.insert(phraseSets.PhrasesForConfig,moodID)
+end
+
 -- Swears are ranked by intensity
 phraseSets.Phrases.SWEAR = {}
 -- useful list of plosives for stammering
@@ -52,8 +56,6 @@ phraseSets.Phrases.Congested = {}
 function phraseSets.Load()
 
 	for moodID,_ in pairs(phraseSets.Phrases) do
-
-		table.insert(phraseSets.PhrasesForConfig,moodID)
 
 		local phraseNum = 0
 		while phraseNum < 1000 do
