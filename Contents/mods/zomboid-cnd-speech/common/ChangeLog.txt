@@ -18,3 +18,7 @@
 B42:
 - Fixed mod options typos, extra hidden options, issues with value fetching.
 [ ------ ]
+
+[ 1/31/25 ]
+- Re-encoded all the languages from the mod to UTF-8.
+[ ------ ]

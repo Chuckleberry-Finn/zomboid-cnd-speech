@@ -364,4 +364,3 @@ UI_Phrases_SARCASM1 = "que ótimo.",
 UI_Phrases_SARCASM2 = "perfeito!",
 UI_Phrases_SARCASM3 = "fantástico!",
 UI_Phrases_SARCASM4 = "justo o que eu precisava",
-}
