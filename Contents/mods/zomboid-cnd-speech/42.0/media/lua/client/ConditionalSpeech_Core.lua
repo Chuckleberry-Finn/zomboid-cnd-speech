@@ -9,7 +9,6 @@ function ConditionalSpeech.checkConfig(ID)
 	local options = PZAPI.ModOptions:getOptions("Conditional-Speech")
 	local option = options and options:getOption(ID)
 	local value = option and option:getValue()
-	print("value: ", ID, " ", value)
 	return value
 end
 
@@ -295,14 +294,8 @@ function ConditionalSpeech.applyVolumetricColor_Say(player,text,vol)
 		return
 	end
 
-	if not vol then
-		print("WARN: vol received as nil!  <txt:"..text..">")
-		vol = 0
-	end
-
-	if (vol <= 0) and (ConditionalSpeech.checkConfig("cndSpch_ShowOnlyAudibleSpeech")==true) then
-		return
-	end
+	if not vol then vol = 0 end
+	if (vol <= 0) and (ConditionalSpeech.checkConfig("cndSpch_ShowOnlyAudibleSpeech")==true) then return end
 
 	local vc_shift = 0.40+(0.60*((vol or 0)/metaValues.volumeMax))--have a 0.3 base --difference of 0.7 is then multiplied against volume/maxvolume
 	---@type ColorInfo
