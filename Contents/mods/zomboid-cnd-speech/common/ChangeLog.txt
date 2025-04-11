@@ -22,3 +22,7 @@ B42:
 [ 1/31/25 ]
 - Re-encoded all the languages from the mod to UTF-8.
 [ ------ ]
+
+[ 4/10/25 ]
+- Changed the font size to one that can scale. Should help with 4k monitors.
+[ ------ ]

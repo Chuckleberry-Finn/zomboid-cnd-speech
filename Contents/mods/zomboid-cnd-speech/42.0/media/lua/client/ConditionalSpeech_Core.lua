@@ -324,7 +324,7 @@ function ConditionalSpeech.applyVolumetricColor_Say(player,text,vol)
 	if isClient() then
 		sendClientCommand(player, "cndSpeech", "addLineChatElement", {text=text, return_color=return_color, vol=vol}) -- to server
 	else
-		player:addLineChatElement(text, return_color.r, return_color.g, return_color.b, UIFont.Dialogue, vol, "default", true, true, true, true, true, true)
+		player:addLineChatElement(text, return_color.r, return_color.g, return_color.b, UIFont.Medium, vol, "default", true, true, true, true, true, true)
 	end
 end
 
