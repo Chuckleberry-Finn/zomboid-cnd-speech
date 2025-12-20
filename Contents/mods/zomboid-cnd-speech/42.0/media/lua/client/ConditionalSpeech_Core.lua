@@ -154,11 +154,13 @@ function ConditionalSpeech.passMoodleFilters(player,text)
 	for _,FilterType in ipairs(sortFilters) do
 		if not ConditionalSpeech.volumeSensitiveFilters[FilterType] or (filtered_vol > 0 and ConditionalSpeech.volumeSensitiveFilters[FilterType]) then
 			--compare sortFilters's value to filtersToPass's keys to find stored intensity
-			--[[debug]] print("CND-SPEECH: RUN FILTER: ",FilterType,"-")
+
 			local intensity = filtersToPass[FilterType]
 			local filter = conditionalSpeechFilter[FilterType]
 			local resultText, resultVolume = filter(text, intensity)
 
+			--[[debug]] print("CND-SPEECH: RUN FILTER: ",FilterType," -intensity:",intensity)
+			
 			text = resultText or text
 			if resultVolume and resultVolume > filtered_vol then filtered_vol = resultVolume end
 		end
@@ -177,19 +179,13 @@ end
 ---@param player IsoGameCharacter
 ---@param PhraseSetID string String needs to match a table with in ConditionalSpeech.Phrases.
 function ConditionalSpeech.generateSpeechFrom(player, PhraseSetID, intensity, MAXintensity, volumeBlock, danger)
-	if not player or not PhraseSetID then
-		return
-	end
+	if not player or not PhraseSetID then return end
 
 	if ConditionalSpeech.enabledPhraseSet(PhraseSetID) ~= true then return end
 
-	if not intensity or intensity <=0 then
-		intensity = 1
-	end
+	if not intensity or intensity <=0 then intensity = 1 end
 
-	if not MAXintensity or MAXintensity <=0 then
-		MAXintensity = 1
-	end
+	if not MAXintensity or MAXintensity <=0 then MAXintensity = 1 end
 
 	-- prevent the player from speaking too soon -- getTimestamp is in seconds
 	local lastspoke = player:getModData().cs_lastspoke or {[1]=getTimestamp(), [2]=""}
