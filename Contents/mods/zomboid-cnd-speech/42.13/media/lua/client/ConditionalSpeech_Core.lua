@@ -85,19 +85,21 @@ function ConditionalSpeech.load_n_set_Moodles(id,player)
 	if pModData then
 		pModData.cs_lastspoke = {[1]=getTimestamp(), [2]=""}
 		pModData.cs_lastPanicTime = getTimestamp()
-		pModData.moodleTable = {}
+		pModData.cs_moodleTable = {}
 
 		local moodles = player:getMoodles()
 		if moodles then
 			--fetches moodles index num
-			local moodNum = moodles:getNumMoodles()
-			for i=0, moodNum-1 do
-				--fetches mood type string based on index
-				local moodType = moodles:getMoodleType(i)
-				--fetches moodle level based on fetched type
-				local foundlevel = moodles:getMoodleLevel(moodType)
-				--creates a key value pair of type and found level
-				pModData.moodleTable[tostring(moodType)] = foundlevel
+			for moodleID,moodle in pairs(MoodleType) do
+				if instanceof(moodle, "MoodleType") then
+
+					--fetches mood type string based on index
+					local moodType = tostring(moodleID)
+					--fetches moodle level based on fetched type
+					local foundlevel = moodles:getMoodleLevel(moodle)
+					--creates a key value pair of type and found level
+					pModData.cs_moodleTable[tostring(moodType)] = foundlevel
+				end
 			end
 		end
 	end
@@ -118,10 +120,13 @@ function ConditionalSpeech.passMoodleFilters(player,text)
 	local sortFilters = {}
 
 	--for each mood grab stored mood and lvl in player's moodle array
-	for MoodID,lvl in pairs(player:getModData().moodleTable) do
+	for moodleType,lvl in pairs(player:getModData().cs_moodleTable) do
+
+		local moodle = MoodleType[moodleType]
+		local moodID = moodle:getTranslationName()
 
 		local moodleLevel = lvl
-		local MoodID_filters = ConditionalSpeech.filterTable[MoodID]
+		local MoodID_filters = ConditionalSpeech.filterTable[moodID]
 
 		--check if mood should be processed
 		if moodleLevel > 0 and MoodID_filters then
@@ -149,11 +154,13 @@ function ConditionalSpeech.passMoodleFilters(player,text)
 	for _,FilterType in ipairs(sortFilters) do
 		if not ConditionalSpeech.volumeSensitiveFilters[FilterType] or (filtered_vol > 0 and ConditionalSpeech.volumeSensitiveFilters[FilterType]) then
 			--compare sortFilters's value to filtersToPass's keys to find stored intensity
-			--[debug]] print("CND-SPEECH: RUN FILTER: ",FilterType,"-")
+
 			local intensity = filtersToPass[FilterType]
 			local filter = conditionalSpeechFilter[FilterType]
 			local resultText, resultVolume = filter(text, intensity)
 
+			--[[debug]] print("CND-SPEECH: RUN FILTER: ",FilterType," -intensity:",intensity)
+			
 			text = resultText or text
 			if resultVolume and resultVolume > filtered_vol then filtered_vol = resultVolume end
 		end
@@ -172,19 +179,13 @@ end
 ---@param player IsoGameCharacter
 ---@param PhraseSetID string String needs to match a table with in ConditionalSpeech.Phrases.
 function ConditionalSpeech.generateSpeechFrom(player, PhraseSetID, intensity, MAXintensity, volumeBlock, danger)
-	if not player or not PhraseSetID then
-		return
-	end
+	if not player or not PhraseSetID then return end
 
 	if ConditionalSpeech.enabledPhraseSet(PhraseSetID) ~= true then return end
 
-	if not intensity or intensity <=0 then
-		intensity = 1
-	end
+	if not intensity or intensity <=0 then intensity = 1 end
 
-	if not MAXintensity or MAXintensity <=0 then
-		MAXintensity = 1
-	end
+	if not MAXintensity or MAXintensity <=0 then MAXintensity = 1 end
 
 	-- prevent the player from speaking too soon -- getTimestamp is in seconds
 	local lastspoke = player:getModData().cs_lastspoke or {[1]=getTimestamp(), [2]=""}
@@ -213,6 +214,8 @@ function ConditionalSpeech.generateSpeechFrom(player, PhraseSetID, intensity, MA
 		end
 	end
 
+	print("p:",player, " - ",PhraseSetID, " (",intensity,"/", MAXintensity,") ", "@",volumeBlock," danger:", danger)
+
 	local vocal_volume = 0
 	dialogue, vocal_volume = ConditionalSpeech.ProcessSpeech(player,dialogue,PhraseSetID, volumeBlock)
 
@@ -223,7 +226,7 @@ end
 --- Our own version of Say()
 function ConditionalSpeech.Say(player, dialogue, vocal_volume)
 
-	--[debug]] print("CND-SPEECH: "..player:getFullName()," (vol:",vocal_volume,") : ",dialogue)
+	--[[debug]] print("CND-SPEECH: "..player:getFullName()," (vol:",vocal_volume,") : ",dialogue)
 	ConditionalSpeech.applyVolumetricColor_Say(player,tostring(dialogue),vocal_volume)
 
 	if ConditionalSpeech.checkConfig("cndSpch_SpeechCanAttractsZombies")==true and player and vocal_volume and vocal_volume>0 then
@@ -265,10 +268,13 @@ function ConditionalSpeech.ProcessSpeech(player, dialogue, PhraseSetID, volumeBl
 		end
 
 		--pass moodle filters if player has a moodle array
-		if player:getModData().moodleTable then
+		if player:getModData().cs_moodleTable then
+
 			local textResult, volumeResult = ConditionalSpeech.passMoodleFilters(player,dialogue)--have other moods impact dialogue
 			dialogue = textResult
 			vocal_volume = volumeResult
+
+			print("PASSING MOODS: ", volumeResult)
 		end
 
 		--Proper sentence capitalization. Like so.
@@ -290,9 +296,7 @@ end
 --- Blends speech color with gray on a scale with volume. This is called with in ConditionalSpeech.Speech.
 ---@param player IsoGameCharacter | IsoPlayer
 function ConditionalSpeech.applyVolumetricColor_Say(player,text,vol)
-	if not player or not text then
-		return
-	end
+	if not player or not text then return end
 
 	if not vol then vol = 0 end
 	if (vol <= 0) and (ConditionalSpeech.checkConfig("cndSpch_ShowOnlyAudibleSpeech")==true) then return end
@@ -336,19 +340,24 @@ function processSayMessage(text, ...)
 	return original_processSayMessage(text, ...)
 end
 
+--[[
+for moodleType,lvl in pairs(getPlayer():getModData().cs_moodleTable) do if lvl > 0 then print("moodleType: ",moodleType," = ",lvl) end end
+]]
+
 ConditionalSpeech.playerJustSpoke = {}
 
 --- Tracks moodle levels overtime, runs generate speech.
 ---@param player IsoGameCharacter|IsoPlayer|IsoMovingObject|IsoObject
 function ConditionalSpeech.check_PlayerStatus(player)
-	if (not player) then--or (not player:getModData().moodleTable) then
+	if (not player) then--or (not player:getModData().cs_moodleTable) then
 		return
 	end
 
 	if ConditionalSpeech.playerJustSpoke[player] then
 		local pSpeaking = player:isSpeaking() and player:getCurrentSquare():isInARoom()
 		if pSpeaking then
-			player:getBodyDamage():setBoredomLevel( player:getBodyDamage():getBoredomLevel() + (ZomboidGlobals.BoredomDecrease * getGameTime():getMultiplier()) )
+			local stats = player:getStats()
+			stats:set(CharacterStat.BOREDOM, stats:get(CharacterStat.BOREDOM) + (ZomboidGlobals.BoredomDecrease * getGameTime():getMultiplier()) )
 		end
 		if (not pSpeaking) then
 			ConditionalSpeech.playerJustSpoke[player] = ConditionalSpeech.playerJustSpoke[player] - 1
@@ -363,17 +372,16 @@ function ConditionalSpeech.check_PlayerStatus(player)
 		return
 	end
 
-	if (not pModData.moodleTable) then
+	if (not pModData.cs_moodleTable) then
 		ConditionalSpeech.load_n_set_Moodles(player)
 	end
-	if (not pModData.moodleTable) then
+	if (not pModData.cs_moodleTable) then
 		return
 	end
 
 	local playerStats = player:getStats()
 	--panic is a troublesome moodle and can't be treated like the rest
-	local panicLevel = player:getMoodles():getMoodleLevel(MoodleType.Panic)
-
+	local panicLevel = player:getMoodles():getMoodleLevel(MoodleType.PANIC)
 	-- on fire condition
 	if player:isOnFire() then
 		playerStats:setPanic(playerStats:getPanic()+100)
@@ -386,8 +394,8 @@ function ConditionalSpeech.check_PlayerStatus(player)
 	--prevent vocalization if any zombies are visible or chasing
 	local volumeBlock = (cndSpeechUtil.prob(100-(panicLevel^2)) and zombiesNearBy)
 	--check if agoraphobic is actively inducing panic
-	local agora = (player:isOutside() and player:HasTrait("Agoraphobic"))
-	local claustro = ((not player:isOutside()) and player:HasTrait("Claustophobic"))
+	local agora = (player:isOutside() and player:hasTrait(CharacterTrait.AGORAPHOBIC))
+	local claustro = ((not player:isOutside()) and player:hasTrait(CharacterTrait.CLAUSTROPHOBIC))
 
 	local impactedByPanic = (panicLevel>0 and zombiesNearBy)
 	if impactedByPanic then
@@ -395,36 +403,42 @@ function ConditionalSpeech.check_PlayerStatus(player)
 	end
 
 	local spoke = false
-	for MoodleID,lvl in pairs(pModData.moodleTable) do
+	for moodleType,lvl in pairs(pModData.cs_moodleTable) do
 		local storedmoodleLevel = lvl
-		local currentMoodleLevel = player:getMoodles():getMoodleLevel(MoodleType[MoodleID])
-		--currentMoodleLevel(current mood level) is not equal to stored mood level then
-		if currentMoodleLevel ~= storedmoodleLevel then
-			--if moodlevel has increased
-			if currentMoodleLevel > storedmoodleLevel then
-				local phraseSet = MoodleID
 
-				if (impactedByPanic) and (MoodleID~="Panic") and (MoodleID~="Pain") and (getTimestamp() < pModData.cs_lastPanicTime) then
-				else
-					--space-phobic conditions met, set MoodleID\Phraset
-					if MoodleID=="Panic" then
-						if agora then
-							phraseSet = "Agoraphobic"
-						elseif claustro then
-							phraseSet = "Claustrophobic"
+		---@type MoodleType
+		local moodle = MoodleType[moodleType]
+		if moodle then
+			local moodleID = moodle:getTranslationName()
+			local currentMoodleLevel = player:getMoodles():getMoodleLevel(moodle)
+			--currentMoodleLevel(current mood level) is not equal to stored mood level then
+			if currentMoodleLevel ~= storedmoodleLevel then
+				--if moodlevel has increased
+				if currentMoodleLevel > storedmoodleLevel then
+					local phraseSet = moodleID
+
+					if (impactedByPanic) and (moodleID~="Panic") and (moodleID~="Pain") and (getTimestamp() < pModData.cs_lastPanicTime) then
+					else
+						--space-phobic conditions met, set MoodleID\Phraset
+						if moodleID=="Panic" then
+							if agora then
+								phraseSet = "Agoraphobic"
+							elseif claustro then
+								phraseSet = "Claustrophobic"
+							end
 						end
+						--pain overrides volumeBlock
+						if moodleID == "Pain" then
+							volumeBlock = false
+						end
+						--generate speech
+						ConditionalSpeech.generateSpeechFrom(player, phraseSet, currentMoodleLevel,4, volumeBlock, zombiesNearBy)
 					end
-					--pain overrides volumeBlock
-					if MoodleID == "Pain" then
-						volumeBlock = false
-					end
-					--generate speech
-					ConditionalSpeech.generateSpeechFrom(player, phraseSet, currentMoodleLevel,4, volumeBlock, zombiesNearBy)
+					spoke = true
 				end
-				spoke = true
+				--match stored mood level to current regardless of above outcome
+				pModData.cs_moodleTable[moodleType] = currentMoodleLevel
 			end
-			--match stored mood level to current regardless of above outcome
-			pModData.moodleTable[MoodleID] = currentMoodleLevel
 		end
 	end
 
