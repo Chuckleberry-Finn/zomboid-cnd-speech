@@ -2,19 +2,14 @@ local cndSpeechUtil = require "ConditionalSpeech_Util"
 local conditionalSpeechFilter = require "ConditionalSpeech_Filters"
 local phraseSets = require "ConditionalSpeech_PhraseSet"
 local metaValues = require "ConditionalSpeech_metaValues"
+local config = require "ConditionalSpeech_Config"
 
 local ConditionalSpeech = {}
 
-function ConditionalSpeech.checkConfig(ID)
-	local options = PZAPI.ModOptions:getOptions("Conditional-Speech")
-	local option = options and options:getOption(ID)
-	local value = option and option:getValue()
-	return value
-end
-
 function ConditionalSpeech.enabledPhraseSet(moodID)
-	local value = ConditionalSpeech.checkConfig("cndSpeech_Phrase_"..moodID)
-	if value and (value == true  or value == false) then return value end
+	config.applyDisabledPhraseSets()
+	local disabled = config and config.disabledPhraseSets and config and config.disabledPhraseSets[moodID]
+	if disabled then return false end
 	return true
 end
 
@@ -158,9 +153,8 @@ function ConditionalSpeech.passMoodleFilters(player,text)
 			local intensity = filtersToPass[FilterType]
 			local filter = conditionalSpeechFilter[FilterType]
 			local resultText, resultVolume = filter(text, intensity)
+			--[debug]] print("CND-SPEECH: RUN FILTER: ",FilterType," -intensity:",intensity)
 
-			--[[debug]] print("CND-SPEECH: RUN FILTER: ",FilterType," -intensity:",intensity)
-			
 			text = resultText or text
 			if resultVolume and resultVolume > filtered_vol then filtered_vol = resultVolume end
 		end
@@ -180,6 +174,8 @@ end
 ---@param PhraseSetID string String needs to match a table with in ConditionalSpeech.Phrases.
 function ConditionalSpeech.generateSpeechFrom(player, PhraseSetID, intensity, MAXintensity, volumeBlock, danger)
 	if not player or not PhraseSetID then return end
+
+	--print("p:",player, " - ",PhraseSetID, " (",intensity,"/", MAXintensity,") ", "@",volumeBlock," danger:", danger)
 
 	if ConditionalSpeech.enabledPhraseSet(PhraseSetID) ~= true then return end
 
@@ -214,8 +210,6 @@ function ConditionalSpeech.generateSpeechFrom(player, PhraseSetID, intensity, MA
 		end
 	end
 
-	print("p:",player, " - ",PhraseSetID, " (",intensity,"/", MAXintensity,") ", "@",volumeBlock," danger:", danger)
-
 	local vocal_volume = 0
 	dialogue, vocal_volume = ConditionalSpeech.ProcessSpeech(player,dialogue,PhraseSetID, volumeBlock)
 
@@ -226,10 +220,10 @@ end
 --- Our own version of Say()
 function ConditionalSpeech.Say(player, dialogue, vocal_volume)
 
-	--[[debug]] print("CND-SPEECH: "..player:getFullName()," (vol:",vocal_volume,") : ",dialogue)
+	--[debug]] print("CND-SPEECH: "..player:getFullName()," (vol:",vocal_volume,") : ",dialogue)
 	ConditionalSpeech.applyVolumetricColor_Say(player,tostring(dialogue),vocal_volume)
 
-	if ConditionalSpeech.checkConfig("cndSpch_SpeechCanAttractsZombies")==true and player and vocal_volume and vocal_volume>0 then
+	if SandboxVars.ConditionalSpeech.SpeechCanAttractZombies==true and player and vocal_volume and vocal_volume>0 then
 		addSound(nil, player:getX(), player:getY(), player:getZ(), vocal_volume, vocal_volume)
 	end
 end
@@ -269,12 +263,9 @@ function ConditionalSpeech.ProcessSpeech(player, dialogue, PhraseSetID, volumeBl
 
 		--pass moodle filters if player has a moodle array
 		if player:getModData().cs_moodleTable then
-
 			local textResult, volumeResult = ConditionalSpeech.passMoodleFilters(player,dialogue)--have other moods impact dialogue
 			dialogue = textResult
 			vocal_volume = volumeResult
-
-			print("PASSING MOODS: ", volumeResult)
 		end
 
 		--Proper sentence capitalization. Like so.
@@ -299,7 +290,7 @@ function ConditionalSpeech.applyVolumetricColor_Say(player,text,vol)
 	if not player or not text then return end
 
 	if not vol then vol = 0 end
-	if (vol <= 0) and (ConditionalSpeech.checkConfig("cndSpch_ShowOnlyAudibleSpeech")==true) then return end
+	if (vol <= 0) and (SandboxVars.ConditionalSpeech.ShowOnlyAudibleSpeech==true) then return end
 
 	local vc_shift = 0.40+(0.60*((vol or 0)/metaValues.volumeMax))--have a 0.3 base --difference of 0.7 is then multiplied against volume/maxvolume
 	---@type ColorInfo
@@ -310,7 +301,7 @@ function ConditionalSpeech.applyVolumetricColor_Say(player,text,vol)
 	local graybase = {r=0.45, g=0.45, b=0.45, a=1}--gray base text_color will be overlayed onto
 	local return_color = {r=tR, g=tG, b=tB, a=1}--set up return color
 
-	if ConditionalSpeech.checkConfig("cndSpch_SpeechCanAttractsZombies")==true then
+	if (SandboxVars.ConditionalSpeech.SpeechCanAttractZombies==true) then
 		return_color.a = 1 - (1 - text_color.a) * (1 - graybase.a)--alpha
 		return_color.r = text_color.r * text_color.r / return_color.a + graybase.r * graybase.a * (1 - text_color.a) / return_color.a--red
 		return_color.g = text_color.g * text_color.g / return_color.a + graybase.g * graybase.a * (1 - text_color.a) / return_color.a--green

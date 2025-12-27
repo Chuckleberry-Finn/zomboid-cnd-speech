@@ -7,8 +7,5 @@ Events.OnPlayerUpdate.Add(ConditionalSpeech.check_PlayerStatus) --OnPlayerUpdate
 local phraseSets = require "ConditionalSpeech_PhraseSet"
 Events.OnGameBoot.Add(phraseSets.Load)
 
-local config = require "ConditionalSpeech_Config"
-Events.OnGameBoot.Add(config.apply)
-
 local metaValues = require "ConditionalSpeech_metaValues"
 Events.OnGameBoot.Add(metaValues.createTrueArrayForPlosives())

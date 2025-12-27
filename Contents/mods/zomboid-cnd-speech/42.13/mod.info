@@ -1,0 +1,10 @@
+name=Conditional Speech
+poster=poster.png
+description=Generates speech utilizing a number of conditions as well as some randomization to create dynamic dialogue.
+id=Conditional-Speech
+url=https://github.com/ChuckTheSheep/zomboid-cnd-speech
+poster=poster.png
+author=Chuckleberry Finn
+icon=icon.png
+versionMin=42.0
+require=\ChuckleberryFinnAlertSystem,\errorMagnifier,

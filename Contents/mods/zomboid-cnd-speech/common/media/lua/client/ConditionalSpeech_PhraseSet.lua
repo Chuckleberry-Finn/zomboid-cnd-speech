@@ -37,12 +37,6 @@ phraseSets.Phrases.Panic = {}
 phraseSets.Phrases.Hypothermia = {}
 phraseSets.Phrases.Pain = {}
 
----Load the above phraseSet IDs into a list used for the config menu.
-phraseSets.PhrasesForConfig = {}
-for moodID,phrases in pairs(phraseSets.Phrases) do
-	table.insert(phraseSets.PhrasesForConfig,moodID)
-end
-
 -- Swears are ranked by intensity
 phraseSets.Phrases.SWEAR = {}
 -- useful list of plosives for stammering

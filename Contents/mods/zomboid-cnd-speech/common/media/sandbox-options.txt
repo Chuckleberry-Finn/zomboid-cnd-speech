@@ -1,0 +1,10 @@
+VERSION = 1,
+
+option ConditionalSpeech.SpeechCanAttractZombies
+{type = boolean, default = true, page = ConditionalSpeech, translation =ConditionalSpeechSpeechCanAttractZombies,}
+
+option ConditionalSpeech.ShowOnlyAudibleSpeech
+{type = boolean, default = false, page = ConditionalSpeech, translation = ConditionalSpeechShowOnlyAudibleSpeech,}
+
+option ConditionalSpeech.DisablePhrases
+{type = string, default = , page = ConditionalSpeech, translation = ConditionalSpeechDisablePhrases,}

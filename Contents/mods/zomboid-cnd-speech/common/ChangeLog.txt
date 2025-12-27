@@ -26,3 +26,10 @@ B42:
 [ 4/10/25 ]
 - Changed the font size to one that can scale. Should help with 4k monitors.
 [ ------ ]
+
+[ 12/27/25 ]
+- B42.13 Support
+ - Migrated the mod options to Sandbox Options
+ - Added a 'disable phrase' option - uses moodle IDs separated by commas as a blacklist.
+    May require game/server restarts for changes to kick in.
+[ ------ ]
