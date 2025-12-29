@@ -345,11 +345,16 @@ function ConditionalSpeech.check_PlayerStatus(player)
 	end
 
 	if ConditionalSpeech.playerJustSpoke[player] then
-		local pSpeaking = player:isSpeaking() and player:getCurrentSquare():isInARoom()
-		if pSpeaking then
+
+		local pSpeaking = player:isSpeaking()
+		local pSq = player:getCurrentSquare()
+
+		local speakingIndoors = pSpeaking and pSq and pSq:isInARoom()
+		if speakingIndoors then
 			local stats = player:getStats()
 			stats:set(CharacterStat.BOREDOM, stats:get(CharacterStat.BOREDOM) + (ZomboidGlobals.BoredomDecrease * getGameTime():getMultiplier()) )
 		end
+
 		if (not pSpeaking) then
 			ConditionalSpeech.playerJustSpoke[player] = ConditionalSpeech.playerJustSpoke[player] - 1
 			if ConditionalSpeech.playerJustSpoke[player] <= 0 then
@@ -372,10 +377,12 @@ function ConditionalSpeech.check_PlayerStatus(player)
 
 	local playerStats = player:getStats()
 	--panic is a troublesome moodle and can't be treated like the rest
-	local panicLevel = player:getMoodles():getMoodleLevel(MoodleType.PANIC)
+	local playerMoodles = player:getMoodles()
+
+	local panicLevel = playerMoodles and playerMoodles:getMoodleLevel(MoodleType.PANIC)or 0
 	-- on fire condition
 	if player:isOnFire() then
-		playerStats:setPanic(playerStats:getPanic()+100)
+		playerStats:set(CharacterStat.PANIC, playerStats:get(CharacterStat.PANIC) + 100 )
 		ConditionalSpeech.generateSpeechFrom(player,"Panic",panicLevel,4, false, true)
 		return
 	end
@@ -401,7 +408,7 @@ function ConditionalSpeech.check_PlayerStatus(player)
 		local moodle = MoodleType[moodleType]
 		if moodle then
 			local moodleID = moodle:getTranslationName()
-			local currentMoodleLevel = player:getMoodles():getMoodleLevel(moodle)
+			local currentMoodleLevel = playerMoodles:getMoodleLevel(moodle)
 			--currentMoodleLevel(current mood level) is not equal to stored mood level then
 			if currentMoodleLevel ~= storedmoodleLevel then
 				--if moodlevel has increased

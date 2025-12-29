@@ -342,8 +342,12 @@ function ConditionalSpeech.check_PlayerStatus(player)
 	end
 
 	if ConditionalSpeech.playerJustSpoke[player] then
-		local pSpeaking = player:isSpeaking() and player:getCurrentSquare():isInARoom()
-		if pSpeaking then
+
+		local pSpeaking = player:isSpeaking()
+		local pSq = player:getCurrentSquare()
+
+		local speakingIndoors = pSpeaking and pSq and pSq:isInARoom()
+		if speakingIndoors then
 			player:getBodyDamage():setBoredomLevel( player:getBodyDamage():getBoredomLevel() + (ZomboidGlobals.BoredomDecrease * getGameTime():getMultiplier()) )
 		end
 		if (not pSpeaking) then

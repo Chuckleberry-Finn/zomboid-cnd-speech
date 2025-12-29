@@ -33,3 +33,12 @@ B42:
  - Added a 'disable phrase' option - uses moodle IDs separated by commas as a blacklist.
     May require game/server restarts for changes to kick in.
 [ ------ ]
+
+[ 12/28/25 ]
+B42+:
+- Added extra sanity checks for boredom corrections.
+   (People were speaking while not on any square/tile)
+   
+B42.13.1:
+- Updated missed API use for Panic while on fire.
+[ ------ ]
