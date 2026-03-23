@@ -222,7 +222,7 @@ UI_Phrases_FoodEaten17 = "I wish I had saved some for later",
 UI_Phrases_FoodEaten18 = "I can't believe I finished all of that",
 UI_Phrases_FoodEaten19 = "I am going to need a bigger pants size",
 UI_Phrases_FoodEaten20 = "I won't be hungry for the rest of the day",
-UI_Phrases_FoodEaten21 = "I need to hit the gym after that meal".
+UI_Phrases_FoodEaten21 = "I need to hit the gym after that meal",
 
 
 --UI_Phrases_Injured
@@ -261,7 +261,7 @@ UI_Phrases_Unhappy21 = "I don't see the point in anything",
 UI_Phrases_Unhappy22 = "why bother?",
 UI_Phrases_Unhappy23 = "I feel so alone",
 UI_Phrases_Unhappy24 = "I'm tired of pretending everything is okay",
-UI_Phrases_Unhappy25 = "I don't know how much longer I can keep going".
+UI_Phrases_Unhappy25 = "I don't know how much longer I can keep going",
 
 
 --UI_Phrases_Wet
@@ -603,6 +603,6 @@ UI_Phrases_Congested3 = "t:d",
 UI_Phrases_Congested4 = "n:ng",
 UI_Phrases_Congested5 = "m:b",
 UI_Phrases_Congested6 = "v:b",
-UI_Phrases_Congested6 = "f:b",
+UI_Phrases_Congested7 = "f:b",
 
 }
