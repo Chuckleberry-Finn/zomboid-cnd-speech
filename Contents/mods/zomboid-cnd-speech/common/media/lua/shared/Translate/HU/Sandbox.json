@@ -1,0 +1,7 @@
+{
+    "Sandbox_ConditionalSpeech": "Feltételes beszéd",
+    "Sandbox_ConditionalSpeechSpeechCanAttractZombies": "A beszéd vonzhatja a zombikat",
+    "Sandbox_ConditionalSpeechShowOnlyAudibleSpeech": "Csak hallható beszéd megjelenítése",
+    "Sandbox_ConditionalSpeechDisablePhrases": "Kifejezések letiltása",
+    "Sandbox_ConditionalSpeechDisablePhrases_tooltip": "A kifejezések letiltásához írja ki az azonosítóikat, vesszővel elválasztva.\\nPélda: Vérző,Beteg,Éhes"
+}

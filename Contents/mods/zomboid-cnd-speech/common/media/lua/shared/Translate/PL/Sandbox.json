@@ -1,0 +1,7 @@
+{
+    "Sandbox_ConditionalSpeech": "Mowa warunkowa",
+    "Sandbox_ConditionalSpeechSpeechCanAttractZombies": "Mowa może przyciągnąć zombie",
+    "Sandbox_ConditionalSpeechShowOnlyAudibleSpeech": "Pokaż tylko mowę słyszalną",
+    "Sandbox_ConditionalSpeechDisablePhrases": "Wyłącz frazy",
+    "Sandbox_ConditionalSpeechDisablePhrases_tooltip": "Wyłącz frazy, wpisując ich identyfikatory, oddzielając je przecinkami.\\nPrzykład: Krwawienie, Chory, Głodny"
+}

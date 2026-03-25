@@ -1,0 +1,7 @@
+{
+    "Sandbox_ConditionalSpeech": "Betinget tale",
+    "Sandbox_ConditionalSpeechSpeechCanAttractZombies": "Tale kan tiltrække zombier",
+    "Sandbox_ConditionalSpeechShowOnlyAudibleSpeech": "Vis kun hørbar tale",
+    "Sandbox_ConditionalSpeechDisablePhrases": "Deaktiver sætninger",
+    "Sandbox_ConditionalSpeechDisablePhrases_tooltip": "Deaktiver sætninger ved at skrive deres id'er adskilt af kommaer.\\nEksempel: Blødning, Syg, Sulten"
+}

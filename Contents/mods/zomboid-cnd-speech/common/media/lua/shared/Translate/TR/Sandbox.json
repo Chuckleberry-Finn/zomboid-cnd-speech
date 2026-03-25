@@ -1,0 +1,7 @@
+{
+    "Sandbox_ConditionalSpeech": "Koşullu Konuşma",
+    "Sandbox_ConditionalSpeechSpeechCanAttractZombies": "Konuşma Zombileri Çekebilir",
+    "Sandbox_ConditionalSpeechShowOnlyAudibleSpeech": "Yalnızca Sesli Konuşmayı Göster",
+    "Sandbox_ConditionalSpeechDisablePhrases": "İfadeleri Devre Dışı Bırak",
+    "Sandbox_ConditionalSpeechDisablePhrases_tooltip": "Kimliklerini virgülle ayırarak yazarak ifadeleri devre dışı bırakın.\\nÖrnek: Kanama,Hasta,Aç"
+}

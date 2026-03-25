@@ -1,0 +1,7 @@
+{
+    "Sandbox_ConditionalSpeech": "Bedingte Sprache",
+    "Sandbox_ConditionalSpeechSpeechCanAttractZombies": "Sprache kann Zombies anlocken",
+    "Sandbox_ConditionalSpeechShowOnlyAudibleSpeech": "Nur hörbare Sprache anzeigen",
+    "Sandbox_ConditionalSpeechDisablePhrases": "Phrasen deaktivieren",
+    "Sandbox_ConditionalSpeechDisablePhrases_tooltip": "Deaktivieren Sie Phrasen, indem Sie ihre IDs durch Kommas getrennt eingeben.\\nBeispiel: Blutend, krank, hungrig"
+}

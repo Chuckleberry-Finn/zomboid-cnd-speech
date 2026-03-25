@@ -1,3 +1,9 @@
+[ ALERT_CONFIG ]
+link1 = Chuck's Kofi = https://steamcommunity.com/linkfilter/?u=https://ko-fi.com/chuckleberryfinn,
+link2 = Workshop = https://steamcommunity.com/id/Chuckleberry_Finn/myworkshopfiles/?appid=108600,
+link3 = Github = https://steamcommunity.com/linkfilter/?u=https://github.com/Chuckleberry-Finn,
+[ ------ ]
+
 [ 3/12/24 ]
 - Update: Lowered panic-swear chance to 5% from 15%.
 [ ------ ]
@@ -41,4 +47,9 @@ B42+:
    
 B42.13.1:
 - Updated missed API use for Panic while on fire.
+[ ------ ]
+
+[ 3/25/26 ]
+- B42.15 Json Translation.
+- A few lines were also caught with errors and fixed.
 [ ------ ]

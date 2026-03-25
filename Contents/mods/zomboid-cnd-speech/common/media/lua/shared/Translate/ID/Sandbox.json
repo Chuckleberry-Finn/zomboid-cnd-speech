@@ -1,0 +1,7 @@
+{
+    "Sandbox_ConditionalSpeech": "Pidato Bersyarat",
+    "Sandbox_ConditionalSpeechSpeechCanAttractZombies": "Ucapan Dapat Menarik Zombi",
+    "Sandbox_ConditionalSpeechShowOnlyAudibleSpeech": "Tampilkan Hanya Ucapan yang Dapat Didengar",
+    "Sandbox_ConditionalSpeechDisablePhrases": "Nonaktifkan Frasa",
+    "Sandbox_ConditionalSpeechDisablePhrases_tooltip": "Nonaktifkan frasa dengan menuliskan ID-nya, dipisahkan dengan koma.\\nContoh: Pendarahan, Sakit, Lapar"
+}

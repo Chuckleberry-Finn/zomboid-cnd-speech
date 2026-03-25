@@ -1,0 +1,7 @@
+{
+    "Sandbox_ConditionalSpeech": "조건부 연설",
+    "Sandbox_ConditionalSpeechSpeechCanAttractZombies": "말은 좀비를 유인할 수 있다",
+    "Sandbox_ConditionalSpeechShowOnlyAudibleSpeech": "가청 음성만 표시",
+    "Sandbox_ConditionalSpeechDisablePhrases": "문구 비활성화",
+    "Sandbox_ConditionalSpeechDisablePhrases_tooltip": "ID를 쉼표로 구분하여 작성하여 문구를 비활성화합니다.\\n예: 출혈,병,배고픔"
+}

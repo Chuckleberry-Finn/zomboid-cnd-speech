@@ -1,0 +1,7 @@
+{
+    "Sandbox_ConditionalSpeech": "Podmíněná řeč",
+    "Sandbox_ConditionalSpeechSpeechCanAttractZombies": "Řeč může přilákat zombie",
+    "Sandbox_ConditionalSpeechShowOnlyAudibleSpeech": "Zobrazit pouze slyšitelný projev",
+    "Sandbox_ConditionalSpeechDisablePhrases": "Zakázat fráze",
+    "Sandbox_ConditionalSpeechDisablePhrases_tooltip": "Vypněte fráze napsáním jejich ID oddělených čárkami.\\nPříklad: Krvácení, Nemoc, Hlad"
+}

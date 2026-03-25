@@ -1,0 +1,7 @@
+{
+    "Sandbox_ConditionalSpeech": "Voorwaardelijke spraak",
+    "Sandbox_ConditionalSpeechSpeechCanAttractZombies": "Spraak kan zombies aantrekken",
+    "Sandbox_ConditionalSpeechShowOnlyAudibleSpeech": "Toon alleen hoorbare spraak",
+    "Sandbox_ConditionalSpeechDisablePhrases": "Schakel Zinnen uit",
+    "Sandbox_ConditionalSpeechDisablePhrases_tooltip": "Schakel zinnen uit door hun ID's op te schrijven, gescheiden door komma's.\\nVoorbeeld: Bloedend,Ziek,Hongerig"
+}

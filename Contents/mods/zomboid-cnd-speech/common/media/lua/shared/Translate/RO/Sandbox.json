@@ -1,0 +1,7 @@
+{
+    "Sandbox_ConditionalSpeech": "Discurs condiționat",
+    "Sandbox_ConditionalSpeechSpeechCanAttractZombies": "Vorbirea poate atrage zombi",
+    "Sandbox_ConditionalSpeechShowOnlyAudibleSpeech": "Afișați numai vorbire audibilă",
+    "Sandbox_ConditionalSpeechDisablePhrases": "Dezactivează Expresii",
+    "Sandbox_ConditionalSpeechDisablePhrases_tooltip": "Dezactivați expresiile notând ID-urile lor, separate prin virgule.\\nExemplu: sângerări, bolnavi, foame"
+}

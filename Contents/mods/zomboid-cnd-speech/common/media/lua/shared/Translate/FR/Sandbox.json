@@ -1,0 +1,7 @@
+{
+    "Sandbox_ConditionalSpeech": "Discours conditionnel",
+    "Sandbox_ConditionalSpeechSpeechCanAttractZombies": "La parole peut attirer les zombies",
+    "Sandbox_ConditionalSpeechShowOnlyAudibleSpeech": "Afficher uniquement la parole audible",
+    "Sandbox_ConditionalSpeechDisablePhrases": "Désactiver les phrases",
+    "Sandbox_ConditionalSpeechDisablePhrases_tooltip": "Désactivez les phrases en écrivant leurs identifiants, séparés par des virgules.\\nExemple : Saignement, Malade, Faim"
+}

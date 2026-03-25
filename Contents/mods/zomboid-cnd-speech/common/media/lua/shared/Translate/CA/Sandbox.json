@@ -1,0 +1,7 @@
+{
+    "Sandbox_ConditionalSpeech": "Discurs condicional",
+    "Sandbox_ConditionalSpeechSpeechCanAttractZombies": "La parla pot atreure zombis",
+    "Sandbox_ConditionalSpeechShowOnlyAudibleSpeech": "Mostra només veu audible",
+    "Sandbox_ConditionalSpeechDisablePhrases": "Desactivar les frases",
+    "Sandbox_ConditionalSpeechDisablePhrases_tooltip": "Desactiveu les frases escrivint els seus identificadors, separades per comes.\\nExemple: sagnant, malalt, fam"
+}

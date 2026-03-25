@@ -1,0 +1,7 @@
+{
+    "Sandbox_ConditionalSpeech": "條件語音",
+    "Sandbox_ConditionalSpeechSpeechCanAttractZombies": "言語可以吸引殭屍",
+    "Sandbox_ConditionalSpeechShowOnlyAudibleSpeech": "僅顯示可聽語音",
+    "Sandbox_ConditionalSpeechDisablePhrases": "停用短語",
+    "Sandbox_ConditionalSpeechDisablePhrases_tooltip": "透過寫出 ID 來停用短語，以逗號分隔。 \\n範例: Bleeding,Sick,Hungry"
+}

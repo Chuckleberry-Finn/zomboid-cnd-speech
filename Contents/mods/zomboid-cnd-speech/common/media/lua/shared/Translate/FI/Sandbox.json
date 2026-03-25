@@ -1,0 +1,7 @@
+{
+    "Sandbox_ConditionalSpeech": "Ehdollinen puhe",
+    "Sandbox_ConditionalSpeechSpeechCanAttractZombies": "Puhe voi houkutella zombeja",
+    "Sandbox_ConditionalSpeechShowOnlyAudibleSpeech": "Näytä vain kuultava puhe",
+    "Sandbox_ConditionalSpeechDisablePhrases": "Poista lauseet käytöstä",
+    "Sandbox_ConditionalSpeechDisablePhrases_tooltip": "Poista lauseet käytöstä kirjoittamalla niiden tunnukset pilkuilla erotettuina.\\nEsimerkki: Verenvuoto, Sairas, Nälkäinen"
+}

@@ -1,0 +1,7 @@
+{
+    "Sandbox_ConditionalSpeech": "Discurso Condicional",
+    "Sandbox_ConditionalSpeechSpeechCanAttractZombies": "A fala pode atrair zumbis",
+    "Sandbox_ConditionalSpeechShowOnlyAudibleSpeech": "Mostrar apenas fala audível",
+    "Sandbox_ConditionalSpeechDisablePhrases": "Desativar frases",
+    "Sandbox_ConditionalSpeechDisablePhrases_tooltip": "Desative as frases escrevendo seus IDs, separados por vírgulas.\\nExemplo: Sangramento,Doente,Fome"
+}

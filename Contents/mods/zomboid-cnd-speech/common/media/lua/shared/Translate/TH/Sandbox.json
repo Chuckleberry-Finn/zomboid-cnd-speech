@@ -1,0 +1,7 @@
+{
+    "Sandbox_ConditionalSpeech": "คำพูดแบบมีเงื่อนไข",
+    "Sandbox_ConditionalSpeechSpeechCanAttractZombies": "คำพูดสามารถดึงดูดซอมบี้ได้",
+    "Sandbox_ConditionalSpeechShowOnlyAudibleSpeech": "แสดงเฉพาะคำพูดที่ได้ยินเท่านั้น",
+    "Sandbox_ConditionalSpeechDisablePhrases": "ปิดการใช้งานวลี",
+    "Sandbox_ConditionalSpeechDisablePhrases_tooltip": "ปิดการใช้งานวลีโดยการเขียน ID โดยคั่นด้วยเครื่องหมายจุลภาค\\nตัวอย่าง: เลือดออก ป่วย หิว"
+}

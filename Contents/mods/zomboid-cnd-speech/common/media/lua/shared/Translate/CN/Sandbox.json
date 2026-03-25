@@ -1,0 +1,7 @@
+{
+    "Sandbox_ConditionalSpeech": "条件语音",
+    "Sandbox_ConditionalSpeechSpeechCanAttractZombies": "言语可以吸引僵尸",
+    "Sandbox_ConditionalSpeechShowOnlyAudibleSpeech": "仅显示可听语音",
+    "Sandbox_ConditionalSpeechDisablePhrases": "禁用短语",
+    "Sandbox_ConditionalSpeechDisablePhrases_tooltip": "通过写出 ID 来禁用短语，以逗号分隔。\\n示例: Bleeding,Sick,Hungry"
+}

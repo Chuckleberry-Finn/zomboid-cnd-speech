@@ -1,0 +1,7 @@
+{
+    "Sandbox_ConditionalSpeech": "Discorso condizionale",
+    "Sandbox_ConditionalSpeechSpeechCanAttractZombies": "La parola può attrarre gli zombi",
+    "Sandbox_ConditionalSpeechShowOnlyAudibleSpeech": "Mostra solo parlato udibile",
+    "Sandbox_ConditionalSpeechDisablePhrases": "Disabilita frasi",
+    "Sandbox_ConditionalSpeechDisablePhrases_tooltip": "Disattiva le frasi scrivendo i relativi ID, separati da virgole.\\nEsempio: Sanguinamento, Malato, Affamato"
+}

@@ -1,0 +1,7 @@
+{
+    "Sandbox_ConditionalSpeech": "条件付きスピーチ",
+    "Sandbox_ConditionalSpeechSpeechCanAttractZombies": "スピーチはゾンビを引き寄せる可能性がある",
+    "Sandbox_ConditionalSpeechShowOnlyAudibleSpeech": "可聴音声のみを表示",
+    "Sandbox_ConditionalSpeechDisablePhrases": "フレーズを無効にする",
+    "Sandbox_ConditionalSpeechDisablePhrases_tooltip": "フレーズを無効にするには、カンマで区切って ID を書き出します。\\n例: Bleeding、Sick、Hungry"
+}

@@ -1,0 +1,7 @@
+{
+    "Sandbox_ConditionalSpeech": "Умовне мовлення",
+    "Sandbox_ConditionalSpeechSpeechCanAttractZombies": "Мова може залучити зомбі",
+    "Sandbox_ConditionalSpeechShowOnlyAudibleSpeech": "Показувати лише звукову мову",
+    "Sandbox_ConditionalSpeechDisablePhrases": "Вимкнути фрази",
+    "Sandbox_ConditionalSpeechDisablePhrases_tooltip": "Вимкніть фрази, написавши їхні ідентифікатори, розділивши їх комами.\\nПриклад: Bleeding,Sick,Hungry"
+}

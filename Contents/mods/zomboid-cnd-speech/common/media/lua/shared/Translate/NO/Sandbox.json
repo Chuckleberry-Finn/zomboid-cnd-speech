@@ -1,0 +1,7 @@
+{
+    "Sandbox_ConditionalSpeech": "Betinget tale",
+    "Sandbox_ConditionalSpeechSpeechCanAttractZombies": "Tale kan tiltrekke zombier",
+    "Sandbox_ConditionalSpeechShowOnlyAudibleSpeech": "Vis kun hørbar tale",
+    "Sandbox_ConditionalSpeechDisablePhrases": "Deaktiver fraser",
+    "Sandbox_ConditionalSpeechDisablePhrases_tooltip": "Deaktiver setninger ved å skrive ut ID-ene deres, atskilt med kommaer.\\nEksempel: Blødning, Syk, Sulten"
+}

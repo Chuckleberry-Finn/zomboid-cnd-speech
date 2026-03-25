@@ -1,0 +1,7 @@
+{
+    "Sandbox_ConditionalSpeech": "Kondisyon na Pagsasalita",
+    "Sandbox_ConditionalSpeechSpeechCanAttractZombies": "Maaaring Makaakit ng mga Zombie ang Pagsasalita",
+    "Sandbox_ConditionalSpeechShowOnlyAudibleSpeech": "Ipakita Lamang ang Naririnig na Pagsasalita",
+    "Sandbox_ConditionalSpeechDisablePhrases": "Huwag paganahin ang Mga Parirala",
+    "Sandbox_ConditionalSpeechDisablePhrases_tooltip": "Huwag paganahin ang mga parirala sa pamamagitan ng pagsusulat ng kanilang mga ID, na pinaghihiwalay ng mga kuwit.\\nHalimbawa: Dumudugo,Maysakit,Gutom"
+}

@@ -1,0 +1,7 @@
+{
+    "Sandbox_ConditionalSpeech": "Условная речь",
+    "Sandbox_ConditionalSpeechSpeechCanAttractZombies": "Речь может привлечь зомби",
+    "Sandbox_ConditionalSpeechShowOnlyAudibleSpeech": "Показывать только слышимую речь",
+    "Sandbox_ConditionalSpeechDisablePhrases": "Отключить фразы",
+    "Sandbox_ConditionalSpeechDisablePhrases_tooltip": "Отключите фразы, записав их идентификаторы через запятую.\\nПример: Кровотечение,Больной,Голодный."
+}
