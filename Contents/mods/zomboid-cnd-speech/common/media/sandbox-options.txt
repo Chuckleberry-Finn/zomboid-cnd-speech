@@ -8,3 +8,6 @@ option ConditionalSpeech.ShowOnlyAudibleSpeech
 
 option ConditionalSpeech.DisablePhrases
 {type = string, default = , page = ConditionalSpeech, translation = ConditionalSpeechDisablePhrases,}
+
+option ConditionalSpeech.AllowClientModOptions
+{type = boolean, default = true, page = ConditionalSpeech, translation = ConditionalSpeechAllowClientModOptions,}

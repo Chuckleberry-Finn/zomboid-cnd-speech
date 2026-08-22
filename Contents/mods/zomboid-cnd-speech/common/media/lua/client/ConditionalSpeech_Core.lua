@@ -3,18 +3,37 @@ local conditionalSpeechFilter = require "ConditionalSpeech_Filters"
 local phraseSets = require "ConditionalSpeech_PhraseSet"
 local metaValues = require "ConditionalSpeech_metaValues"
 local config = require "ConditionalSpeech_Config"
+local cndSpeechMemory = require "ConditionalSpeech_Memory"
 
 local ConditionalSpeech = {}
+
+function ConditionalSpeech.checkModOption(ID)
+	if not PZAPI or not PZAPI.ModOptions then return nil end
+
+	local options = PZAPI.ModOptions:getOptions("Conditional-Speech")
+	local option = options and options:getOption(ID)
+	local value = option and option:getValue()
+
+	return value
+end
 
 function ConditionalSpeech.enabledPhraseSet(moodID)
 	config.applyDisabledPhraseSets()
 	local disabled = config and config.disabledPhraseSets and config and config.disabledPhraseSets[moodID]
 	if disabled then return false end
+
+	if config.clientModOptionsEditable == false then return true end
+
+	local modOptionValue = ConditionalSpeech.checkModOption("cndSpeech_Phrase_"..moodID)
+	if modOptionValue == false then return false end
+
 	return true
 end
 
-
 ConditionalSpeech.Speakers = {}
+
+--- Tracks in-progress zombie strikes per player, keyed by zombie.
+ConditionalSpeech.zombieStrikes = {}
 
 --- filters that shouldn't run if volume is 0 or thoughts
 ConditionalSpeech.volumeSensitiveFilters = {["Stutter"]=true,["Stammer"]=true}
@@ -81,19 +100,21 @@ function ConditionalSpeech.load_n_set_Moodles(id,player)
 	if pModData then
 		pModData.cs_lastspoke = {[1]=getTimestamp(), [2]=""}
 		pModData.cs_lastPanicTime = getTimestamp()
-		pModData.moodleTable = {}
+		pModData.cs_moodleTable = {}
 
 		local moodles = player:getMoodles()
 		if moodles then
 			--fetches moodles index num
-			local moodNum = moodles:getNumMoodles()
-			for i=0, moodNum-1 do
-				--fetches mood type string based on index
-				local moodType = moodles:getMoodleType(i)
-				--fetches moodle level based on fetched type
-				local foundlevel = moodles:getMoodleLevel(moodType)
-				--creates a key value pair of type and found level
-				pModData.moodleTable[tostring(moodType)] = foundlevel
+			for moodleID,moodle in pairs(MoodleType) do
+				if instanceof(moodle, "MoodleType") then
+
+					--fetches mood type string based on index
+					local moodType = tostring(moodleID)
+					--fetches moodle level based on fetched type
+					local foundlevel = moodles:getMoodleLevel(moodle)
+					--creates a key value pair of type and found level
+					pModData.cs_moodleTable[tostring(moodType)] = foundlevel
+				end
 			end
 		end
 	end
@@ -114,10 +135,13 @@ function ConditionalSpeech.passMoodleFilters(player,text)
 	local sortFilters = {}
 
 	--for each mood grab stored mood and lvl in player's moodle array
-	for MoodID,lvl in pairs(player:getModData().moodleTable) do
+	for moodleType,lvl in pairs(player:getModData().cs_moodleTable) do
+
+		local moodle = MoodleType[moodleType]
+		local moodID = moodle:getTranslationName()
 
 		local moodleLevel = lvl
-		local MoodID_filters = ConditionalSpeech.filterTable[MoodID]
+		local MoodID_filters = ConditionalSpeech.filterTable[moodID]
 
 		--check if mood should be processed
 		if moodleLevel > 0 and MoodID_filters then
@@ -145,10 +169,11 @@ function ConditionalSpeech.passMoodleFilters(player,text)
 	for _,FilterType in ipairs(sortFilters) do
 		if not ConditionalSpeech.volumeSensitiveFilters[FilterType] or (filtered_vol > 0 and ConditionalSpeech.volumeSensitiveFilters[FilterType]) then
 			--compare sortFilters's value to filtersToPass's keys to find stored intensity
-			--[debug]] print("CND-SPEECH: RUN FILTER: ",FilterType,"-")
+
 			local intensity = filtersToPass[FilterType]
 			local filter = conditionalSpeechFilter[FilterType]
 			local resultText, resultVolume = filter(text, intensity)
+			--[debug]] print("CND-SPEECH: RUN FILTER: ",FilterType," -intensity:",intensity)
 
 			text = resultText or text
 			if resultVolume and resultVolume > filtered_vol then filtered_vol = resultVolume end
@@ -164,23 +189,69 @@ end
 
 
 
+--- Resolves <KEYWORD> tags within a phrase, substituting in a random line from the matching phraseset.
+---@param dialogue string
+--- Checks whether a player is currently panicking.
+---@param player IsoGameCharacter
+function ConditionalSpeech.isPanicking(player)
+	local playerMoodles = player and player:getMoodles()
+	local panicLevel = playerMoodles and playerMoodles:getMoodleLevel(MoodleType.PANIC) or 0
+	return panicLevel > 0
+end
+
+
+function ConditionalSpeech.resolveKeywords(dialogue, danger, player)
+	if not dialogue then return dialogue end
+
+	if player and dialogue:find("<RecentFood>", 1, true) then
+		local recentFood = cndSpeechMemory.recent(player, "AteFood", 3600) or "something"
+		dialogue = dialogue:gsub("<RecentFood>", recentFood:gsub("%%","%%%%"), 1)
+	end
+
+	local MAX_PASSES = 15
+	local passes = 0
+
+	while string.find(dialogue, "<") and passes < MAX_PASSES do
+		passes = passes + 1
+
+		for KEYWORD, PHRASE in pairs(phraseSets.Phrases) do
+			local tag = "<"..KEYWORD..">"
+
+			if dialogue:find(tag, 1, true) then
+				local phrases = PHRASE
+				if danger and (KEYWORD=="SARCASM") then phrases = phraseSets.Phrases["SWEAR"] end
+
+				local replacement = phrases and #phrases > 0 and cndSpeechUtil.pickFrom(phrases)
+
+				if replacement then
+					replacement = replacement:gsub("%%","%%%%")
+					dialogue = dialogue:gsub(tag, replacement, 1)
+				else
+					dialogue = dialogue:gsub(tag, "", 1)
+				end
+			end
+		end
+	end
+
+	dialogue = dialogue:gsub("<%a+>", ""):gsub("[<>]", "")
+
+	return dialogue
+end
+
+
 --- Generates speech from a given table/list of phrases.
 ---@param player IsoGameCharacter
 ---@param PhraseSetID string String needs to match a table with in ConditionalSpeech.Phrases.
 function ConditionalSpeech.generateSpeechFrom(player, PhraseSetID, intensity, MAXintensity, volumeBlock, danger)
-	if not player or not PhraseSetID then
-		return
-	end
+	if not player or not PhraseSetID then return end
+
+	--print("p:",player, " - ",PhraseSetID, " (",intensity,"/", MAXintensity,") ", "@",volumeBlock," danger:", danger)
 
 	if ConditionalSpeech.enabledPhraseSet(PhraseSetID) ~= true then return end
 
-	if not intensity or intensity <=0 then
-		intensity = 1
-	end
+	if not intensity or intensity <=0 then intensity = 1 end
 
-	if not MAXintensity or MAXintensity <=0 then
-		MAXintensity = 1
-	end
+	if not MAXintensity or MAXintensity <=0 then MAXintensity = 1 end
 
 	-- prevent the player from speaking too soon -- getTimestamp is in seconds
 	local lastspoke = player:getModData().cs_lastspoke or {[1]=getTimestamp(), [2]=""}
@@ -199,14 +270,9 @@ function ConditionalSpeech.generateSpeechFrom(player, PhraseSetID, intensity, MA
 		return
 	end
 
-	--If "<" is found within the phrase - assume there's a keyword
-	while string.find(dialogue, "<") do
-		--replace text matching PhraseSetID (KEYWORD) with words from phraseset
-		for KEYWORD, PHRASE in pairs(phraseSets.Phrases) do
-			local phrases = PHRASE
-			if danger and (KEYWORD=="SARCASM") then phrases = phraseSets.Phrases["SWEAR"] end
-			dialogue = dialogue:gsub("<"..KEYWORD..">", cndSpeechUtil.pickFrom(phrases))
-		end
+	dialogue = ConditionalSpeech.resolveKeywords(dialogue, danger, player)
+	if not dialogue then
+		return
 	end
 
 	local vocal_volume = 0
@@ -261,7 +327,7 @@ function ConditionalSpeech.ProcessSpeech(player, dialogue, PhraseSetID, volumeBl
 		end
 
 		--pass moodle filters if player has a moodle array
-		if player:getModData().moodleTable then
+		if player:getModData().cs_moodleTable then
 			local textResult, volumeResult = ConditionalSpeech.passMoodleFilters(player,dialogue)--have other moods impact dialogue
 			dialogue = textResult
 			vocal_volume = volumeResult
@@ -277,6 +343,7 @@ function ConditionalSpeech.ProcessSpeech(player, dialogue, PhraseSetID, volumeBl
 
 	if volumeBlock then
 		vocal_volume = 0
+		dialogue = "(" .. dialogue .. ")"
 	end
 
 	return dialogue, vocal_volume
@@ -286,9 +353,7 @@ end
 --- Blends speech color with gray on a scale with volume. This is called with in ConditionalSpeech.Speech.
 ---@param player IsoGameCharacter | IsoPlayer
 function ConditionalSpeech.applyVolumetricColor_Say(player,text,vol)
-	if not player or not text then
-		return
-	end
+	if not player or not text then return end
 
 	if not vol then vol = 0 end
 	if (vol <= 0) and (SandboxVars.ConditionalSpeech.ShowOnlyAudibleSpeech==true) then return end
@@ -332,12 +397,16 @@ function processSayMessage(text, ...)
 	return original_processSayMessage(text, ...)
 end
 
+--[[
+for moodleType,lvl in pairs(getPlayer():getModData().cs_moodleTable) do if lvl > 0 then print("moodleType: ",moodleType," = ",lvl) end end
+]]
+
 ConditionalSpeech.playerJustSpoke = {}
 
 --- Tracks moodle levels overtime, runs generate speech.
 ---@param player IsoGameCharacter|IsoPlayer|IsoMovingObject|IsoObject
 function ConditionalSpeech.check_PlayerStatus(player)
-	if (not player) then--or (not player:getModData().moodleTable) then
+	if (not player) then--or (not player:getModData().cs_moodleTable) then
 		return
 	end
 
@@ -348,8 +417,10 @@ function ConditionalSpeech.check_PlayerStatus(player)
 
 		local speakingIndoors = pSpeaking and pSq and pSq:isInARoom()
 		if speakingIndoors then
-			player:getBodyDamage():setBoredomLevel( player:getBodyDamage():getBoredomLevel() + (ZomboidGlobals.BoredomDecrease * getGameTime():getMultiplier()) )
+			local stats = player:getStats()
+			stats:set(CharacterStat.BOREDOM, stats:get(CharacterStat.BOREDOM) + (ZomboidGlobals.BoredomDecrease * getGameTime():getMultiplier()) )
 		end
+
 		if (not pSpeaking) then
 			ConditionalSpeech.playerJustSpoke[player] = ConditionalSpeech.playerJustSpoke[player] - 1
 			if ConditionalSpeech.playerJustSpoke[player] <= 0 then
@@ -363,22 +434,38 @@ function ConditionalSpeech.check_PlayerStatus(player)
 		return
 	end
 
-	if (not pModData.moodleTable) then
+	if (not pModData.cs_moodleTable) then
 		ConditionalSpeech.load_n_set_Moodles(player)
 	end
-	if (not pModData.moodleTable) then
+	if (not pModData.cs_moodleTable) then
 		return
 	end
 
 	local playerStats = player:getStats()
 	--panic is a troublesome moodle and can't be treated like the rest
-	local panicLevel = player:getMoodles():getMoodleLevel(MoodleType.Panic)
+	local playerMoodles = player:getMoodles()
 
+	local panicLevel = playerMoodles and playerMoodles:getMoodleLevel(MoodleType.PANIC)or 0
 	-- on fire condition
 	if player:isOnFire() then
-		playerStats:setPanic(playerStats:getPanic()+100)
+		playerStats:set(CharacterStat.PANIC, playerStats:get(CharacterStat.PANIC) + 100 )
 		ConditionalSpeech.generateSpeechFrom(player,"Panic",panicLevel,4, false, true)
 		return
+	end
+
+	local now = getTimestamp()
+	if pModData.cs_lastMoodleScan and (now - pModData.cs_lastMoodleScan) < 1 then
+		return
+	end
+	pModData.cs_lastMoodleScan = now
+
+	local playerStrikes = ConditionalSpeech.zombieStrikes[player]
+	if playerStrikes then
+		for zombie,entry in pairs(playerStrikes) do
+			if (now - entry.lastHit) > 120 or zombie:isDead() then
+				playerStrikes[zombie] = nil
+			end
+		end
 	end
 
 	local zombiesNearBy = (playerStats:getNumVisibleZombies() > 0) or (player:getLastSeenZomboidTime() < 1)
@@ -386,8 +473,8 @@ function ConditionalSpeech.check_PlayerStatus(player)
 	--prevent vocalization if any zombies are visible or chasing
 	local volumeBlock = (cndSpeechUtil.prob(100-(panicLevel^2)) and zombiesNearBy)
 	--check if agoraphobic is actively inducing panic
-	local agora = (player:isOutside() and player:HasTrait("Agoraphobic"))
-	local claustro = ((not player:isOutside()) and player:HasTrait("Claustophobic"))
+	local agora = (player:isOutside() and player:hasTrait(CharacterTrait.AGORAPHOBIC))
+	local claustro = ((not player:isOutside()) and player:hasTrait(CharacterTrait.CLAUSTROPHOBIC))
 
 	local impactedByPanic = (panicLevel>0 and zombiesNearBy)
 	if impactedByPanic then
@@ -395,36 +482,50 @@ function ConditionalSpeech.check_PlayerStatus(player)
 	end
 
 	local spoke = false
-	for MoodleID,lvl in pairs(pModData.moodleTable) do
+	for moodleType,lvl in pairs(pModData.cs_moodleTable) do
 		local storedmoodleLevel = lvl
-		local currentMoodleLevel = player:getMoodles():getMoodleLevel(MoodleType[MoodleID])
-		--currentMoodleLevel(current mood level) is not equal to stored mood level then
-		if currentMoodleLevel ~= storedmoodleLevel then
-			--if moodlevel has increased
-			if currentMoodleLevel > storedmoodleLevel then
-				local phraseSet = MoodleID
 
-				if (impactedByPanic) and (MoodleID~="Panic") and (MoodleID~="Pain") and (getTimestamp() < pModData.cs_lastPanicTime) then
-				else
-					--space-phobic conditions met, set MoodleID\Phraset
-					if MoodleID=="Panic" then
-						if agora then
-							phraseSet = "Agoraphobic"
-						elseif claustro then
-							phraseSet = "Claustrophobic"
+		---@type MoodleType
+		local moodle = MoodleType[moodleType]
+		if moodle then
+			local moodleID = moodle:getTranslationName()
+			local currentMoodleLevel = playerMoodles:getMoodleLevel(moodle)
+			--currentMoodleLevel(current mood level) is not equal to stored mood level then
+			if currentMoodleLevel ~= storedmoodleLevel then
+				--if moodlevel has increased
+				if currentMoodleLevel > storedmoodleLevel then
+					local phraseSet = moodleID
+
+					local suppressedByPanic = (impactedByPanic) and (moodleID~="Panic") and (moodleID~="Pain") and (getTimestamp() < pModData.cs_lastPanicTime)
+					local suppressedByFoodReaction = (moodleID~="Sick") and (moodleID~="Pain") and (getTimestamp() < (pModData.cs_lastFoodReactionTime or 0))
+
+					if suppressedByPanic or suppressedByFoodReaction then
+					else
+						--space-phobic conditions met, set MoodleID\Phraset
+						if moodleID=="Panic" then
+							if agora then
+								phraseSet = "Agoraphobic"
+							elseif claustro then
+								phraseSet = "Claustrophobic"
+							elseif cndSpeechMemory.recent(player, "Kill", 180) and cndSpeechUtil.prob(35) then
+								phraseSet = "PanicCallback"
+							end
 						end
+						if moodleID=="Sick" and cndSpeechMemory.recent(player, "AteBadFood", 600) and cndSpeechUtil.prob(40) then
+							phraseSet = "SickFromFood"
+						end
+						--pain overrides volumeBlock
+						if moodleID == "Pain" then
+							volumeBlock = false
+						end
+						--generate speech
+						ConditionalSpeech.generateSpeechFrom(player, phraseSet, currentMoodleLevel,4, volumeBlock, zombiesNearBy)
 					end
-					--pain overrides volumeBlock
-					if MoodleID == "Pain" then
-						volumeBlock = false
-					end
-					--generate speech
-					ConditionalSpeech.generateSpeechFrom(player, phraseSet, currentMoodleLevel,4, volumeBlock, zombiesNearBy)
+					spoke = true
 				end
-				spoke = true
+				--match stored mood level to current regardless of above outcome
+				pModData.cs_moodleTable[moodleType] = currentMoodleLevel
 			end
-			--match stored mood level to current regardless of above outcome
-			pModData.moodleTable[MoodleID] = currentMoodleLevel
 		end
 	end
 
@@ -487,5 +588,303 @@ function ConditionalSpeech.check_Time()
 		end
 	end
 end
+
+
+--- Weapon Hit Tree Check
+---@param owner IsoGameCharacter
+---@param weapon HandWeapon
+function ConditionalSpeech.check_WeaponHitTree(owner, weapon)
+	if not owner then return end
+	if not instanceof(owner, "IsoPlayer") then return end
+	if ConditionalSpeech.isPanicking(owner) then return end
+
+	local pModData = owner:getModData()
+	local now = getTimestamp()
+
+	if pModData.cs_lastTreeHit and (now - pModData.cs_lastTreeHit) > 10 then
+		pModData.cs_treeHitStreak = 0
+	end
+
+	pModData.cs_treeHitStreak = (pModData.cs_treeHitStreak or 0) + 1
+	pModData.cs_lastTreeHit = now
+
+	if pModData.cs_treeHitStreak < 5 then return end
+	if pModData.cs_lastTreeLine and (now - pModData.cs_lastTreeLine) < 120 then return end
+
+	local chance = math.min(70, (pModData.cs_treeHitStreak-4)*15)
+	if not cndSpeechUtil.prob(chance) then return end
+
+	pModData.cs_lastTreeLine = now
+
+	ConditionalSpeech.generateSpeechFrom(owner, "ChopTree", 1, 1, false, false)
+end
+
+
+--- Zombie Hit Check
+---@param zombie IsoZombie
+---@param wielder IsoGameCharacter
+function ConditionalSpeech.check_ZombieHit(zombie, wielder, bodyPart, weapon)
+	if (not zombie) or (not wielder) then return end
+	if not instanceof(wielder, "IsoPlayer") then return end
+
+	local now = getTimestamp()
+
+	ConditionalSpeech.zombieStrikes[wielder] = ConditionalSpeech.zombieStrikes[wielder] or {}
+	local playerStrikes = ConditionalSpeech.zombieStrikes[wielder]
+
+	local entry = playerStrikes[zombie]
+	if (not entry) or (now - entry.firstHit) > 120 then
+		entry = {count=0, firstHit=now}
+		playerStrikes[zombie] = entry
+	end
+
+	entry.count = entry.count+1
+	entry.lastHit = now
+
+	if entry.count < 4 then return end
+
+	local pModData = wielder:getModData()
+	if pModData.cs_lastMultiHitLine and (now - pModData.cs_lastMultiHitLine) < 180 then return end
+
+	local chance = math.min(80, (entry.count-3)*15)
+	if not cndSpeechUtil.prob(chance) then return end
+
+	pModData.cs_lastMultiHitLine = now
+
+	ConditionalSpeech.generateSpeechFrom(wielder, "MultiHit", 1, 1, false, false)
+end
+
+
+--- Zombie Kill Check
+---@param zombie IsoZombie
+function ConditionalSpeech.check_ZombieKill(zombie)
+	if not zombie then return end
+
+	local killer, killerDistSq = nil, nil
+
+	for playerIndex=0, getNumActivePlayers()-1 do
+		local playerObj = getSpecificPlayer(playerIndex)
+		if playerObj and not playerObj:isDead() then
+			local dx, dy = playerObj:getX()-zombie:getX(), playerObj:getY()-zombie:getY()
+			local distSq = dx*dx + dy*dy
+
+			if (not killerDistSq) or distSq < killerDistSq then
+				killer, killerDistSq = playerObj, distSq
+			end
+		end
+	end
+
+	if (not killer) or (not killerDistSq) or killerDistSq > 9 then return end
+
+	local pModData = killer:getModData()
+	pModData.cs_killStreak = (pModData.cs_killStreak or 0) + 1
+
+	cndSpeechMemory.remember(killer, "Kill", pModData.cs_killStreak)
+
+	local now = getTimestamp()
+	if pModData.cs_lastKillLine and (now - pModData.cs_lastKillLine) < 90 then return end
+	if not cndSpeechUtil.prob(12) then return end
+
+	pModData.cs_lastKillLine = now
+
+	ConditionalSpeech.generateSpeechFrom(killer, "Kill", 1, 1, false, false)
+end
+
+
+--- Level Up Check
+---@param player IsoGameCharacter
+function ConditionalSpeech.check_LevelUp(player, perk, level, isSingleZero)
+	if (not player) or (not level) or level<=0 then return end
+
+	cndSpeechMemory.remember(player, "LevelUp", perk and perk:getName() or nil)
+
+	if ConditionalSpeech.isPanicking(player) then return end
+
+	ConditionalSpeech.generateSpeechFrom(player, "LevelUp", 1, 1, false, false)
+end
+
+
+--- New Room Check
+---@param room IsoRoom
+function ConditionalSpeech.check_NewRoom(room)
+	if not room then return end
+
+	local player = getPlayer()
+	if not player then return end
+	if ConditionalSpeech.isPanicking(player) then return end
+
+	local pModData = player:getModData()
+	local now = getTimestamp()
+
+	if pModData.cs_lastExplore and (now - pModData.cs_lastExplore) < 240 then return end
+	if not cndSpeechUtil.prob(20) then return end
+
+	pModData.cs_lastExplore = now
+
+	ConditionalSpeech.generateSpeechFrom(player, "Explore", 1, 1, false, false)
+end
+
+
+--- Counts the total holes across a character's worn clothing.
+---@param player IsoGameCharacter
+function ConditionalSpeech.countClothingHoles(player)
+	local wornItems = player:getWornItems()
+	if not wornItems then return 0 end
+
+	local holes = 0
+	for i=0, wornItems:size()-1 do
+		local item = wornItems:getItemByIndex(i)
+		if item and instanceof(item, "Clothing") and item.getHolesNumber then
+			holes = holes + item:getHolesNumber()
+		end
+	end
+
+	return holes
+end
+
+
+--- Player Damage Check
+---@param player IsoGameCharacter
+function ConditionalSpeech.check_PlayerGetDamage(player, damageType, damage)
+	if not player then return end
+	if damageType=="HUNGRY" or damageType=="THIRST" or damageType=="LOWWEIGHT" or damageType=="HEAVYLOAD" then return end
+
+	local pModData = player:getModData()
+	pModData.cs_lastInjuryTime = getTimestamp()+3
+end
+
+
+--- Clothing Updated Check
+---@param player IsoGameCharacter
+function ConditionalSpeech.check_ClothingUpdated(player)
+	if not player then return end
+
+	local holes = ConditionalSpeech.countClothingHoles(player)
+	local pModData = player:getModData()
+
+	if pModData.cs_lastHoles == nil then
+		pModData.cs_lastHoles = holes
+		return
+	end
+
+	if holes > pModData.cs_lastHoles then
+		local recentlyInjured = pModData.cs_lastInjuryTime and getTimestamp() < pModData.cs_lastInjuryTime
+		if (not recentlyInjured) and (not ConditionalSpeech.isPanicking(player)) then
+			ConditionalSpeech.generateSpeechFrom(player, "Holes", 1, 1, false, false)
+		end
+	end
+
+	pModData.cs_lastHoles = holes
+end
+
+
+--- Create Player Check
+---@param playerIndex number
+---@param player IsoGameCharacter
+function ConditionalSpeech.check_CreatePlayer(playerIndex, player)
+	if not player then return end
+
+	local pModData = player:getModData()
+	pModData.cs_lastHoles = ConditionalSpeech.countClothingHoles(player)
+end
+
+
+--- Ate Food Check
+---@param player IsoGameCharacter
+---@param food InventoryItem
+function ConditionalSpeech.check_AteFood(player, food)
+	if (not player) or (not food) then return end
+
+	local pModData = player:getModData()
+
+	cndSpeechMemory.remember(player, "AteFood", food.getName and food:getName() or nil)
+
+	local reactionPhraseSet = nil
+
+	if food.isRotten and food:isRotten() then
+		reactionPhraseSet = "FoodRotten"
+	elseif food.isbDangerousUncooked and food:isbDangerousUncooked() and (not food:isCooked()) and (not food:isBurnt()) then
+		reactionPhraseSet = "FoodRaw"
+	end
+
+	if reactionPhraseSet then
+		cndSpeechMemory.remember(player, "AteBadFood", food.getName and food:getName() or nil)
+		pModData.cs_lastFoodReactionTime = getTimestamp()+6
+		ConditionalSpeech.generateSpeechFrom(player, reactionPhraseSet, 1, 1, false, false)
+	end
+end
+
+
+--- Vehicle Damage Check
+---@param driver IsoGameCharacter
+function ConditionalSpeech.check_VehicleDamage(driver)
+	if not driver then return end
+	if not instanceof(driver, "IsoPlayer") then return end
+
+	local pModData = driver:getModData()
+	local now = getTimestamp()
+
+	if pModData.cs_lastVehicleDamageLine and (now - pModData.cs_lastVehicleDamageLine) < 20 then return end
+
+	pModData.cs_lastVehicleDamageLine = now
+
+	ConditionalSpeech.generateSpeechFrom(driver, "VehicleDamage", 1, 1, false, false)
+end
+
+
+--- Fill Container Check
+---@param sourceName string
+function ConditionalSpeech.check_FillContainer(sourceName, containerType, container)
+	local player = getPlayer()
+	if not player then return end
+	if ConditionalSpeech.isPanicking(player) then return end
+
+	local pModData = player:getModData()
+	local now = getTimestamp()
+
+	if pModData.cs_lastContainerLine and (now - pModData.cs_lastContainerLine) < 180 then return end
+	if not cndSpeechUtil.prob(15) then return end
+
+	pModData.cs_lastContainerLine = now
+
+	ConditionalSpeech.generateSpeechFrom(player, "FoundLoot", 1, 1, false, false)
+end
+
+
+--- Animal Tracks Check
+---@param player IsoGameCharacter
+function ConditionalSpeech.check_AnimalTracks(player, tracks)
+	if not player then return end
+	if ConditionalSpeech.isPanicking(player) then return end
+
+	local pModData = player:getModData()
+	local now = getTimestamp()
+
+	if pModData.cs_lastTracksLine and (now - pModData.cs_lastTracksLine) < 60 then return end
+
+	pModData.cs_lastTracksLine = now
+
+	ConditionalSpeech.generateSpeechFrom(player, "AnimalTracks", 1, 1, false, false)
+end
+
+
+--- Item Found Check
+---@param player IsoGameCharacter
+---@param itemType string
+function ConditionalSpeech.check_ItemFound(player, itemType, amount)
+	if not player then return end
+	if ConditionalSpeech.isPanicking(player) then return end
+
+	local pModData = player:getModData()
+	local now = getTimestamp()
+
+	if pModData.cs_lastFoundLine and (now - pModData.cs_lastFoundLine) < 120 then return end
+	if not cndSpeechUtil.prob(20) then return end
+
+	pModData.cs_lastFoundLine = now
+
+	ConditionalSpeech.generateSpeechFrom(player, "Foraged", 1, 1, false, false)
+end
+
 
 return ConditionalSpeech

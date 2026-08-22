@@ -2,6 +2,7 @@ local config = {}
 
 config.disabledPhraseSets = nil--{}
 config.sandboxValue = 0
+config.clientModOptionsEditable = true
 
 function config.applyDisabledPhraseSets()
 

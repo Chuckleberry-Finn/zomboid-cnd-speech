@@ -53,3 +53,14 @@ B42.13.1:
 - B42.15 Json Translation.
 - A few lines were also caught with errors and fixed.
 [ ------ ]
+
+[ 8/20/26 ]
+- Fixed a freeze/spam bug tied to HeavyLoad (overweight) phrases, keyword substitution could error or loop forever when a tag couldn't be resolved.
+- Moodle checks now run once a second instead of every tick.
+- Added new triggers: Kill, LevelUp, Explore, Holes, Repeated zombie strikes, Repeated tree strikes, VehicleDamage, FoundLoot, AnimalTracks, and Foraged.
+- Added a memory system enabling callbacks - e.x: referencing a recent kill during a panic moment, or a recent bad meal if sickness sets in.
+- Bored lines can reference recently eaten food via a new <RecentFood> tag.
+- Added reactions to eating rotten or undercooked food.
+- Lines the character wouldn't say aloud (e.g. staying quiet with zombies nearby) are shown wrapped in parenthesis as unspoken thought.
+- Re-added the Mod Options screen, with a new AllowClientModOptions sandbox setting letting the host decide whether non-admin players can edit it themselves.
+[ ------ ]

@@ -3,5 +3,7 @@
     "Sandbox_ConditionalSpeechSpeechCanAttractZombies": "Speech Can Attract Zombies",
     "Sandbox_ConditionalSpeechShowOnlyAudibleSpeech": "Show Only Audible Speech",
     "Sandbox_ConditionalSpeechDisablePhrases": "Disable Phrases",
-    "Sandbox_ConditionalSpeechDisablePhrases_tooltip": "Disable phrases by writing out their IDs, separated by commas.\\nExample: Bleeding,Sick,Hungry"
-}
+    "Sandbox_ConditionalSpeechDisablePhrases_tooltip": "Disable phrases by writing out their IDs, separated by commas.\\nExample: Bleeding,Sick,Hungry",
+    "Sandbox_ConditionalSpeechAllowClientModOptions": "Allow Clients To Edit Mod Options",
+    "Sandbox_ConditionalSpeechAllowClientModOptions_tooltip": "If disabled, non-admin players can't change Conditional Speech's Mod Options - they'll see the current settings greyed out."
+}

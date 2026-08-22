@@ -37,6 +37,21 @@ phraseSets.Phrases.Panic = {}
 phraseSets.Phrases.Hypothermia = {}
 phraseSets.Phrases.Pain = {}
 
+phraseSets.Phrases.Kill = {}
+phraseSets.Phrases.MultiHit = {}
+phraseSets.Phrases.ChopTree = {}
+phraseSets.Phrases.VehicleDamage = {}
+phraseSets.Phrases.FoundLoot = {}
+phraseSets.Phrases.AnimalTracks = {}
+phraseSets.Phrases.Foraged = {}
+phraseSets.Phrases.LevelUp = {}
+phraseSets.Phrases.Explore = {}
+phraseSets.Phrases.Holes = {}
+phraseSets.Phrases.FoodRotten = {}
+phraseSets.Phrases.FoodRaw = {}
+phraseSets.Phrases.SickFromFood = {}
+phraseSets.Phrases.PanicCallback = {}
+
 -- Swears are ranked by intensity
 phraseSets.Phrases.SWEAR = {}
 -- useful list of plosives for stammering
@@ -67,4 +82,4 @@ function phraseSets.Load()
 end
 
 
-return phraseSets
+return phraseSets
