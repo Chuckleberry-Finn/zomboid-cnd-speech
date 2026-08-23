@@ -19,7 +19,7 @@ end
 
 function ConditionalSpeech.enabledPhraseSet(moodID)
 	config.applyDisabledPhraseSets()
-	local disabled = config and config.disabledPhraseSets and config and config.disabledPhraseSets[moodID]
+	local disabled = config.disabledPhraseSets and config.disabledPhraseSets[moodID]
 	if disabled then return false end
 
 	if config.clientModOptionsEditable == false then return true end
@@ -284,6 +284,7 @@ end
 
 --- Our own version of Say()
 function ConditionalSpeech.Say(player, dialogue, vocal_volume)
+	if (not player) or (not player:isLocalPlayer()) then return end
 
 	--[debug]] print("CND-SPEECH: "..player:getFullName()," (vol:",vocal_volume,") : ",dialogue)
 	ConditionalSpeech.applyVolumetricColor_Say(player,tostring(dialogue),vocal_volume)
@@ -341,7 +342,7 @@ function ConditionalSpeech.ProcessSpeech(player, dialogue, PhraseSetID, volumeBl
 		vocal_volume = math.max(volumeOverride, vocal_volume)
 	end
 
-	if volumeBlock then
+	if volumeBlock and (fc~="*" or lc~="*") then
 		vocal_volume = 0
 		dialogue = "(" .. dialogue .. ")"
 	end
@@ -356,14 +357,18 @@ function ConditionalSpeech.applyVolumetricColor_Say(player,text,vol)
 	if not player or not text then return end
 
 	if not vol then vol = 0 end
-	if (vol <= 0) and (SandboxVars.ConditionalSpeech.ShowOnlyAudibleSpeech==true) then return end
+
+	local isAction = (string.sub(text,1,1)=="*" and string.sub(text,-1)=="*")
+	if (vol <= 0) and (not isAction) and (SandboxVars.ConditionalSpeech.ShowOnlyAudibleSpeech==true) then return end
 
 	local vc_shift = 0.40+(0.60*((vol or 0)/metaValues.volumeMax))--have a 0.3 base --difference of 0.7 is then multiplied against volume/maxvolume
 	---@type ColorInfo
 	local Text_Color = getCore():getMpTextColor()
 	local tR, tG, tB = Text_Color:getR(), Text_Color:getG(), Text_Color:getB()
+	local vibR, vibG, vibB = cndSpeechUtil.mostVibrantColor(tR, tG, tB)
+	vibR, vibG, vibB = cndSpeechUtil.ensureReadable(vibR, vibG, vibB, 0.5)
 
-	local text_color = { r = tR*vc_shift, g = tG*vc_shift, b = tB*vc_shift, a = vc_shift}--alpha shift based on vc_shift
+	local text_color = { r = vibR*vc_shift, g = vibG*vc_shift, b = vibB*vc_shift, a = vc_shift}--alpha shift based on vc_shift, reaching the fully vibrant color at max volume
 	local graybase = {r=0.45, g=0.45, b=0.45, a=1}--gray base text_color will be overlayed onto
 	local return_color = {r=tR, g=tG, b=tB, a=1}--set up return color
 
@@ -383,7 +388,7 @@ function ConditionalSpeech.applyVolumetricColor_Say(player,text,vol)
 
 	ConditionalSpeech.playerJustSpoke[player] = 3
 	if isClient() then
-		sendClientCommand(player, "cndSpeech", "addLineChatElement", {text=text, return_color=return_color, vol=vol}) -- to server
+		sendClientCommand(player, "cndSpeech", "addLineChatElement", {text=text, return_color=return_color, vol=vol, onlineID=player:getOnlineID()}) -- to server
 	else
 		player:addLineChatElement(text, return_color.r, return_color.g, return_color.b, UIFont.Medium, vol, "default", true, true, true, true, true, true)
 	end

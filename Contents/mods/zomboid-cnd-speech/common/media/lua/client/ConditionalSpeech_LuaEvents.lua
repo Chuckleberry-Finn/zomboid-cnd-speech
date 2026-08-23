@@ -29,6 +29,6 @@ local phraseSets = require "ConditionalSpeech_PhraseSet"
 Events.OnGameBoot.Add(phraseSets.Load)
 
 local metaValues = require "ConditionalSpeech_metaValues"
-Events.OnGameBoot.Add(metaValues.createTrueArrayForPlosives())
+Events.OnGameBoot.Add(metaValues.createTrueArrayForPlosives)
 
 require "ConditionalSpeech_ModOptions"

@@ -9,7 +9,7 @@ function config.applyDisabledPhraseSets()
     local sandboxLength = string.len(SandboxVars.ConditionalSpeech.DisablePhrases)
     local valueMismatch = (config.sandboxValue ~= sandboxLength)
 
-    print("valueMismatch: ", valueMismatch, "   a:", config.sandboxValue, " <> b:", sandboxLength, "    config.disabledPhraseSets:", (not not config.disabledPhraseSets))
+    --[debug]] print("valueMismatch: ", valueMismatch, "   a:", config.sandboxValue, " <> b:", sandboxLength, "    config.disabledPhraseSets:", (not not config.disabledPhraseSets))
 
     if config.disabledPhraseSets and (not valueMismatch) then return end
 
