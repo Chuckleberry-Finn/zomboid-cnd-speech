@@ -10,4 +10,7 @@ option ConditionalSpeech.DisablePhrases
 {type = string, default = , page = ConditionalSpeech, translation = ConditionalSpeechDisablePhrases,}
 
 option ConditionalSpeech.AllowClientModOptions
-{type = boolean, default = true, page = ConditionalSpeech, translation = ConditionalSpeechAllowClientModOptions,}
+{type = boolean, default = true, page = ConditionalSpeech, translation = ConditionalSpeechAllowClientModOptions,}
+
+option ConditionalSpeech.SpeechCooldown
+{type = integer, min = 1, max = 3600, default = 1, page = ConditionalSpeech, translation = ConditionalSpeechSpeechCooldown,}

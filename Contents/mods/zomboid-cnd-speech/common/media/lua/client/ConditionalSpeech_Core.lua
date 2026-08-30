@@ -255,8 +255,8 @@ function ConditionalSpeech.generateSpeechFrom(player, PhraseSetID, intensity, MA
 
 	-- prevent the player from speaking too soon -- getTimestamp is in seconds
 	local lastspoke = player:getModData().cs_lastspoke or {[1]=getTimestamp(), [2]=""}
-	--delay between lines is 1 unless they're the same phraset, then it is 3
-	if (lastspoke[1]+1 > getTimestamp()) or (lastspoke[1]+3 > getTimestamp() and lastspoke[2]==PhraseSetID) then
+	local baseCooldown = SandboxVars.ConditionalSpeech.SpeechCooldown or 1
+	if (lastspoke[1]+baseCooldown > getTimestamp()) or (lastspoke[1]+(baseCooldown*3) > getTimestamp() and lastspoke[2]==PhraseSetID) then
 		return
 	end
 
@@ -309,7 +309,8 @@ function ConditionalSpeech.ProcessSpeech(player, dialogue, PhraseSetID, volumeBl
 	if PhraseSetID then
 		-- prevent the player from speaking too soon -- getTimestamp is in seconds
 		local lastspoke = player:getModData().cs_lastspoke or {[1]=getTimestamp(), [2]=""}
-		if (lastspoke[1]+1 > getTimestamp()) or (lastspoke[1]+3 > getTimestamp() and lastspoke[2]==PhraseSetID) then
+		local baseCooldown = SandboxVars.ConditionalSpeech.SpeechCooldown or 1
+		if (lastspoke[1]+baseCooldown > getTimestamp()) or (lastspoke[1]+(baseCooldown*3) > getTimestamp() and lastspoke[2]==PhraseSetID) then
 			return
 		end
 		player:getModData().cs_lastspoke = {[1]=getTimestamp(),[2]=PhraseSetID}

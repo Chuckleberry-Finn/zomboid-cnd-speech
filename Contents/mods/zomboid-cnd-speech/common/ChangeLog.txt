@@ -71,3 +71,9 @@ B42.13.1:
 - Fix to avoid (silent) being applied to *actions*, and make *actions* viewable by others.
 - Refactoring and cleanup.
 [ ------ ]
+
+[ 8/30/26 ]
+- Removed an unconditional debug print.
+- Fixed Mod Options resetting to all-enabled on every game load.
+- Added a SpeechCooldown sandbox option (1-3600 seconds, default 1) controlling how often the character can speak at all.
+[ ------ ]

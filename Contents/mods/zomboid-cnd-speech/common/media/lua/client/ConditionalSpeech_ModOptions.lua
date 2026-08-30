@@ -37,6 +37,8 @@ local function applyModOptions()
 			tickBox:setEnabled(false)
 		end
 	end
+
+	PZAPI.ModOptions:load()
 end
 
 Events.OnGameStart.Add(applyModOptions)
