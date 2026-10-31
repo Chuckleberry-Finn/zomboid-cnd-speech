@@ -3,5 +3,9 @@
     "Sandbox_ConditionalSpeechSpeechCanAttractZombies": "言语可以吸引僵尸",
     "Sandbox_ConditionalSpeechShowOnlyAudibleSpeech": "仅显示可听语音",
     "Sandbox_ConditionalSpeechDisablePhrases": "禁用短语",
-    "Sandbox_ConditionalSpeechDisablePhrases_tooltip": "通过写出 ID 来禁用短语，以逗号分隔。\\n示例: Bleeding,Sick,Hungry"
+    "Sandbox_ConditionalSpeechDisablePhrases_tooltip": "通过写出 ID 来禁用短语，以逗号分隔。\\n示例: Bleeding,Sick,Hungry",
+    "Sandbox_ConditionalSpeechAllowClientModOptions": "允许客户端编辑模组选项",
+    "Sandbox_ConditionalSpeechAllowClientModOptions_tooltip": "如果禁用此功能，玩家（包括房主）将无法更改“条件语音”（Conditional Speech）的模组选项——当前设置将显示为灰色，无法操作。",
+    "Sandbox_ConditionalSpeechSpeechCooldown": "禁用短语",
+    "Sandbox_ConditionalSpeechSpeechCooldown_tooltip": "语音冷却时间（秒）"
 }
