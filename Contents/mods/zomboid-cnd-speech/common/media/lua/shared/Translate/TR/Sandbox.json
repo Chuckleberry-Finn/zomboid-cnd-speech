@@ -1,7 +1,11 @@
 {
-    "Sandbox_ConditionalSpeech": "Koşullu Konuşma",
-    "Sandbox_ConditionalSpeechSpeechCanAttractZombies": "Konuşma Zombileri Çekebilir",
-    "Sandbox_ConditionalSpeechShowOnlyAudibleSpeech": "Yalnızca Sesli Konuşmayı Göster",
-    "Sandbox_ConditionalSpeechDisablePhrases": "İfadeleri Devre Dışı Bırak",
-    "Sandbox_ConditionalSpeechDisablePhrases_tooltip": "Kimliklerini virgülle ayırarak yazarak ifadeleri devre dışı bırakın.\\nÖrnek: Kanama,Hasta,Aç"
+    "Sandbox_ConditionalSpeech": "Conditional Speech",
+    "Sandbox_ConditionalSpeechSpeechCanAttractZombies": "Konuşmalar zombileri çekebilir",
+    "Sandbox_ConditionalSpeechShowOnlyAudibleSpeech": "Yalnızca duyulabilen konuşmaları göster",
+    "Sandbox_ConditionalSpeechDisablePhrases": "Devre dışı bırakılacak replik grupları",
+    "Sandbox_ConditionalSpeechDisablePhrases_tooltip": "Devre dışı bırakmak istediğiniz grupların kimliklerini virgülle ayırarak yazın.\\nÖrnek: Bleeding,Sick,Hungry",
+    "Sandbox_ConditionalSpeechAllowClientModOptions": "Oyuncular mod ayarlarını değiştirebilir",
+    "Sandbox_ConditionalSpeechAllowClientModOptions_tooltip": "Kapalıysa sunucuyu açan kişi dahil hiçbir oyuncu Conditional Speech mod ayarlarını değiştiremez. Mevcut ayarlar gri görünür.",
+    "Sandbox_ConditionalSpeechSpeechCooldown": "Konuşmalar arasındaki bekleme süresi (saniye)",
+    "Sandbox_ConditionalSpeechSpeechCooldown_tooltip": "İki replik arasındaki en kısa süre. Aynı gruptan bir repliğin tekrar söylenmesi için bu sürenin 3 katı beklenir."
 }
